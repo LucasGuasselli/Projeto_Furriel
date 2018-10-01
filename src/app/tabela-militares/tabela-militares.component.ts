@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Militar } from "../militar";
+import { Endereco } from "../endereco";
 import { CrudMilitaresService } from "../crud-militares.service";
 
 @Component({
@@ -12,11 +13,13 @@ export class TabelaMilitaresComponent implements OnInit {
   titulo = 'Tabela de Militares';
  
   militares:Militar[]=[];
+  enderecos:Endereco[]=[];
 
   constructor(private servico:CrudMilitaresService) { }
 
   ngOnInit() {
       this.militares = this.servico.getMilitares();
+      this.enderecos = this.servico.getEnderecos();
   }
 
 //remove um militar do array

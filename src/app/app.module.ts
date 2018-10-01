@@ -8,10 +8,12 @@ import { AppComponent } from './app.component';
 import { TabelaMilitaresComponent } from './tabela-militares/tabela-militares.component';
 import { FormMilitaresComponent } from './form-militares/form-militares.component';
 import { CrudMilitaresService } from './crud-militares.service';
+import { IndexComponent } from './index/index.component';
 
 
 const routes: Routes = [
-    { path: '', redirectTo: 'lista', pathMatch: 'full'},
+    { path: '', redirectTo: 'index', pathMatch: 'full'},
+    { path: 'index', component: IndexComponent },
     { path: 'listaMilitares', component: TabelaMilitaresComponent },
     { path: 'edicaoMilitar/:cod', component: FormMilitaresComponent },
     { path: 'cadastroDeMilitar', component: FormMilitaresComponent }
@@ -21,7 +23,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     TabelaMilitaresComponent,
-    FormMilitaresComponent
+    FormMilitaresComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,

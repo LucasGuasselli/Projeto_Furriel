@@ -13,3 +13,19 @@ td, th {
 tr:nth-child(even){
     background-color: #F2F2F2;
 }
+#tudo {
+    float:left;
+    width:30%;
+}
+#tudo1 {
+	width: 40%;
+	float: left;
+}
+#tudo2 {
+	position: relative;
+	left: 200px;
+	width: 200px;
+	height: 200px;
+	background-color: red;
+	float: left;
+}
