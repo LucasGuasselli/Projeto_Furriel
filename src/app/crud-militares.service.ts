@@ -7,8 +7,8 @@ import { PostoGraduacao } from "./posto-graduacao";
 @Injectable()
 export class CrudMilitaresService {
 militares: Militar[] = [
-  {codigo: 1, nome:"Lucas", prec_cp: 12345},
-  {codigo: 2, nome:"Grillo", prec_cp: 4567}
+  {codigo: 1, codPostoGraduacao:10, nome:"Lucas", prec_cp: 12345},
+  {codigo: 2, codPostoGraduacao:8, nome:"Grillo", prec_cp: 4567}
 ]
 
 enderecos: Endereco[] = [
@@ -39,10 +39,13 @@ autoIncrement:number=3;
     getEnderecos(){
       return this.enderecos;
     }
+    getPostoGraduacao(){
+      return this.postoGraduacoes;
+    }
 
     adiocionarMilitar(militar:Militar,endereco:Endereco){
         militar.codigo=this.autoIncrement++;
-        endereco.codEndereco = militar.codigo;
+        endereco.codMilitar = militar.codigo;
         endereco.codMilitar = militar.codigo;
 
         this.militares.push(militar);

@@ -1,6 +1,12 @@
 <h3>{{titulo}}</h3>
 <div class = "form">
   <form>
+    <label for="codPostoGraduacao">Posto</label>
+    <select id="codPostoGraduacao" name="codPostoGraduacao">
+        <option></option>
+        <option *ngFor="let posto of postoGraduacao" (click)="salvarPostoGraduacao(posto.codPosto)">{{posto.nome}}</option>
+    </select >  
+    <br>
     <label for="nome">Nome</label>
     <input type="text" id="nome" name="nome" placeholder="Nome do Militar..." [(ngModel)]="militar.nome" >
 
