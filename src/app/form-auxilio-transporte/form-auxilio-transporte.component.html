@@ -1,0 +1,48 @@
+<h3>{{titulo}}</h3>
+<div class = "form">
+  <form>
+    <label for="codMilitar">Nome do Militar</label>
+    <select id="codMilitar" name="codMilitar">
+        <option></option>
+        <option *ngFor="let m of militar" (click)="salvarCodMilitar(m.codigo)" >{{m.nome}}</option>
+    </select >      
+
+    <br>
+    <label for="itinerario">Itinerario</label>
+    <select class="imbSelect" id="itinerario" name="itinerario" [(ngModel)]="conducao.itinerario">
+        <option></option>
+        <option>Bairro-Centro</option>
+        <option>Centro-Bairro</option>
+        <option>Centro-OM</option>
+        <option>OM-Centro</option>
+    </select >
+
+    <br>
+    <label for="nomeEmpresa">Nome da Empresa do Transporte</label>
+    <select id="nomeEmpresa" name="nomeEmpresa" [(ngModel)]="conducao.nomeEmpresa">
+        <option></option>
+        <option>VIVA_SUL</option>
+        <option>CONORTE</option>
+        <option>SOUL</option>
+    </select >
+
+    <br>
+    <label for="tipoDeTransporte">Tipo de Transporte</label>
+    <select id="tipoDeTransporte" name="tipoDeTransporte" [(ngModel)]="conducao.tipoDeTransporte">
+        <option></option>
+        <option>Onibus</option>
+        <option>Tremsurb</option>
+        <option>Onibus_intermunicipal</option>
+    </select >
+
+    <br>
+    <label for="valor">Valor da Condução</label>
+    <input type="number" name="valor" [(ngModel)]="conducao.valor">
+        
+  
+    <div class="buttons">
+      <input type="button" (click)="verificaAT()" value="Salvar">
+      <input type="button" (click)="cancelar()" value="Cancelar">
+    </div>
+  </form>
+</div>

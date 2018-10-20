@@ -56,6 +56,7 @@ export class FormMilitaresComponent implements OnInit {
         //CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
     }else{
         this.militar.codPostoGraduacao = codigo;
+        console.log(codigo);
     }
   }
 //cancelando cadastro

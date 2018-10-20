@@ -8,7 +8,10 @@ import { AppComponent } from './app.component';
 import { TabelaMilitaresComponent } from './tabela-militares/tabela-militares.component';
 import { FormMilitaresComponent } from './form-militares/form-militares.component';
 import { CrudMilitaresService } from './crud-militares.service';
+import { CrudAuxilioTransporteService } from './crud-auxilio-transporte.service';
 import { IndexComponent } from './index/index.component';
+import { FormAuxilioTransporteComponent } from './form-auxilio-transporte/form-auxilio-transporte.component';
+import { TabelaAuxilioTransporteComponent } from './tabela-auxilio-transporte/tabela-auxilio-transporte.component';
 
 
 const routes: Routes = [
@@ -16,7 +19,10 @@ const routes: Routes = [
     { path: 'index', component: IndexComponent },
     { path: 'listaMilitares', component: TabelaMilitaresComponent },
     { path: 'edicaoMilitar/:cod', component: FormMilitaresComponent },
-    { path: 'cadastroDeMilitar', component: FormMilitaresComponent }
+    { path: 'cadastroDeMilitar', component: FormMilitaresComponent },
+    { path: 'cadastroDeAT', component: FormAuxilioTransporteComponent },
+    { path: 'listaATConducao', component: TabelaAuxilioTransporteComponent }
+
 ];
 
 @NgModule({
@@ -24,7 +30,9 @@ const routes: Routes = [
     AppComponent,
     TabelaMilitaresComponent,
     FormMilitaresComponent,
-    IndexComponent
+    IndexComponent,
+    FormAuxilioTransporteComponent,
+    TabelaAuxilioTransporteComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +40,7 @@ const routes: Routes = [
     HttpModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [CrudMilitaresService],
+  providers: [CrudMilitaresService,CrudAuxilioTransporteService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

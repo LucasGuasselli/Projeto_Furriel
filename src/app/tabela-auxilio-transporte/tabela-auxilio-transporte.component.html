@@ -1,0 +1,32 @@
+<h3>{{titulo}}</h3>
+<table>
+<div id="tudo">
+<tr>
+  <th>Codigo AT</th> <th>Codigo Militar</th> <th>Valor Total</th> <th>Valor Diário</th> 
+</tr>
+
+<tr *ngFor='let at of auxilioTransportes'>
+    <td>{{at.codAT}}</td>
+    <td>{{at.codMilitar}}</td>
+    <td>{{at.valorTotalAT}}</td>  
+    <td>{{at.valorDiarioAT}}</td>    
+</tr>
+</div>
+
+<div id="tudo1">
+      <tr>
+          <th>Codigo Conducao</th> <th>Codigo Militar</th> <th>Codigo AT</th> <th>Itinerario</th>
+          <th>Nome da Empresa</th> <th>Tipo de Transporte</th> <th>Valor</th>
+      </tr>
+      <tr *ngFor='let conducao of conducoes'>
+            <td>{{conducao.codConducao}}</td>
+            <td>{{conducao.codMilitar}}</td>
+            
+      </tr>
+</div>
+   
+</table>
+<div>
+<a routerLink="/cadastroDeAT">Nova Conducao</a>
+<a routerLink="/index">VOLTAR</a>
+</div>
