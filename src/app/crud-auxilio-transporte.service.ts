@@ -2,11 +2,16 @@ import { Injectable } from '@angular/core';
 import { Militar } from './militar';
 import { AuxilioTransporte } from './auxilio-transporte';
 import { Conducao } from './conducao';
+import { CrudMilitaresService } from './crud-militares.service';
+import { PostoGraduacao } from './posto-graduacao';
 
 @Injectable()
 export class CrudAuxilioTransporteService {
 
-auxilioTransportes: AuxilioTransporte[] = [  {codAT: 1, codMilitar: 1, valorTotalAT: 1000, valorDiarioAT: 12} ];
+militar: Militar;
+postoGraduacao: PostoGraduacao;
+
+auxilioTransportes: AuxilioTransporte[] = [  {codAT: 1, codMilitar: 1, valorTotalAT: -107.756, valorDiarioAT: 12} ];
 
 conducoes: Conducao[] = [
   {codConducao: 1, codMilitar: 1, codAT: 1, itinerario: 'Centro-Bairro', nomeEmpresa: 'SOUL', tipoDeTransporte: 'Onibus', valor: 10 }
@@ -15,7 +20,7 @@ conducoes: Conducao[] = [
 autoIncrementAT = 2;
 autoIncrementConducao = 2;
 
-  constructor() { }
+  constructor(private servico: CrudMilitaresService) { }
   getAT() {
        return this.auxilioTransportes;
     }
@@ -24,9 +29,19 @@ autoIncrementConducao = 2;
   }
 
   adiocionarAT(AT: AuxilioTransporte) {
-        AT.codAT = this.autoIncrementAT++;
-        this.auxilioTransportes.push(AT);
-        console.log('codigo do militar:' + this.auxilioTransportes[1].codMilitar);
+      AT.codAT = this.autoIncrementAT++;
+    // encontra o militar correspondente ao auxilio transporte
+      this.militar = this.servico.getMilitarPorCodigo(AT.codMilitar);
+    // encontra o postoGraduacao correspondente para saber o valor da cota parte
+      this.postoGraduacao = this.servico.getPostoGraduacaoPorCodigo(this.militar.codPostoGraduacao);
+
+      AT.valorTotalAT = (this.postoGraduacao.cotaParte * -1 );
+      console.log(AT.valorTotalAT);
+          this.auxilioTransportes.push(AT);
+
+      // this.militar = new Militar();
+      // this.postoGraduacao = new PostoGraduacao();
+      console.log('codigo do militar:' + this.auxilioTransportes[1].codMilitar);
   }
 
   adiocionarConducao(conducao: Conducao) {
@@ -44,8 +59,6 @@ autoIncrementConducao = 2;
               if ( codigo == this.auxilioTransportes[i].codMilitar) {
                   this.auxilioTransportes[i].valorTotalAT = this.auxilioTransportes[i].valorTotalAT + (22 * valor);
               }
-
       }
   }
-
 }
