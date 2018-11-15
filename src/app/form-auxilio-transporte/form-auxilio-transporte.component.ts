@@ -57,6 +57,7 @@ verificaAT() {
     } else {
         // SE O MILITAR JA TEM AUX TRANSPORTE SO E CADASTRADO UMA CONDUCAO A MAIS
         for ( let i = 0; i < this.auxilioTransporte.length; i++) {
+              // tslint:disable-next-line:triple-equals
               if ( this.auxilioTransporte[i].codMilitar == this.codMilitar) {
                     this.salvarConducao(this.auxilioTransporte[i].codMilitar, this.auxilioTransporte[i].codAT);
                     this.verifica = true;
@@ -65,7 +66,7 @@ verificaAT() {
         }
     }// fecha if-else
     // caso nao tenha Aux Transporte
-    if (this.verifica == false) {
+    if (this.verifica === false) {
         // criacao de auxilio
         this.salvarAT(this.codMilitar);
             // atualizacao dos aux cadastrados

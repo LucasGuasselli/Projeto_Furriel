@@ -56,8 +56,10 @@ autoIncrementConducao = 2;
   atualizaValorPassagem(codigo: number, valor: number) {
 
       for (let i = 0; i < this.auxilioTransportes.length; i++) {
+              // tslint:disable-next-line:triple-equals
               if ( codigo == this.auxilioTransportes[i].codMilitar) {
                   this.auxilioTransportes[i].valorTotalAT = this.auxilioTransportes[i].valorTotalAT + (22 * valor);
+                  this.auxilioTransportes[i].valorDiarioAT = this.auxilioTransportes[i].valorTotalAT / 22;
               }
       }
   }
