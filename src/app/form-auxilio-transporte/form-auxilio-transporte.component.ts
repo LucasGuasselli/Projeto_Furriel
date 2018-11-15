@@ -67,19 +67,20 @@ verificaAT() {
     }// fecha if-else
     // caso nao tenha Aux Transporte
     if (this.verifica === false) {
-        // criacao de auxilio
-        this.salvarAT(this.codMilitar);
+            // criacao de auxilio
+                this.salvarAT(this.codMilitar);
             // atualizacao dos aux cadastrados
-            this.auxilioTransporte = this.servicoCrudAT.getAT();
+                this.auxilioTransporte = this.servicoCrudAT.getAT();
             // verificacao passa a ser verdadeira para nao virar um looping
-            this.verifica = true;
+                this.verifica = true;
             // o metodo e chamado de forma recursiva
-            this.verificaAT();
+                this.verificaAT();
         // console.log(this.auxilioTransporte.length);
     }
     this.verifica = false;
     // atualiza o pessoal que tem auxilio transporte
     this.auxilioTransporte = this.servicoCrudAT.getAT();
+    this.informarCadastro();
 }// fecha metodo
 
 salvarCodMilitar(codigo: number) {
@@ -104,6 +105,10 @@ salvarConducao(codMilitar: number, codAT: number) {
     this.conducao.codAT = codAT;
 
     this.servicoCrudAT.adiocionarConducao(this.conducao);
+}
+
+informarCadastro() {
+    alert('Cadastro efetuado com sucesso!');
 }
 // cancelando cadastro
   cancelar() {

@@ -1,5 +1,8 @@
+
+
 <h3>{{titulo}}</h3>
 <div class = "form">
+        
   <form>
     <label for="codMilitar">Nome do Militar</label>
     <select id="codMilitar" name="codMilitar">
@@ -40,9 +43,9 @@
     <input type="number" name="valor" [(ngModel)]="conducao.valor">
         
   
-    <div class="buttons">
+    <div class="buttons">            
       <input type="button" (click)="verificaAT()" value="Salvar">
-      <input type="button" (click)="cancelar()" value="Cancelar">
+      <input type="button" (click)="cancelar()" value="Cancelar">    
     </div>
   </form>
 </div>
