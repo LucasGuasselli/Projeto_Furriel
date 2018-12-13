@@ -16,16 +16,16 @@ export class FormAuxilioTransporteComponent implements OnInit {
 
   titulo = 'Cadastro de AuxilioTransporte';
   // objetos
-  conducao: Conducao = new Conducao();
-  AT: AuxilioTransporte = new AuxilioTransporte();
-  auxilioTransporte: AuxilioTransporte[] = [];
-  postoGraduacao: PostoGraduacao[] = [];
-  militar: Militar[] = [];
+    conducao: Conducao = new Conducao();
+    AT: AuxilioTransporte = new AuxilioTransporte();
+    auxilioTransporte: AuxilioTransporte[] = [];
+    postoGraduacao: PostoGraduacao[] = [];
+    militar: Militar[] = [];
 
   // codigos
-  codMilitar: number;
-  codAT: number;
-  codConducao: number;
+    codMilitar: number;
+    codAT: number;
+    codConducao: number;
 
   verifica = false;
 
@@ -38,7 +38,6 @@ export class FormAuxilioTransporteComponent implements OnInit {
        this.militar = this.servicoCrudMilitares.getMilitares();
        this.postoGraduacao = this.servicoCrudMilitares.getPostoGraduacao();
 
-      console.log(this.auxilioTransporte[0].codMilitar);
   if (isNaN(this.codMilitar)) {
       // CADASTRAR
       this.conducao  = new Conducao();

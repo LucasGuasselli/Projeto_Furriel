@@ -1,0 +1,32 @@
+<h3>{{titulo}}</h3>
+<div class = "form">
+        
+  <form>
+    <label for="codMilitar">Nome do Militar</label>
+    <select id="codMilitar" name="codMilitar">
+        <option></option>
+        <option *ngFor="let m of militar" (click)="salvarCodMilitar(m.codigo)" >{{m.nome}}</option>
+    </select >      
+
+    <br>
+      <label for="dataInicio">Data de Inicio</label>
+      <input type="date" id="dataInicio" name="dataInicio" [(ngModel)]="desconto.dataInicio"> 
+    <br>
+      <label for="dataFim">Data de Termino</label>
+      <input type="date" id="dataFim" name="dataFim" [(ngModel)]="desconto.dataFim">    
+    <br>
+      <label for="motivo">Motivo</label>
+      <select class="imbSelect" id="motivo" name="motivo" [(ngModel)]="desconto.motivo">
+        <option></option>
+        <option>Dispensa por Recompensa</option>
+        <option>Serviço</option>
+        <option>Viagem</option>
+        <option>Nissão</option>
+    </select >
+      
+    <div class="buttons">            
+      <input type="button"  (click)="salvarDesconto()" value="Salvar">
+      <input type="button" (click)="cancelar()" value="Cancelar">    
+    </div>
+  </form>
+</div>

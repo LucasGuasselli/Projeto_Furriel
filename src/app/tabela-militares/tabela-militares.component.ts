@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Militar } from "../militar";
-import { Endereco } from "../endereco";
-import { CrudMilitaresService } from "../crud-militares.service";
+import { Militar } from '../militar';
+import { Endereco } from '../endereco';
+import { CrudMilitaresService } from '../crud-militares.service';
 
 @Component({
   selector: 'app-tabela-militares',
@@ -9,21 +9,21 @@ import { CrudMilitaresService } from "../crud-militares.service";
   styleUrls: ['./tabela-militares.component.css']
 })
 export class TabelaMilitaresComponent implements OnInit {
-  
-  titulo = 'Tabela de Militares';
- 
-  militares:Militar[]=[];
-  enderecos:Endereco[]=[];
 
-  constructor(private servico:CrudMilitaresService) { }
+  titulo = 'Tabela de Militares';
+
+  militares: Militar[] = [];
+  enderecos: Endereco[] = [];
+
+  constructor(private servico: CrudMilitaresService) { }
 
   ngOnInit() {
       this.militares = this.servico.getMilitares();
       this.enderecos = this.servico.getEnderecos();
   }
 
-//remove um militar do array
-  removerMilitar(militar:Militar){
+// remove um militar do array
+  removerMilitar(militar: Militar) {
     this.servico.removerMilitar(militar);
   }
 

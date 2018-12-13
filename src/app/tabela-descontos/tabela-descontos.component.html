@@ -1,0 +1,23 @@
+<h3>{{titulo}}</h3>
+<table>
+<div id="tudo">
+<tr>
+  <th>Codigo Desconto</th> <th>Codigo Militar</th> <th>Data de Inicio</th> <th>Data de Fim</th> 
+  <th>Valor</th> <th>Motivo</th> 
+</tr>
+
+<tr *ngFor='let d of descontos'>
+    <td>{{d.codDesconto}}</td>
+    <td>{{d.codMilitar}}</td>
+    <td>{{d.dataInicio}}</td>
+    <td>{{d.dataFim}}</td>
+    <td>{{d.valorDesconto}}</td>
+    <td>{{d.motivo}}</td>
+
+</tr>
+</div>
+</table>
+<div>
+    <a routerLink="/cadastroDeDesconto">Nova Desconto</a>
+    <a routerLink="/index">VOLTAR</a>
+</div>

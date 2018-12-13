@@ -4,6 +4,7 @@ import { AuxilioTransporte } from './auxilio-transporte';
 import { Conducao } from './conducao';
 import { CrudMilitaresService } from './crud-militares.service';
 import { PostoGraduacao } from './posto-graduacao';
+import { Desconto } from './desconto';
 
 @Injectable()
 export class CrudAuxilioTransporteService {
@@ -11,23 +12,32 @@ export class CrudAuxilioTransporteService {
 militar: Militar;
 postoGraduacao: PostoGraduacao;
 
-auxilioTransportes: AuxilioTransporte[] = [  {codAT: 1, codMilitar: 1, valorTotalAT: -107.756, valorDiarioAT: 12} ];
+auxilioTransportes: AuxilioTransporte[] = [
+    {codAT: 1, codMilitar: 1, valorTotalAT: -107.756, valorDiarioAT: 12 }
+];
 
 conducoes: Conducao[] = [
   {codConducao: 1, codMilitar: 1, codAT: 1, itinerario: 'Centro-Bairro', nomeEmpresa: 'SOUL', tipoDeTransporte: 'Onibus', valor: 10 }
 ];
 
+descontos: Desconto[] = [
+];
+
 autoIncrementAT = 2;
 autoIncrementConducao = 2;
+autoIncrementDesconto = 1;
 
   constructor(private servico: CrudMilitaresService) { }
   getAT() {
-       return this.auxilioTransportes;
+      return this.auxilioTransportes;
     }
   getConducoes() {
-       return this.conducoes;
+      return this.conducoes;
   }
-
+  getDescontos() {
+      return this.descontos;
+  }
+  
   adiocionarAT(AT: AuxilioTransporte) {
       AT.codAT = this.autoIncrementAT++;
     // encontra o militar correspondente ao auxilio transporte
@@ -54,7 +64,6 @@ autoIncrementConducao = 2;
   }
 
   atualizaValorPassagem(codigo: number, valor: number) {
-
       for (let i = 0; i < this.auxilioTransportes.length; i++) {
               // tslint:disable-next-line:triple-equals
               if ( codigo == this.auxilioTransportes[i].codMilitar) {
@@ -62,5 +71,22 @@ autoIncrementConducao = 2;
                   this.auxilioTransportes[i].valorDiarioAT = this.auxilioTransportes[i].valorTotalAT / 22;
               }
       }
+  }
+
+  calculaValorDesconto(codigo: number) {
+    for (let i = 0; i < this.auxilioTransportes.length; i++) {
+        // tslint:disable-next-line:triple-equals
+        if ( codigo == this.auxilioTransportes[i].codMilitar) {
+            return this.auxilioTransportes[i].valorDiarioAT;
+        }
+}
+  }
+  adicionarDesconto(desconto: Desconto) {
+    console.log(desconto);
+
+      desconto.codDesconto = this.autoIncrementDesconto++;
+      desconto.valorDesconto = this.calculaValorDesconto(desconto.codMilitar);
+      this.descontos.push(desconto);
+      console.log(this.descontos[0]);
   }
 }

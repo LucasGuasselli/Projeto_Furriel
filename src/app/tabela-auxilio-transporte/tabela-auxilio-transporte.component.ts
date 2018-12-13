@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuxilioTransporte } from '../auxilio-transporte';
 import { Conducao } from '../conducao';
-import { CrudAuxilioTransporteService } from '../crud-auxilio-transporte.service'; 
+import { CrudAuxilioTransporteService } from '../crud-auxilio-transporte.service';
 
 @Component({
   selector: 'app-tabela-auxilio-transporte',
@@ -10,9 +10,9 @@ import { CrudAuxilioTransporteService } from '../crud-auxilio-transporte.service
 })
 export class TabelaAuxilioTransporteComponent implements OnInit {
 
-auxilioTransportes:AuxilioTransporte[] = [];
-conducoes:Conducao[] = []
-  constructor(private servico:CrudAuxilioTransporteService) { }
+auxilioTransportes: AuxilioTransporte[] = [];
+conducoes: Conducao[] = [];
+  constructor(private servico: CrudAuxilioTransporteService) { }
 
   ngOnInit() {
     this.auxilioTransportes = this.servico.getAT();
