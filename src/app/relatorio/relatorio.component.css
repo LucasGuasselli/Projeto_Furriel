@@ -1,0 +1,34 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #F2F2F2;
+    text-align: left;
+    padding:8px;
+}
+
+tr:nth-child(even){
+    background-color: #F2F2F2;
+}
+#tudo {
+    float:left;
+    width:100%;
+    height: 100%;
+}
+
+#content {
+    width:100%;
+    height: 100%;
+}
+
+#tudo {
+	position: relative;
+	left: 200px;
+	width: 200px;
+	height: 200px;
+	background-color: red;
+	float: left;
+}

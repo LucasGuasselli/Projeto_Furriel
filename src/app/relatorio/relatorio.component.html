@@ -1,9 +1,14 @@
-<div id="content" #content>
-  <p>
-    relatorio works!
-  </p>
-  <h1>Vamos Testar </h1>
-  <p> aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
 
+<div id="content" #content>
+    <h1>RELATORIO DOS DESCONTOS </h1>
+      <div id="tudo2" *ngFor='let d of descontos'>       
+          Codigo de desconto: {{d.codDesconto}}<br>
+          Codigo do Militar: {{d.codMilitar}}<br>
+          Data de Inicio: {{d.dataInicio}}<br>
+          Data de Termino: {{d.dataFim}}<br>
+          Valor: R$ {{d.valorDesconto}}<br>
+          Motivo: {{d.motivo}}<br>
+          -------------------------------------------------
+      </div>
   <button (click)="downloadPDF()">Downaload Relatorio </button>
 </div>
