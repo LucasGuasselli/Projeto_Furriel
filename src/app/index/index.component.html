@@ -1,25 +1,24 @@
-<h1>{{title}}</h1>  
-<div class="main">
-  <div class="option">
-     <a routerLink="/listaMilitares">Lista de Militares</a>                
-  </div>
-  <div class="option">
-     <a routerLink="/cadastroDeMilitar">Cadastrar Militar</a>                
-  </div>
-  <div class="option">
-     <a routerLink="/cadastroDeAT">Cadastrar Auxilio Transporte</a>                
-  </div>
-  <div class="option">
-     <a routerLink="/listaATConducao">Auxilios e Conducoes</a>                
-  </div>
-  <div class="option">
-      <a routerLink="/cadastroDeDesconto">Descontos</a>                
-   </div>
-   <div class="option">
-      <a routerLink="/listaDesconto">Lista dos Descontos</a>                
-   </div>
-   <div class="option">
-      <a routerLink="/relatorio">RELATORIO</a>                
-   </div>
+<body>
+<input type="checkbox" id="bt_menu">
+<label for="bt_menu">&#9776;</label>
+<div class="menu">
+      <ul>
+            <li>Cadastrar
+                        <ul>
+                              <li> <a routerLink="/cadastroDeAT">Auxilio Transporte</a> </li>             
+                              <li> <a routerLink="/cadastroDeDesconto">Descontos</a> </li>
+                        </ul>
+            </li>
+            <li>Relatorios
+                  <ul>
+                              <li> <a routerLink="/relatorio">Aditamento</a> </li> 
+                              <li> <a routerLink="/listaMilitares">Lista de Militares</a> </li> 
+                              <li> <a routerLink="/listaATConducao">Auxilios e Conducoes</a> </li>
+                              <li> <a routerLink="/listaDesconto">Lista dos Descontos</a> </li>             
+                  </ul>
+            </li>  
+      </ul>
 </div>
+ 
 
+</body>

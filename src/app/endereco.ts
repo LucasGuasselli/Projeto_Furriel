@@ -1,9 +1,9 @@
 export class Endereco {
-        codEndereco:number;
-        codMilitar:number;
-        rua:string;
+        codEndereco: number;
+        codMilitar: number;
+        rua: string;
         bairro: string;
-        cidade:string;
-        numero:number;
+        cidade: string;
+        numero: number;
         complemento: string;
 }
