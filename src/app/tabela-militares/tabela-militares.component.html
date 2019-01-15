@@ -10,8 +10,16 @@
     <td>{{militar.codPostoGraduacao}}</td>
     <td>{{militar.nome}}</td>  
     <td>{{militar.prec_cp}}</td>
-    <td><a [routerLink]="['/edicaoMilitar', militar.codigo]">Editar</a></td> 
-    <td><a routerLink="/listaMilitares" (click)="removerMilitar(militar)">Remover</a></td>
+    <td>
+            <a [routerLink]="['/edicaoMilitar', militar.codigo]">
+                  <img class="icons" src="../assets/icon-edit.png" alt="Editar"/>
+            </a>
+      </td> 
+    <td>
+            <a routerLink="/listaMilitares" (click)="removerMilitar(militar)">
+                  <img class="icons" src="../assets/icon-delete.png" alt="Remover"/>
+            </a>
+      </td>
 </tr>
 </div>
 
