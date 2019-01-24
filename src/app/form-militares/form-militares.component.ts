@@ -24,6 +24,7 @@ export class FormMilitaresComponent implements OnInit {
 // ao iniciar a classe e instanciado um objeto militar
   ngOnInit() {
     this.codMilitar = this.rota.snapshot.params['cod'];
+    
     this.postoGraduacao = this.servico.getPostoGraduacao();
 
   if (isNaN(this.codMilitar)) {
@@ -35,6 +36,7 @@ export class FormMilitaresComponent implements OnInit {
     // EDITAR
     this.militar = Object.assign({}, this.servico.getMilitarPorCodigo(this.codMilitar));
     this.endereco = Object.assign({}, this.servico.getEnderecoPorCodigo(this.codMilitar));
+    console.log(this.militar);
 
     }
   }

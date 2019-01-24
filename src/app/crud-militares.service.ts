@@ -46,16 +46,18 @@ autoIncrement = 3;
 
     // retorna um objeto militar
     getMilitarPorCodigo(codigo: number) {
-      return(this.militares.find(militar => militar.codigo === codigo));
+      // tslint:disable-next-line:triple-equals
+      return(this.militares.find(militar => militar.codigo == codigo));
 }
-
     // retorna um objeto endereco
     getEnderecoPorCodigo(codigo: number) {
-      return(this.enderecos.find(endereco => endereco.codMilitar === codigo));
+      // tslint:disable-next-line:triple-equals
+      return(this.enderecos.find(endereco => endereco.codMilitar == codigo));
 }
 
     getPostoGraduacaoPorCodigo(codigo: number) {
-      return (this.postoGraduacoes.find(postoGraduacao => postoGraduacao.codPosto === codigo));
+      // tslint:disable-next-line:triple-equals
+      return (this.postoGraduacoes.find(postoGraduacao => postoGraduacao.codPosto == codigo));
     }
 
     adiocionarMilitar(militar: Militar, endereco: Endereco) {
@@ -78,6 +80,7 @@ autoIncrement = 3;
   atualizaMilitar(codigo: number, militar: Militar, endereco: Endereco) {
         const indiceMil = this.militares.indexOf(this.getMilitarPorCodigo(codigo), 0);
         this.militares[indiceMil] = militar;
+
         const indiceEnd = this.enderecos.indexOf(this.getEnderecoPorCodigo(codigo), 0);
         this.enderecos[indiceEnd] = endereco;
   }
