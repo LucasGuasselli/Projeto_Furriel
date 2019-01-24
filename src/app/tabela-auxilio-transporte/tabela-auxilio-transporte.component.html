@@ -26,6 +26,11 @@
             <td>{{conducao.nomeEmpresa}}</td>
             <td>{{conducao.tipoDeTransporte}}</td>
             <td>{{conducao.valor}}</td>
+                  <td>
+                        <a routerLink="/listaATConducao" (click)="removerConducao(conducao)">
+                              <img class="icons" src="../assets/icon-delete.png" alt="Remover"/>
+                        </a>
+                  </td>
       </tr>
 </div>
    

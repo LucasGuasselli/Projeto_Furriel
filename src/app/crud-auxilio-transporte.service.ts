@@ -28,17 +28,24 @@ autoIncrementConducao = 2;
 autoIncrementDesconto = 1;
 
   constructor(private servico: CrudMilitaresService) { }
-  getAT() {
-      return this.auxilioTransportes;
+    getAT() {
+        return this.auxilioTransportes;
+        }
+    getConducoes() {
+        return this.conducoes;
     }
-  getConducoes() {
-      return this.conducoes;
-  }
-  getDescontos() {
-      return this.descontos;
-  }
-  
-  adiocionarAT(AT: AuxilioTransporte) {
+    getDescontos() {
+        return this.descontos;
+    }
+
+    // retorna um objeto conducao
+    getConducaoPorCodigo(codigo: number) {
+        console.log(conducao => conducao.codConducao);
+        console.log(codigo);
+        return(this.conducoes.find(conducao => conducao.codConducao == codigo));
+    }
+
+    adiocionarAT(AT: AuxilioTransporte) {
       AT.codAT = this.autoIncrementAT++;
     // encontra o militar correspondente ao auxilio transporte
       this.militar = this.servico.getMilitarPorCodigo(AT.codMilitar);
@@ -64,13 +71,23 @@ autoIncrementDesconto = 1;
   }
 
   atualizaValorPassagem(codigo: number, valor: number) {
-      for (let i = 0; i < this.auxilioTransportes.length; i++) {
+        for (let i = 0; i < this.auxilioTransportes.length; i++) {
               // tslint:disable-next-line:triple-equals
               if ( codigo == this.auxilioTransportes[i].codMilitar) {
                   this.auxilioTransportes[i].valorTotalAT = this.auxilioTransportes[i].valorTotalAT + (22 * valor);
                   this.auxilioTransportes[i].valorDiarioAT = this.auxilioTransportes[i].valorTotalAT / 22;
               }
-      }
+        }
+  }
+
+  subtraiValorPassagem(codigo: number, valor: number) {
+        for (let i = 0; i < this.auxilioTransportes.length; i++) {
+            // tslint:disable-next-line:triple-equals
+            if ( codigo == this.auxilioTransportes[i].codMilitar) {
+                this.auxilioTransportes[i].valorTotalAT = this.auxilioTransportes[i].valorTotalAT - (22 * valor);
+                this.auxilioTransportes[i].valorDiarioAT = this.auxilioTransportes[i].valorTotalAT / 22;
+            }
+    }
   }
 
   calculaValorDesconto(codigo: number) {
@@ -89,4 +106,15 @@ autoIncrementDesconto = 1;
       this.descontos.push(desconto);
       console.log(this.descontos[0]);
   }
+
+// remove uma conducao do array
+removerConducao(conducao: Conducao) {
+    this.subtraiValorPassagem(conducao.codMilitar, conducao.valor);
+
+    const indice = this.conducoes.indexOf(conducao, 0);
+    if (indice > -1) {
+      this.conducoes.splice(indice, 1);
+    }
+  }
+
 }

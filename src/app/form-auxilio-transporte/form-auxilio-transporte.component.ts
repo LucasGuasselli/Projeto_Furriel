@@ -34,18 +34,18 @@ export class FormAuxilioTransporteComponent implements OnInit {
 
   // ao iniciar a classe e instanciado um objeto militar
   ngOnInit() {
-       this.auxilioTransporte = this.servicoCrudAT.getAT();
-       this.militar = this.servicoCrudMilitares.getMilitares();
-       this.postoGraduacao = this.servicoCrudMilitares.getPostoGraduacao();
+        this.codConducao = this.rota.snapshot.params['cod'];
+        this.auxilioTransporte = this.servicoCrudAT.getAT();
+        this.militar = this.servicoCrudMilitares.getMilitares();
+        this.postoGraduacao = this.servicoCrudMilitares.getPostoGraduacao();
 
-  if (isNaN(this.codMilitar)) {
+  if (isNaN(this.codConducao)) {
       // CADASTRAR
       this.conducao  = new Conducao();
 
   } else {
       // EDITAR
-      // this.militar = Object.assign({}, this.servico.getMilitarPorCodigo(this.codMilitar));
-      // this.endereco = Object.assign({}, this.servico.getEnderecoPorCodigo(this.codMilitar));
+      this.conducao = Object.assign({}, this.servicoCrudAT.getConducaoPorCodigo(this.codConducao));
     }
   }
 
