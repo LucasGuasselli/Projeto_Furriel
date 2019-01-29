@@ -15,6 +15,7 @@ import { TabelaAuxilioTransporteComponent } from './tabela-auxilio-transporte/ta
 import { FormDescontosComponent } from './form-descontos/form-descontos.component';
 import { TabelaDescontosComponent } from './tabela-descontos/tabela-descontos.component';
 import { RelatorioComponent } from './relatorio/relatorio.component';
+import { FormPagamentoAtrasadoComponent } from './form-pagamento-atrasado/form-pagamento-atrasado.component';
 
 
 const routes: Routes = [
@@ -27,7 +28,8 @@ const routes: Routes = [
     { path: 'listaATConducao', component: TabelaAuxilioTransporteComponent },
     { path: 'cadastroDeDesconto', component: FormDescontosComponent },
     { path: 'listaDesconto', component: TabelaDescontosComponent },
-    { path: 'relatorio', component: RelatorioComponent }
+    { path: 'relatorio', component: RelatorioComponent },
+    { path: 'cadastroPagamentoAtrasado', component: FormPagamentoAtrasadoComponent }
 ];
 
 @NgModule({
@@ -40,7 +42,8 @@ const routes: Routes = [
     TabelaAuxilioTransporteComponent,
     FormDescontosComponent,
     TabelaDescontosComponent,
-    RelatorioComponent
+    RelatorioComponent,
+    FormPagamentoAtrasadoComponent
   ],
   imports: [
     BrowserModule,
