@@ -22,6 +22,19 @@
             </li>  
       </ul>
 </div>
- 
+
+<div>      
+      <form>
+            <label for="codAditamento">Selecionar aditamento atual</label>
+            <select id="codAditamento" name="codAditamento">
+                  <option></option>
+                  <option *ngFor="let ad of aditamentos" (click)="salvarCodAditamento(ad.codAditamento)">{{ad.nome}}</option>
+            </select >             
+      </form>
+            <div class="buttons">            
+                  <input type="button" (click)="salvarAditamentoAtual()" value="Salvar">
+                  <input type="button" (click)="cancelar()" value="Cancelar">    
+            </div>
+</div>
 
 </body>
