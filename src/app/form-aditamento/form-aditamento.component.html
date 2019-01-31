@@ -1,0 +1,12 @@
+<h3>{{titulo}}</h3>
+<div class = "form">        
+  <form>
+    <label for="nome">Nome do aditamento</label>
+    <input type="text" name="valor" [(ngModel)]="aditamento.nome">        
+  
+    <div class="buttons">            
+      <input type="button" (click)="salvarAditamento()" value="Salvar">
+      <input type="button" (click)="cancelar()" value="Cancelar">    
+    </div>
+  </form>
+</div>

@@ -16,6 +16,9 @@ import { FormDescontosComponent } from './form-descontos/form-descontos.componen
 import { TabelaDescontosComponent } from './tabela-descontos/tabela-descontos.component';
 import { RelatorioComponent } from './relatorio/relatorio.component';
 import { FormPagamentoAtrasadoComponent } from './form-pagamento-atrasado/form-pagamento-atrasado.component';
+import { FormAditamentoComponent } from './form-aditamento/form-aditamento.component';
+import { TabelaAditamentosComponent } from './tabela-aditamentos/tabela-aditamentos.component';
+import { CrudAditamentosService } from './crud-aditamentos.service';
 
 
 const routes: Routes = [
@@ -29,7 +32,10 @@ const routes: Routes = [
     { path: 'cadastroDeDesconto', component: FormDescontosComponent },
     { path: 'listaDesconto', component: TabelaDescontosComponent },
     { path: 'relatorio', component: RelatorioComponent },
-    { path: 'cadastroPagamentoAtrasado', component: FormPagamentoAtrasadoComponent }
+    { path: 'cadastroPagamentoAtrasado', component: FormPagamentoAtrasadoComponent },
+    { path: 'cadastroAditamento', component: FormAditamentoComponent },
+    { path: 'listaAditamento', component: TabelaAditamentosComponent }
+
 ];
 
 @NgModule({
@@ -43,7 +49,9 @@ const routes: Routes = [
     FormDescontosComponent,
     TabelaDescontosComponent,
     RelatorioComponent,
-    FormPagamentoAtrasadoComponent
+    FormPagamentoAtrasadoComponent,
+    FormAditamentoComponent,
+    TabelaAditamentosComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +59,7 @@ const routes: Routes = [
     HttpModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [CrudMilitaresService, CrudAuxilioTransporteService],
+  providers: [CrudMilitaresService, CrudAuxilioTransporteService, CrudAditamentosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
