@@ -16,7 +16,7 @@ export class IndexComponent implements OnInit {
   constructor(private servico: CrudAditamentosService, private router: Router, private rota: ActivatedRoute ) { }
 
   ngOnInit() {
-    this.aditamentos = this.servico.getAditamentos();
+    this.aditamentos = this.servico.getAditamentosSemData();
   }
 
   salvarCodAditamento(codigo: number) {

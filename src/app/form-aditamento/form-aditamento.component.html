@@ -3,10 +3,17 @@
   <form>
     <label for="nome">Nome do aditamento</label>
     <input type="text" name="valor" [(ngModel)]="aditamento.nome">        
-  
+   <!--
+        <br>
+          <label for="data">Data</label>
+          <input type="date" id="data" name="data" [(ngModel)]="aditamento.data"> 
+        <br>
+     --> 
+  </form>
+ 
     <div class="buttons">            
       <input type="button" (click)="salvarAditamento()" value="Salvar">
       <input type="button" (click)="cancelar()" value="Cancelar">    
     </div>
-  </form>
+                       
 </div>
