@@ -1,14 +1,26 @@
 
 <div id="content" #content>
     <h1>RELATORIO DOS DESCONTOS </h1>
-      <div id="tudo2" *ngFor='let d of descontos'>       
-          Codigo de desconto: {{d.codDesconto}}<br>
-          Codigo do Militar: {{d.codMilitar}}<br>
-          Data de Inicio: {{d.dataInicio}}<br>
-          Data de Termino: {{d.dataFim}}<br>
-          Valor: R$ {{d.valorDesconto}}<br>
-          Motivo: {{d.motivo}}<br>
-          -------------------------------------------------
-      </div>
-  <button (click)="downloadPDF()">Downaload Relatorio </button>
+    <div>
+        <textarea rows="4" cols="50" >
+                Despesa a Anular           
+                Seja realizada a Despesa a Anular (DA) do benefício de Auxílio-Transporte (AT), de acordo com o 
+                Decreto nº 2.963, de 24 fev 1999, as IG 70-04 (Port. nº 334, de 25 jun 1999),
+                as IR 70-21 (Port. nº 114, de 30 jun 1999), a Port. nº 98 – DGP, de 31 out 01, 
+                a Prt. nº 269 – DGP, de 11 dez 07 e a Port. nº 849 – Cmt Ex, de 14 jul 16 (EB 10-IG-02.018).
+        </textarea>
+            
+        <br>
+        <div id="tudo2" *ngFor='let d of descontos'>       
+            Codigo de desconto: {{d.codDesconto}}<br>
+            Codigo do Militar: {{d.codMilitar}}<br>
+            Data de Inicio: {{d.dataInicio}}<br>
+            Data de Termino: {{d.dataFim}}<br>
+            Valor: R$ {{d.valorDesconto}}<br>
+            Motivo: {{d.motivo}}<br>
+            -------------------------------------------------
+        </div>
+
+        <button (click)="downloadPDF()">Downaload Relatorio </button>
+    </div>
 </div>

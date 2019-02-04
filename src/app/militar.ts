@@ -1,6 +1,5 @@
 export class Militar {
-    codigo: number;
+    precCP: number;
     codPostoGraduacao: number;
     nome: string;
-    prec_cp: number;
 }

@@ -17,25 +17,24 @@ export class FormMilitaresComponent implements OnInit {
   endereco: Endereco;
   postoGraduacao: PostoGraduacao[] = [];
   // codigos
-  codMilitar: number;
+  precCP: number;
   codEndereco: number;
   constructor(private servico: CrudMilitaresService, private router: Router, private rota: ActivatedRoute) { }
 
 // ao iniciar a classe e instanciado um objeto militar
   ngOnInit() {
-    this.codMilitar = this.rota.snapshot.params['cod'];
-    
+    this.precCP = this.rota.snapshot.params['cod'];
     this.postoGraduacao = this.servico.getPostoGraduacao();
 
-  if (isNaN(this.codMilitar)) {
+  if (isNaN(this.precCP)) {
     // CADASTRAR
     this.militar  = new Militar();
     this.endereco  = new Endereco();
 
   } else {
     // EDITAR
-    this.militar = Object.assign({}, this.servico.getMilitarPorCodigo(this.codMilitar));
-    this.endereco = Object.assign({}, this.servico.getEnderecoPorCodigo(this.codMilitar));
+    this.militar = Object.assign({}, this.servico.getMilitarPorPrecCP(this.precCP));
+    this.endereco = Object.assign({}, this.servico.getEnderecoPorPrecCP(this.precCP));
     console.log(this.militar);
 
     }
@@ -43,11 +42,11 @@ export class FormMilitaresComponent implements OnInit {
 
 // adicionando um militar no array
   salvarMilitar() {
-    if (isNaN(this.codMilitar)) {
+    if (isNaN(this.precCP)) {
        this.servico.adiocionarMilitar(this.militar, this.endereco);
        this.militar = new Militar();
     } else {
-      this.servico.atualizaMilitar(this.codMilitar, this.militar, this.endereco);
+      this.servico.atualizaMilitar(this.precCP, this.militar, this.endereco);
     }
     this.router.navigate(['/listaMilitares']);
 }

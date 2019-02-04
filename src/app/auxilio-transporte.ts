@@ -1,6 +1,6 @@
 export class AuxilioTransporte {
         codAT: number;
-        codMilitar: number;
+        precCP: number;
         valorTotalAT: number;
         valorDiarioAT: number;
 }

@@ -20,7 +20,7 @@ export class FormDescontosComponent implements OnInit {
     militar: Militar[] = [];
 
   // codigos
-    codMilitar: number;
+    precCP: number;
     codAT: number;
 
   constructor(private servicoCrudMilitares: CrudMilitaresService, private servicoCrudAT: CrudAuxilioTransporteService,
@@ -30,7 +30,7 @@ export class FormDescontosComponent implements OnInit {
       this.auxilioTransporte = this.servicoCrudAT.getAT();
       this.militar = this.servicoCrudMilitares.getMilitares();
 
-      if (isNaN(this.codMilitar)) {
+      if (isNaN(this.precCP)) {
         // CADASTRAR
         this.desconto  = new Desconto();
       } else {
@@ -41,21 +41,21 @@ export class FormDescontosComponent implements OnInit {
   }
 
   salvarDesconto() {
-    if (isNaN(this.codMilitar)) {
+    if (isNaN(this.precCP)) {
       // tratar o erro
     } else {
-      this.desconto.codMilitar = this.codMilitar;
+      this.desconto.precCP = this.precCP;
       this.servicoCrudAT.adicionarDesconto(this.desconto);
       this.desconto = new Desconto();
     }
 }
 
-  salvarCodMilitar(codigo: number) {
-    if (isNaN(codigo)) {
+  salvarPrecCPMilitar(precCP: number) {
+    if (isNaN(precCP)) {
         // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
     } else {
-        this.codMilitar = codigo;
-        console.log(this.codMilitar);
+        this.precCP = precCP;
+        console.log(this.precCP);
     }
   }
   // cancelando cadastro

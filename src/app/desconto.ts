@@ -1,6 +1,6 @@
 export class Desconto {
         codDesconto: number;
-        codMilitar: number;
+        precCP: number;
         dataInicio: Date;
         dataFim: Date;
         valorDesconto: number;

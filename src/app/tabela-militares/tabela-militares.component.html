@@ -2,14 +2,13 @@
 <table>
 <div id="tudo">
 <tr>
-  <th>Codigo</th> <th>Posto</th> <th>Nome</th> <th>Prec-CP</th> <th>Editar</th> <th>Remover</th>
+   <th>Posto</th> <th>Nome</th> <th>Prec-CP</th> <th>Editar</th> <th>Remover</th>
 </tr>
 
 <tr *ngFor='let militar of militares'>
-      <td>{{militar.codigo}}</td>
       <td>{{militar.codPostoGraduacao}}</td>
       <td>{{militar.nome}}</td>  
-      <td>{{militar.prec_cp}}</td>
+      <td>{{militar.precCP}}</td>
       <td>
             <a [routerLink]="['/edicaoMilitar', militar.codigo]">
                   <img class="icons" src="../assets/icon-edit.png" alt="Editar"/>

@@ -23,7 +23,7 @@ export class FormAuxilioTransporteComponent implements OnInit {
     militar: Militar[] = [];
 
   // codigos
-    codMilitar: number;
+    precCP: number;
     codAT: number;
     codConducao: number;
 
@@ -51,14 +51,14 @@ export class FormAuxilioTransporteComponent implements OnInit {
 
 // caso o militar nao tenha um Aux Transporte ele sera criado
 verificaAT() {
-    if (isNaN(this.codMilitar)) {
+    if (isNaN(this.precCP)) {
         // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
     } else {
         // SE O MILITAR JA TEM AUX TRANSPORTE SO E CADASTRADO UMA CONDUCAO A MAIS
         for ( let i = 0; i < this.auxilioTransporte.length; i++) {
               // tslint:disable-next-line:triple-equals
-              if ( this.auxilioTransporte[i].codMilitar == this.codMilitar) {
-                    this.salvarConducao(this.auxilioTransporte[i].codMilitar, this.auxilioTransporte[i].codAT);
+              if ( this.auxilioTransporte[i].precCP == this.precCP) {
+                    this.salvarConducao(this.auxilioTransporte[i].precCP, this.auxilioTransporte[i].codAT);
                     this.verifica = true;
                     // console.log("ja tem aux transporte");
               }
@@ -67,7 +67,7 @@ verificaAT() {
     // caso nao tenha Aux Transporte
     if (this.verifica === false) {
             // criacao de auxilio
-                this.salvarAT(this.codMilitar);
+                this.salvarAT(this.precCP);
             // atualizacao dos aux cadastrados
                 this.auxilioTransporte = this.servicoCrudAT.getAT();
             // verificacao passa a ser verdadeira para nao virar um looping
@@ -82,25 +82,25 @@ verificaAT() {
     this.informarCadastro();
 }// fecha metodo
 
-salvarCodMilitar(codigo: number) {
-    if (isNaN(codigo)) {
+salvarPrecCPMilitar(precCP: number) {
+    if (isNaN(precCP)) {
         // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
     } else {
-        this.codMilitar = codigo;
-        console.log(this.codMilitar);
+        this.precCP = precCP;
+        console.log(this.precCP);
     }
 }
 
 salvarAT(codigo: number) {
-    this.AT.codMilitar = codigo;
+    this.AT.precCP = codigo;
     this.AT.valorDiarioAT = 0;
     this.AT.valorTotalAT = 0;
 
     this.servicoCrudAT.adiocionarAT(this.AT);
 }
 
-salvarConducao(codMilitar: number, codAT: number) {
-    this.conducao.codMilitar = codMilitar;
+salvarConducao(precCP: number, codAT: number) {
+    this.conducao.precCP = precCP;
     this.conducao.codAT = codAT;
 
     this.servicoCrudAT.adiocionarConducao(this.conducao);

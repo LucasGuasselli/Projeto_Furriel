@@ -2,10 +2,10 @@
 <div class = "form">
         
   <form>
-    <label for="codMilitar">Nome do Militar</label>
-    <select id="codMilitar" name="codMilitar">
+    <label for="precCP">Nome do Militar</label>
+    <select id="precCP" name="precCP">
         <option></option>
-        <option *ngFor="let m of militar" (click)="salvarCodMilitar(m.codigo)" >{{m.nome}}</option>
+        <option *ngFor="let m of militar" (click)="salvarPrecCPMilitar(m.precCP)" >{{m.nome}}</option>
     </select >      
 
     <br>

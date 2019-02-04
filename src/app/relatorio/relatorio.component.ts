@@ -44,7 +44,7 @@ export class RelatorioComponent implements OnInit {
       let content = this.content.nativeElement;
 
       doc.fromHTML(content.innerHTML, 3, 3, {
-          'width': 922 ,
+          'width': 150 ,
           'elementHandlers': specialElementHandlers
       });
 

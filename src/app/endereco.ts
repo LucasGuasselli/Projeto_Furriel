@@ -1,6 +1,6 @@
 export class Endereco {
         codEndereco: number;
-        codMilitar: number;
+        prec_cp: number;
         rua: string;
         bairro: string;
         cidade: string;

@@ -13,11 +13,11 @@ militar: Militar;
 postoGraduacao: PostoGraduacao;
 
 auxilioTransportes: AuxilioTransporte[] = [
-    {codAT: 1, codMilitar: 1, valorTotalAT: -107.756, valorDiarioAT: 12 }
+    {codAT: 1, precCP: 12345, valorTotalAT: -107.756, valorDiarioAT: 12 }
 ];
 
 conducoes: Conducao[] = [
-  {codConducao: 1, codMilitar: 1, codAT: 1, itinerario: 'Centro-Bairro', nomeEmpresa: 'SOUL', tipoDeTransporte: 'Onibus', valor: 10 }
+  {codConducao: 1, precCP: 1, codAT: 1, itinerario: 'Centro-Bairro', nomeEmpresa: 'SOUL', tipoDeTransporte: 'Onibus', valor: 10 }
 ];
 
 descontos: Desconto[] = [
@@ -42,13 +42,14 @@ autoIncrementDesconto = 1;
     getConducaoPorCodigo(codigo: number) {
         console.log(conducao => conducao.codConducao);
         console.log(codigo);
+        // tslint:disable-next-line:triple-equals
         return(this.conducoes.find(conducao => conducao.codConducao == codigo));
     }
 
     adiocionarAT(AT: AuxilioTransporte) {
       AT.codAT = this.autoIncrementAT++;
     // encontra o militar correspondente ao auxilio transporte
-      this.militar = this.servico.getMilitarPorCodigo(AT.codMilitar);
+      this.militar = this.servico.getMilitarPorPrecCP(AT.precCP);
     // encontra o postoGraduacao correspondente para saber o valor da cota parte
       this.postoGraduacao = this.servico.getPostoGraduacaoPorCodigo(this.militar.codPostoGraduacao);
 
@@ -58,14 +59,14 @@ autoIncrementDesconto = 1;
 
       // this.militar = new Militar();
       // this.postoGraduacao = new PostoGraduacao();
-      console.log('codigo do militar:' + this.auxilioTransportes[1].codMilitar);
+      console.log('codigo do militar:' + this.auxilioTransportes[1].precCP);
   }
 
   adiocionarConducao(conducao: Conducao) {
         conducao.codConducao = this.autoIncrementConducao++;
         this.conducoes.push(conducao);
 
-        this.atualizaValorPassagem(conducao.codMilitar, conducao.valor);
+        this.atualizaValorPassagem(conducao.precCP, conducao.valor);
 
         // atualizar valor total do AT cada vez que cadastrar uma conducao
   }
@@ -73,7 +74,7 @@ autoIncrementDesconto = 1;
   atualizaValorPassagem(codigo: number, valor: number) {
         for (let i = 0; i < this.auxilioTransportes.length; i++) {
               // tslint:disable-next-line:triple-equals
-              if ( codigo == this.auxilioTransportes[i].codMilitar) {
+              if ( codigo == this.auxilioTransportes[i].precCP) {
                   this.auxilioTransportes[i].valorTotalAT = this.auxilioTransportes[i].valorTotalAT + (22 * valor);
                   this.auxilioTransportes[i].valorDiarioAT = this.auxilioTransportes[i].valorTotalAT / 22;
               }
@@ -83,7 +84,7 @@ autoIncrementDesconto = 1;
   subtraiValorPassagem(codigo: number, valor: number) {
         for (let i = 0; i < this.auxilioTransportes.length; i++) {
             // tslint:disable-next-line:triple-equals
-            if ( codigo == this.auxilioTransportes[i].codMilitar) {
+            if ( codigo == this.auxilioTransportes[i].precCP) {
                 this.auxilioTransportes[i].valorTotalAT = this.auxilioTransportes[i].valorTotalAT - (22 * valor);
                 this.auxilioTransportes[i].valorDiarioAT = this.auxilioTransportes[i].valorTotalAT / 22;
             }
@@ -93,7 +94,7 @@ autoIncrementDesconto = 1;
   calculaValorDesconto(codigo: number) {
     for (let i = 0; i < this.auxilioTransportes.length; i++) {
         // tslint:disable-next-line:triple-equals
-        if ( codigo == this.auxilioTransportes[i].codMilitar) {
+        if ( codigo == this.auxilioTransportes[i].precCP) {
             return this.auxilioTransportes[i].valorDiarioAT;
         }
 }
@@ -102,14 +103,14 @@ autoIncrementDesconto = 1;
     console.log(desconto);
 
       desconto.codDesconto = this.autoIncrementDesconto++;
-      desconto.valorDesconto = this.calculaValorDesconto(desconto.codMilitar);
+      desconto.valorDesconto = this.calculaValorDesconto(desconto.precCP);
       this.descontos.push(desconto);
       console.log(this.descontos[0]);
   }
 
 // remove uma conducao do array
 removerConducao(conducao: Conducao) {
-    this.subtraiValorPassagem(conducao.codMilitar, conducao.valor);
+    this.subtraiValorPassagem(conducao.precCP, conducao.valor);
 
     const indice = this.conducoes.indexOf(conducao, 0);
     if (indice > -1) {

@@ -7,13 +7,13 @@ import { PostoGraduacao } from './posto-graduacao';
 @Injectable()
 export class CrudMilitaresService {
 militares: Militar[] = [
-  {codigo: 1, codPostoGraduacao: 10, nome: 'Lucas', prec_cp: 12345},
-  {codigo: 2, codPostoGraduacao: 8, nome: 'Grillo', prec_cp: 4567}
+  { precCP: 12345, codPostoGraduacao: 10, nome: 'Lucas' },
+  { precCP: 4567, codPostoGraduacao: 8, nome: 'Grillo' }
 ];
 
 enderecos: Endereco[] = [
-  { codEndereco: 1, codMilitar: 1, rua: 'Fronteira', bairro: 'Campo Novo', cidade: 'Porto Alegre', numero: 400, complemento: 'casa' },
-  { codEndereco: 2, codMilitar: 2, rua: 'Teresopolis', bairro: 'aaa', cidade: 'Porto Alegre', numero: 50, complemento: 'casa' }
+  { codEndereco: 1, prec_cp: 1, rua: 'Fronteira', bairro: 'Campo Novo', cidade: 'Porto Alegre', numero: 400, complemento: 'casa' },
+  { codEndereco: 2, prec_cp: 2, rua: 'Teresopolis', bairro: 'aaa', cidade: 'Porto Alegre', numero: 50, complemento: 'casa' }
 ];
 
 postoGraduacoes: PostoGraduacao[] = [
@@ -45,15 +45,15 @@ autoIncrement = 3;
     }
 
     // retorna um objeto militar
-    getMilitarPorCodigo(codigo: number) {
+    getMilitarPorPrecCP(precCP: number) {
       // tslint:disable-next-line:triple-equals
-      return(this.militares.find(militar => militar.codigo == codigo));
-}
+      return(this.militares.find(militar => militar.precCP == precCP));
+    }
     // retorna um objeto endereco
-    getEnderecoPorCodigo(codigo: number) {
+    getEnderecoPorPrecCP(precCP: number) {
       // tslint:disable-next-line:triple-equals
-      return(this.enderecos.find(endereco => endereco.codMilitar == codigo));
-}
+      return(this.enderecos.find(endereco => endereco.prec_cp == precCP));
+    }
 
     getPostoGraduacaoPorCodigo(codigo: number) {
       // tslint:disable-next-line:triple-equals
@@ -61,27 +61,27 @@ autoIncrement = 3;
     }
 
     adiocionarMilitar(militar: Militar, endereco: Endereco) {
-        militar.codigo = this.autoIncrement++;
-        endereco.codMilitar = militar.codigo;
+        // militar.codigo = this.autoIncrement++;
+        endereco.prec_cp = militar.precCP;
 
         this.militares.push(militar);
         this.enderecos.push(endereco);
-  }
-
-// remove um militar do array
-  removerMilitar(militar: Militar) {
-    const indice = this.militares.indexOf(militar, 0);
-    if (indice > -1) {
-      this.militares.splice(indice, 1);
-      this.enderecos.splice(indice, 1);
     }
-  }
 
-  atualizaMilitar(codigo: number, militar: Militar, endereco: Endereco) {
-        const indiceMil = this.militares.indexOf(this.getMilitarPorCodigo(codigo), 0);
+    // remove um militar do array
+      removerMilitar(militar: Militar) {
+        const indice = this.militares.indexOf(militar, 0);
+        if (indice > -1) {
+          this.militares.splice(indice, 1);
+          this.enderecos.splice(indice, 1);
+        }
+      }
+
+  atualizaMilitar(prec_cp: number, militar: Militar, endereco: Endereco) {
+        const indiceMil = this.militares.indexOf(this.getMilitarPorPrecCP(prec_cp), 0);
         this.militares[indiceMil] = militar;
 
-        const indiceEnd = this.enderecos.indexOf(this.getEnderecoPorCodigo(codigo), 0);
+        const indiceEnd = this.enderecos.indexOf(this.getEnderecoPorPrecCP(prec_cp), 0);
         this.enderecos[indiceEnd] = endereco;
   }
 }
