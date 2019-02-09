@@ -19,6 +19,8 @@ import { FormPagamentoAtrasadoComponent } from './form-pagamento-atrasado/form-p
 import { FormAditamentoComponent } from './form-aditamento/form-aditamento.component';
 import { TabelaAditamentosComponent } from './tabela-aditamentos/tabela-aditamentos.component';
 import { CrudAditamentosService } from './crud-aditamentos.service';
+import { TabelaPagamentosAtrasadosComponent } from './tabela-pagamentos-atrasados/tabela-pagamentos-atrasados.component';
+import { CrudPagamentoAtrasadoService } from './crud-pagamento-atrasado.service';
 
 
 const routes: Routes = [
@@ -34,7 +36,9 @@ const routes: Routes = [
     { path: 'relatorio', component: RelatorioComponent },
     { path: 'cadastroPagamentoAtrasado', component: FormPagamentoAtrasadoComponent },
     { path: 'cadastroAditamento', component: FormAditamentoComponent },
-    { path: 'listaAditamento', component: TabelaAditamentosComponent }
+    { path: 'listaAditamento', component: TabelaAditamentosComponent },
+    { path: 'listaPagamentoAtrasado', component: TabelaPagamentosAtrasadosComponent },
+    { path: 'edicaoPagamentoAtrasado/:cod', component: FormPagamentoAtrasadoComponent },
 
 ];
 
@@ -51,7 +55,8 @@ const routes: Routes = [
     RelatorioComponent,
     FormPagamentoAtrasadoComponent,
     FormAditamentoComponent,
-    TabelaAditamentosComponent
+    TabelaAditamentosComponent,
+    TabelaPagamentosAtrasadosComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +64,8 @@ const routes: Routes = [
     HttpModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [CrudMilitaresService, CrudAuxilioTransporteService, CrudAditamentosService],
+  providers: [CrudMilitaresService, CrudAuxilioTransporteService, CrudAditamentosService,
+              CrudPagamentoAtrasadoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

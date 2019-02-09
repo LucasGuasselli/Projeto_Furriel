@@ -6,6 +6,9 @@ import { PostoGraduacao } from './posto-graduacao';
 
 @Injectable()
 export class CrudMilitaresService {
+
+contador = 0;
+
 militares: Militar[] = [
   { precCP: 12345, codPostoGraduacao: 10, nome: 'Lucas' },
   { precCP: 4567, codPostoGraduacao: 8, nome: 'Grillo' }
@@ -61,11 +64,20 @@ autoIncrement = 3;
     }
 
     adiocionarMilitar(militar: Militar, endereco: Endereco) {
-        // militar.codigo = this.autoIncrement++;
-        endereco.prec_cp = militar.precCP;
-
-        this.militares.push(militar);
-        this.enderecos.push(endereco);
+        for ( let i = 0; i < this.militares.length; i++) {
+            // tslint:disable-next-line:triple-equals
+            if (militar.precCP == this.militares[i].precCP ) {
+                this.contador++;
+            }
+        }
+        if (this.contador > 0 ) {
+            // elaborar uma janela para avisar que foi inserido um precCP existente
+            console.log('ja existe preccp');
+        } else {
+            endereco.prec_cp = militar.precCP;
+            this.militares.push(militar);
+            this.enderecos.push(endereco);
+        }
     }
 
     // remove um militar do array

@@ -17,6 +17,10 @@ export class CrudAditamentosService {
         return this.aditamentos;
     }
 
+    getAditamentoAtual() {
+        return this.aditamentoAtual;
+    }
+
     getAditamentosSemData() {
         for ( let i = 0; i < this.aditamentos.length; i++) {
             if (this.aditamentos[i].data == null) {

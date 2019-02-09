@@ -13,12 +13,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class FormMilitaresComponent implements OnInit {
   titulo = 'Cadastro de Militares';
   // objetos
-  militar: Militar;
-  endereco: Endereco;
-  postoGraduacao: PostoGraduacao[] = [];
-  // codigos
-  precCP: number;
-  codEndereco: number;
+    militar: Militar;
+    endereco: Endereco;
+    postoGraduacao: PostoGraduacao[] = [];
+  // variaveis
+    precCP: number;
+    codEndereco: number;
+    contador = 0;
+
   constructor(private servico: CrudMilitaresService, private router: Router, private rota: ActivatedRoute) { }
 
 // ao iniciar a classe e instanciado um objeto militar
