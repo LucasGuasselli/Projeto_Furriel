@@ -5,6 +5,8 @@ import { Endereco } from '../endereco';
 import { CrudMilitaresService } from '../crud-militares.service';
 import { Desconto } from '../desconto';
 import { CrudAuxilioTransporteService } from '../crud-auxilio-transporte.service';
+import { PagamentoAtrasado } from '../pagamento-atrasado';
+import { CrudPagamentoAtrasadoService } from '../crud-pagamento-atrasado.service';
 
 @Component({
   selector: 'app-relatorio',
@@ -16,14 +18,17 @@ export class RelatorioComponent implements OnInit {
   militares: Militar[] = [];
   enderecos: Endereco[] = [];
   descontos: Desconto[] = [];
+  pagamentosAtrasados: PagamentoAtrasado[] = [];
 
 
-  constructor(private servicoCrudMilitar: CrudMilitaresService, private servicoCrudAT: CrudAuxilioTransporteService) { }
+  constructor(private servicoCrudMilitar: CrudMilitaresService, private servicoCrudAT: CrudAuxilioTransporteService,
+            private servicoCrudPagamentoAtrasado: CrudPagamentoAtrasadoService) { }
 
   ngOnInit() {
       this.militares = this.servicoCrudMilitar.getMilitares();
       this.enderecos = this.servicoCrudMilitar.getEnderecos();
       this.descontos = this.servicoCrudAT.getDescontos();
+      this.pagamentosAtrasados = this.servicoCrudPagamentoAtrasado.getPagamentosAtrasados();
 
   }
 
@@ -32,15 +37,18 @@ export class RelatorioComponent implements OnInit {
 
   public downloadPDF() {
 
+      // tslint:disable-next-line:prefer-const
       let doc = new jsPDF();
 
 
+      // tslint:disable-next-line:prefer-const
       let specialElementHandlers = {
           '#editor': function(element, renderer) {
               return true;
           }
       };
 
+      // tslint:disable-next-line:prefer-const
       let content = this.content.nativeElement;
 
       doc.fromHTML(content.innerHTML, 3, 3, {
