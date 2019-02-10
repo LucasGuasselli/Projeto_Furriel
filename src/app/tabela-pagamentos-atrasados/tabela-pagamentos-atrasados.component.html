@@ -3,7 +3,7 @@
     <div id="tudo">
       <tr>
         <th>Codigo do Pagamento</th> <th>Prec-CP</th> <th>Codigo do Aditamento</th> <th>Mês de Referência</th>
-         <th>Quantidade de Dias</th> <th>Motivo</th> <th>Valor</th> <th>Data</th> <th>Editar</th> <th>Deletar</th>
+         <th>Quantidade de Dias</th> <th>Motivo</th> <th>Valor</th> <th>Data</th> <th>Deletar</th>
       </tr>
 
       <tr *ngFor='let pagamentoAtrasado of pagamentosAtrasados'>
@@ -15,11 +15,7 @@
             <td>{{pagamentoAtrasado.motivo}}</td>
             <td>{{pagamentoAtrasado.valor}}</td>
             <td>{{pagamentoAtrasado.data}}</td>
-            <td>
-                  <a [routerLink]="['/edicaoPagamentoAtrasado', pagamentoAtrasado.codPgmtoAtrasado]">
-                        <img class="icons" src="../assets/icon-edit.png" alt="Editar"/>
-                  </a>
-            </td> 
+            
             <td>
                   <a routerLink="/listaPagamentoAtrasado" (click)="removerPagamentoAtrasado(pagamentoAtrasado)">
                         <img class="icons" src="../assets/icon-delete.png" alt="Remover"/>

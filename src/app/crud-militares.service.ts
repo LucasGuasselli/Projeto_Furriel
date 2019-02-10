@@ -71,8 +71,10 @@ autoIncrement = 3;
             }
         }
         if (this.contador > 0 ) {
-            // elaborar uma janela para avisar que foi inserido um precCP existente
-            console.log('ja existe preccp');
+          // tslint:disable-next-line:max-line-length
+          window.open('', 'janela', 'width=400, height=300, top=100, left=699, scrollbars=no, status=no, toolbar=no, location=no, menubar=no, resizable=no, fullscreen=no');
+          window.document.write('testeeeeeee');
+          console.log('ja existe preccp');
         } else {
             endereco.prec_cp = militar.precCP;
             this.militares.push(militar);
