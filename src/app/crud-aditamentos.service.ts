@@ -5,7 +5,9 @@ import { Aditamento } from './aditamento';
 export class CrudAditamentosService {
 
     aditamentoAtual: Aditamento;
-    aditamentosSemData: Aditamento[] = [];
+    aditamentosSemData: Aditamento[] = [
+        { codAditamento: 1, nome: '20-JAN_19FEV_19', data: null }
+    ];
     aditamentos: Aditamento[] = [
         { codAditamento: 1, nome: '20-JAN_19FEV_19', data: null }
     ];
@@ -23,16 +25,21 @@ export class CrudAditamentosService {
 
     getAditamentosSemData() {
         for ( let i = 0; i < this.aditamentos.length; i++) {
-            if (this.aditamentos[i].data == null) {
-                    this.aditamentosSemData.push(this.aditamentos[i]);
+            if (this.aditamentos[i].data != null) {
+                const indice = this.aditamentosSemData.indexOf(this.aditamentosSemData[i], 0);
+                if (indice > -1) {
+                  this.aditamentosSemData.splice(indice, 1);
+                }
             }
         }
+
         return this.aditamentosSemData;
     }
 
     adicionarAditamento(aditamento: Aditamento) {
         aditamento.codAditamento = this.autoIncrement++;
         this.aditamentos.push(aditamento);
+        this.aditamentosSemData.push(aditamento);
     }
 
     retornaAditamentoPorCod(codigo: Number) {
