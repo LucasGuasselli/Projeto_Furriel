@@ -15,8 +15,8 @@ militares: Militar[] = [
 ];
 
 enderecos: Endereco[] = [
-  { codEndereco: 1, prec_cp: 1, rua: 'Fronteira', bairro: 'Campo Novo', cidade: 'Porto Alegre', numero: 400, complemento: 'casa' },
-  { codEndereco: 2, prec_cp: 2, rua: 'Teresopolis', bairro: 'aaa', cidade: 'Porto Alegre', numero: 50, complemento: 'casa' }
+  { codEndereco: 1, precCP: 12345, rua: 'Fronteira', bairro: 'Campo Novo', cidade: 'Porto Alegre', numero: 400, complemento: 'casa' },
+  { codEndereco: 2, precCP: 4567, rua: 'Teresopolis', bairro: 'aaa', cidade: 'Porto Alegre', numero: 50, complemento: 'casa' }
 ];
 
 postoGraduacoes: PostoGraduacao[] = [
@@ -55,7 +55,7 @@ autoIncrement = 3;
     // retorna um objeto endereco
     getEnderecoPorPrecCP(precCP: number) {
       // tslint:disable-next-line:triple-equals
-      return(this.enderecos.find(endereco => endereco.prec_cp == precCP));
+      return(this.enderecos.find(endereco => endereco.precCP == precCP));
     }
 
     getPostoGraduacaoPorCodigo(codigo: number) {
@@ -63,6 +63,7 @@ autoIncrement = 3;
       return (this.postoGraduacoes.find(postoGraduacao => postoGraduacao.codPosto == codigo));
     }
 
+    // melhorar tratamento de excecao
     adiocionarMilitar(militar: Militar, endereco: Endereco) {
         for ( let i = 0; i < this.militares.length; i++) {
             // tslint:disable-next-line:triple-equals
@@ -73,10 +74,9 @@ autoIncrement = 3;
         if (this.contador > 0 ) {
           // tslint:disable-next-line:max-line-length
           window.open('', 'janela', 'width=400, height=300, top=100, left=699, scrollbars=no, status=no, toolbar=no, location=no, menubar=no, resizable=no, fullscreen=no');
-          window.document.write('testeeeeeee');
-          console.log('ja existe preccp');
+          window.document.write('precCP ja existe!');
         } else {
-            endereco.prec_cp = militar.precCP;
+            endereco.precCP = militar.precCP;
             this.militares.push(militar);
             this.enderecos.push(endereco);
         }

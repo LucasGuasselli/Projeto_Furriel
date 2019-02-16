@@ -12,20 +12,22 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class FormMilitaresComponent implements OnInit {
   titulo = 'Cadastro de Militares';
-  // objetos
+
     militar: Militar;
     endereco: Endereco;
     postoGraduacao: PostoGraduacao[] = [];
-  // variaveis
-    precCP: number;
-    codEndereco: number;
-    contador = 0;
+
+    precCP: number = null;
+    // codEndereco: number;
+    // serve para
+    // contador = 0;
 
   constructor(private servico: CrudMilitaresService, private router: Router, private rota: ActivatedRoute) { }
 
-// ao iniciar a classe e instanciado um objeto militar
+// o que acontece ao iniciar a classe
   ngOnInit() {
     this.precCP = this.rota.snapshot.params['cod'];
+    console.log(this.precCP);
     this.postoGraduacao = this.servico.getPostoGraduacao();
 
   if (isNaN(this.precCP)) {
@@ -37,20 +39,34 @@ export class FormMilitaresComponent implements OnInit {
     // EDITAR
     this.militar = Object.assign({}, this.servico.getMilitarPorPrecCP(this.precCP));
     this.endereco = Object.assign({}, this.servico.getEnderecoPorPrecCP(this.precCP));
-    console.log(this.militar);
+     console.log(this.endereco);
+    // console.log('chegou aqui');
 
     }
   }
 
-// adicionando um militar no array
+/*
+    Em casos de cadastro ou quando o usuario insere um preccp invalido, caira no IF,
+    e o else serve para casos de edicao da entidade militar
+*/
   salvarMilitar() {
     if (isNaN(this.precCP)) {
-       this.servico.adiocionarMilitar(this.militar, this.endereco);
-       this.militar = new Militar();
+        this.precCP = this.militar.precCP;
+            // tslint:disable-next-line:triple-equals
+            if (this.validaPrecCP() == true) {
+              this.servico.adiocionarMilitar(this.militar, this.endereco);
+              this.militar = new Militar();
+              this.router.navigate(['/listaMilitares']);
+            } else {
+              // substituir por uma janela ou pop-up posteriormente
+              console.log('valor invalido inserido no campo precCP');
+            }
+    // tslint:disable-next-line:triple-equals
     } else {
-      this.servico.atualizaMilitar(this.precCP, this.militar, this.endereco);
+        console.log('chegou na edicao');
+        this.servico.atualizaMilitar(this.precCP, this.militar, this.endereco);
+        this.router.navigate(['/listaMilitares']);
     }
-    this.router.navigate(['/listaMilitares']);
 }
 
   salvarPostoGraduacao(codigo: number) {
@@ -61,7 +77,15 @@ export class FormMilitaresComponent implements OnInit {
         console.log(codigo);
     }
   }
-// cancelando cadastro
+
+  validaPrecCP() {
+      if (Number.isInteger(this.militar.precCP)) {
+        return true;
+      } else {
+        return false;
+      }
+  }
+
   cancelar() {
     this.router.navigate(['/index']);
   }
