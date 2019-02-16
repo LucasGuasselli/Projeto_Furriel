@@ -23,7 +23,7 @@ export class FormAditamentoComponent implements OnInit {
       this.servico.adicionarAditamento(this.aditamento);
       this.aditamento = new Aditamento();
   }
-  // cancelando cadastro
+
   cancelar() {
     this.router.navigate(['/index']);
   }

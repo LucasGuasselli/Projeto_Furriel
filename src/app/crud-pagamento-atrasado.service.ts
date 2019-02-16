@@ -16,7 +16,7 @@ export class CrudPagamentoAtrasadoService {
         return this.pagamentosAtrasados;
     }
 
-  // retorna um objeto pagamentoAtrasado conforme o codigo
+  // codigo do pagamento atrasado
     getMilitarPorCod(codigo: number) {
       // tslint:disable-next-line:triple-equals
       return(this.pagamentosAtrasados.find(pagamentoAtrasado => pagamentoAtrasado.codPgmtoAtrasado == codigo));
@@ -31,14 +31,11 @@ export class CrudPagamentoAtrasadoService {
         }
     }
 
-  // adiciona um pagamento atrasado ao array
     adiocionarPagamentoAtrasado(pagamentoAtrasado: PagamentoAtrasado) {
         pagamentoAtrasado.codPgmtoAtrasado = this.autoIncrementPagamentoAtrasado++;
-
         this.pagamentosAtrasados.push(pagamentoAtrasado);
     }
 
-  // remove um pagamento atrasado do array
     removerPagamentoAtrasado(pagamentoAtrasado: PagamentoAtrasado) {
       const indice = this.pagamentosAtrasados.indexOf(pagamentoAtrasado, 0);
       if (indice > -1) {
@@ -46,7 +43,7 @@ export class CrudPagamentoAtrasadoService {
       }
     }
 
-  // edita um pagamento atrasado
+    // editar
     atualizaPagamentoAtrasado(codigo: number, pagamentoAtrasado: PagamentoAtrasado) {
       const indicePgmtoAtrasado = this.pagamentosAtrasados.indexOf(this.getPagamentoAtrasadoPorCod(codigo), 0);
       this.pagamentosAtrasados[indicePgmtoAtrasado] = pagamentoAtrasado;

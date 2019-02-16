@@ -24,7 +24,6 @@ export class FormMilitaresComponent implements OnInit {
 
   constructor(private servico: CrudMilitaresService, private router: Router, private rota: ActivatedRoute) { }
 
-// o que acontece ao iniciar a classe
   ngOnInit() {
     this.precCP = this.rota.snapshot.params['cod'];
     console.log(this.precCP);

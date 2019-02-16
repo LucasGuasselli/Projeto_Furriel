@@ -32,7 +32,6 @@ export class IndexComponent implements OnInit {
       this.servico.salvarAditamentoAtual(this.codAditamento);
   }
 
-  // cancelando cadastro
   cancelar() {
     this.router.navigate(['/index']);
   }

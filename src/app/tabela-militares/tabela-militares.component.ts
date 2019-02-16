@@ -22,7 +22,6 @@ export class TabelaMilitaresComponent implements OnInit {
       this.enderecos = this.servico.getEnderecos();
   }
 
-// remove um militar do array
   removerMilitar(militar: Militar) {
     this.servico.removerMilitar(militar);
   }

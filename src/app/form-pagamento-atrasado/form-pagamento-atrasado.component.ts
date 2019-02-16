@@ -13,6 +13,7 @@ import { CrudAditamentosService } from '../crud-aditamentos.service';
   styleUrls: ['./form-pagamento-atrasado.component.css']
 })
 export class FormPagamentoAtrasadoComponent implements OnInit {
+  
   codigo: number;
   precCP: number;
   aditamentoAtual: Aditamento;
@@ -32,7 +33,8 @@ export class FormPagamentoAtrasadoComponent implements OnInit {
         this.pagamentoAtrasado  = new PagamentoAtrasado();
         this.pagamentoAtrasado.precCP = null;
       } else {
-        }
+        // EDITAR
+      }
     }
 
     salvarPrecCP(codigo: number) {
@@ -45,7 +47,6 @@ export class FormPagamentoAtrasadoComponent implements OnInit {
       }
     }
 
-  // adicionando um militar no array
     salvarPagamentoAtrasado() {
       if (isNaN(this.precCP)) {
         this.servicoCrudPagamentoAtrasado.adiocionarPagamentoAtrasado(this.pagamentoAtrasado);
@@ -56,14 +57,11 @@ export class FormPagamentoAtrasadoComponent implements OnInit {
       this.router.navigate(['/listaPagamentoAtrasado']);
     }
 
-    // remove um pagamentoAtrasado do array
       removerPagamentoAtrasado(pagamentoAtrasado: PagamentoAtrasado) {
         this.servicoCrudPagamentoAtrasado.removerPagamentoAtrasado(pagamentoAtrasado);
       }
 
-    // cancelando cadastro
       cancelar() {
         this.router.navigate(['/index']);
       }
-
 }

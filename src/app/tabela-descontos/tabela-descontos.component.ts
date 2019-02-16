@@ -19,5 +19,4 @@ export class TabelaDescontosComponent implements OnInit {
           console.log(this.descontos[i]);
       }
   }
-
 }

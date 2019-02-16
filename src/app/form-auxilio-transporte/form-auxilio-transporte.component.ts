@@ -14,27 +14,26 @@ import { PostoGraduacao } from '../posto-graduacao';
 })
 export class FormAuxilioTransporteComponent implements OnInit {
 
-  titulo = 'Cadastro de AuxilioTransporte';
-  // objetos
+    titulo = 'Cadastro de AuxilioTransporte';
+
     conducao: Conducao = new Conducao();
     AT: AuxilioTransporte = new AuxilioTransporte();
     auxilioTransporte: AuxilioTransporte[] = [];
     postoGraduacao: PostoGraduacao[] = [];
-    militar: Militar[] = [];
 
-  // codigos
+    militar: Militar[] = [];
     precCP: number;
     codAT: number;
     codConducao: number;
-
-  verifica = false;
+    verifica = false;
 
   constructor(private servicoCrudMilitares: CrudMilitaresService, private servicoCrudAT: CrudAuxilioTransporteService,
               private router: Router, private rota: ActivatedRoute) { }
 
-  // ao iniciar a classe e instanciado um objeto militar
-  ngOnInit() {
+   ngOnInit() {
+    // codConducao recebe o codigo da conducao que o usuario quer editar
         this.codConducao = this.rota.snapshot.params['cod'];
+
         this.auxilioTransporte = this.servicoCrudAT.getAT();
         this.militar = this.servicoCrudMilitares.getMilitares();
         this.postoGraduacao = this.servicoCrudMilitares.getPostoGraduacao();
@@ -42,7 +41,6 @@ export class FormAuxilioTransporteComponent implements OnInit {
   if (isNaN(this.codConducao)) {
       // CADASTRAR
       this.conducao  = new Conducao();
-
   } else {
       // EDITAR
       this.conducao = Object.assign({}, this.servicoCrudAT.getConducaoPorCodigo(this.codConducao));
@@ -59,6 +57,7 @@ verificaAT() {
               // tslint:disable-next-line:triple-equals
               if ( this.auxilioTransporte[i].precCP == this.precCP) {
                     this.salvarConducao(this.auxilioTransporte[i].precCP, this.auxilioTransporte[i].codAT);
+                // verifica passa a ser verdadeiro para cadastrar somente uma conducao
                     this.verifica = true;
                     // console.log("ja tem aux transporte");
               }
@@ -66,18 +65,14 @@ verificaAT() {
     }// fecha if-else
     // caso nao tenha Aux Transporte
     if (this.verifica === false) {
-            // criacao de auxilio
                 this.salvarAT(this.precCP);
-            // atualizacao dos aux cadastrados
                 this.auxilioTransporte = this.servicoCrudAT.getAT();
             // verificacao passa a ser verdadeira para nao virar um looping
                 this.verifica = true;
             // o metodo e chamado de forma recursiva
                 this.verificaAT();
-        // console.log(this.auxilioTransporte.length);
     }
     this.verifica = false;
-    // atualiza o pessoal que tem auxilio transporte
     this.auxilioTransporte = this.servicoCrudAT.getAT();
     this.informarCadastro();
 }// fecha metodo

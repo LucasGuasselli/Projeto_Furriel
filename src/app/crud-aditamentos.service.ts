@@ -12,6 +12,7 @@ export class CrudAditamentosService {
         { codAditamento: 1, nome: '20-JAN_19FEV_19', data: null }
     ];
 
+    // variavel usada para o incremento do codigo a cada cadastro
     autoIncrement = 2;
     constructor() { }
 
@@ -32,7 +33,6 @@ export class CrudAditamentosService {
                 }
             }
         }
-
         return this.aditamentosSemData;
     }
 
@@ -57,8 +57,6 @@ export class CrudAditamentosService {
             if (this.aditamentos[i].codAditamento == codigo) {
                 this.aditamentoAtual = this.aditamentos[i];
             }
-        // testando se o aditamento selecionado na pagina inicial foi definido como atual
-        console.log(this.aditamentoAtual);
         }
     }
 }

@@ -19,7 +19,6 @@ conducoes: Conducao[] = [];
     this.conducoes = this.servico.getConducoes();
   }
 
-  // remove uma conducao do array
   removerConducao(conducao: Conducao) {
     this.servico.removerConducao(conducao);
   }

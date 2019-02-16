@@ -16,7 +16,6 @@ export class TabelaPagamentosAtrasadosComponent implements OnInit {
       this.pagamentosAtrasados = this.servicoCrudPagamentoAtrasado.getPagamentosAtrasados();
   }
 
-  // remove um pagamento atrasado do array
   removerPagamentoAtrasado(pagamentoAtrasado: PagamentoAtrasado) {
     this.servicoCrudPagamentoAtrasado.removerPagamentoAtrasado(pagamentoAtrasado);
   }

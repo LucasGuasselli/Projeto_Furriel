@@ -1,25 +1,25 @@
 <h3>{{titulo}}</h3>
 <table>
-<div id="tudo">
-<tr>
-   <th>Posto</th> <th>Nome</th> <th>Prec-CP</th> <th>Editar</th> <th>Remover</th>
-</tr>
+  <div id="tudo">
+   <tr>
+     <th>Posto</th> <th>Nome</th> <th>Prec-CP</th> <th>Editar</th> <th>Remover</th>
+   </tr>
 
-<tr *ngFor='let militar of militares'>
+   <tr *ngFor='let militar of militares'>
       <td>{{militar.codPostoGraduacao}}</td>
       <td>{{militar.nome}}</td>  
       <td>{{militar.precCP}}</td>
       <td>
-            <a [routerLink]="['/edicaoMilitar', militar.precCP]">
-                  <img class="icons" src="../assets/icon-edit.png" alt="Editar"/>
-            </a>
+        <a [routerLink]="['/edicaoMilitar', militar.precCP]">
+          <img class="icons" src="../assets/icon-edit.png" alt="Editar"/>
+        </a>
       </td> 
       <td>
-            <a routerLink="/listaMilitares" (click)="removerMilitar(militar)">
-                  <img class="icons" src="../assets/icon-delete.png" alt="Remover"/>
-            </a>
+        <a routerLink="/listaMilitares" (click)="removerMilitar(militar)">
+          <img class="icons" src="../assets/icon-delete.png" alt="Remover"/>
+        </a>
       </td>
-</tr>
+    </tr>
 </div>
 
 <div id="tudo1">
