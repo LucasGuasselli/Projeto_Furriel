@@ -48,7 +48,7 @@ export class FormDescontosComponent implements OnInit {
       this.servicoCrudAT.adicionarDesconto(this.desconto);
       this.desconto = new Desconto();
     }
-}
+  }
 
   salvarPrecCPMilitar(precCP: number) {
     if (isNaN(precCP)) {
@@ -58,7 +58,7 @@ export class FormDescontosComponent implements OnInit {
         console.log(this.precCP);
     }
   }
-  // cancelando cadastro
+
   cancelar() {
     this.router.navigate(['/index']);
   }

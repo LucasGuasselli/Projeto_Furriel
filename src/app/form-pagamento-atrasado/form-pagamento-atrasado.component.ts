@@ -13,7 +13,7 @@ import { CrudAditamentosService } from '../crud-aditamentos.service';
   styleUrls: ['./form-pagamento-atrasado.component.css']
 })
 export class FormPagamentoAtrasadoComponent implements OnInit {
-  
+
   codigo: number;
   precCP: number;
   aditamentoAtual: Aditamento;

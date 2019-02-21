@@ -5,6 +5,7 @@ import { Conducao } from './conducao';
 import { CrudMilitaresService } from './crud-militares.service';
 import { PostoGraduacao } from './posto-graduacao';
 import { Desconto } from './desconto';
+import { ExclusaoAuxilioTransporte } from './exclusao-auxilio-transporte';
 
 @Injectable()
 export class CrudAuxilioTransporteService {
@@ -23,9 +24,15 @@ conducoes: Conducao[] = [
 descontos: Desconto[] = [
 ];
 
+
+exclusaoAuxiliosTransporte: ExclusaoAuxilioTransporte[] = [
+  {codExclusaoAuxilioTransporte: 1, precCP: 12345, codAditamento: 1, data: null, motivo: 'aa', valor: 10 }
+];
+
 autoIncrementAT = 2;
 autoIncrementConducao = 2;
 autoIncrementDesconto = 1;
+autoIncrementExclusaoAuxilioTransporte = 2;
 
   constructor(private servico: CrudMilitaresService) { }
     getAT() {
@@ -37,13 +44,20 @@ autoIncrementDesconto = 1;
     getDescontos() {
         return this.descontos;
     }
+    getExclusaoAuxilioTransporte() {
+        return this.exclusaoAuxiliosTransporte;
+    }
 
-    // retorna um objeto conducao
     getConducaoPorCodigo(codigo: number) {
         console.log(conducao => conducao.codConducao);
         console.log(codigo);
         // tslint:disable-next-line:triple-equals
         return(this.conducoes.find(conducao => conducao.codConducao == codigo));
+    }
+
+    getAuxilioTransportePorPrecCP(precCP: number) {
+      // tslint:disable-next-line:triple-equals
+      return(this.auxilioTransportes.find(auxilioTransporte => auxilioTransporte.precCP == precCP));
     }
 
     adiocionarAT(AT: AuxilioTransporte) {
@@ -66,9 +80,14 @@ autoIncrementDesconto = 1;
         conducao.codConducao = this.autoIncrementConducao++;
         this.conducoes.push(conducao);
 
+        // atualizar valor total do AT cada vez que cadastrar uma conducao
         this.atualizaValorPassagem(conducao.precCP, conducao.valor);
 
-        // atualizar valor total do AT cada vez que cadastrar uma conducao
+  }
+
+  adiocionarExclusaoAuxilioTransporte(exclusaoAuxilioTransporte: ExclusaoAuxilioTransporte) {
+    exclusaoAuxilioTransporte.codExclusaoAuxilioTransporte = this.autoIncrementExclusaoAuxilioTransporte++;
+    this.exclusaoAuxiliosTransporte.push(exclusaoAuxilioTransporte);
   }
 
   atualizaValorPassagem(codigo: number, valor: number) {
@@ -97,8 +116,28 @@ autoIncrementDesconto = 1;
         if ( codigo == this.auxilioTransportes[i].precCP) {
             return this.auxilioTransportes[i].valorDiarioAT;
         }
-}
+    }
   }
+
+  // remove o auxilio transporte bem como suas conducoes
+  excluirAuxilioTransporte(precCP: number) {
+      // removendo as conducoes
+      for (let k = 0; k < this.conducoes.length; k++) {
+          // tslint:disable-next-line:triple-equals
+          if (this.conducoes[k].precCP == precCP) {
+              this.removerConducao(this.conducoes[k]);
+          }
+      }
+
+      // removendo o auxilio transporte
+      for (let k = 0; k < this.auxilioTransportes.length; k++) {
+        // tslint:disable-next-line:triple-equals
+        if (this.auxilioTransportes[k].precCP == precCP) {
+            this.removerAuxilioTransporte(this.auxilioTransportes[k]);
+        }
+    }
+  }
+
   adicionarDesconto(desconto: Desconto) {
     console.log(desconto);
 
@@ -108,13 +147,26 @@ autoIncrementDesconto = 1;
       console.log(this.descontos[0]);
   }
 
-// remove uma conducao do array
-removerConducao(conducao: Conducao) {
+  removerConducao(conducao: Conducao) {
     this.subtraiValorPassagem(conducao.precCP, conducao.valor);
 
     const indice = this.conducoes.indexOf(conducao, 0);
     if (indice > -1) {
       this.conducoes.splice(indice, 1);
+    }
+  }
+
+  removerAuxilioTransporte(auxilioTransporte: AuxilioTransporte) {
+    const indice = this.auxilioTransportes.indexOf(auxilioTransporte, 0);
+    if (indice > -1) {
+      this.auxilioTransportes.splice(indice, 1);
+    }
+  }
+
+  removerExclusaoAuxilioTransporte(exclusaoAuxilioTransporte: ExclusaoAuxilioTransporte) {
+    const indice = this.exclusaoAuxiliosTransporte.indexOf(exclusaoAuxilioTransporte, 0);
+    if (indice > -1) {
+      this.exclusaoAuxiliosTransporte.splice(indice, 1);
     }
   }
 

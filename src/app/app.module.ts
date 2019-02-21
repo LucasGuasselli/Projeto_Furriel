@@ -21,25 +21,33 @@ import { TabelaAditamentosComponent } from './tabela-aditamentos/tabela-aditamen
 import { CrudAditamentosService } from './crud-aditamentos.service';
 import { TabelaPagamentosAtrasadosComponent } from './tabela-pagamentos-atrasados/tabela-pagamentos-atrasados.component';
 import { CrudPagamentoAtrasadoService } from './crud-pagamento-atrasado.service';
+import { FormExclusaoAuxilioTransporteComponent } from './form-exclusao-auxilio-transporte/form-exclusao-auxilio-transporte.component';
+// tslint:disable-next-line:max-line-length
+import { TabelaExclusaoAuxiliosTransporteComponent } from './tabela-exclusao-auxilios-transporte/tabela-exclusao-auxilios-transporte.component';
 
 
 const routes: Routes = [
     { path: '', redirectTo: 'index', pathMatch: 'full'},
     { path: 'index', component: IndexComponent },
-    { path: 'listaMilitares', component: TabelaMilitaresComponent },
-    { path: 'edicaoMilitar/:cod', component: FormMilitaresComponent },
+
     { path: 'cadastroDeMilitar', component: FormMilitaresComponent },
     { path: 'cadastroDeAT', component: FormAuxilioTransporteComponent },
-    { path: 'listaATConducao', component: TabelaAuxilioTransporteComponent },
     { path: 'cadastroDeDesconto', component: FormDescontosComponent },
-    { path: 'listaDesconto', component: TabelaDescontosComponent },
-    { path: 'relatorio', component: RelatorioComponent },
     { path: 'cadastroPagamentoAtrasado', component: FormPagamentoAtrasadoComponent },
     { path: 'cadastroAditamento', component: FormAditamentoComponent },
+    { path: 'cadastroExclusaoAuxilioTransporte', component: FormExclusaoAuxilioTransporteComponent },
+
+    { path: 'listaMilitares', component: TabelaMilitaresComponent },
+    { path: 'listaATConducao', component: TabelaAuxilioTransporteComponent },
+    { path: 'listaDesconto', component: TabelaDescontosComponent },
     { path: 'listaAditamento', component: TabelaAditamentosComponent },
     { path: 'listaPagamentoAtrasado', component: TabelaPagamentosAtrasadosComponent },
+    { path: 'listaExclusaoAuxiliosTransporte', component: TabelaExclusaoAuxiliosTransporteComponent },
+
+    { path: 'edicaoMilitar/:cod', component: FormMilitaresComponent },
     { path: 'edicaoPagamentoAtrasado/:cod', component: FormPagamentoAtrasadoComponent },
 
+    { path: 'relatorio', component: RelatorioComponent }
 ];
 
 @NgModule({
@@ -56,7 +64,9 @@ const routes: Routes = [
     FormPagamentoAtrasadoComponent,
     FormAditamentoComponent,
     TabelaAditamentosComponent,
-    TabelaPagamentosAtrasadosComponent
+    TabelaPagamentosAtrasadosComponent,
+    FormExclusaoAuxilioTransporteComponent,
+    TabelaExclusaoAuxiliosTransporteComponent,
   ],
   imports: [
     BrowserModule,
