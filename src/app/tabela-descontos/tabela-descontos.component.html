@@ -2,13 +2,15 @@
 <table>
   <div id="tudo">
     <tr>
-      <th>Codigo Desconto</th> <th>Codigo Militar</th> <th>Data de Inicio</th> <th>Data de Fim</th> 
+      <th>Codigo Desconto</th> <th>Graduacao</th> <th>Nome</th> <th>Prec-CP</th> <th>Data de Inicio</th> <th>Data de Fim</th> 
       <th>Valor</th> <th>Motivo</th> 
     </tr>
 
     <tr *ngFor='let d of descontos'>
       <td>{{d.codDesconto}}</td>
-      <td>{{d.codMilitar}}</td>
+      <td>{{d.graduacao}}</td>
+      <td>{{d.nome}}</td>
+      <td>{{d.precCP}}</td>
       <td>{{d.dataInicio}}</td>
       <td>{{d.dataFim}}</td>
       <td>{{d.valorDesconto}}</td>

@@ -5,6 +5,8 @@ import { CrudMilitaresService } from '../crud-militares.service';
 import { CrudAuxilioTransporteService } from '../crud-auxilio-transporte.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Desconto } from '../desconto';
+import { CrudAditamentosService } from '../crud-aditamentos.service';
+import { Aditamento } from '../aditamento';
 
 @Component({
   selector: 'app-form-descontos',
@@ -13,22 +15,24 @@ import { Desconto } from '../desconto';
 })
 export class FormDescontosComponent implements OnInit {
 
-  // objetos
     desconto = new Desconto();
     AT: AuxilioTransporte = new AuxilioTransporte();
     auxilioTransporte: AuxilioTransporte[] = [];
-    militar: Militar[] = [];
+    militares: Militar[] = [];
+    militar: Militar;
+    graduacao: String;
+    aditamentoAtual: Aditamento;
 
-  // codigos
     precCP: number;
     codAT: number;
 
   constructor(private servicoCrudMilitares: CrudMilitaresService, private servicoCrudAT: CrudAuxilioTransporteService,
-              private router: Router, private rota: ActivatedRoute) { }
+              private servicoCrudAditamento: CrudAditamentosService, private router: Router, private rota: ActivatedRoute) { }
 
   ngOnInit() {
       this.auxilioTransporte = this.servicoCrudAT.getAT();
-      this.militar = this.servicoCrudMilitares.getMilitares();
+      this.militares = this.servicoCrudMilitares.getMilitares();
+      this.aditamentoAtual = this.servicoCrudAditamento.getAditamentoAtual();
 
       if (isNaN(this.precCP)) {
         // CADASTRAR
@@ -45,6 +49,11 @@ export class FormDescontosComponent implements OnInit {
       // tratar o erro
     } else {
       this.desconto.precCP = this.precCP;
+      this.desconto.codAditamento = this.aditamentoAtual.codAditamento;
+      this.desconto.nome = this.militar.nome;
+      this.desconto.graduacao = this.graduacao;
+
+      // salvando
       this.servicoCrudAT.adicionarDesconto(this.desconto);
       this.desconto = new Desconto();
     }
@@ -55,7 +64,9 @@ export class FormDescontosComponent implements OnInit {
         // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
     } else {
         this.precCP = precCP;
-        console.log(this.precCP);
+        this.militar = this.servicoCrudMilitares.getMilitarPorPrecCP(this.precCP);
+        this.graduacao = this.servicoCrudMilitares.getPostoGraduacaoPorCodigo(this.militar.codPostoGraduacao).nome;
+        // console.log(this.precCP);
     }
   }
 

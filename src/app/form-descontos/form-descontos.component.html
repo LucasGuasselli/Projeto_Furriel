@@ -5,7 +5,7 @@
     <label for="precCP">Nome do Militar</label>
     <select id="precCP" name="precCP">
         <option></option>
-        <option *ngFor="let m of militar" (click)="salvarPrecCPMilitar(m.precCP)" >{{m.nome}}</option>
+        <option *ngFor="let m of militares" (click)="salvarPrecCPMilitar(m.precCP)" >{{m.nome}}</option>
     </select >      
 
     <br>
