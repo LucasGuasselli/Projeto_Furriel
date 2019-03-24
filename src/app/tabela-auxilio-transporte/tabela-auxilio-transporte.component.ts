@@ -9,13 +9,20 @@ import { CrudAuxilioTransporteService } from '../crud-auxilio-transporte.service
   styleUrls: ['./tabela-auxilio-transporte.component.css']
 })
 export class TabelaAuxilioTransporteComponent implements OnInit {
+  tituloAuxiliosNaoPublicados = 'AIXILIOS TRANSPORTE NAO PUBLICADOS';
+  tituloAuxiliosTransportesPublicados = 'AUXILIOS TRANSPORTE PUBLICADOS';
 
-auxilioTransportes: AuxilioTransporte[] = [];
-conducoes: Conducao[] = [];
+  auxiliosTransporteSemPublicacao: AuxilioTransporte[] = [];
+  conducoesSemPublicacao: Conducao[] = [];
+
+  auxilioTransportes: AuxilioTransporte[] = [];
+  conducoes: Conducao[] = [];
   constructor(private servico: CrudAuxilioTransporteService) { }
 
   ngOnInit() {
     this.auxilioTransportes = this.servico.getAT();
+    this.auxiliosTransporteSemPublicacao = this.servico.getATSemPublicacao();
+    this.conducoesSemPublicacao = this.servico.getConducoesSemPublicacao();
     this.conducoes = this.servico.getConducoes();
   }
 

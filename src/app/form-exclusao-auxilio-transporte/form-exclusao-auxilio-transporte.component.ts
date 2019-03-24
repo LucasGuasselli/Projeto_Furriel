@@ -39,13 +39,13 @@ export class FormExclusaoAuxilioTransporteComponent implements OnInit {
     } else {
       this.exclusaoAuxilioTransporte.precCP = this.precCP;
       this.auxilioTransporte = this.servicoCrudAuxilioTransporte.getAuxilioTransportePorPrecCP(this.precCP);
-      this.exclusaoAuxilioTransporte.codAditamento = this.auxilioTransporte.codAT;
+      // VERIFICAR ESTA LINHA ABAIXO, POSSIVEIS ATRIBUTOS ERRADOS
+      this.exclusaoAuxilioTransporte.codAditamento = this.aditamentoAtual.codAditamento;
 
       this.servicoCrudAuxilioTransporte.adiocionarExclusaoAuxilioTransporte(this.exclusaoAuxilioTransporte);
 
       // depois de adicionar na tabela do aditamento, deve ser excluido o auxilio transporte correspondente
       this.servicoCrudAuxilioTransporte.excluirAuxilioTransporte(this.precCP);
-
       this.exclusaoAuxilioTransporte = new ExclusaoAuxilioTransporte();
     }
   }

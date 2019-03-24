@@ -5,12 +5,15 @@
     <label for="codMilitar">Nome do Militar</label>
     <select id="codMilitar" name="codMilitar">
         <option></option>
-        <option *ngFor="let m of militar" (click)="salvarCodMilitar(m.codigo)" >{{m.nome}}</option>
+        <option *ngFor="let m of militaresSemAuxilioTransporte" (click)="salvarPrecCPMilitar(m.precCP)" >{{m.nome}}</option>
     </select >      
 
-    <br>
+    <label for="data">A contar de:</label>
+    <input type="date" id="data" name="data" [(ngModel)]="inclusaoAuxilioTransporte.dataInicio">
+
+    <br><br>
     <label for="itinerario">Itinerario</label>
-    <select class="imbSelect" id="itinerario" name="itinerario" [(ngModel)]="conducao.itinerario">
+    <select class="imbSelect" id="itinerario" name="itinerario" [(ngModel)]="conducoes[0].itinerario">
         <option></option>
         <option>Bairro-Centro</option>
         <option>Centro-Bairro</option>
@@ -20,7 +23,7 @@
 
     <br>
     <label for="nomeEmpresa">Nome da Empresa do Transporte</label>
-    <select id="nomeEmpresa" name="nomeEmpresa" [(ngModel)]="conducao.nomeEmpresa">
+    <select id="nomeEmpresa" name="nomeEmpresa" [(ngModel)]="conducoes[0].nomeEmpresa">
         <option></option>
         <option>VIVA_SUL</option>
         <option>CONORTE</option>
@@ -29,7 +32,7 @@
 
     <br>
     <label for="tipoDeTransporte">Tipo de Transporte</label>
-    <select id="tipoDeTransporte" name="tipoDeTransporte" [(ngModel)]="conducao.tipoDeTransporte">
+    <select id="tipoDeTransporte" name="tipoDeTransporte" [(ngModel)]="conducoes[0].tipoDeTransporte">
         <option></option>
         <option>Onibus</option>
         <option>Tremsurb</option>
@@ -38,11 +41,170 @@
 
     <br>
     <label for="valor">Valor da Condução</label>
-    <input type="number" name="valor" [(ngModel)]="conducao.valor">
-        
+    <input type="number" name="valor" [(ngModel)]="conducoes[0].valor">
+       
+    <br>---------------------SEGUNDA CONDUCAO-------------------------------<br>
+    <label for="itinerario1">Itinerario</label>
+    <select class="imbSelect" id="itinerario1" name="itinerario1" [(ngModel)]="conducoes[1].itinerario">
+        <option></option>
+        <option>Bairro-Centro</option>
+        <option>Centro-Bairro</option>
+        <option>Centro-OM</option>
+        <option>OM-Centro</option>
+    </select >
+
+    <br>
+    <label for="nomeEmpresa1">Nome da Empresa do Transporte</label>
+    <select id="nomeEmpresa1" name="nomeEmpresa1" [(ngModel)]="conducoes[1].nomeEmpresa">
+        <option></option>
+        <option>VIVA_SUL</option>
+        <option>CONORTE</option>
+        <option>SOUL</option>
+    </select >
+
+    <br>
+    <label for="tipoDeTransporte1">Tipo de Transporte</label>
+    <select id="tipoDeTransporte1" name="tipoDeTransporte1" [(ngModel)]="conducoes[1].tipoDeTransporte">
+        <option></option>
+        <option>Onibus</option>
+        <option>Tremsurb</option>
+        <option>Onibus_intermunicipal</option>
+    </select >
+
+    <br>
+    <label for="valor1">Valor da Condução</label>
+    <input type="number" name="valor1" [(ngModel)]="conducoes[1].valor">
+
+    <br>---------------------TERCEIRA CONDUCAO-------------------------------<br>
+    <label for="itinerario2">Itinerario</label>
+    <select class="imbSelect" id="itinerario2" name="itinerario2" [(ngModel)]="conducoes[2].itinerario">
+        <option></option>
+        <option>Bairro-Centro</option>
+        <option>Centro-Bairro</option>
+        <option>Centro-OM</option>
+        <option>OM-Centro</option>
+    </select >
+
+    <br>
+    <label for="nomeEmpresa2">Nome da Empresa do Transporte</label>
+    <select id="nomeEmpresa2" name="nomeEmpresa2" [(ngModel)]="conducoes[2].nomeEmpresa">
+        <option></option>
+        <option>VIVA_SUL</option>
+        <option>CONORTE</option>
+        <option>SOUL</option>
+    </select >
+
+    <br>
+    <label for="tipoDeTransporte2">Tipo de Transporte</label>
+    <select id="tipoDeTransporte2" name="tipoDeTransporte2" [(ngModel)]="conducoes[2].tipoDeTransporte">
+        <option></option>
+        <option>Onibus</option>
+        <option>Tremsurb</option>
+        <option>Onibus_intermunicipal</option>
+    </select >
+
+    <br>
+    <label for="valor2">Valor da Condução</label>
+    <input type="number" name="valor2" [(ngModel)]="conducoes[2].valor">
+
+    <br>---------------------QUARTA CONDUCAO-------------------------------<br>
+    <label for="itinerario3">Itinerario</label>
+    <select class="imbSelect" id="itinerario3" name="itinerario3" [(ngModel)]="conducoes[3].itinerario">
+        <option></option>
+        <option>Bairro-Centro</option>
+        <option>Centro-Bairro</option>
+        <option>Centro-OM</option>
+        <option>OM-Centro</option>
+    </select >
+
+    <br>
+    <label for="nomeEmpresa3">Nome da Empresa do Transporte</label>
+    <select id="nomeEmpresa3" name="nomeEmpresa3" [(ngModel)]="conducoes[3].nomeEmpresa">
+        <option></option>
+        <option>VIVA_SUL</option>
+        <option>CONORTE</option>
+        <option>SOUL</option>
+    </select >
+
+    <br>
+    <label for="tipoDeTransporte3">Tipo de Transporte</label>
+    <select id="tipoDeTransporte3" name="tipoDeTransporte3" [(ngModel)]="conducoes[3].tipoDeTransporte">
+        <option></option>
+        <option>Onibus</option>
+        <option>Tremsurb</option>
+        <option>Onibus_intermunicipal</option>
+    </select >
+
+    <br>
+    <label for="valor3">Valor da Condução</label>
+    <input type="number" name="valor3" [(ngModel)]="conducoes[3].valor">
   
+    <br>---------------------QUINTA CONDUCAO-------------------------------<br>
+    <label for="itinerario4">Itinerario</label>
+    <select class="imbSelect" id="itinerario4" name="itinerario4" [(ngModel)]="conducoes[4].itinerario">
+        <option></option>
+        <option>Bairro-Centro</option>
+        <option>Centro-Bairro</option>
+        <option>Centro-OM</option>
+        <option>OM-Centro</option>
+    </select >
+
+    <br>
+    <label for="nomeEmpresa4">Nome da Empresa do Transporte</label>
+    <select id="nomeEmpresa4" name="nomeEmpresa4" [(ngModel)]="conducoes[4].nomeEmpresa">
+        <option></option>
+        <option>VIVA_SUL</option>
+        <option>CONORTE</option>
+        <option>SOUL</option>
+    </select >
+
+    <br>
+    <label for="tipoDeTransporte4">Tipo de Transporte</label>
+    <select id="tipoDeTransporte4" name="tipoDeTransporte4" [(ngModel)]="conducoes[4].tipoDeTransporte">
+        <option></option>
+        <option>Onibus</option>
+        <option>Tremsurb</option>
+        <option>Onibus_intermunicipal</option>
+    </select >
+
+    <br>
+    <label for="valor4">Valor da Condução</label>
+    <input type="number" name="valor4" [(ngModel)]="conducoes[4].valor">
+
+    <br>---------------------SEXTA CONDUCAO-------------------------------<br>
+    <label for="itinerario5">Itinerario</label>
+    <select class="imbSelect" id="itinerario5" name="itinerario5" [(ngModel)]="conducoes[5].itinerario">
+        <option></option>
+        <option>Bairro-Centro</option>
+        <option>Centro-Bairro</option>
+        <option>Centro-OM</option>
+        <option>OM-Centro</option>
+    </select >
+
+    <br>
+    <label for="nomeEmpresa5">Nome da Empresa do Transporte</label>
+    <select id="nomeEmpresa5" name="nomeEmpresa5" [(ngModel)]="conducoes[5].nomeEmpresa">
+        <option></option>
+        <option>VIVA_SUL</option>
+        <option>CONORTE</option>
+        <option>SOUL</option>
+    </select >
+
+    <br>
+    <label for="tipoDeTransporte5">Tipo de Transporte</label>
+    <select id="tipoDeTransporte5" name="tipoDeTransporte5" [(ngModel)]="conducoes[5].tipoDeTransporte">
+        <option></option>
+        <option>Onibus</option>
+        <option>Tremsurb</option>
+        <option>Onibus_intermunicipal</option>
+    </select >
+
+    <br>
+    <label for="valor5">Valor da Condução</label>
+    <input type="number" name="valor5" [(ngModel)]="conducoes[5].valor">
+
     <div class="buttons">            
-      <input type="button" (click)="verificaAT()" value="Salvar">
+      <input type="button" (click)="salvarAuxilioTransporte()" value="Salvar">
       <input type="button" (click)="cancelar()" value="Cancelar">    
     </div>
   </form>

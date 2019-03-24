@@ -6,6 +6,9 @@ import { Militar } from '../militar';
 import { AuxilioTransporte } from '../auxilio-transporte';
 import { Conducao } from '../conducao';
 import { PostoGraduacao } from '../posto-graduacao';
+import { Aditamento } from '../aditamento';
+import { CrudAditamentosService } from '../crud-aditamentos.service';
+import { InclusaoAuxilioTransporte } from '../inclusao-auxilio-transporte';
 
 @Component({
   selector: 'app-form-auxilio-transporte',
@@ -16,37 +19,121 @@ export class FormAuxilioTransporteComponent implements OnInit {
 
     titulo = 'Cadastro de AuxilioTransporte';
 
-    conducao: Conducao = new Conducao();
+    conducoes: Conducao[] = [
+        {codConducao: null, precCP: null, itinerario: null, codAT: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
+        {codConducao: null, precCP: null, itinerario: null, codAT: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
+        {codConducao: null, precCP: null, itinerario: null, codAT: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
+        {codConducao: null, precCP: null, itinerario: null, codAT: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
+        {codConducao: null, precCP: null, itinerario: null, codAT: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
+        {codConducao: null, precCP: null, itinerario: null, codAT: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
+        {codConducao: null, precCP: null, itinerario: null, codAT: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
+        {codConducao: null, precCP: null, itinerario: null, codAT: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null}
+    ];
+
     AT: AuxilioTransporte = new AuxilioTransporte();
     auxilioTransporte: AuxilioTransporte[] = [];
     postoGraduacao: PostoGraduacao[] = [];
+    militaresSemAuxilioTransporte: Militar[] = [];
+    aditamentoAtual: Aditamento;
+    inclusaoAuxilioTransporte: InclusaoAuxilioTransporte = new InclusaoAuxilioTransporte();
 
-    militar: Militar[] = [];
     precCP: number;
-    codAT: number;
+    // codAT: number;
     codConducao: number;
-    verifica = false;
 
-  constructor(private servicoCrudMilitares: CrudMilitaresService, private servicoCrudAT: CrudAuxilioTransporteService,
-              private router: Router, private rota: ActivatedRoute) { }
+    constructor(private servicoCrudMilitares: CrudMilitaresService, private servicoCrudAT: CrudAuxilioTransporteService,
+              private router: Router, private rota: ActivatedRoute, private servicoCrudAditamento: CrudAditamentosService) { }
 
    ngOnInit() {
+        this.aditamentoAtual = this.servicoCrudAditamento.getAditamentoAtual();
+
     // codConducao recebe o codigo da conducao que o usuario quer editar
         this.codConducao = this.rota.snapshot.params['cod'];
 
         this.auxilioTransporte = this.servicoCrudAT.getAT();
-        this.militar = this.servicoCrudMilitares.getMilitares();
+        this.militaresSemAuxilioTransporte = this.servicoCrudAT.getMilitaresSemAuxilioTransporte();
         this.postoGraduacao = this.servicoCrudMilitares.getPostoGraduacao();
 
-  if (isNaN(this.codConducao)) {
-      // CADASTRAR
-      this.conducao  = new Conducao();
-  } else {
-      // EDITAR
-      this.conducao = Object.assign({}, this.servicoCrudAT.getConducaoPorCodigo(this.codConducao));
+    if (isNaN(this.codConducao)) {
+        // CADASTRAR
+        // this.conducao  = new Conducao();
+    } else {
+        // EDITAR
+        //  this.conducao = Object.assign({}, this.servicoCrudAT.getConducaoPorCodigo(this.codConducao));
+        }
     }
-  }
 
+salvarAuxilioTransporte() {
+   if (isNaN(this.precCP)) {
+        alert('selecione um militar!');
+   } else {
+        this.salvarAT(this.precCP);
+           this.auxilioTransporte = this.servicoCrudAT.getAT();
+
+            for ( let i = 0; i < this.auxilioTransporte.length; i++) {
+            // tslint:disable-next-line:triple-equals
+                if ( this.auxilioTransporte[i].precCP == this.precCP) {
+                    for (let k = 0; k < this.conducoes.length; k++) {
+                        if (this.conducoes[k].valor != null && this.conducoes[k].tipoDeTransporte != null
+                            && this.conducoes[k].nomeEmpresa != null && this.conducoes[k].itinerario != null) {
+                            this.salvarConducao(this.conducoes[k], this.auxilioTransporte[i].precCP, this.auxilioTransporte[i].codAT);
+                        }
+                    }
+                }
+            }
+            this.militaresSemAuxilioTransporte = this.servicoCrudAT.getMilitaresSemAuxilioTransporte();
+           // console.log(this.inclusaoAuxilioTransporte.dataInicio);
+            this.salvarInclusaoAuxilioTransporte(this.inclusaoAuxilioTransporte);
+   }
+}
+// FALTA ADICIONAR O VALOR E A DATA INICIAL DA CONCESSAO DO AUXILIO (A DATA PODE SER COLOCADA NO HTML MESMO)
+salvarInclusaoAuxilioTransporte(inclusaoAuxilioTransporte: InclusaoAuxilioTransporte) {
+    inclusaoAuxilioTransporte.codAditamento = this.aditamentoAtual.codAditamento;
+
+    inclusaoAuxilioTransporte.precCP = this.precCP;
+
+    inclusaoAuxilioTransporte.valor = this.servicoCrudAT.getAuxilioTransportePorPrecCP(this.precCP).valorTotalAT;
+    this.servicoCrudAT.adiocionarInclusaoAuxilioTransporte(inclusaoAuxilioTransporte);
+    console.log(inclusaoAuxilioTransporte.valor);
+}
+
+salvarPrecCPMilitar(precCP: number) {
+    if (isNaN(precCP)) {
+        // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
+    } else {
+        this.precCP = precCP;
+    }
+}
+
+salvarAT(codigo: number) {
+    this.AT.precCP = codigo;
+    this.AT.valorDiarioAT = 0;
+    this.AT.valorTotalAT = 0;
+
+    this.servicoCrudAT.adiocionarAT(this.AT);
+    this.AT = new AuxilioTransporte();
+}
+
+// TALVEZ SEJA NECESSARIO MODIFICAR O METODO QUANDO FOR PUBLICAR UM AUXILIO TRANSPORTE
+salvarConducao(conducao: Conducao, precCP: number, codAT: number) {
+    conducao.precCP = precCP;
+    conducao.codAT = codAT;
+
+    this.servicoCrudAT.adiocionarConducao(conducao);
+}
+
+informarCadastro() {
+    alert('Cadastro efetuado com sucesso!');
+}
+
+cancelar() {
+    this.router.navigate(['/index']);
+  }
+}
+
+
+
+/*
 // caso o militar nao tenha um Aux Transporte ele sera criado
 verificaAT() {
     if (isNaN(this.precCP)) {
@@ -56,7 +143,7 @@ verificaAT() {
         for ( let i = 0; i < this.auxilioTransporte.length; i++) {
               // tslint:disable-next-line:triple-equals
               if ( this.auxilioTransporte[i].precCP == this.precCP) {
-                    this.salvarConducao(this.auxilioTransporte[i].precCP, this.auxilioTransporte[i].codAT);
+                    // this.salvarConducao(this.auxilioTransporte[i].precCP, this.auxilioTransporte[i].codAT);
                 // verifica passa a ser verdadeiro para cadastrar somente uma conducao
                     this.verifica = true;
                     // console.log("ja tem aux transporte");
@@ -77,35 +164,11 @@ verificaAT() {
     this.informarCadastro();
 }// fecha metodo
 
-salvarPrecCPMilitar(precCP: number) {
-    if (isNaN(precCP)) {
-        // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
-    } else {
-        this.precCP = precCP;
-        console.log(this.precCP);
-    }
-}
 
-salvarAT(codigo: number) {
-    this.AT.precCP = codigo;
-    this.AT.valorDiarioAT = 0;
-    this.AT.valorTotalAT = 0;
+salvarConducaoSemPublicacao(precCP: number, codAT: number) {
+   // this.conducao.precCP = precCP;
+   // this.conducao.codAT = codAT;
 
-    this.servicoCrudAT.adiocionarAT(this.AT);
+   // this.servicoCrudAT.adiocionarConducao(this.conducao);
 }
-
-salvarConducao(precCP: number, codAT: number) {
-    this.conducao.precCP = precCP;
-    this.conducao.codAT = codAT;
-
-    this.servicoCrudAT.adiocionarConducao(this.conducao);
-}
-
-informarCadastro() {
-    alert('Cadastro efetuado com sucesso!');
-}
-// cancelando cadastro
-  cancelar() {
-    this.router.navigate(['/index']);
-  }
-}
+*/

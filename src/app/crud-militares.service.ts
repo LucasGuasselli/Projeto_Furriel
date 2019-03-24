@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Militar } from './militar';
 import { Endereco } from './endereco';
 import { PostoGraduacao } from './posto-graduacao';
+import { AuxilioTransporte } from './auxilio-transporte';
+import { CrudAuxilioTransporteService } from './crud-auxilio-transporte.service';
 
 // esta classe trata dos metodos de tres classes: militar, endereco e postoGraduacao
 @Injectable()
@@ -90,11 +92,11 @@ export class CrudMilitaresService {
         }
       }
 
-  atualizaMilitar(prec_cp: number, militar: Militar, endereco: Endereco) {
-        const indiceMil = this.militares.indexOf(this.getMilitarPorPrecCP(prec_cp), 0);
-        this.militares[indiceMil] = militar;
+    atualizaMilitar(prec_cp: number, militar: Militar, endereco: Endereco) {
+          const indiceMil = this.militares.indexOf(this.getMilitarPorPrecCP(prec_cp), 0);
+          this.militares[indiceMil] = militar;
 
-        const indiceEnd = this.enderecos.indexOf(this.getEnderecoPorPrecCP(prec_cp), 0);
-        this.enderecos[indiceEnd] = endereco;
-  }
+          const indiceEnd = this.enderecos.indexOf(this.getEnderecoPorPrecCP(prec_cp), 0);
+          this.enderecos[indiceEnd] = endereco;
+    }
 }

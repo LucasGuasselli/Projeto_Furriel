@@ -1,41 +1,82 @@
-<h3>{{titulo}}</h3>
+<h2>{{tituloAuxiliosNaoPublicados}}</h2>
 <table>
-<div id="tudo">
-<tr>
-  <th>Codigo AT</th> <th>Codigo Militar</th> <th>Valor Total</th> <th>Valor Diário</th> 
-</tr>
-
-<tr *ngFor='let at of auxilioTransportes'>
-    <td>{{at.codAT}}</td>
-    <td>{{at.codMilitar}}</td>
-    <td>R$ {{at.valorTotalAT}}</td>  
-    <td>R$ {{at.valorDiarioAT}}</td>    
-</tr>
-</div>
-
-<div id="tudo1">
-      <tr>
-          <th>Codigo Conducao</th> <th>Codigo Militar</th> <th>Codigo AT</th> <th>Itinerario</th>
-          <th>Nome da Empresa</th> <th>Tipo de Transporte</th> <th>Valor</th>
-      </tr>
-      <tr *ngFor='let conducao of conducoes'>
-            <td>{{conducao.codConducao}}</td>
-            <td>{{conducao.codMilitar}}</td>
-            <td>{{conducao.codAT}}</td>
-            <td>{{conducao.itinerario}}</td>
-            <td>{{conducao.nomeEmpresa}}</td>
-            <td>{{conducao.tipoDeTransporte}}</td>
-            <td>{{conducao.valor}}</td>
-                  <td>
-                        <a routerLink="/listaATConducao" (click)="removerConducao(conducao)">
-                              <img class="icons" src="../assets/icon-delete.png" alt="Remover"/>
-                        </a>
-                  </td>
-      </tr>
-</div>
-   
+            <div id="tudo">
+            <tr>
+              <th>Codigo AT</th> <th>Codigo Militar</th> <th>Valor Total</th> <th>Valor Diário</th> 
+            </tr>
+            
+            <tr *ngFor='let at of auxiliosTransporteSemPublicacao'>
+                <td>{{at.codAT}}</td>
+                <td>{{at.codMilitar}}</td>
+                <td>R$ {{at.valorTotalAT}}</td>  
+                <td>R$ {{at.valorDiarioAT}}</td>    
+            </tr>
+            </div>
+            
+            <div id="tudo1">
+                  <tr>
+                      <th>Codigo Conducao</th> <th>Codigo Militar</th> <th>Codigo AT</th> <th>Itinerario</th>
+                      <th>Nome da Empresa</th> <th>Tipo de Transporte</th> <th>Valor</th>
+                  </tr>
+                  <tr *ngFor='let conducao of conducoesSemPublicacao'>
+                        <td>{{conducao.codConducao}}</td>
+                        <td>{{conducao.codMilitar}}</td>
+                        <td>{{conducao.codAT}}</td>
+                        <td>{{conducao.itinerario}}</td>
+                        <td>{{conducao.nomeEmpresa}}</td>
+                        <td>{{conducao.tipoDeTransporte}}</td>
+                        <td>{{conducao.valor}}</td>
+                              <td>
+                                    <a routerLink="/listaATConducao" (click)="removerConducao(conducao)">
+                                          <img class="icons" src="../assets/icon-delete.png" alt="Remover"/>
+                                    </a>
+                              </td>
+                  </tr>
+            </div>
+               
 </table>
-<div>
-<a routerLink="/cadastroDeAT">Nova Conducao</a>
-<a routerLink="/index">VOLTAR</a>
-</div>
+
+      <br>
+      ------------------------------------
+      <br>
+<h2>{{tituloAuxiliosTransportesPublicados}}</h2>
+<table>
+      <div id="tudo">
+      <tr>
+      <th>Codigo AT</th> <th>Codigo Militar</th> <th>Valor Total</th> <th>Valor Diário</th> 
+      </tr>
+
+      <tr *ngFor='let at of auxilioTransportes'>
+      <td>{{at.codAT}}</td>
+      <td>{{at.codMilitar}}</td>
+      <td>R$ {{at.valorTotalAT}}</td>  
+      <td>R$ {{at.valorDiarioAT}}</td>    
+      </tr>
+      </div>
+
+      <div id="tudo1">
+            <tr>
+            <th>Codigo Conducao</th> <th>Codigo Militar</th> <th>Codigo AT</th> <th>Itinerario</th>
+            <th>Nome da Empresa</th> <th>Tipo de Transporte</th> <th>Valor</th> <th>DELETAR</th>
+            </tr>
+            <tr *ngFor='let conducao of conducoes'>
+                  <td>{{conducao.codConducao}}</td>
+                  <td>{{conducao.codMilitar}}</td>
+                  <td>{{conducao.codAT}}</td>
+                  <td>{{conducao.itinerario}}</td>
+                  <td>{{conducao.nomeEmpresa}}</td>
+                  <td>{{conducao.tipoDeTransporte}}</td>
+                  <td>{{conducao.valor}}</td>
+                        <td>
+                              <a routerLink="/listaATConducao" (click)="removerConducao(conducao)">
+                                    <img class="icons" src="../assets/icon-delete.png" alt="Remover"/>
+                              </a>
+                        </td>
+            </tr>
+      </div>
+      
+</table>
+      <div>
+            <a routerLink="/cadastroDeAT">Nova Conducao</a>
+            <a routerLink="/index">VOLTAR</a>
+      </div>
