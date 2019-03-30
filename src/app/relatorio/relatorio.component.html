@@ -11,13 +11,46 @@
         </textarea>
             
         <br>
-        <div id="tudo2" *ngFor='let d of descontos'>       
+        <div id="tudo" *ngFor='let d of descontos'>       
             Codigo de desconto: {{d.codDesconto}}<br>
             Codigo do Militar: {{d.codMilitar}}<br>
             Data de Inicio: {{d.dataInicio}}<br>
             Data de Termino: {{d.dataFim}}<br>
             Valor: R$ {{d.valorDesconto}}<br>
             Motivo: {{d.motivo}}<br>
+            -------------------------------------------------
+        </div>    
+        
+        <textarea rows="4" cols="50" >
+            Inclusao de Aux Transp           
+            Seja realizada a Inclusao do benefício de Auxílio-Transporte (AT), de acordo com o 
+            Decreto nº 2.963, de 24 fev 1999, as IG 70-04 (Port. nº 334, de 25 jun 1999),
+            as IR 70-21 (Port. nº 114, de 30 jun 1999), a Port. nº 98 – DGP, de 31 out 01, 
+            a Prt. nº 269 – DGP, de 11 dez 07 e a Port. nº 849 – Cmt Ex, de 14 jul 16 (EB 10-IG-02.018).
+        </textarea>
+
+        <br>
+        <div id="tudo1" *ngFor='let inclusaoAuxTransp of inclusaoAuxiliosTransporte'>       
+            PrecCP do Militar: {{inclusaoAuxTransp.precCP}}<br>
+            A partir de: {{inclusaoAuxTransp.dataInicio}} <br>
+            Valor: R$ {{inclusaoAuxTransp.valor}}<br>
+            -------------------------------------------------
+        </div>
+
+        <textarea rows="4" cols="50" >
+            Exclusao de Aux Transp           
+            Seja realizada a Despesa a Anular (DA) do benefício de Auxílio-Transporte (AT), de acordo com o 
+            Decreto nº 2.963, de 24 fev 1999, as IG 70-04 (Port. nº 334, de 25 jun 1999),
+            as IR 70-21 (Port. nº 114, de 30 jun 1999), a Port. nº 98 – DGP, de 31 out 01, 
+            a Prt. nº 269 – DGP, de 11 dez 07 e a Port. nº 849 – Cmt Ex, de 14 jul 16 (EB 10-IG-02.018).
+        </textarea>
+
+        <br>
+        <div id="tudo2" *ngFor='let exclusaoAuxTransp of exclusaoAuxiliosTransporte'>       
+            PrecCP do Militar: {{exclusaoAuxTransp.precCP}}<br>
+            Data: {{exclusaoAuxTransp.data}} <br>
+            Valor: R$ {{exclusaoAuxTransp.valor}}<br>
+            Motivo: {{exclusaoAuxTransp.motivo}}<br>
             -------------------------------------------------
         </div>
 
@@ -37,23 +70,6 @@
             Quantidade de dias: {{pgmto.quantidadeDeDias}}<br>
             Valor: R$ {{pgmto.valor}}<br>
             Motivo: {{pgmto.motivo}}<br>
-            -------------------------------------------------
-        </div>
-
-        <textarea rows="4" cols="50" >
-            Exclusao de Aux Transp           
-            Seja realizada a Despesa a Anular (DA) do benefício de Auxílio-Transporte (AT), de acordo com o 
-            Decreto nº 2.963, de 24 fev 1999, as IG 70-04 (Port. nº 334, de 25 jun 1999),
-            as IR 70-21 (Port. nº 114, de 30 jun 1999), a Port. nº 98 – DGP, de 31 out 01, 
-            a Prt. nº 269 – DGP, de 11 dez 07 e a Port. nº 849 – Cmt Ex, de 14 jul 16 (EB 10-IG-02.018).
-        </textarea>
-
-        <br>
-        <div id="tudo4" *ngFor='let exclusaoAuxTransp of exclusaoAuxiliosTransporte'>       
-            PrecCP do Militar: {{exclusaoAuxTransp.precCP}}<br>
-            Data: {{exclusaoAuxTransp.data}} <br>
-            Valor: R$ {{exclusaoAuxTransp.valor}}<br>
-            Motivo: {{exclusaoAuxTransp.motivo}}<br>
             -------------------------------------------------
         </div>
 

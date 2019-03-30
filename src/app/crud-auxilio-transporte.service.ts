@@ -55,7 +55,10 @@ inclusaoAuxiliosTransporte: InclusaoAuxilioTransporte[] = [];
     getDescontos() {
         return this.descontos;
     }
-    getExclusaoAuxilioTransporte() {
+    getInclusaoAuxiliosTransporte() {
+        return this.inclusaoAuxiliosTransporte;
+    }
+    getExclusaoAuxiliosTransporte() {
         return this.exclusaoAuxiliosTransporte;
     }
 
@@ -120,8 +123,8 @@ inclusaoAuxiliosTransporte: InclusaoAuxilioTransporte[] = [];
   adiocionarInclusaoAuxilioTransporte(inclusaoAuxilioTransporte: InclusaoAuxilioTransporte) {
     inclusaoAuxilioTransporte.codInclusaoAuxilioTransporte = this.autoIncrementInclusaoAuxilioTransporte++;
     this.inclusaoAuxiliosTransporte.push(inclusaoAuxilioTransporte);
-    console.log(inclusaoAuxilioTransporte);
-    console.log(this.inclusaoAuxiliosTransporte);
+    // console.log(inclusaoAuxilioTransporte);
+    // console.log(this.inclusaoAuxiliosTransporte);
   }
   // TALVEZ SEJA NECESSARIO MODIFICAR O METODO QUANDO FOR PUBLICAR UM AUXILIO TRANSPORTE
   atualizaValorPassagem(codigo: number, valor: number) {

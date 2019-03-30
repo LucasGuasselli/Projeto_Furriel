@@ -8,6 +8,7 @@ import { CrudAuxilioTransporteService } from '../crud-auxilio-transporte.service
 import { PagamentoAtrasado } from '../pagamento-atrasado';
 import { CrudPagamentoAtrasadoService } from '../crud-pagamento-atrasado.service';
 import { ExclusaoAuxilioTransporte } from '../exclusao-auxilio-transporte';
+import { InclusaoAuxilioTransporte } from '../inclusao-auxilio-transporte';
 
 @Component({
   selector: 'app-relatorio',
@@ -19,8 +20,10 @@ export class RelatorioComponent implements OnInit {
   militares: Militar[] = [];
   enderecos: Endereco[] = [];
   descontos: Desconto[] = [];
+  inclusaoAuxiliosTransporte: InclusaoAuxilioTransporte[] = [];
   exclusaoAuxiliosTransporte: ExclusaoAuxilioTransporte[] = [];
   pagamentosAtrasados: PagamentoAtrasado[] = [];
+
 
 
   constructor(private servicoCrudMilitar: CrudMilitaresService, private servicoCrudAT: CrudAuxilioTransporteService,
@@ -30,8 +33,9 @@ export class RelatorioComponent implements OnInit {
         this.militares = this.servicoCrudMilitar.getMilitares();
         this.enderecos = this.servicoCrudMilitar.getEnderecos();
         this.descontos = this.servicoCrudAT.getDescontos();
+        this.inclusaoAuxiliosTransporte = this.servicoCrudAT.getInclusaoAuxiliosTransporte();
+        this.exclusaoAuxiliosTransporte = this.servicoCrudAT.getExclusaoAuxiliosTransporte();
         this.pagamentosAtrasados = this.servicoCrudPagamentoAtrasado.getPagamentosAtrasados();
-        this.exclusaoAuxiliosTransporte = this.servicoCrudAT.getExclusaoAuxilioTransporte();
   }
 
   // tslint:disable-next-line:member-ordering

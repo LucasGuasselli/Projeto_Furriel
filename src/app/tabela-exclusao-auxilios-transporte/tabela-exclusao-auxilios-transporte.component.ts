@@ -13,7 +13,7 @@ export class TabelaExclusaoAuxiliosTransporteComponent implements OnInit {
   constructor(private servicoExclusaoAuxilioTransporte: CrudAuxilioTransporteService) { }
 
   ngOnInit() {
-      this.exclusaoAuxiliosTransporte = this.servicoExclusaoAuxilioTransporte.getExclusaoAuxilioTransporte();
+      this.exclusaoAuxiliosTransporte = this.servicoExclusaoAuxilioTransporte.getExclusaoAuxiliosTransporte();
   }
 
   removerExclusaoAuxilioTransporte(exclusaoAuxilioTransporte: ExclusaoAuxilioTransporte) {
