@@ -29,6 +29,8 @@ tr:nth-child(even){
 	left: 200px;
 	width: 200px;
 	height: 200px;
-	background-color: red;
+    /*
+    background-color: red;
+    */
 	float: left;
 }
