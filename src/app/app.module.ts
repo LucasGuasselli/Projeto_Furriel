@@ -24,6 +24,8 @@ import { CrudPagamentoAtrasadoService } from './crud-pagamento-atrasado.service'
 import { FormExclusaoAuxilioTransporteComponent } from './form-exclusao-auxilio-transporte/form-exclusao-auxilio-transporte.component';
 // tslint:disable-next-line:max-line-length
 import { TabelaExclusaoAuxiliosTransporteComponent } from './tabela-exclusao-auxilios-transporte/tabela-exclusao-auxilios-transporte.component';
+// tslint:disable-next-line:max-line-length
+import { FormAtualizacaoAuxilioTransporteComponent } from './form-atualizacao-auxilio-transporte/form-atualizacao-auxilio-transporte.component';
 
 
 const routes: Routes = [
@@ -36,6 +38,7 @@ const routes: Routes = [
     { path: 'cadastroPagamentoAtrasado', component: FormPagamentoAtrasadoComponent },
     { path: 'cadastroAditamento', component: FormAditamentoComponent },
     { path: 'cadastroExclusaoAuxilioTransporte', component: FormExclusaoAuxilioTransporteComponent },
+    { path: 'cadastroAtualizacaoAuxilioTransporte', component: FormAtualizacaoAuxilioTransporteComponent},
 
     { path: 'listaMilitares', component: TabelaMilitaresComponent },
     { path: 'listaATConducao', component: TabelaAuxilioTransporteComponent },
@@ -67,6 +70,7 @@ const routes: Routes = [
     TabelaPagamentosAtrasadosComponent,
     FormExclusaoAuxilioTransporteComponent,
     TabelaExclusaoAuxiliosTransporteComponent,
+    FormAtualizacaoAuxilioTransporteComponent,
   ],
   imports: [
     BrowserModule,
