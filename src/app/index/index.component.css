@@ -118,10 +118,17 @@ label[for="bt_menu"]{
 
 input[type=button]{
     width: 10%;
-    background-color: #848484;
     color: white;
     padding: 10px 0px;
     border:none;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.botaoSalvar{
+    background-color: #90EE90;
+}
+
+.botaoCancelar{
+    background-color: #FA8072
 }

@@ -28,9 +28,9 @@
       <label for="Complemento">Complemento</label>
       <input type="text" id="complemento" name="complemento" placeholder="Complemento..." [(ngModel)]="endereco.complemento">
 
-    <div class="buttons">
-      <input type="button" (click)="salvarMilitar()" value="Salvar">
-      <input type="button" (click)="cancelar()" value="Cancelar">
+    <div>
+      <input type="button" class="botaoSalvar" (click)="salvarMilitar()" value="Salvar">
+      <input type="button" class="botaoCancelar" (click)="cancelar()" value="Cancelar">
     </div>
   </form>
 </div>
