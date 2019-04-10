@@ -17,7 +17,7 @@ import { AuxilioTransporte } from '../auxilio-transporte';
 export class FormExclusaoAuxilioTransporteComponent implements OnInit {
 
   exclusaoAuxilioTransporte: ExclusaoAuxilioTransporte;
-  aditamentoAtual: Aditamento = null;
+  aditamentoAtual: Aditamento;
   precCP: number;
   valorAuxilioTransporte: number;
   auxilioTransporte: AuxilioTransporte;
@@ -35,27 +35,18 @@ export class FormExclusaoAuxilioTransporteComponent implements OnInit {
 
   salvarExclusaoAuxilioTransporte() {
     if (isNaN(this.precCP)) {
-        alert('Voce precisa selecionar um militar.');
+      // tratar o erro
     } else {
-      if (this.aditamentoAtual == null) {
-        alert('Voce precisa selecionar um aditamento!');
-      } else {
-        this.exclusaoAuxilioTransporte.precCP = this.precCP;
-        this.auxilioTransporte = this.servicoCrudAuxilioTransporte.getAuxilioTransportePorPrecCP(this.precCP);
-        this.exclusaoAuxilioTransporte.valor = this.auxilioTransporte.valorTotalAT;
+      this.exclusaoAuxilioTransporte.precCP = this.precCP;
+      this.auxilioTransporte = this.servicoCrudAuxilioTransporte.getAuxilioTransportePorPrecCP(this.precCP);
+      // VERIFICAR ESTA LINHA ABAIXO, POSSIVEIS ATRIBUTOS ERRADOS
+      this.exclusaoAuxilioTransporte.codAditamento = this.aditamentoAtual.codAditamento;
 
-        this.exclusaoAuxilioTransporte.codAditamento = this.aditamentoAtual.codAditamento;
+      this.servicoCrudAuxilioTransporte.adiocionarExclusaoAuxilioTransporte(this.exclusaoAuxilioTransporte);
 
-        this.servicoCrudAuxilioTransporte.adiocionarExclusaoAuxilioTransporte(this.exclusaoAuxilioTransporte);
-
-        // tslint:disable-next-line:prefer-const
-        let nome = this.servicoCrudMilitares.getNomeMilitarPorPrecCP(this.precCP);
-        alert('O auxílio transporte do ' + nome + ' foi excluído com sucesso');
-
-        // depois de adicionar na tabela do aditamento, deve ser excluido o auxilio transporte correspondente
-        this.servicoCrudAuxilioTransporte.excluirAuxilioTransporte(this.precCP);
-        this.exclusaoAuxilioTransporte = new ExclusaoAuxilioTransporte();
-      }
+      // depois de adicionar na tabela do aditamento, deve ser excluido o auxilio transporte correspondente
+      this.servicoCrudAuxilioTransporte.excluirAuxilioTransporte(this.precCP);
+      this.exclusaoAuxilioTransporte = new ExclusaoAuxilioTransporte();
     }
   }
 

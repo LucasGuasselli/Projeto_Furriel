@@ -11,9 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class IndexComponent implements OnInit {
 
   aditamentos: Aditamento[] = [];
-  codAditamento: number = null;
-  nome: string;
-
+  codAditamento: number;
 
   constructor(private servico: CrudAditamentosService, private router: Router, private rota: ActivatedRoute ) { }
 
@@ -23,27 +21,15 @@ export class IndexComponent implements OnInit {
 
   salvarCodAditamento(codigo: number) {
     if (isNaN(codigo)) {
-        alert('selecione um dos aditamentos disponiveis.');
+        // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
     } else {
         this.codAditamento = codigo;
-        for (let i = 0; i < this.aditamentos.length; i++) {
-              // tslint:disable-next-line:triple-equals
-              if (this.aditamentos[i].codAditamento == this.codAditamento) {
-                this.nome = this.aditamentos[i].nome;
-              }
-        }
-        console.log(codigo);
+        console.log(this.codAditamento);
     }
   }
 
   salvarAditamentoAtual() {
-    if (this.codAditamento == null) {
-      alert('Voce precisa selecionar um aditamento!');
-    } else {
       this.servico.salvarAditamentoAtual(this.codAditamento);
-      this.codAditamento = null;
-      alert('Aditamento selecionado com sucesso');
-    }
   }
 
   cancelar() {
