@@ -34,7 +34,7 @@ conducoes: Conducao[] = [
 descontos: Desconto[] = [];
 
 exclusaoAuxiliosTransporte: ExclusaoAuxilioTransporte[] = [
-  {codExclusaoAuxilioTransporte: 1, precCP: 12345, codAditamento: 1, data: null, motivo: 'aa', valor: 10 }
+ // {codExclusaoAuxilioTransporte: 1, precCP: 12345, codAditamento: 1, data: null, motivo: 'aa', valor: 10 }
 ];
 
 inclusaoAuxiliosTransporte: InclusaoAuxilioTransporte[] = [];

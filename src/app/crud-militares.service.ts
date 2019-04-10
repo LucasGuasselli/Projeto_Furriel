@@ -64,6 +64,15 @@ export class CrudMilitaresService {
       return (this.postoGraduacoes.find(postoGraduacao => postoGraduacao.codPosto == codigo));
     }
 
+    getNomeMilitarPorPrecCP(precCP: number) {
+      for (let i = 0; i < this.militares.length; i++) {
+          // tslint:disable-next-line:triple-equals
+          if (this.militares[i].precCP == precCP) {
+              return this.militares[i].nome;
+          }
+      }
+    }
+
     // melhorar tratamento de excecao
     adiocionarMilitar(militar: Militar, endereco: Endereco) {
         for ( let i = 0; i < this.militares.length; i++) {
