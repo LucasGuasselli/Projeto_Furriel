@@ -114,7 +114,6 @@ salvarAT(codigo: number) {
     this.AT = new AuxilioTransporte();
 }
 
-// TALVEZ SEJA NECESSARIO MODIFICAR O METODO QUANDO FOR PUBLICAR UM AUXILIO TRANSPORTE
 salvarConducao(conducao: Conducao, precCP: number, codAT: number) {
     conducao.precCP = precCP;
     conducao.codAT = codAT;

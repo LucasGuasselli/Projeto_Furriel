@@ -69,6 +69,21 @@ inclusaoAuxiliosTransporte: InclusaoAuxilioTransporte[] = [];
         return(this.conducoes.find(conducao => conducao.codConducao == codigo));
     }
 
+    // retornara um array com todas conducoes de um determinado militar
+    getConducoesPorCod(codAT: number) {
+        // tslint:disable-next-line:prefer-const
+        let conducoes: Conducao[] = [];
+
+        for (let i = 0; i < this.conducoes.length; i++) {
+            // tslint:disable-next-line:triple-equals
+            if (this.conducoes[i].codAT == codAT) {
+                conducoes.push(this.conducoes[i]);
+            }
+        }
+
+        return conducoes;
+    }
+
     getAuxilioTransportePorPrecCP(precCP: number) {
       // tslint:disable-next-line:triple-equals
       return(this.auxiliosTransporte.find(auxilioTransporte => auxilioTransporte.precCP == precCP));
@@ -114,6 +129,14 @@ inclusaoAuxiliosTransporte: InclusaoAuxilioTransporte[] = [];
         // atualizar valor total do AT cada vez que cadastrar uma conducao
         this.atualizaValorPassagem(conducao.precCP, conducao.valor);
   }
+
+  atualizarConducao(conducao: Conducao) {
+    for (let  i = 0; i < this.conducoes.length; i++) {
+        if (this.conducoes[i].codConducao === conducao.codConducao) {
+            this.conducoes[i] = conducao;
+        }
+    }
+}
 
   adiocionarExclusaoAuxilioTransporte(exclusaoAuxilioTransporte: ExclusaoAuxilioTransporte) {
     exclusaoAuxilioTransporte.codExclusaoAuxilioTransporte = this.autoIncrementExclusaoAuxilioTransporte++;

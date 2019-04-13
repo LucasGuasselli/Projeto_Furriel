@@ -9,7 +9,7 @@ import { CrudAuxilioTransporteService } from '../crud-auxilio-transporte.service
   styleUrls: ['./tabela-auxilio-transporte.component.css']
 })
 export class TabelaAuxilioTransporteComponent implements OnInit {
-  tituloAuxiliosNaoPublicados = 'AIXILIOS TRANSPORTE NAO PUBLICADOS';
+  tituloAuxiliosNaoPublicados = 'AUXILIOS TRANSPORTE NAO PUBLICADOS';
   tituloAuxiliosTransportesPublicados = 'AUXILIOS TRANSPORTE PUBLICADOS';
 
   auxiliosTransporteSemPublicacao: AuxilioTransporte[] = [];

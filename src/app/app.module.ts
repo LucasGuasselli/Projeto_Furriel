@@ -38,7 +38,7 @@ const routes: Routes = [
     { path: 'cadastroPagamentoAtrasado', component: FormPagamentoAtrasadoComponent },
     { path: 'cadastroAditamento', component: FormAditamentoComponent },
     { path: 'cadastroExclusaoAuxilioTransporte', component: FormExclusaoAuxilioTransporteComponent },
-    { path: 'cadastroAtualizacaoAuxilioTransporte', component: FormAtualizacaoAuxilioTransporteComponent},
+   // { path: 'cadastroAtualizacaoAuxilioTransporte', component: FormAtualizacaoAuxilioTransporteComponent},
 
     { path: 'listaMilitares', component: TabelaMilitaresComponent },
     { path: 'listaATConducao', component: TabelaAuxilioTransporteComponent },
@@ -49,6 +49,7 @@ const routes: Routes = [
 
     { path: 'edicaoMilitar/:cod', component: FormMilitaresComponent },
     { path: 'edicaoPagamentoAtrasado/:cod', component: FormPagamentoAtrasadoComponent },
+    { path: 'cadastroAtualizacaoAuxilioTransporte/:cod', component: FormAtualizacaoAuxilioTransporteComponent},
 
     { path: 'relatorio', component: RelatorioComponent }
 ];
