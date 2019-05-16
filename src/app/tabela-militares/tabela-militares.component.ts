@@ -20,6 +20,9 @@ export class TabelaMilitaresComponent implements OnInit {
   ngOnInit() {
       this.militares = this.servico.getMilitares();
       this.enderecos = this.servico.getEnderecos();
+      this.servico.findAll().subscribe(response => {
+        console.log(response);
+      });
   }
 
   removerMilitar(militar: Militar) {

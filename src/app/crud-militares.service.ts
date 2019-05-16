@@ -4,6 +4,12 @@ import { Endereco } from './endereco';
 import { PostoGraduacao } from './posto-graduacao';
 import { AuxilioTransporte } from './auxilio-transporte';
 import { CrudAuxilioTransporteService } from './crud-auxilio-transporte.service';
+import { HttpClient } from '@angular/common/http';
+import { API_CONFIG } from './config/api.config';
+import { MilitarDTO } from './models/MilitarDTO';
+// na importacao automatica e incompleta, a completa é / Rx
+// tslint:disable-next-line:import-blacklist
+import { Observable } from 'rxjs/Rx';
 
 // esta classe trata dos metodos de tres classes: militar, endereco e postoGraduacao
 @Injectable()
@@ -38,7 +44,12 @@ export class CrudMilitaresService {
 
   autoIncrement = 3;
 
-  constructor() { }
+  constructor(public http: HttpClient) { }
+
+    findAll(): Observable<MilitarDTO[]> {
+        return this.http.get<MilitarDTO[]>(`${API_CONFIG.baseUrl}/militares`);
+    }
+
     getMilitares() {
        return this.militares;
     }
