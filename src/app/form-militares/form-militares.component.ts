@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Militar } from '../militar';
 import { Endereco } from '../endereco';
 import { PostoGraduacao } from '../posto-graduacao';
+import { PostosGraduacoesService } from './../services/postosGraduacoes.service';
 import { MilitaresService } from '../services/militares.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MilitarDTO } from '../models/militar.dto';
+import { PostoGraduacaoDTO } from '../models/postoGraduacao.dto';
 
 @Component({
   selector: 'app-form-militares',
@@ -13,48 +16,43 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class FormMilitaresComponent implements OnInit {
   titulo = 'Cadastro de Militares';
 
-    militar: Militar;
-    endereco: Endereco;
-    postoGraduacao: PostoGraduacao[] = [];
+    militar: MilitarDTO;
+    endereco: Endereco = new Endereco();
+    postosGraduacoes: PostoGraduacaoDTO[] = [];
 
     precCP: number = null;
-    // codEndereco: number;
-    // serve para
-    // contador = 0;
 
-  constructor(private servico: MilitaresService, private router: Router, private rota: ActivatedRoute) { }
+  constructor(private militaresService: MilitaresService,
+              private postosGraduacoesService: PostosGraduacoesService,
+              private router: Router,
+              private rota: ActivatedRoute) { }
 
   ngOnInit() {
     this.precCP = this.rota.snapshot.params['cod'];
-    console.log(this.precCP);
-    this.postoGraduacao = this.servico.getPostoGraduacao();
+    this.postosGraduacoesService.findAll().subscribe(response => {this.postosGraduacoes = response; } ,
+      error => {console.log(error); } );
 
+/* IF - cadastro ou quando o usuario insere um preccp invalido
+    ELSE - serve para casos de edicao da entidade militar */
   if (isNaN(this.precCP)) {
-    // CADASTRAR
-    this.militar  = new Militar();
-    this.endereco  = new Endereco();
-
+    this.militar  = new MilitarDTO();
+    // this.endereco  = new Endereco();
   } else {
-    // EDITAR
-    this.militar = Object.assign({}, this.servico.getMilitarPorPrecCP(this.precCP));
-    this.endereco = Object.assign({}, this.servico.getEnderecoPorPrecCP(this.precCP));
+    // this.militar = Object.assign({}, this.militaresService.getMilitarPorPrecCP(this.precCP));
+    // this.endereco = Object.assign({}, this.militaresService.getEnderecoPorPrecCP(this.precCP));
      console.log(this.endereco);
-    // console.log('chegou aqui');
-
     }
   }
 
-/*
-    Em casos de cadastro ou quando o usuario insere um preccp invalido, caira no IF,
-    e o else serve para casos de edicao da entidade militar
-*/
   salvarMilitar() {
     if (isNaN(this.precCP)) {
         this.precCP = this.militar.precCP;
             // tslint:disable-next-line:triple-equals
             if (this.validaPrecCP() == true) {
-              this.servico.adiocionarMilitar(this.militar, this.endereco);
-              this.militar = new Militar();
+              this.militaresService.insert(this.militar).subscribe(response => {
+                    alert('Cadastro efetuado com sucesso'); } ,
+                    error => {console.log(error); } );
+              this.militar = new MilitarDTO();
               this.router.navigate(['/listaMilitares']);
             } else {
               // substituir por uma janela ou pop-up posteriormente
@@ -63,7 +61,7 @@ export class FormMilitaresComponent implements OnInit {
     // tslint:disable-next-line:triple-equals
     } else {
         console.log('chegou na edicao');
-        this.servico.atualizaMilitar(this.precCP, this.militar, this.endereco);
+      // this.militaresService.atualizaMilitar(this.precCP, this.militar, this.endereco);
         this.router.navigate(['/listaMilitares']);
     }
 }
@@ -72,7 +70,7 @@ export class FormMilitaresComponent implements OnInit {
     if (isNaN(codigo)) {
         // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
     } else {
-        this.militar.codPostoGraduacao = codigo;
+        this.militar.postoGraduacaoId = codigo;
         console.log(codigo);
     }
   }

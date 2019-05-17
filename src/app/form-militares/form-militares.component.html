@@ -1,10 +1,10 @@
 <h3>{{titulo}}</h3>
 <div class = "form">
   <form>
-      <label for="codPostoGraduacao">Posto</label>
-      <select id="codPostoGraduacao" name="codPostoGraduacao">
+      <label for="postoGraduacaoId">Posto</label>
+      <select id="postoGraduacaoId" name="postoGraduacaoId">
           <option></option>
-          <option *ngFor="let posto of postoGraduacao" (click)="salvarPostoGraduacao(posto.codPosto)">{{posto.nome}}</option>
+          <option *ngFor="let posto of postosGraduacoes" (click)="salvarPostoGraduacao(posto.id)">{{posto.nome}}</option>
       </select >  
     <br>
       <label for="nome">Nome</label>

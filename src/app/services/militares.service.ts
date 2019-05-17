@@ -41,7 +41,7 @@ export class MilitaresService {
 
 
 // melhorar tratamento de excecao
-adiocionarMilitar(militar: Militar, endereco: Endereco) {
+adiocionarMilitar(militar: MilitarDTO, endereco: Endereco) {
   for ( let i = 0; i < this.militares.length; i++) {
       // tslint:disable-next-line:triple-equals
       if (militar.precCP == this.militares[i].precCP ) {
@@ -54,7 +54,7 @@ adiocionarMilitar(militar: Militar, endereco: Endereco) {
     window.document.write('precCP ja existe!');
   } else {
       endereco.precCP = militar.precCP;
-      this.militares.push(militar);
+    //  this.militares.push(militar);
       this.enderecos.push(endereco);
   }
 }
@@ -96,9 +96,9 @@ adiocionarMilitar(militar: Militar, endereco: Endereco) {
         }
       }
 
-    atualizaMilitar(prec_cp: number, militar: Militar, endereco: Endereco) {
+    atualizaMilitar(prec_cp: number, militar: MilitarDTO, endereco: Endereco) {
           const indiceMil = this.militares.indexOf(this.getMilitarPorPrecCP(prec_cp), 0);
-          this.militares[indiceMil] = militar;
+          // this.militares[indiceMil] = militar;
 
           const indiceEnd = this.enderecos.indexOf(this.getEnderecoPorPrecCP(prec_cp), 0);
           this.enderecos[indiceEnd] = endereco;
