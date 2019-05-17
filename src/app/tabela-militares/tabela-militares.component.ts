@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Militar } from '../militar';
-import { CrudMilitaresService } from '../services/crud-militares.service';
-import { MilitarDTO } from '../models/MilitarDTO';
-import { EnderecoDTO } from '../models/EnderecoDTO';
-import { EnderecosService } from '../services/Enderecos.service';
+import { MilitaresService } from '../services/militares.service';
+import { MilitarDTO } from '../models/militar.dto';
+import { EnderecoDTO } from '../models/endereco.dto';
+import { EnderecosService } from '../services/enderecos.service';
 
 @Component({
   selector: 'app-tabela-militares',
@@ -17,7 +17,7 @@ export class TabelaMilitaresComponent implements OnInit {
   militares: MilitarDTO[] = [];
   enderecos: EnderecoDTO[] = [];
 
-  constructor(private militaresService: CrudMilitaresService, private enderecosService: EnderecosService) { }
+  constructor(private militaresService: MilitaresService, private enderecosService: EnderecosService) { }
 
   ngOnInit() {
       this.enderecosService.findAll().subscribe(response => {this.enderecos = response; } ,

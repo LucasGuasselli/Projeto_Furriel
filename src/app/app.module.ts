@@ -8,7 +8,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { TabelaMilitaresComponent } from './tabela-militares/tabela-militares.component';
 import { FormMilitaresComponent } from './form-militares/form-militares.component';
-import { CrudMilitaresService } from './services/crud-militares.service';
+import { MilitaresService } from './services/militares.service';
 import { CrudAuxilioTransporteService } from './crud-auxilio-transporte.service';
 import { IndexComponent } from './index/index.component';
 import { FormAuxilioTransporteComponent } from './form-auxilio-transporte/form-auxilio-transporte.component';
@@ -27,7 +27,7 @@ import { FormExclusaoAuxilioTransporteComponent } from './form-exclusao-auxilio-
 import { TabelaExclusaoAuxiliosTransporteComponent } from './tabela-exclusao-auxilios-transporte/tabela-exclusao-auxilios-transporte.component';
 // tslint:disable-next-line:max-line-length
 import { FormAtualizacaoAuxilioTransporteComponent } from './form-atualizacao-auxilio-transporte/form-atualizacao-auxilio-transporte.component';
-import { EnderecosService } from './services/Enderecos.service';
+import { EnderecosService } from './services/enderecos.service';
 import { PostosGraduacoesService } from './services/postosGraduacoes.service';
 
 
@@ -83,7 +83,7 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [CrudMilitaresService, CrudAuxilioTransporteService, CrudAditamentosService,
+  providers: [MilitaresService, CrudAuxilioTransporteService, CrudAditamentosService,
               CrudPagamentoAtrasadoService, EnderecosService, PostosGraduacoesService],
   bootstrap: [AppComponent]
 })

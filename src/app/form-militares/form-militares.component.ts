@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Militar } from '../militar';
 import { Endereco } from '../endereco';
 import { PostoGraduacao } from '../posto-graduacao';
-import { CrudMilitaresService } from '../services/crud-militares.service';
+import { MilitaresService } from '../services/militares.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -22,7 +22,7 @@ export class FormMilitaresComponent implements OnInit {
     // serve para
     // contador = 0;
 
-  constructor(private servico: CrudMilitaresService, private router: Router, private rota: ActivatedRoute) { }
+  constructor(private servico: MilitaresService, private router: Router, private rota: ActivatedRoute) { }
 
   ngOnInit() {
     this.precCP = this.rota.snapshot.params['cod'];

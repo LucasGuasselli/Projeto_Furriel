@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { API_CONFIG } from '../config/api.config';
 
-import { PostoGraduacaoDTO } from '../models/PostoGraduacaoDTO';
+import { PostoGraduacaoDTO } from '../models/postoGraduacao.dto';
 
 @Injectable()
 export class PostosGraduacoesService {

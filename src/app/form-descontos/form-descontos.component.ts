@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuxilioTransporte } from '../auxilio-transporte';
 import { Militar } from '../militar';
-import { CrudMilitaresService } from '../services/crud-militares.service';
+import { MilitaresService } from '../services/militares.service';
 import { CrudAuxilioTransporteService } from '../crud-auxilio-transporte.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Desconto } from '../desconto';
@@ -26,12 +26,12 @@ export class FormDescontosComponent implements OnInit {
     precCP: number;
     codAT: number;
 
-  constructor(private servicoCrudMilitares: CrudMilitaresService, private servicoCrudAT: CrudAuxilioTransporteService,
+  constructor(private militaresService: MilitaresService, private servicoCrudAT: CrudAuxilioTransporteService,
               private servicoCrudAditamento: CrudAditamentosService, private router: Router, private rota: ActivatedRoute) { }
 
   ngOnInit() {
       this.auxilioTransporte = this.servicoCrudAT.getAT();
-      this.militares = this.servicoCrudMilitares.getMilitares();
+      this.militares = this.militaresService.getMilitares();
       this.aditamentoAtual = this.servicoCrudAditamento.getAditamentoAtual();
 
       if (isNaN(this.precCP)) {
@@ -64,8 +64,8 @@ export class FormDescontosComponent implements OnInit {
         // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
     } else {
         this.precCP = precCP;
-        this.militar = this.servicoCrudMilitares.getMilitarPorPrecCP(this.precCP);
-        this.graduacao = this.servicoCrudMilitares.getPostoGraduacaoPorCodigo(this.militar.codPostoGraduacao).nome;
+        this.militar = this.militaresService.getMilitarPorPrecCP(this.precCP);
+        this.graduacao = this.militaresService.getPostoGraduacaoPorCodigo(this.militar.codPostoGraduacao).nome;
         // console.log(this.precCP);
     }
   }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Militar } from './militar';
 import { AuxilioTransporte } from './auxilio-transporte';
 import { Conducao } from './conducao';
-import { CrudMilitaresService } from './services/crud-militares.service';
+import { MilitaresService } from './services/militares.service';
 import { PostoGraduacao } from './posto-graduacao';
 import { Desconto } from './desconto';
 import { ExclusaoAuxilioTransporte } from './exclusao-auxilio-transporte';
@@ -44,7 +44,7 @@ inclusaoAuxiliosTransporte: InclusaoAuxilioTransporte[] = [];
 
 atualizacaoAuxilioTransporte: AtualizacaoAuxilioTransporte[] = [];
 
-  constructor(private servico: CrudMilitaresService) { }
+  constructor(private servico: MilitaresService) { }
 
     getAT() {
         return this.auxiliosTransporte;

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as jsPDF from 'jspdf';
 import { Militar } from '../militar';
 import { Endereco } from '../endereco';
-import { CrudMilitaresService } from '../services/crud-militares.service';
+import { MilitaresService } from '../services/militares.service';
 import { Desconto } from '../desconto';
 import { CrudAuxilioTransporteService } from '../crud-auxilio-transporte.service';
 import { PagamentoAtrasado } from '../pagamento-atrasado';
@@ -28,12 +28,12 @@ export class RelatorioComponent implements OnInit {
 
 
 
-  constructor(private servicoCrudMilitar: CrudMilitaresService, private servicoCrudAT: CrudAuxilioTransporteService,
+  constructor(private militaresService: MilitaresService, private servicoCrudAT: CrudAuxilioTransporteService,
             private servicoCrudPagamentoAtrasado: CrudPagamentoAtrasadoService) { }
 
   ngOnInit() {
-        this.militares = this.servicoCrudMilitar.getMilitares();
-        this.enderecos = this.servicoCrudMilitar.getEnderecos();
+        this.militares = this.militaresService.getMilitares();
+        this.enderecos = this.militaresService.getEnderecos();
         this.descontos = this.servicoCrudAT.getDescontos();
         this.inclusaoAuxiliosTransporte = this.servicoCrudAT.getInclusaoAuxiliosTransporte();
         this.atualizacaoAuxiliosTransporte = this.servicoCrudAT.getAtualizacaoAuxiliosTransporte();

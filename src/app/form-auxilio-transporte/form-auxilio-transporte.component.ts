@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CrudMilitaresService } from '../services/crud-militares.service';
+import { MilitaresService } from '../services/militares.service';
 import { CrudAuxilioTransporteService } from '../crud-auxilio-transporte.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Militar } from '../militar';
@@ -41,7 +41,7 @@ export class FormAuxilioTransporteComponent implements OnInit {
     // codAT: number;
     codConducao: number;
 
-    constructor(private servicoCrudMilitares: CrudMilitaresService, private servicoCrudAT: CrudAuxilioTransporteService,
+    constructor(private servicoCrudMilitares: MilitaresService, private servicoCrudAT: CrudAuxilioTransporteService,
               private router: Router, private rota: ActivatedRoute, private servicoCrudAditamento: CrudAditamentosService) { }
 
    ngOnInit() {

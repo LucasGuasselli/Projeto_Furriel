@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { PagamentoAtrasado } from '../pagamento-atrasado';
 import { CrudPagamentoAtrasadoService } from '../crud-pagamento-atrasado.service';
 import { Militar } from '../militar';
-import { CrudMilitaresService } from '../services/crud-militares.service';
+import { MilitaresService } from '../services/militares.service';
 import { Aditamento } from '../aditamento';
 import { CrudAditamentosService } from '../crud-aditamentos.service';
 
@@ -21,7 +21,7 @@ export class FormPagamentoAtrasadoComponent implements OnInit {
   pagamentosAtrasados: PagamentoAtrasado[] = [];
   militares: Militar[] = [];
 
-  constructor(private servicoCrudMilitares: CrudMilitaresService, private servicoCrudPagamentoAtrasado: CrudPagamentoAtrasadoService,
+  constructor(private servicoCrudMilitares: MilitaresService, private servicoCrudPagamentoAtrasado: CrudPagamentoAtrasadoService,
               private router: Router, private rota: ActivatedRoute, private servicoCrudAditamento: CrudAditamentosService) { }
 
     ngOnInit() {
