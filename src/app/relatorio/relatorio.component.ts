@@ -9,6 +9,7 @@ import { PagamentoAtrasado } from '../pagamento-atrasado';
 import { CrudPagamentoAtrasadoService } from '../crud-pagamento-atrasado.service';
 import { ExclusaoAuxilioTransporte } from '../exclusao-auxilio-transporte';
 import { InclusaoAuxilioTransporte } from '../inclusao-auxilio-transporte';
+import { AtualizacaoAuxilioTransporte } from '../atualizacao-auxilio-transporte';
 
 @Component({
   selector: 'app-relatorio',
@@ -21,6 +22,7 @@ export class RelatorioComponent implements OnInit {
   enderecos: Endereco[] = [];
   descontos: Desconto[] = [];
   inclusaoAuxiliosTransporte: InclusaoAuxilioTransporte[] = [];
+  atualizacaoAuxiliosTransporte: AtualizacaoAuxilioTransporte[] = [];
   exclusaoAuxiliosTransporte: ExclusaoAuxilioTransporte[] = [];
   pagamentosAtrasados: PagamentoAtrasado[] = [];
 
@@ -34,6 +36,7 @@ export class RelatorioComponent implements OnInit {
         this.enderecos = this.servicoCrudMilitar.getEnderecos();
         this.descontos = this.servicoCrudAT.getDescontos();
         this.inclusaoAuxiliosTransporte = this.servicoCrudAT.getInclusaoAuxiliosTransporte();
+        this.atualizacaoAuxiliosTransporte = this.servicoCrudAT.getAtualizacaoAuxiliosTransporte();
         this.exclusaoAuxiliosTransporte = this.servicoCrudAT.getExclusaoAuxiliosTransporte();
         this.pagamentosAtrasados = this.servicoCrudPagamentoAtrasado.getPagamentosAtrasados();
   }

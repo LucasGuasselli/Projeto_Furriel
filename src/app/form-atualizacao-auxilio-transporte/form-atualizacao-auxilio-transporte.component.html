@@ -7,7 +7,13 @@
     <label for="data">A contar de:</label>
     <input type="date" id="data" name="data" [(ngModel)]="atualizacaoAuxilioTransporte.dataInicio">
 
+    <br>
+    
+    <label for="motivo">Motivo</label>
+    <input type="text" id="motivo" name="motivo" placeholder="Motivo..." [(ngModel)]="atualizacaoAuxilioTransporte.motivo" >
+    
     <br><br>
+    
     <label for="itinerario">Itinerario</label>
     <select disabled class="imbSelect" id="itinerario" name="itinerario" [(ngModel)]="conducoes[0].itinerario">
         <option></option>
@@ -200,7 +206,7 @@
     <input type="number" name="valor5" [(ngModel)]="conducoes[5].valor">
 
     <div class="buttons">            
-      <input type="button"  (click)="atualizarConducoes()" value="Salvar">
+      <input type="button"  (click)="verificaValores()" value="Salvar">
       <input type="button" (click)="cancelar()" value="Cancelar">    
     </div>
   </form>

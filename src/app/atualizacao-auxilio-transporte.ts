@@ -1,5 +1,5 @@
 export class AtualizacaoAuxilioTransporte {
-    codAtualizacaouxilioTransporte: number;
+    codAtualizacaoAuxilioTransporte: number;
     precCP: number;
     codAditamento: number;
     DataInicio: Date;
