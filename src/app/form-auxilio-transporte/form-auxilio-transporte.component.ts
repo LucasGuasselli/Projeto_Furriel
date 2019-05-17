@@ -31,7 +31,7 @@ export class FormAuxilioTransporteComponent implements OnInit {
     ];
 
     AT: AuxilioTransporte = new AuxilioTransporte();
-    auxilioTransporte: AuxilioTransporte[] = [];
+    auxiliosTransporte: AuxilioTransporte[] = [];
     postoGraduacao: PostoGraduacao[] = [];
     militaresSemAuxilioTransporte: Militar[] = [];
     aditamentoAtual: Aditamento;
@@ -50,7 +50,7 @@ export class FormAuxilioTransporteComponent implements OnInit {
     // codConducao recebe o codigo da conducao que o usuario quer editar
         this.codConducao = this.rota.snapshot.params['cod'];
 
-        this.auxilioTransporte = this.servicoCrudAT.getAT();
+        this.auxiliosTransporte = this.servicoCrudAT.getAT();
         this.militaresSemAuxilioTransporte = this.servicoCrudAT.getMilitaresSemAuxilioTransporte();
         this.postoGraduacao = this.servicoCrudMilitares.getPostoGraduacao();
 
@@ -68,15 +68,15 @@ salvarAuxilioTransporte() {
         alert('selecione um militar!');
    } else {
         this.salvarAT(this.precCP);
-           this.auxilioTransporte = this.servicoCrudAT.getAT();
+           this.auxiliosTransporte = this.servicoCrudAT.getAT();
 
-            for ( let i = 0; i < this.auxilioTransporte.length; i++) {
+            for ( let i = 0; i < this.auxiliosTransporte.length; i++) {
             // tslint:disable-next-line:triple-equals
-                if ( this.auxilioTransporte[i].precCP == this.precCP) {
+                if ( this.auxiliosTransporte[i].precCP == this.precCP) {
                     for (let k = 0; k < this.conducoes.length; k++) {
                         if (this.conducoes[k].valor != null && this.conducoes[k].tipoDeTransporte != null
                             && this.conducoes[k].nomeEmpresa != null && this.conducoes[k].itinerario != null) {
-                            this.salvarConducao(this.conducoes[k], this.auxilioTransporte[i].precCP, this.auxilioTransporte[i].codAT);
+                            this.salvarConducao(this.conducoes[k], this.auxiliosTransporte[i].precCP, this.auxiliosTransporte[i].codAT);
                         }
                     }
                 }
