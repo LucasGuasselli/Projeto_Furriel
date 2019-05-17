@@ -36,9 +36,9 @@ export class FormMilitaresComponent implements OnInit {
     ELSE - serve para casos de edicao da entidade militar */
   if (isNaN(this.precCP)) {
     this.militar  = new MilitarDTO();
-    // this.endereco  = new Endereco();
+    this.endereco  = new Endereco();
   } else {
-    // this.militar = Object.assign({}, this.militaresService.getMilitarPorPrecCP(this.precCP));
+    // this.militar = Object.assign({}, this.militaresService);
     // this.endereco = Object.assign({}, this.militaresService.getEnderecoPorPrecCP(this.precCP));
      console.log(this.endereco);
     }
@@ -50,13 +50,13 @@ export class FormMilitaresComponent implements OnInit {
             // tslint:disable-next-line:triple-equals
             if (this.validaPrecCP() == true) {
               this.militaresService.insert(this.militar).subscribe(response => {
-                    alert('Cadastro efetuado com sucesso'); } ,
+                    console.log('Cadastro efetuado com sucesso!'); } ,
                     error => {console.log(error); } );
               this.militar = new MilitarDTO();
-              this.router.navigate(['/listaMilitares']);
+                this.router.navigate(['/listaMilitares']);
             } else {
               // substituir por uma janela ou pop-up posteriormente
-              console.log('valor invalido inserido no campo precCP');
+              alert('valor invalido inserido no campo precCP');
             }
     // tslint:disable-next-line:triple-equals
     } else {

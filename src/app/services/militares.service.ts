@@ -36,6 +36,15 @@ export class MilitaresService {
         );
     }
 
+    delete(obj: MilitarDTO) {
+        return this.http.delete(`${API_CONFIG.baseUrl}/militares/${obj.precCP}`,
+            {
+              observe: 'response',
+              responseType: 'text'
+            }
+        );
+    }
+
 
 
 

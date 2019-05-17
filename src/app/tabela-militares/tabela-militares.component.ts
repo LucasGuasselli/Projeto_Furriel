@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Militar } from '../militar';
+import { Router, ActivatedRoute } from '@angular/router';
+
 import { MilitaresService } from '../services/militares.service';
 import { MilitarDTO } from '../models/militar.dto';
 import { EnderecoDTO } from '../models/endereco.dto';
@@ -17,7 +18,10 @@ export class TabelaMilitaresComponent implements OnInit {
   militares: MilitarDTO[] = [];
   enderecos: EnderecoDTO[] = [];
 
-  constructor(private militaresService: MilitaresService, private enderecosService: EnderecosService) { }
+  constructor(private militaresService: MilitaresService,
+              private enderecosService: EnderecosService,
+              private router: Router,
+              private rota: ActivatedRoute) { }
 
   ngOnInit() {
       this.enderecosService.findAll().subscribe(response => {this.enderecos = response; } ,
@@ -26,8 +30,12 @@ export class TabelaMilitaresComponent implements OnInit {
           error => {console.log(error); } );
   }
 
-  removerMilitar(militar: Militar) {
-    // this.servico.removerMilitar(militar);
+  removerMilitar(militar: MilitarDTO) {
+      this.militaresService.delete(militar).subscribe(response => { console.log('Militar deletado com sucesso!'); } ,
+        error => {console.log(error); } );
+      // deve ter alguns segundos entre o delete e o ngOnInit para dar tempo de receber a lista de militares atualizadas  
+      alert('Militar Deletado com sucesso!');
+      this.ngOnInit();
   }
 
 }
