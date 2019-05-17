@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { PagamentoAtrasado } from '../pagamento-atrasado';
 import { CrudPagamentoAtrasadoService } from '../crud-pagamento-atrasado.service';
 import { Militar } from '../militar';
-import { CrudMilitaresService } from '../crud-militares.service';
+import { CrudMilitaresService } from '../services/crud-militares.service';
 import { Aditamento } from '../aditamento';
 import { CrudAditamentosService } from '../crud-aditamentos.service';
 

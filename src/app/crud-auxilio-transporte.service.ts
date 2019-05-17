@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Militar } from './militar';
 import { AuxilioTransporte } from './auxilio-transporte';
 import { Conducao } from './conducao';
-import { CrudMilitaresService } from './crud-militares.service';
+import { CrudMilitaresService } from './services/crud-militares.service';
 import { PostoGraduacao } from './posto-graduacao';
 import { Desconto } from './desconto';
 import { ExclusaoAuxilioTransporte } from './exclusao-auxilio-transporte';

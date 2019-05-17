@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as jsPDF from 'jspdf';
 import { Militar } from '../militar';
 import { Endereco } from '../endereco';
-import { CrudMilitaresService } from '../crud-militares.service';
+import { CrudMilitaresService } from '../services/crud-militares.service';
 import { Desconto } from '../desconto';
 import { CrudAuxilioTransporteService } from '../crud-auxilio-transporte.service';
 import { PagamentoAtrasado } from '../pagamento-atrasado';

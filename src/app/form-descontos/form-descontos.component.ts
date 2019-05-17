@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuxilioTransporte } from '../auxilio-transporte';
 import { Militar } from '../militar';
-import { CrudMilitaresService } from '../crud-militares.service';
+import { CrudMilitaresService } from '../services/crud-militares.service';
 import { CrudAuxilioTransporteService } from '../crud-auxilio-transporte.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Desconto } from '../desconto';

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Militar } from '../militar';
 import { Endereco } from '../endereco';
 import { PostoGraduacao } from '../posto-graduacao';
-import { CrudMilitaresService } from '../crud-militares.service';
+import { CrudMilitaresService } from '../services/crud-militares.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({

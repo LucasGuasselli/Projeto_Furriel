@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CrudMilitaresService } from '../crud-militares.service';
+import { CrudMilitaresService } from '../services/crud-militares.service';
 import { Militar } from '../militar';
 import { ExclusaoAuxilioTransporte } from '../exclusao-auxilio-transporte';
 import { CrudAuxilioTransporteService } from '../crud-auxilio-transporte.service';
