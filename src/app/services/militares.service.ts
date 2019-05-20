@@ -27,6 +27,10 @@ export class MilitaresService {
         return this.http.get<MilitarDTO[]>(`${API_CONFIG.baseUrl}/militares`);
     }
 
+    findMilitarByPrecCP(precCP: number): Observable<MilitarDTO> {
+        return this.http.get<MilitarDTO>(`${API_CONFIG.baseUrl}/militares/${precCP}`);
+    }
+
     insert(obj: MilitarDTO) {
         return this.http.post(`${API_CONFIG.baseUrl}/militares`, obj,
               {
@@ -34,6 +38,15 @@ export class MilitaresService {
                 responseType: 'text'
               }
         );
+    }
+
+    update(obj: MilitarDTO, precCP: number) {
+      return this.http.put(`${API_CONFIG.baseUrl}/militares/${precCP}`, obj,
+            {
+              observe: 'response',
+              responseType: 'text'
+            }
+      );
     }
 
     delete(obj: MilitarDTO) {

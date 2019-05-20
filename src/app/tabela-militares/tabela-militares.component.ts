@@ -33,7 +33,7 @@ export class TabelaMilitaresComponent implements OnInit {
   removerMilitar(militar: MilitarDTO) {
       this.militaresService.delete(militar).subscribe(response => { console.log('Militar deletado com sucesso!'); } ,
         error => {console.log(error); } );
-      // deve ter alguns segundos entre o delete e o ngOnInit para dar tempo de receber a lista de militares atualizadas  
+      // deve ter alguns segundos entre o delete e o ngOnInit para dar tempo de receber a lista de militares atualizadas
       alert('Militar Deletado com sucesso!');
       this.ngOnInit();
   }

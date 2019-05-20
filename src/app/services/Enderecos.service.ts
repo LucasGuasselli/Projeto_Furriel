@@ -14,4 +14,27 @@ export class EnderecosService {
     findAll(): Observable<EnderecoDTO[]> {
         return this.http.get<EnderecoDTO[]>(`${API_CONFIG.baseUrl}/enderecos`);
     }
+
+    // buscando um endereco a partir de um militar
+    findEnderecoByPrecCP(precCP: number): Observable<EnderecoDTO> {
+        return this.http.get<EnderecoDTO>(`${API_CONFIG.baseUrl}/enderecos/searchEnderecoByPrecCP/?precCP=${precCP}`);
+    }
+
+    insert(obj: EnderecoDTO) {
+        return this.http.post(`${API_CONFIG.baseUrl}/enderecos`, obj,
+              {
+                observe: 'response',
+                responseType: 'text'
+              }
+        );
+    }
+
+    update(obj: EnderecoDTO, id: number) {
+        return this.http.put(`${API_CONFIG.baseUrl}/enderecos/${id}`, obj,
+              {
+                observe: 'response',
+                responseType: 'text'
+              }
+        );
+    }
 }
