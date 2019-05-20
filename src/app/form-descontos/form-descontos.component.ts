@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuxilioTransporte } from '../auxilio-transporte';
 import { Militar } from '../militar';
-import { CrudMilitaresService } from '../crud-militares.service';
+import { MilitaresService } from '../services/militares.service';
 import { CrudAuxilioTransporteService } from '../crud-auxilio-transporte.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Desconto } from '../desconto';
@@ -21,17 +21,17 @@ export class FormDescontosComponent implements OnInit {
     militares: Militar[] = [];
     militar: Militar;
     graduacao: String;
-    aditamentoAtual: Aditamento = null;
+    aditamentoAtual: Aditamento;
 
     precCP: number;
     codAT: number;
 
-  constructor(private servicoCrudMilitares: CrudMilitaresService, private servicoCrudAT: CrudAuxilioTransporteService,
+  constructor(private militaresService: MilitaresService, private servicoCrudAT: CrudAuxilioTransporteService,
               private servicoCrudAditamento: CrudAditamentosService, private router: Router, private rota: ActivatedRoute) { }
 
   ngOnInit() {
       this.auxilioTransporte = this.servicoCrudAT.getAT();
-      this.militares = this.servicoCrudMilitares.getMilitares();
+      this.militares = this.militaresService.getMilitares();
       this.aditamentoAtual = this.servicoCrudAditamento.getAditamentoAtual();
 
       if (isNaN(this.precCP)) {
@@ -46,11 +46,8 @@ export class FormDescontosComponent implements OnInit {
 
   salvarDesconto() {
     if (isNaN(this.precCP)) {
-      alert('Voce precisa selecionar um militar.');
+      // tratar o erro
     } else {
-      if (this.aditamentoAtual == null) {
-        alert('Voce precisa selecionar um aditamento!');
-      } else {
       this.desconto.precCP = this.precCP;
       this.desconto.codAditamento = this.aditamentoAtual.codAditamento;
       this.desconto.nome = this.militar.nome;
@@ -59,7 +56,6 @@ export class FormDescontosComponent implements OnInit {
       // salvando
       this.servicoCrudAT.adicionarDesconto(this.desconto);
       this.desconto = new Desconto();
-      }
     }
   }
 
@@ -68,8 +64,8 @@ export class FormDescontosComponent implements OnInit {
         // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
     } else {
         this.precCP = precCP;
-        this.militar = this.servicoCrudMilitares.getMilitarPorPrecCP(this.precCP);
-        this.graduacao = this.servicoCrudMilitares.getPostoGraduacaoPorCodigo(this.militar.codPostoGraduacao).nome;
+        this.militar = this.militaresService.getMilitarPorPrecCP(this.precCP);
+        this.graduacao = this.militaresService.getPostoGraduacaoPorCodigo(this.militar.codPostoGraduacao).nome;
         // console.log(this.precCP);
     }
   }

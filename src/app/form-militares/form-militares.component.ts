@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Militar } from '../militar';
 import { Endereco } from '../endereco';
-import { PostoGraduacao } from '../posto-graduacao';
-import { CrudMilitaresService } from '../crud-militares.service';
+import { PostosGraduacoesService } from './../services/postosGraduacoes.service';
+import { MilitaresService } from '../services/militares.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MilitarDTO } from '../models/militar.dto';
+import { PostoGraduacaoDTO } from '../models/postoGraduacao.dto';
+import { EnderecoDTO } from '../models/endereco.dto';
+import { EnderecosService } from '../services/enderecos.service';
 
 @Component({
   selector: 'app-form-militares',
@@ -13,58 +16,76 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class FormMilitaresComponent implements OnInit {
   titulo = 'Cadastro de Militares';
 
-    militar: Militar;
-    endereco: Endereco;
-    postoGraduacao: PostoGraduacao[] = [];
+    militar: MilitarDTO = new MilitarDTO();
+    endereco: EnderecoDTO = new EnderecoDTO();
+    postosGraduacoes: PostoGraduacaoDTO[] = [];
 
     precCP: number = null;
-    // codEndereco: number;
-    // serve para
-    // contador = 0;
 
-  constructor(private servico: CrudMilitaresService, private router: Router, private rota: ActivatedRoute) { }
+  constructor(private militaresService: MilitaresService,
+              private enderecosService: EnderecosService,
+              private postosGraduacoesService: PostosGraduacoesService,
+              private router: Router,
+              private rota: ActivatedRoute) { }
 
   ngOnInit() {
     this.precCP = this.rota.snapshot.params['cod'];
-    console.log(this.precCP);
-    this.postoGraduacao = this.servico.getPostoGraduacao();
+    this.postosGraduacoesService.findAll().subscribe(response => {this.postosGraduacoes = response; } ,
+      error => {console.log(error); } );
 
+/* IF - cadastro ou quando o usuario insere um preccp invalido
+    ELSE - serve para casos de edicao da entidade militar */
   if (isNaN(this.precCP)) {
-    // CADASTRAR
-    this.militar  = new Militar();
-    this.endereco  = new Endereco();
-
+    this.militar  = new MilitarDTO();
+    this.endereco  = new EnderecoDTO();
   } else {
-    // EDITAR
-    this.militar = Object.assign({}, this.servico.getMilitarPorPrecCP(this.precCP));
-    this.endereco = Object.assign({}, this.servico.getEnderecoPorPrecCP(this.precCP));
-     console.log(this.endereco);
-    // console.log('chegou aqui');
+    this.militaresService.findMilitarByPrecCP(this.precCP).subscribe( response => {
+                      this.militar = response; }, error => {console.log(error); } );
 
+    this.enderecosService.findEnderecoByPrecCP(this.precCP).subscribe( response => {
+                      this.endereco = response; }, error => {console.log(error); } );
+    // console.log(this.endereco);
     }
   }
 
-/*
-    Em casos de cadastro ou quando o usuario insere um preccp invalido, caira no IF,
-    e o else serve para casos de edicao da entidade militar
-*/
+  // salva  ou edita uma entidade militar e endereco no banco de dados
   salvarMilitar() {
     if (isNaN(this.precCP)) {
         this.precCP = this.militar.precCP;
             // tslint:disable-next-line:triple-equals
             if (this.validaPrecCP() == true) {
-              this.servico.adiocionarMilitar(this.militar, this.endereco);
-              this.militar = new Militar();
-              this.router.navigate(['/listaMilitares']);
+              // fazendo com que "o endereco saiba a qual militar pertence"
+                this.endereco.militarId = this.militar.precCP;
+
+              this.militaresService.insert(this.militar).subscribe(response => {
+                  console.log('Cadastro efetuado com sucesso!'); } ,
+                  error => {console.log(error); } );
+                      this.militar = new MilitarDTO();
+              this.enderecosService.insert(this.endereco).subscribe(response => {
+                  console.log('Endereco cadastrado com sucesso!'); },
+                  error => {console.log(error); } );
+                      this.endereco = new EnderecoDTO();
+              // redireciona para a lista
+                  this.router.navigate(['/listaMilitares']);
             } else {
               // substituir por uma janela ou pop-up posteriormente
-              console.log('valor invalido inserido no campo precCP');
+              alert('valor invalido inserido no campo precCP');
             }
-    // tslint:disable-next-line:triple-equals
     } else {
-        console.log('chegou na edicao');
-        this.servico.atualizaMilitar(this.precCP, this.militar, this.endereco);
-        this.router.navigate(['/listaMilitares']);
+        console.log('chegou na edicao' + this.precCP);
+          // fazendo com que "o endereco saiba a qual militar pertence"
+          this.endereco.militarId = this.militar.precCP;
+
+          this.militaresService.update(this.militar, this.precCP).subscribe(response => {
+              console.log('Militar editado com sucesso!'); } ,
+              error => {console.log(error); } );
+                  this.militar = new MilitarDTO();
+          this.enderecosService.update(this.endereco, this.endereco.id).subscribe(response => {
+              console.log('Endereco editado com sucesso!'); } ,
+              error => {console.log(error); } );
+                  this.endereco = new EnderecoDTO();
+
+                this.router.navigate(['/listaMilitares']);
     }
 }
 
@@ -72,7 +93,7 @@ export class FormMilitaresComponent implements OnInit {
     if (isNaN(codigo)) {
         // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
     } else {
-        this.militar.codPostoGraduacao = codigo;
+        this.militar.postoGraduacaoId = codigo;
         console.log(codigo);
     }
   }

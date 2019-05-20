@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { CrudMilitaresService } from './crud-militares.service';
+import { MilitaresService } from './../militares.service';
 
 describe('CrudMilitaresService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [CrudMilitaresService]
+      providers: [MilitaresService]
     });
   });
 
-  it('should be created', inject([CrudMilitaresService], (service: CrudMilitaresService) => {
+  it('should be created', inject([MilitaresService], (service: MilitaresService) => {
     expect(service).toBeTruthy();
   }));
 });

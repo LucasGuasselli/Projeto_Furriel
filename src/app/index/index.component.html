@@ -33,12 +33,11 @@
             <select id="codAditamento" name="codAditamento">
                   <option></option>
                   <option *ngFor="let ad of aditamentos" (click)="salvarCodAditamento(ad.codAditamento)">{{ad.nome}}</option>
-            </select >        
-
+            </select >             
       </form>
-            <div>            
-                  <input type="button" class="botaoSalvar" (click)="salvarAditamentoAtual()" value="Salvar">
-                  <input type="button" class="botaoCancelar" (click)="cancelar()" value="Cancelar">    
+            <div class="buttons">            
+                  <input type="button" (click)="salvarAditamentoAtual()" value="Salvar">
+                  <input type="button" (click)="cancelar()" value="Cancelar">    
             </div>
 </div>
 

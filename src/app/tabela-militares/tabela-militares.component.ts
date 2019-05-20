@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Militar } from '../militar';
-import { Endereco } from '../endereco';
-import { CrudMilitaresService } from '../crud-militares.service';
+import { Router, ActivatedRoute } from '@angular/router';
+
+import { MilitaresService } from '../services/militares.service';
+import { MilitarDTO } from '../models/militar.dto';
+import { EnderecoDTO } from '../models/endereco.dto';
+import { EnderecosService } from '../services/enderecos.service';
 
 @Component({
   selector: 'app-tabela-militares',
@@ -12,18 +15,27 @@ export class TabelaMilitaresComponent implements OnInit {
 
   titulo = 'Tabela de Militares';
 
-  militares: Militar[] = [];
-  enderecos: Endereco[] = [];
+  militares: MilitarDTO[] = [];
+  enderecos: EnderecoDTO[] = [];
 
-  constructor(private servico: CrudMilitaresService) { }
+  constructor(private militaresService: MilitaresService,
+              private enderecosService: EnderecosService,
+              private router: Router,
+              private rota: ActivatedRoute) { }
 
   ngOnInit() {
-      this.militares = this.servico.getMilitares();
-      this.enderecos = this.servico.getEnderecos();
+      this.enderecosService.findAll().subscribe(response => {this.enderecos = response; } ,
+          error => {console.log(error); } );
+      this.militaresService.findAll().subscribe(response => {this.militares = response; } ,
+          error => {console.log(error); } );
   }
 
-  removerMilitar(militar: Militar) {
-    this.servico.removerMilitar(militar);
+  removerMilitar(militar: MilitarDTO) {
+      this.militaresService.delete(militar).subscribe(response => { console.log('Militar deletado com sucesso!'); } ,
+        error => {console.log(error); } );
+      // deve ter alguns segundos entre o delete e o ngOnInit para dar tempo de receber a lista de militares atualizadas
+      alert('Militar Deletado com sucesso!');
+      this.ngOnInit();
   }
 
 }

@@ -2,13 +2,14 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as jsPDF from 'jspdf';
 import { Militar } from '../militar';
 import { Endereco } from '../endereco';
-import { CrudMilitaresService } from '../crud-militares.service';
+import { MilitaresService } from '../services/militares.service';
 import { Desconto } from '../desconto';
 import { CrudAuxilioTransporteService } from '../crud-auxilio-transporte.service';
 import { PagamentoAtrasado } from '../pagamento-atrasado';
 import { CrudPagamentoAtrasadoService } from '../crud-pagamento-atrasado.service';
 import { ExclusaoAuxilioTransporte } from '../exclusao-auxilio-transporte';
 import { InclusaoAuxilioTransporte } from '../inclusao-auxilio-transporte';
+import { AtualizacaoAuxilioTransporte } from '../atualizacao-auxilio-transporte';
 
 @Component({
   selector: 'app-relatorio',
@@ -21,19 +22,21 @@ export class RelatorioComponent implements OnInit {
   enderecos: Endereco[] = [];
   descontos: Desconto[] = [];
   inclusaoAuxiliosTransporte: InclusaoAuxilioTransporte[] = [];
+  atualizacaoAuxiliosTransporte: AtualizacaoAuxilioTransporte[] = [];
   exclusaoAuxiliosTransporte: ExclusaoAuxilioTransporte[] = [];
   pagamentosAtrasados: PagamentoAtrasado[] = [];
 
 
 
-  constructor(private servicoCrudMilitar: CrudMilitaresService, private servicoCrudAT: CrudAuxilioTransporteService,
+  constructor(private militaresService: MilitaresService, private servicoCrudAT: CrudAuxilioTransporteService,
             private servicoCrudPagamentoAtrasado: CrudPagamentoAtrasadoService) { }
 
   ngOnInit() {
-        this.militares = this.servicoCrudMilitar.getMilitares();
-        this.enderecos = this.servicoCrudMilitar.getEnderecos();
+        this.militares = this.militaresService.getMilitares();
+        this.enderecos = this.militaresService.getEnderecos();
         this.descontos = this.servicoCrudAT.getDescontos();
         this.inclusaoAuxiliosTransporte = this.servicoCrudAT.getInclusaoAuxiliosTransporte();
+        this.atualizacaoAuxiliosTransporte = this.servicoCrudAT.getAtualizacaoAuxiliosTransporte();
         this.exclusaoAuxiliosTransporte = this.servicoCrudAT.getExclusaoAuxiliosTransporte();
         this.pagamentosAtrasados = this.servicoCrudPagamentoAtrasado.getPagamentosAtrasados();
   }

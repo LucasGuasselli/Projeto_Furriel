@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CrudMilitaresService } from '../crud-militares.service';
+import { MilitaresService } from '../services/militares.service';
 import { Militar } from '../militar';
 import { ExclusaoAuxilioTransporte } from '../exclusao-auxilio-transporte';
 import { CrudAuxilioTransporteService } from '../crud-auxilio-transporte.service';
@@ -17,45 +17,36 @@ import { AuxilioTransporte } from '../auxilio-transporte';
 export class FormExclusaoAuxilioTransporteComponent implements OnInit {
 
   exclusaoAuxilioTransporte: ExclusaoAuxilioTransporte;
-  aditamentoAtual: Aditamento = null;
+  aditamentoAtual: Aditamento;
   precCP: number;
   valorAuxilioTransporte: number;
   auxilioTransporte: AuxilioTransporte;
   militares: Militar[] = [];
 
 
-  constructor(private servicoCrudMilitares: CrudMilitaresService, private servicoCrudAuxilioTransporte: CrudAuxilioTransporteService,
+  constructor(private militaresService: MilitaresService, private servicoCrudAuxilioTransporte: CrudAuxilioTransporteService,
     private servicoCrudAditamento: CrudAditamentosService, private router: Router, private rota: ActivatedRoute ) { }
 
   ngOnInit() {
-      this.militares = this.servicoCrudMilitares.getMilitares();
+      this.militares = this.militaresService.getMilitares();
       this.aditamentoAtual = this.servicoCrudAditamento.getAditamentoAtual();
       this.exclusaoAuxilioTransporte = new ExclusaoAuxilioTransporte();
   }
 
   salvarExclusaoAuxilioTransporte() {
     if (isNaN(this.precCP)) {
-        alert('Voce precisa selecionar um militar.');
+      // tratar o erro
     } else {
-      if (this.aditamentoAtual == null) {
-        alert('Voce precisa selecionar um aditamento!');
-      } else {
-        this.exclusaoAuxilioTransporte.precCP = this.precCP;
-        this.auxilioTransporte = this.servicoCrudAuxilioTransporte.getAuxilioTransportePorPrecCP(this.precCP);
-        this.exclusaoAuxilioTransporte.valor = this.auxilioTransporte.valorTotalAT;
+      this.exclusaoAuxilioTransporte.precCP = this.precCP;
+      this.auxilioTransporte = this.servicoCrudAuxilioTransporte.getAuxilioTransportePorPrecCP(this.precCP);
+      // VERIFICAR ESTA LINHA ABAIXO, POSSIVEIS ATRIBUTOS ERRADOS
+      this.exclusaoAuxilioTransporte.codAditamento = this.aditamentoAtual.codAditamento;
 
-        this.exclusaoAuxilioTransporte.codAditamento = this.aditamentoAtual.codAditamento;
+      this.servicoCrudAuxilioTransporte.adiocionarExclusaoAuxilioTransporte(this.exclusaoAuxilioTransporte);
 
-        this.servicoCrudAuxilioTransporte.adiocionarExclusaoAuxilioTransporte(this.exclusaoAuxilioTransporte);
-
-        // tslint:disable-next-line:prefer-const
-        let nome = this.servicoCrudMilitares.getNomeMilitarPorPrecCP(this.precCP);
-        alert('O auxílio transporte do ' + nome + ' foi excluído com sucesso');
-
-        // depois de adicionar na tabela do aditamento, deve ser excluido o auxilio transporte correspondente
-        this.servicoCrudAuxilioTransporte.excluirAuxilioTransporte(this.precCP);
-        this.exclusaoAuxilioTransporte = new ExclusaoAuxilioTransporte();
-      }
+      // depois de adicionar na tabela do aditamento, deve ser excluido o auxilio transporte correspondente
+      this.servicoCrudAuxilioTransporte.excluirAuxilioTransporte(this.precCP);
+      this.exclusaoAuxilioTransporte = new ExclusaoAuxilioTransporte();
     }
   }
 
