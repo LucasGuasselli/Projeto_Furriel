@@ -19,8 +19,7 @@ input[type=number]{
 }
 
 input[type=button]{
-    width:40%;
-    background-color: #848484;
+    width:10%;
     color: white;
     padding: 10px 0px;
     border:none;
@@ -28,19 +27,12 @@ input[type=button]{
     cursor: pointer;
 }
 
-input[type=button]{
-    background-color: #B8B8B8;
+
+
+.botaoSalvar{
+    background-color: #90EE90;
 }
 
-.buttons{
-    text-align: center;
-    display: block;
-    width: 50%;
-    margin: auto;    
-}
-
-.form{
-    border-radius: 4px;
-    background-color: #F2f2f2;
-    padding: 20px;    
+.botaoCancelar{
+    background-color: #FA8072;
 }

@@ -55,7 +55,7 @@ export class FormMilitaresComponent implements OnInit {
             // tslint:disable-next-line:triple-equals
             if (this.validaPrecCP() == true) {
               // fazendo com que "o endereco saiba a qual militar pertence"
-                this.endereco.militarId = this.militar.precCP;
+                this.endereco.militarPrecCP = this.militar.precCP;
 
               this.militaresService.insert(this.militar).subscribe(response => {
                   console.log('Cadastro efetuado com sucesso!'); } ,
@@ -74,7 +74,7 @@ export class FormMilitaresComponent implements OnInit {
     } else {
         console.log('chegou na edicao' + this.precCP);
           // fazendo com que "o endereco saiba a qual militar pertence"
-          this.endereco.militarId = this.militar.precCP;
+          this.endereco.militarPrecCP = this.militar.precCP;
 
           this.militaresService.update(this.militar, this.precCP).subscribe(response => {
               console.log('Militar editado com sucesso!'); } ,

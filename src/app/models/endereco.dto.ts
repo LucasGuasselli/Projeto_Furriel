@@ -1,6 +1,6 @@
 export class EnderecoDTO {
     id: number;
-    militarId: number;
+    militarPrecCP: number;
     rua: string;
     bairro: string;
     cidade: string;

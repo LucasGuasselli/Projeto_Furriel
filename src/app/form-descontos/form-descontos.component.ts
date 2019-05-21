@@ -21,7 +21,7 @@ export class FormDescontosComponent implements OnInit {
     militares: Militar[] = [];
     militar: Militar;
     graduacao: String;
-    aditamentoAtual: Aditamento;
+    aditamentoAtual: Aditamento = null;
 
     precCP: number;
     codAT: number;
@@ -46,16 +46,20 @@ export class FormDescontosComponent implements OnInit {
 
   salvarDesconto() {
     if (isNaN(this.precCP)) {
-      // tratar o erro
+      alert('Voce precisa selecionar um militar.');
     } else {
-      this.desconto.precCP = this.precCP;
-      this.desconto.codAditamento = this.aditamentoAtual.codAditamento;
-      this.desconto.nome = this.militar.nome;
-      this.desconto.graduacao = this.graduacao;
+        if (this.aditamentoAtual == null) {
+          alert('Voce precisa selecionar um aditamento!');
+        } else {
+            this.desconto.precCP = this.precCP;
+            this.desconto.codAditamento = this.aditamentoAtual.codAditamento;
+            this.desconto.nome = this.militar.nome;
+            this.desconto.graduacao = this.graduacao;
 
-      // salvando
-      this.servicoCrudAT.adicionarDesconto(this.desconto);
-      this.desconto = new Desconto();
+            // salvando
+            this.servicoCrudAT.adicionarDesconto(this.desconto);
+            this.desconto = new Desconto();
+        }
     }
   }
 

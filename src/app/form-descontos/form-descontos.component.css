@@ -8,23 +8,12 @@ input[type=text]{
 }
 
 input[type=button]{
-    width:40%;
-    background-color: #848484;
+    width: 10%;
     color: white;
     padding: 10px 0px;
     border:none;
     border-radius: 4px;
     cursor: pointer;
-}
-
-input[type=button]{
-    background-color: #B8B8B8;
-}
-
-.buttons{
-    text-align: center;
-    display: block;
-    width: 50%;
     margin: auto;    
 }
 
@@ -46,4 +35,12 @@ border: 0;
 border-radius: 0;
 height: 34px;
 -webkit-appearance: none;
+}
+
+.botaoSalvar{
+    background-color: #90EE90;
+}
+
+.botaoCancelar{
+    background-color: #FA8072;
 }
