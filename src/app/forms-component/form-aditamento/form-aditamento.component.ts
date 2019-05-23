@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CrudAditamentosService } from '../crud-aditamentos.service';
-import { Aditamento } from '../aditamento';
+import { CrudAditamentosService } from '../../crud-aditamentos.service';
+import { Aditamento } from '../../aditamento';
 
 
 @Component({

@@ -11,22 +11,23 @@ import { FormMilitaresComponent } from './forms-component/form-militares/form-mi
 import { MilitaresService } from './services/militares.service';
 import { CrudAuxilioTransporteService } from './crud-auxilio-transporte.service';
 import { IndexComponent } from './index/index.component';
-import { FormAuxilioTransporteComponent } from './form-auxilio-transporte/form-auxilio-transporte.component';
+import { FormAuxilioTransporteComponent } from './forms-component/form-auxilio-transporte/form-auxilio-transporte.component';
 import { TabelaAuxilioTransporteComponent } from './tabelas-component/tabela-auxilio-transporte/tabela-auxilio-transporte.component';
 import { FormDescontosComponent } from './forms-component/form-descontos/form-descontos.component';
 import { TabelaDescontosComponent } from './tabelas-component/tabela-descontos/tabela-descontos.component';
 import { RelatorioComponent } from './relatorio/relatorio.component';
-import { FormPagamentoAtrasadoComponent } from './form-pagamento-atrasado/form-pagamento-atrasado.component';
-import { FormAditamentoComponent } from './form-aditamento/form-aditamento.component';
+import { FormPagamentoAtrasadoComponent } from './forms-component/form-pagamento-atrasado/form-pagamento-atrasado.component';
+import { FormAditamentoComponent } from './forms-component/form-aditamento/form-aditamento.component';
 import { TabelaAditamentosComponent } from './tabelas-component/tabela-aditamentos/tabela-aditamentos.component';
 import { CrudAditamentosService } from './crud-aditamentos.service';
 import { TabelaPagamentosAtrasadosComponent } from './tabelas-component/tabela-pagamentos-atrasados/tabela-pagamentos-atrasados.component';
 import { CrudPagamentoAtrasadoService } from './crud-pagamento-atrasado.service';
-import { FormExclusaoAuxilioTransporteComponent } from './form-exclusao-auxilio-transporte/form-exclusao-auxilio-transporte.component';
+// tslint:disable-next-line:max-line-length
+import { FormExclusaoAuxilioTransporteComponent } from './forms-component/form-exclusao-auxilio-transporte/form-exclusao-auxilio-transporte.component';
 // tslint:disable-next-line:max-line-length
 import { TabelaExclusaoAuxiliosTransporteComponent } from './tabelas-component/tabela-exclusao-auxilios-transporte/tabela-exclusao-auxilios-transporte.component';
 // tslint:disable-next-line:max-line-length
-import { FormAtualizacaoAuxilioTransporteComponent } from './form-atualizacao-auxilio-transporte/form-atualizacao-auxilio-transporte.component';
+import { FormAtualizacaoAuxilioTransporteComponent } from './forms-component/form-atualizacao-auxilio-transporte/form-atualizacao-auxilio-transporte.component';
 import { EnderecosService } from './services/enderecos.service';
 import { PostosGraduacoesService } from './services/postosGraduacoes.service';
 import { DespesasService } from './services/despesas.service';

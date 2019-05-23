@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { MilitaresService } from '../services/militares.service';
-import { Militar } from '../militar';
-import { ExclusaoAuxilioTransporte } from '../exclusao-auxilio-transporte';
-import { CrudAuxilioTransporteService } from '../crud-auxilio-transporte.service';
+import { MilitaresService } from '../../services/militares.service';
+import { Militar } from '../../militar';
+import { ExclusaoAuxilioTransporte } from '../../exclusao-auxilio-transporte';
+import { CrudAuxilioTransporteService } from '../../crud-auxilio-transporte.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Aditamento } from '../aditamento';
-import { CrudAditamentosService } from '../crud-aditamentos.service';
-import { AuxilioTransporte } from '../auxilio-transporte';
+import { Aditamento } from '../../aditamento';
+import { CrudAditamentosService } from '../../crud-aditamentos.service';
+import { AuxilioTransporte } from '../../auxilio-transporte';
 
 
 @Component({

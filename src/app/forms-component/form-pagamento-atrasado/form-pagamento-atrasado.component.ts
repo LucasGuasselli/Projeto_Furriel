@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { PagamentoAtrasado } from '../pagamento-atrasado';
-import { CrudPagamentoAtrasadoService } from '../crud-pagamento-atrasado.service';
-import { Militar } from '../militar';
-import { MilitaresService } from '../services/militares.service';
-import { Aditamento } from '../aditamento';
-import { CrudAditamentosService } from '../crud-aditamentos.service';
+import { PagamentoAtrasado } from '../../pagamento-atrasado';
+import { CrudPagamentoAtrasadoService } from '../../crud-pagamento-atrasado.service';
+import { Militar } from '../../militar';
+import { MilitaresService } from '../../services/militares.service';
+import { Aditamento } from '../../aditamento';
+import { CrudAditamentosService } from '../../crud-aditamentos.service';
 
 @Component({
   selector: 'app-form-pagamento-atrasado',

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { MilitaresService } from '../services/militares.service';
-import { CrudAuxilioTransporteService } from '../crud-auxilio-transporte.service';
+import { MilitaresService } from '../../services/militares.service';
+import { CrudAuxilioTransporteService } from '../../crud-auxilio-transporte.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Militar } from '../militar';
-import { AuxilioTransporte } from '../auxilio-transporte';
-import { Conducao } from '../conducao';
-import { PostoGraduacao } from '../posto-graduacao';
-import { Aditamento } from '../aditamento';
-import { CrudAditamentosService } from '../crud-aditamentos.service';
-import { InclusaoAuxilioTransporte } from '../inclusao-auxilio-transporte';
+import { Militar } from '../../militar';
+import { AuxilioTransporte } from '../../auxilio-transporte';
+import { Conducao } from '../../conducao';
+import { PostoGraduacao } from '../../posto-graduacao';
+import { Aditamento } from '../../aditamento';
+import { CrudAditamentosService } from '../../crud-aditamentos.service';
+import { InclusaoAuxilioTransporte } from '../../inclusao-auxilio-transporte';
 
 @Component({
   selector: 'app-form-auxilio-transporte',

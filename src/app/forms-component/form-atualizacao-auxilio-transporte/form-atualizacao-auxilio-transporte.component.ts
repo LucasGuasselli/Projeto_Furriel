@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Conducao } from '../conducao';
-import { AtualizacaoAuxilioTransporte } from '../atualizacao-auxilio-transporte';
-import { CrudAuxilioTransporteService } from '../crud-auxilio-transporte.service';
-import { Aditamento } from '../aditamento';
-import { CrudAditamentosService } from '../crud-aditamentos.service';
-import { AuxilioTransporte } from '../auxilio-transporte';
+import { Conducao } from '../../conducao';
+import { AtualizacaoAuxilioTransporte } from '../../atualizacao-auxilio-transporte';
+import { CrudAuxilioTransporteService } from '../../crud-auxilio-transporte.service';
+import { Aditamento } from '../../aditamento';
+import { CrudAditamentosService } from '../../crud-aditamentos.service';
+import { AuxilioTransporte } from '../../auxilio-transporte';
 
 
 @Component({
