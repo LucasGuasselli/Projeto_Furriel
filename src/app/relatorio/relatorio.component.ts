@@ -33,7 +33,7 @@ export class RelatorioComponent implements OnInit {
 
   ngOnInit() {
         this.militares = this.militaresService.getMilitares();
-        this.enderecos = this.militaresService.getEnderecos();
+       this.enderecos = this.militaresService.getEnderecos();
         this.descontos = this.servicoCrudAT.getDescontos();
         this.inclusaoAuxiliosTransporte = this.servicoCrudAT.getInclusaoAuxiliosTransporte();
         this.atualizacaoAuxiliosTransporte = this.servicoCrudAT.getAtualizacaoAuxiliosTransporte();

@@ -2,7 +2,7 @@ export class AtualizacaoAuxilioTransporte {
     codAtualizacaoAuxilioTransporte: number;
     precCP: number;
     codAditamento: number;
-    DataInicio: Date;
+    dataInicio: Date;
     motivo: String;
     valor: number;
 }

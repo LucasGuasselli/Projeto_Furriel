@@ -46,8 +46,8 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
 
     this.conducoesAtualizacao = this.servicoCrudAuxilioTransporte.getConducoesPorCod(this.codAT);
 
-    this.atribuiValoresAntigosParaValidacao();
-    this.recebeValoresAuxilioTransporteAtualizado();
+     this.atribuiValoresAntigosParaValidacao();
+     this.recebeValoresAuxilioTransporteAtualizado();
   }
 
   atribuiValoresAntigosParaValidacao() {
