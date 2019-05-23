@@ -1,0 +1,42 @@
+<h3>{{titulo}}</h3>
+<table>
+  <div id="tudo">
+   <tr>
+     <th>Posto</th> <th>Nome</th> <th>Prec-CP</th> <th>Editar</th> <th>Remover</th>
+   </tr>
+
+   <tr *ngFor='let militar of militares'>
+      <td>{{militar.postoGraduacaoId}}</td>
+      <td>{{militar.nome}}</td>  
+      <td>{{militar.precCP}}</td>
+      <td>
+        <a [routerLink]="['/edicaoMilitar', militar.precCP]">
+          <img class="icons" src="../assets/icon-edit.png" alt="Editar"/>
+        </a>
+      </td> 
+      <td>
+        <a routerLink="/listaMilitares" (click)="removerMilitar(militar)">
+          <img class="icons" src="../assets/icon-delete.png" alt="Remover"/>
+        </a>
+      </td>
+    </tr>
+</div>
+
+<div id="tudo1">
+      <tr>
+          <th>Rua</th> <th>Numero</th> <th>Bairro</th> <th>Cidade</th> <th>Complemento</th>
+      </tr>
+      <tr *ngFor='let endereco of enderecos'>
+            <td>{{endereco.rua}}</td>
+            <td>{{endereco.numero}}</td>
+            <td>{{endereco.bairro}}</td>
+            <td>{{endereco.cidade}}</td>
+            <td>{{endereco.complemento}}</td>
+      </tr>
+</div>
+   
+</table>
+<div>
+<a routerLink="/cadastroDeMilitar">Novo Militar</a>
+<a routerLink="/index">VOLTAR</a>
+</div>

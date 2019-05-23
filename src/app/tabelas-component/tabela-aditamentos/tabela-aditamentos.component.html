@@ -1,0 +1,16 @@
+<h3>{{titulo}}</h3>
+<table>
+  <div id="tudo">
+    <tr>
+      <th>Nome Aditamento</th> <th>Data do Aditamento</th>  
+    </tr>
+    <tr *ngFor='let ad of aditamentos'>
+      <td>{{ad.nome}}</td>
+      <td>{{ad.data}}</td>    
+    </tr>
+  </div>   
+</table>
+  <div>
+    <a routerLink="/cadastroAditamento">Novo Aditamento</a>
+    <a routerLink="/index">VOLTAR</a>
+  </div>

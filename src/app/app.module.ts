@@ -6,29 +6,30 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { TabelaMilitaresComponent } from './tabela-militares/tabela-militares.component';
-import { FormMilitaresComponent } from './form-militares/form-militares.component';
+import { TabelaMilitaresComponent } from './tabelas-component/tabela-militares/tabela-militares.component';
+import { FormMilitaresComponent } from './forms-component/form-militares/form-militares.component';
 import { MilitaresService } from './services/militares.service';
 import { CrudAuxilioTransporteService } from './crud-auxilio-transporte.service';
 import { IndexComponent } from './index/index.component';
 import { FormAuxilioTransporteComponent } from './form-auxilio-transporte/form-auxilio-transporte.component';
-import { TabelaAuxilioTransporteComponent } from './tabela-auxilio-transporte/tabela-auxilio-transporte.component';
-import { FormDescontosComponent } from './form-descontos/form-descontos.component';
-import { TabelaDescontosComponent } from './tabela-descontos/tabela-descontos.component';
+import { TabelaAuxilioTransporteComponent } from './tabelas-component/tabela-auxilio-transporte/tabela-auxilio-transporte.component';
+import { FormDescontosComponent } from './forms-component/form-descontos/form-descontos.component';
+import { TabelaDescontosComponent } from './tabelas-component/tabela-descontos/tabela-descontos.component';
 import { RelatorioComponent } from './relatorio/relatorio.component';
 import { FormPagamentoAtrasadoComponent } from './form-pagamento-atrasado/form-pagamento-atrasado.component';
 import { FormAditamentoComponent } from './form-aditamento/form-aditamento.component';
-import { TabelaAditamentosComponent } from './tabela-aditamentos/tabela-aditamentos.component';
+import { TabelaAditamentosComponent } from './tabelas-component/tabela-aditamentos/tabela-aditamentos.component';
 import { CrudAditamentosService } from './crud-aditamentos.service';
-import { TabelaPagamentosAtrasadosComponent } from './tabela-pagamentos-atrasados/tabela-pagamentos-atrasados.component';
+import { TabelaPagamentosAtrasadosComponent } from './tabelas-component/tabela-pagamentos-atrasados/tabela-pagamentos-atrasados.component';
 import { CrudPagamentoAtrasadoService } from './crud-pagamento-atrasado.service';
 import { FormExclusaoAuxilioTransporteComponent } from './form-exclusao-auxilio-transporte/form-exclusao-auxilio-transporte.component';
 // tslint:disable-next-line:max-line-length
-import { TabelaExclusaoAuxiliosTransporteComponent } from './tabela-exclusao-auxilios-transporte/tabela-exclusao-auxilios-transporte.component';
+import { TabelaExclusaoAuxiliosTransporteComponent } from './tabelas-component/tabela-exclusao-auxilios-transporte/tabela-exclusao-auxilios-transporte.component';
 // tslint:disable-next-line:max-line-length
 import { FormAtualizacaoAuxilioTransporteComponent } from './form-atualizacao-auxilio-transporte/form-atualizacao-auxilio-transporte.component';
 import { EnderecosService } from './services/enderecos.service';
 import { PostosGraduacoesService } from './services/postosGraduacoes.service';
+import { DespesasService } from './services/despesas.service';
 
 
 const routes: Routes = [
@@ -84,7 +85,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   providers: [MilitaresService, CrudAuxilioTransporteService, CrudAditamentosService,
-              CrudPagamentoAtrasadoService, EnderecosService, PostosGraduacoesService],
+              CrudPagamentoAtrasadoService, EnderecosService, PostosGraduacoesService,
+              DespesasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
