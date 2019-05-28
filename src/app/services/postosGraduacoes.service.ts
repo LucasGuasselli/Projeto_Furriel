@@ -14,4 +14,8 @@ export class PostosGraduacoesService {
     findAll(): Observable<PostoGraduacaoDTO[]> {
         return this.http.get<PostoGraduacaoDTO[]>(`${API_CONFIG.baseUrl}/postosGraduacoes`);
     }
+
+    findPostoGraduacaoById(id: number): Observable<PostoGraduacaoDTO> {
+        return this.http.get<PostoGraduacaoDTO>(`${API_CONFIG.baseUrl}/postosGraduacoes/${id}`);
+    }
 }

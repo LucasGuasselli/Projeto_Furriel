@@ -3,6 +3,8 @@ import { DespesaDTO } from '../../models/despesa.dto';
 import { DespesasService } from '../../services/despesas.service';
 import { MilitarDTO } from '../../models/militar.dto';
 import { MilitaresService } from '../../services/militares.service';
+import { PostosGraduacoesService } from '../../services/postosGraduacoes.service';
+import { PostoGraduacaoDTO } from '../../models/postoGraduacao.dto';
 
 @Component({
   selector: 'app-tabela-descontos',
@@ -12,26 +14,41 @@ import { MilitaresService } from '../../services/militares.service';
 export class TabelaDescontosComponent implements OnInit {
 
   despesas: DespesaDTO[] = [];
-  militar: MilitarDTO;
+  militares: MilitarDTO[] = [];
+  postoGraduacao: PostoGraduacaoDTO;
   militarPrecCP: number;
 
   constructor(private despesasService: DespesasService,
-              private militaresService: MilitaresService) { }
+              private militaresService: MilitaresService,
+              private postosGraduacaoService: PostosGraduacoesService) { }
 
   ngOnInit() {
-
-    this.despesasService.findPrecCPById(1).subscribe(response => {this.despesas.push(response) ; } ,
-      error => {console.log(error); } );
-
-    // this.despesas[0].nome = 'Lucas';
-      console.log(this.despesas[0]);
-    /*this.militaresService.findMilitarByPrecCP(this.despesas[0].militarPrecCP).subscribe(
-      response => {console.log(response) ; }, error => {console.log(error); }
-    );*/
+    this.carregaDespesas();
+    // console.log(this.despesas[0]);
     // this.descontos = this.servicoCrudAT.getDescontos();
-
-      for (let i = 0; i < this.despesas.length; i++) {
-          console.log(this.despesas[i]);
-      }
   }
+
+  carregaDespesas() {
+    this.despesasService.findAll().subscribe(response => {this.despesas = response;
+    console.log(this.despesas); this.atribuiMilitares(this.despesas); } ,
+      error => {console.log(error); } );
+  }
+
+  atribuiMilitares(despesas: DespesaDTO[]) {
+    for (let i = 0; i < despesas.length; i++) {
+        this.militaresService.findMilitarByPrecCP(this.despesas[i].militarPrecCP).subscribe(
+          response => {this.militares[i] = response; despesas[i].nome = this.militares[i].nome;
+                      this.atribuiGraduacoes(this.despesas[i], this.militares[i]); },
+          error => {console.log(error); }
+        );
+    }
+  }
+
+  atribuiGraduacoes(despesa: DespesaDTO, militar: MilitarDTO) {
+      this.postosGraduacaoService.findPostoGraduacaoById(militar.postoGraduacaoId).subscribe(
+        response => {this.postoGraduacao = response; despesa.graduacao = this.postoGraduacao.nome; },
+           error => {console.log(error); } );
+  }
+
+
 }
