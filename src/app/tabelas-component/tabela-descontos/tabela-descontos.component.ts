@@ -20,7 +20,7 @@ export class TabelaDescontosComponent implements OnInit {
 
   constructor(private despesasService: DespesasService,
               private militaresService: MilitaresService,
-              private postosGraduacaoService: PostosGraduacoesService) { }
+              private postosGraduacoesService: PostosGraduacoesService) { }
 
   ngOnInit() {
     this.carregaDespesas();
@@ -45,7 +45,7 @@ export class TabelaDescontosComponent implements OnInit {
   }
 
   atribuiGraduacoes(despesa: DespesaDTO, militar: MilitarDTO) {
-      this.postosGraduacaoService.findPostoGraduacaoById(militar.postoGraduacaoId).subscribe(
+      this.postosGraduacoesService.findPostoGraduacaoById(militar.postoGraduacaoId).subscribe(
         response => {this.postoGraduacao = response; despesa.graduacao = this.postoGraduacao.nome; },
            error => {console.log(error); } );
   }
