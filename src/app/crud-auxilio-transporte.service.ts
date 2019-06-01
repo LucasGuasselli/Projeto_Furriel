@@ -40,7 +40,6 @@ exclusaoAuxiliosTransporte: ExclusaoAuxilioTransporte[] = [
   {codExclusaoAuxilioTransporte: 1, precCP: 12345, codAditamento: 1, data: null, motivo: 'aa', valor: 10 }
 ];
 
-inclusaoAuxiliosTransporte: InclusaoAuxilioTransporte[] = [];
 
 atualizacaoAuxilioTransporte: AtualizacaoAuxilioTransporte[] = [];
 
@@ -61,9 +60,7 @@ atualizacaoAuxilioTransporte: AtualizacaoAuxilioTransporte[] = [];
     getDescontos() {
         return this.descontos;
     }
-    getInclusaoAuxiliosTransporte() {
-        return this.inclusaoAuxiliosTransporte;
-    }
+
     getAtualizacaoAuxiliosTransporte() {
         return this.atualizacaoAuxilioTransporte;
     }
@@ -168,7 +165,6 @@ atualizacaoAuxilioTransporte: AtualizacaoAuxilioTransporte[] = [];
 
   adiocionarInclusaoAuxilioTransporte(inclusaoAuxilioTransporte: InclusaoAuxilioTransporte) {
     inclusaoAuxilioTransporte.codInclusaoAuxilioTransporte = this.autoIncrementInclusaoAuxilioTransporte++;
-    this.inclusaoAuxiliosTransporte.push(inclusaoAuxilioTransporte);
     // console.log(inclusaoAuxilioTransporte);
     // console.log(this.inclusaoAuxiliosTransporte);
   }
