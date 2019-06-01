@@ -2,10 +2,10 @@
 <div class = "form">
         
   <form>
-    <label for="codMilitar">Nome do Militar</label>
-    <select id="codMilitar" name="codMilitar">
+    <label for="precCP">Nome do Militar</label>
+    <select id="precCP" name="precCP">
         <option></option>
-        <option *ngFor="let m of militaresSemAuxilioTransporte" (click)="salvarPrecCPMilitar(m.precCP)" >{{m.nome}}</option>
+        <option *ngFor="let m of militaresSemAuxilioTransporte" (click)="savePrecCPMilitar(m.precCP)" >{{m.nome}}</option>
     </select >      
 
     <label for="data">A contar de:</label>
@@ -204,7 +204,7 @@
     <input type="number" name="valor5" [(ngModel)]="conducoes[5].valor">
 
     <div class="buttons">            
-      <input type="button" (click)="salvarAuxilioTransporte()" value="Salvar">
+      <input type="button" (click)="saveAuxilioTransporte()" value="Salvar">
       <input type="button" (click)="cancelar()" value="Cancelar">    
     </div>
   </form>

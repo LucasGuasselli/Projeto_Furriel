@@ -1,14 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import * as jsPDF from 'jspdf';
-import { Militar } from '../militar';
-import { Endereco } from '../endereco';
 import { MilitaresService } from '../services/militares.service';
-import { Desconto } from '../desconto';
 import { CrudAuxilioTransporteService } from '../crud-auxilio-transporte.service';
 import { PagamentoAtrasado } from '../pagamento-atrasado';
 import { CrudPagamentoAtrasadoService } from '../crud-pagamento-atrasado.service';
 import { ExclusaoAuxilioTransporte } from '../exclusao-auxilio-transporte';
-import { InclusaoAuxilioTransporte } from '../inclusao-auxilio-transporte';
 import { AtualizacaoAuxilioTransporte } from '../atualizacao-auxilio-transporte';
 import { DespesaDTO } from '../models/despesa.dto';
 import { MilitarDTO } from '../models/militar.dto';
@@ -27,7 +22,7 @@ export class RelatorioComponent implements OnInit {
   despesas: DespesaDTO[] = [];
   postoGraduacao: PostoGraduacaoDTO;
 
-  inclusaoAuxiliosTransporte: InclusaoAuxilioTransporte[] = [];
+  // inclusaoAuxiliosTransporte: InclusaoAuxilioTransporte[] = [];
   atualizacaoAuxiliosTransporte: AtualizacaoAuxilioTransporte[] = [];
   exclusaoAuxiliosTransporte: ExclusaoAuxilioTransporte[] = [];
   pagamentosAtrasados: PagamentoAtrasado[] = [];
@@ -60,7 +55,7 @@ export class RelatorioComponent implements OnInit {
   getScreenshot() {
 
   }
-
+// DESPESA A ANULAR
   carregaDespesas() {
     this.despesasService.findAll().subscribe(response => {this.despesas = response;
     console.log(this.despesas); this.atribuiMilitares(this.despesas); } ,

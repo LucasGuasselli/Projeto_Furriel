@@ -27,6 +27,10 @@ export class MilitaresService {
         return this.http.get<MilitarDTO[]>(`${API_CONFIG.baseUrl}/militares`);
     }
 
+    findMilitaresSemAuxilioTransporte(): Observable<MilitarDTO[]> {
+      return this.http.get<MilitarDTO[]>(`${API_CONFIG.baseUrl}/militares/militaresSemAuxilioTransporte`);
+  }
+
     findMilitarByPrecCP(precCP: number): Observable<MilitarDTO> {
         return this.http.get<MilitarDTO>(`${API_CONFIG.baseUrl}/militares/searchMilitarByPrecCP/?precCP=${precCP}`);
     }
@@ -60,7 +64,7 @@ export class MilitaresService {
 
 
 
-
+// DAQUI PARA BAIXO SERA DELETADO CONFORME ALTERACAO DO CODIGO
 
 // melhorar tratamento de excecao
 adiocionarMilitar(militar: MilitarDTO, endereco: Endereco) {
