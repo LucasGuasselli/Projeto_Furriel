@@ -18,7 +18,6 @@ export class FormMilitaresComponent implements OnInit {
     militar: MilitarDTO = new MilitarDTO();
     endereco: EnderecoDTO = new EnderecoDTO();
     postosGraduacoes: PostoGraduacaoDTO[] = [];
-
     precCP: number = null;
 
   constructor(private militaresService: MilitaresService,
@@ -38,12 +37,9 @@ export class FormMilitaresComponent implements OnInit {
     this.militar  = new MilitarDTO();
     this.endereco  = new EnderecoDTO();
   } else {
-    this.militaresService.findMilitarByPrecCP(this.precCP).subscribe( response => {
-                      this.militar = response; }, error => {console.log(error); } );
-
-    this.enderecosService.findEnderecoByPrecCP(this.precCP).subscribe( response => {
-                      this.endereco = response; }, error => {console.log(error); } );
-    console.log(this.endereco.militarPrecCP);
+      alert('PrecCP nao deve ser alterado!');
+      this.loadUpdateMilitarAndEndereco();
+      console.log(this.endereco.militarPrecCP);
     }
   }
 
@@ -55,15 +51,7 @@ export class FormMilitaresComponent implements OnInit {
             if (this.validaPrecCP() == true) {
               // fazendo com que "o endereco saiba a qual militar pertence"
                 this.endereco.militarPrecCP = this.militar.precCP;
-
-              this.militaresService.insert(this.militar).subscribe(response => {
-                  console.log('Cadastro efetuado com sucesso!'); } ,
-                  error => {console.log(error); } );
-                      this.militar = new MilitarDTO();
-              this.enderecosService.insert(this.endereco).subscribe(response => {
-                  console.log('Endereco cadastrado com sucesso!'); },
-                  error => {console.log(error); } );
-                      this.endereco = new EnderecoDTO();
+              this.insertMilitar();
               // redireciona para a lista
                   this.router.navigate(['/listaMilitares']);
             } else {
@@ -74,19 +62,43 @@ export class FormMilitaresComponent implements OnInit {
         console.log('chegou na edicao' + this.precCP);
           // fazendo com que "o endereco saiba a qual militar pertence"
           this.endereco.militarPrecCP = this.militar.precCP;
-
-          this.militaresService.update(this.militar, this.precCP).subscribe(response => {
-              console.log('Militar editado com sucesso!'); } ,
-              error => {console.log(error); } );
-                  this.militar = new MilitarDTO();
-          this.enderecosService.update(this.endereco, this.endereco.id).subscribe(response => {
-              console.log('Endereco editado com sucesso!'); } ,
-              error => {console.log(error); } );
-                  this.endereco = new EnderecoDTO();
-
+            this.updateMilitarAndEndereco();
                 this.router.navigate(['/listaMilitares']);
     }
-}
+  }
+
+  insertMilitar() {
+    this.militaresService.insert(this.militar).subscribe(response => {
+              this.insertEndereco(); console.log('Cadastro efetuado com sucesso!');  } ,
+      error => {console.log(error); } );
+          this.militar = new MilitarDTO();
+  }
+
+  insertEndereco() {
+    this.enderecosService.insert(this.endereco).subscribe(response => {
+      console.log('Endereco cadastrado com sucesso!'); },
+      error => {console.log(error); } );
+          this.endereco = new EnderecoDTO();
+  }
+
+  loadUpdateMilitarAndEndereco() {
+    this.militaresService.findMilitarByPrecCP(this.precCP).subscribe( response => {
+      this.militar = response; }, error => {console.log(error); } );
+
+    this.enderecosService.findEnderecoByPrecCP(this.precCP).subscribe( response => {
+      this.endereco = response; }, error => {console.log(error); } );
+  }
+
+  updateMilitarAndEndereco() {
+    this.militaresService.update(this.militar, this.precCP).subscribe(response => {
+      console.log('Militar editado com sucesso!'); } ,
+      error => {console.log(error); } );
+          this.militar = new MilitarDTO();
+    this.enderecosService.update(this.endereco, this.endereco.id).subscribe(response => {
+      console.log('Endereco editado com sucesso!'); } ,
+      error => {console.log(error); } );
+          this.endereco = new EnderecoDTO();
+  }
 
   salvarPostoGraduacao(codigo: number) {
     if (isNaN(codigo)) {

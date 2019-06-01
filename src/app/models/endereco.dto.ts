@@ -1,9 +1,9 @@
 export class EnderecoDTO {
     id: number;
     militarPrecCP: number;
-    rua: string;
-    bairro: string;
-    cidade: string;
+    rua: String;
+    bairro: String;
+    cidade: String;
     numero: number;
-    complemento: string;
+    complemento: String = '';
 }

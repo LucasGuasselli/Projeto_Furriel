@@ -6,7 +6,6 @@ import { MilitaresService } from './services/militares.service';
 import { PostoGraduacao } from './posto-graduacao';
 import { Desconto } from './desconto';
 import { ExclusaoAuxilioTransporte } from './exclusao-auxilio-transporte';
-import { InclusaoAuxilioTransporte } from './inclusao-auxilio-transporte';
 import { AtualizacaoAuxilioTransporte } from './atualizacao-auxilio-transporte';
 
 @Injectable()
@@ -161,12 +160,6 @@ atualizacaoAuxilioTransporte: AtualizacaoAuxilioTransporte[] = [];
   adiocionarExclusaoAuxilioTransporte(exclusaoAuxilioTransporte: ExclusaoAuxilioTransporte) {
     exclusaoAuxilioTransporte.codExclusaoAuxilioTransporte = this.autoIncrementExclusaoAuxilioTransporte++;
     this.exclusaoAuxiliosTransporte.push(exclusaoAuxilioTransporte);
-  }
-
-  adiocionarInclusaoAuxilioTransporte(inclusaoAuxilioTransporte: InclusaoAuxilioTransporte) {
-    inclusaoAuxilioTransporte.codInclusaoAuxilioTransporte = this.autoIncrementInclusaoAuxilioTransporte++;
-    // console.log(inclusaoAuxilioTransporte);
-    // console.log(this.inclusaoAuxiliosTransporte);
   }
 
   adicionarAtualizacaoAuxilioTransporte(atualizacaoAuxilioTransporte: AtualizacaoAuxilioTransporte) {
