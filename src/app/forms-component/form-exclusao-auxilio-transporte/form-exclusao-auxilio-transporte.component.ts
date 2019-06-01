@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MilitaresService } from '../../services/militares.service';
-import { Militar } from '../../militar';
 import { ExclusaoAuxilioTransporte } from '../../exclusao-auxilio-transporte';
 import { CrudAuxilioTransporteService } from '../../crud-auxilio-transporte.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -21,14 +20,14 @@ export class FormExclusaoAuxilioTransporteComponent implements OnInit {
   precCP: number;
   valorAuxilioTransporte: number;
   auxilioTransporte: AuxilioTransporte;
-  militares: Militar[] = [];
+//  militares: Militar[] = [];
 
 
   constructor(private militaresService: MilitaresService, private servicoCrudAuxilioTransporte: CrudAuxilioTransporteService,
     private servicoCrudAditamento: CrudAditamentosService, private router: Router, private rota: ActivatedRoute ) { }
 
   ngOnInit() {
-      this.militares = this.militaresService.getMilitares();
+     // this.militares = this.militaresService.getMilitares();
       this.aditamentoAtual = this.servicoCrudAditamento.getAditamentoAtual();
       this.exclusaoAuxilioTransporte = new ExclusaoAuxilioTransporte();
   }

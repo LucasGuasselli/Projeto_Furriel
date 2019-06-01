@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PagamentoAtrasado } from '../../pagamento-atrasado';
 import { CrudPagamentoAtrasadoService } from '../../crud-pagamento-atrasado.service';
-import { Militar } from '../../militar';
 import { MilitaresService } from '../../services/militares.service';
 import { Aditamento } from '../../aditamento';
 import { CrudAditamentosService } from '../../crud-aditamentos.service';
@@ -19,7 +18,7 @@ export class FormPagamentoAtrasadoComponent implements OnInit {
   aditamentoAtual: Aditamento;
   pagamentoAtrasado: PagamentoAtrasado;
   pagamentosAtrasados: PagamentoAtrasado[] = [];
-  militares: Militar[] = [];
+  // militares: Militar[] = [];
 
   constructor(private servicoCrudMilitares: MilitaresService, private servicoCrudPagamentoAtrasado: CrudPagamentoAtrasadoService,
               private router: Router, private rota: ActivatedRoute, private servicoCrudAditamento: CrudAditamentosService) { }
@@ -29,7 +28,7 @@ export class FormPagamentoAtrasadoComponent implements OnInit {
       if (isNaN(this.codigo)) {
         // CADASTRAR
         this.aditamentoAtual = this.servicoCrudAditamento.getAditamentoAtual();
-        this.militares = this.servicoCrudMilitares.getMilitares();
+       // this.militares = this.servicoCrudMilitares.getMilitares();
         this.pagamentoAtrasado  = new PagamentoAtrasado();
         this.pagamentoAtrasado.precCP = null;
       } else {

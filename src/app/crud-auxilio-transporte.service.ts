@@ -1,19 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Militar } from './militar';
 import { AuxilioTransporte } from './auxilio-transporte';
 import { Conducao } from './conducao';
 import { MilitaresService } from './services/militares.service';
-import { PostoGraduacao } from './posto-graduacao';
-import { Desconto } from './desconto';
 import { ExclusaoAuxilioTransporte } from './exclusao-auxilio-transporte';
 import { AtualizacaoAuxilioTransporte } from './atualizacao-auxilio-transporte';
 
 @Injectable()
 export class CrudAuxilioTransporteService {
 
-militar: Militar;
-postoGraduacao: PostoGraduacao;
-militaresSemAuxilioTransporte: Militar[] = [];
+// militar: Militar;
+// postoGraduacao: PostoGraduacao;
+// militaresSemAuxilioTransporte: Militar[] = [];
 auxiliosTransporteSemPublicacao: AuxilioTransporte[] = [];
 conducoesSemPublicacao: Conducao [] = [];
 
@@ -33,12 +30,9 @@ conducoes: Conducao[] = [
   {codConducao: 1, precCP: 1, codAT: 1, itinerario: 'Centro-Bairro', nomeEmpresa: 'SOUL', tipoDeTransporte: 'Onibus', valor: 10 }
 ];
 
-descontos: Desconto[] = [];
-
 exclusaoAuxiliosTransporte: ExclusaoAuxilioTransporte[] = [
   {codExclusaoAuxilioTransporte: 1, precCP: 12345, codAditamento: 1, data: null, motivo: 'aa', valor: 10 }
 ];
-
 
 atualizacaoAuxilioTransporte: AtualizacaoAuxilioTransporte[] = [];
 
@@ -55,9 +49,6 @@ atualizacaoAuxilioTransporte: AtualizacaoAuxilioTransporte[] = [];
     }
     getConducoes() {
         return this.conducoes;
-    }
-    getDescontos() {
-        return this.descontos;
     }
 
     getAtualizacaoAuxiliosTransporte() {
@@ -94,7 +85,6 @@ atualizacaoAuxilioTransporte: AtualizacaoAuxilioTransporte[] = [];
                 conducoes.push(this.conducoes[i]);
             }
         }
-
         return conducoes;
     }
 
@@ -103,40 +93,18 @@ atualizacaoAuxilioTransporte: AtualizacaoAuxilioTransporte[] = [];
       return(this.auxiliosTransporte.find(auxilioTransporte => auxilioTransporte.precCP == precCP));
     }
 
-    // este metodo faz uma comparacao para selecionar os militares que nao possuem auxilio transporte retorna os mesmos
-    getMilitaresSemAuxilioTransporte() {
-      this.militaresSemAuxilioTransporte = this.servico.getMilitares();
-
-      // USAR O FIND NA LOGICA
-
-      //    this.militar = Object.assign({}, this.servico.getMilitarPorPrecCP(this.precCP));
-
-      for (let k = 0; k < this.militaresSemAuxilioTransporte.length; k++) {
-          for (let i = 0; i < this.auxiliosTransporte.length; i++) {
-            // tslint:disable-next-line:triple-equals
-            if (this.militaresSemAuxilioTransporte[k].precCP == this.auxiliosTransporte[i].precCP) {
-              const indice = this.militaresSemAuxilioTransporte.indexOf(this.militaresSemAuxilioTransporte[k], 0);
-                if (indice > -1) {
-                 // this.militaresSemAuxilioTransporte.splice(indice, 1);
-                }
-            }
-          }
-      }
-      return this.militaresSemAuxilioTransporte;
-  }
-
     adiocionarAT(AT: AuxilioTransporte) {
         AT.codAT = this.autoIncrementAT++;
       // encontra o militar correspondente ao auxilio transporte
-        this.militar = this.servico.getMilitarPorPrecCP(AT.precCP);
+      //  this.militar = this.servico.getMilitarPorPrecCP(AT.precCP);
       // encontra o postoGraduacao correspondente para saber o valor da cota parte
-        this.postoGraduacao = this.servico.getPostoGraduacaoPorCodigo(this.militar.codPostoGraduacao);
+      //  this.postoGraduacao = this.servico.getPostoGraduacaoPorCodigo(this.militar.codPostoGraduacao);
 
-        AT.valorTotalAT = (this.postoGraduacao.cotaParte * -1 );
+      //  AT.valorTotalAT = (this.postoGraduacao.cotaParte * -1 );
             this.auxiliosTransporte.push(AT);
 
-        this.militar = new Militar();
-        this.postoGraduacao = new PostoGraduacao();
+    // this.militar = new Militar();
+       // this.postoGraduacao = new PostoGraduacao();
       }
 
   // TALVEZ SEJA NECESSARIO MODIFICAR O METODO QUANDO FOR PUBLICAR UM AUXILIO TRANSPORTE
@@ -182,15 +150,15 @@ atualizacaoAuxilioTransporte: AtualizacaoAuxilioTransporte[] = [];
 
   atualizaValorPassagem(precCP: number, valor: number) {
     // encontra o militar correspondente ao auxilio transporte
-      this.militar = this.servico.getMilitarPorPrecCP(precCP);
+    //  this.militar = this.servico.getMilitarPorPrecCP(precCP);
     // encontra o postoGraduacao correspondente para saber o valor da cota parte
-      this.postoGraduacao = this.servico.getPostoGraduacaoPorCodigo(this.militar.codPostoGraduacao);
+    //  this.postoGraduacao = this.servico.getPostoGraduacaoPorCodigo(this.militar.codPostoGraduacao);
 
         for (let i = 0; i < this.auxiliosTransporte.length; i++) {
               // tslint:disable-next-line:triple-equals
               if (this.auxiliosTransporte[i].precCP == precCP) {
                 // adicionando a COTA PARTE
-                    this.auxiliosTransporte[i].valorTotalAT = (this.postoGraduacao.cotaParte * -1 );
+            //        this.auxiliosTransporte[i].valorTotalAT = (this.postoGraduacao.cotaParte * -1 );
                       for (let k = 0; k < this.conducoes.length; k++) {
                           // tslint:disable-next-line:triple-equals
                           if (this.conducoes[k].precCP == precCP) {
@@ -200,8 +168,8 @@ atualizacaoAuxilioTransporte: AtualizacaoAuxilioTransporte[] = [];
                 this.auxiliosTransporte[i].valorDiarioAT = this.auxiliosTransporte[i].valorTotalAT / 22;
               }
         }
-      this.militar = new Militar();
-      this.postoGraduacao = new PostoGraduacao();
+//  this.militar = new Militar();
+     // this.postoGraduacao = new PostoGraduacao();
   }
 
   subtraiValorPassagem(codigo: number, valor: number) {
@@ -240,13 +208,13 @@ atualizacaoAuxilioTransporte: AtualizacaoAuxilioTransporte[] = [];
         }
     }
   }
-
+/*
   adicionarDesconto(desconto: Desconto) {
       desconto.codDesconto = this.autoIncrementDesconto++;
       desconto.valorDesconto = this.calculaValorDesconto(desconto.precCP);
       this.descontos.push(desconto);
   }
-
+*/
   removerConducao(conducao: Conducao) {
     this.subtraiValorPassagem(conducao.precCP, conducao.valor);
 
@@ -271,7 +239,6 @@ atualizacaoAuxilioTransporte: AtualizacaoAuxilioTransporte[] = [];
   }
 
 }
-
 
 /*
 

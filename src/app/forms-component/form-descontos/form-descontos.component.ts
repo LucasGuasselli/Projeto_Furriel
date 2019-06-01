@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuxilioTransporte } from '../../auxilio-transporte';
-import { Militar } from '../../militar';
 import { MilitaresService } from '../../services/militares.service';
 import { CrudAuxilioTransporteService } from '../../crud-auxilio-transporte.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Desconto } from '../../desconto';
 import { CrudAditamentosService } from '../../crud-aditamentos.service';
 import { Aditamento } from '../../aditamento';
 
@@ -15,11 +13,11 @@ import { Aditamento } from '../../aditamento';
 })
 export class FormDescontosComponent implements OnInit {
 
-    desconto = new Desconto();
+   // desconto = new Desconto();
     AT: AuxilioTransporte = new AuxilioTransporte();
     auxilioTransporte: AuxilioTransporte[] = [];
-    militares: Militar[] = [];
-    militar: Militar;
+   // militares: Militar[] = [];
+   // militar: Militar;
     graduacao: String;
     aditamentoAtual: Aditamento = null;
 
@@ -31,12 +29,12 @@ export class FormDescontosComponent implements OnInit {
 
   ngOnInit() {
       this.auxilioTransporte = this.servicoCrudAT.getAT();
-      this.militares = this.militaresService.getMilitares();
+     // this.militares = this.militaresService.getMilitares();
       this.aditamentoAtual = this.servicoCrudAditamento.getAditamentoAtual();
 
       if (isNaN(this.precCP)) {
         // CADASTRAR
-        this.desconto  = new Desconto();
+     //   this.desconto  = new Desconto();
       } else {
         // EDITAR
         // this.militar = Object.assign({}, this.servico.getMilitarPorCodigo(this.codMilitar));
@@ -51,14 +49,14 @@ export class FormDescontosComponent implements OnInit {
         if (this.aditamentoAtual == null) {
           alert('Voce precisa selecionar um aditamento!');
         } else {
-            this.desconto.precCP = this.precCP;
-            this.desconto.codAditamento = this.aditamentoAtual.codAditamento;
-            this.desconto.nome = this.militar.nome;
-            this.desconto.graduacao = this.graduacao;
+        //    this.desconto.precCP = this.precCP;
+        //    this.desconto.codAditamento = this.aditamentoAtual.codAditamento;
+        //    this.desconto.nome = this.militar.nome;
+        //    this.desconto.graduacao = this.graduacao;
 
             // salvando
-            this.servicoCrudAT.adicionarDesconto(this.desconto);
-            this.desconto = new Desconto();
+        //    this.servicoCrudAT.adicionarDesconto(this.desconto);
+        //    this.desconto = new Desconto();
         }
     }
   }
@@ -68,8 +66,8 @@ export class FormDescontosComponent implements OnInit {
         // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
     } else {
         this.precCP = precCP;
-        this.militar = this.militaresService.getMilitarPorPrecCP(this.precCP);
-        this.graduacao = this.militaresService.getPostoGraduacaoPorCodigo(this.militar.codPostoGraduacao).nome;
+      //  this.militar = this.militaresService.getMilitarPorPrecCP(this.precCP);
+      //  this.graduacao = this.militaresService.getPostoGraduacaoPorCodigo(this.militar.codPostoGraduacao).nome;
         // console.log(this.precCP);
     }
   }
