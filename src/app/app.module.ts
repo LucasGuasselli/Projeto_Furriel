@@ -31,6 +31,7 @@ import { FormAtualizacaoAuxilioTransporteComponent } from './forms-component/for
 import { EnderecosService } from './services/enderecos.service';
 import { PostosGraduacoesService } from './services/postosGraduacoes.service';
 import { DespesasService } from './services/despesas.service';
+import { UtilService } from './services/util.service';
 
 
 const routes: Routes = [
@@ -87,7 +88,7 @@ const routes: Routes = [
   ],
   providers: [MilitaresService, CrudAuxilioTransporteService, CrudAditamentosService,
               CrudPagamentoAtrasadoService, EnderecosService, PostosGraduacoesService,
-              DespesasService],
+              DespesasService, UtilService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

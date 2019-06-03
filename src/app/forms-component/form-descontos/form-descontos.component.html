@@ -2,30 +2,36 @@
 <div class = "form">
         
   <form>
-    <label for="precCP">Nome do Militar</label>
+    <label for="precCP">Nome do Militar:</label>
     <select id="precCP" name="precCP">
         <option></option>
-        <option *ngFor="let m of militares" (click)="salvarPrecCPMilitar(m.precCP)" >{{m.nome}}</option>
+        <option *ngFor="let m of militaresComAuxilioTransporte" (click)="salvarPrecCPMilitar(m.precCP)" >{{m.nome}}</option>
     </select >      
 
     <br>
-      <label for="dataInicio">Data de Inicio</label>
-      <input type="date" id="dataInicio" name="dataInicio" [(ngModel)]="desconto.dataInicio"> 
+      <label for="dataInicio">Data de Inicio:</label>
+      <input type="date" id="dataInicio" name="dataInicio" [(ngModel)]="despesa.dataInicio"> 
     <br>
-      <label for="dataFim">Data de Termino</label>
-      <input type="date" id="dataFim" name="dataFim" [(ngModel)]="desconto.dataFim">    
+      <label for="dataFim">Data de Termino:</label>
+      <input type="date" id="dataFim" name="dataFim" [(ngModel)]="despesa.dataFim">
     <br>
-      <label for="motivo">Motivo</label>
-      <select class="imbSelect" id="motivo" name="motivo" [(ngModel)]="desconto.motivo">
+      <label for="quantidadeDias">Quantidade de dias:</label>
+      <input type="number" id="quantidadeDias" name="quantidadeDias" [(ngModel)]="despesa.quantidadeDias">       
+    <br>
+      <label for="motivo">Motivo:</label>
+      <select class="imbSelect" id="motivo" name="motivo" [(ngModel)]="despesa.motivo">
         <option></option>
-        <option>Dispensa por Recompensa</option>
+        <option>Dispensa como Recompensa</option>
         <option>Serviço</option>
         <option>Viagem</option>
-        <option> aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</option>
+        <option>Férias</option>
+        <option>Desconto em Férias</option>
+        <option>Núpcias</option>
+        <option>LTSP</option>
     </select >
       
     <div>            
-      <input type="button" class="botaoSalvar" (click)="salvarDesconto()" value="Salvar">
+      <input type="button" class="botaoSalvar" (click)="saveDespesa()" value="Salvar">
       <input type="button" class="botaoCancelar" (click)="cancelar()" value="Cancelar">    
     </div>
   </form>

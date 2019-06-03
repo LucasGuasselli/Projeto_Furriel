@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AuxilioTransporte } from '../../auxilio-transporte';
 import { MilitaresService } from '../../services/militares.service';
-import { CrudAuxilioTransporteService } from '../../crud-auxilio-transporte.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CrudAditamentosService } from '../../crud-aditamentos.service';
 import { Aditamento } from '../../aditamento';
+import { MilitarDTO } from '../../models/militar.dto';
+import { DespesaDTO } from '../../models/despesa.dto';
+import { DespesasService } from '../../services/despesas.service';
+import { UtilService } from '../../services/util.service';
 
 @Component({
   selector: 'app-form-descontos',
@@ -13,28 +15,28 @@ import { Aditamento } from '../../aditamento';
 })
 export class FormDescontosComponent implements OnInit {
 
-   // desconto = new Desconto();
-    AT: AuxilioTransporte = new AuxilioTransporte();
-    auxilioTransporte: AuxilioTransporte[] = [];
-   // militares: Militar[] = [];
-   // militar: Militar;
-    graduacao: String;
-    aditamentoAtual: Aditamento = null;
+  militaresComAuxilioTransporte: MilitarDTO[] = [];
+  despesa = new DespesaDTO();
+  precCP: number;
 
-    precCP: number;
-    codAT: number;
+  aditamentoAtual: Aditamento = new Aditamento;
 
-  constructor(private militaresService: MilitaresService, private servicoCrudAT: CrudAuxilioTransporteService,
-              private servicoCrudAditamento: CrudAditamentosService, private router: Router, private rota: ActivatedRoute) { }
+  constructor(private militaresService: MilitaresService,
+              private despesasService: DespesasService,
+              private utilService: UtilService,
+              private servicoCrudAditamento: CrudAditamentosService,
+              private router: Router,
+              private rota: ActivatedRoute) { }
 
   ngOnInit() {
-      this.auxilioTransporte = this.servicoCrudAT.getAT();
-     // this.militares = this.militaresService.getMilitares();
       this.aditamentoAtual = this.servicoCrudAditamento.getAditamentoAtual();
+      this.aditamentoAtual.codAditamento = 1;
+      // tslint:disable-next-line:no-unused-expression
+      Date.parse;
+      this.loadMilitaresComAuxilioTransporte();
 
       if (isNaN(this.precCP)) {
         // CADASTRAR
-     //   this.desconto  = new Desconto();
       } else {
         // EDITAR
         // this.militar = Object.assign({}, this.servico.getMilitarPorCodigo(this.codMilitar));
@@ -42,23 +44,30 @@ export class FormDescontosComponent implements OnInit {
       }
   }
 
-  salvarDesconto() {
+  saveDespesa() {
     if (isNaN(this.precCP)) {
       alert('Voce precisa selecionar um militar.');
     } else {
         if (this.aditamentoAtual == null) {
           alert('Voce precisa selecionar um aditamento!');
         } else {
-        //    this.desconto.precCP = this.precCP;
-        //    this.desconto.codAditamento = this.aditamentoAtual.codAditamento;
-        //    this.desconto.nome = this.militar.nome;
-        //    this.desconto.graduacao = this.graduacao;
-
+          this.despesa.militarPrecCP = this.precCP;
+          this.despesa.aditamentoId = this.aditamentoAtual.codAditamento;
+          this.insertDespesa();
             // salvando
-        //    this.servicoCrudAT.adicionarDesconto(this.desconto);
         //    this.desconto = new Desconto();
         }
     }
+  }
+
+  insertDespesa() {
+    this.despesa.dataInicio = this.utilService.formatDate(this.despesa.dataInicio.toString());
+    this.despesa.dataFim = this.utilService.formatDate(this.despesa.dataFim.toString());
+
+    console.log(this.despesa.dataInicio);
+    console.log(this.despesa.dataFim);
+      this.despesasService.insert(this.despesa).subscribe(response => { console.log('Despesa cadastrada com sucesso!'); } ,
+        error => {console.log(error); });
   }
 
   salvarPrecCPMilitar(precCP: number) {
@@ -66,10 +75,14 @@ export class FormDescontosComponent implements OnInit {
         // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
     } else {
         this.precCP = precCP;
-      //  this.militar = this.militaresService.getMilitarPorPrecCP(this.precCP);
-      //  this.graduacao = this.militaresService.getPostoGraduacaoPorCodigo(this.militar.codPostoGraduacao).nome;
-        // console.log(this.precCP);
+        console.log(this.precCP);
     }
+  }
+
+  loadMilitaresComAuxilioTransporte() {
+    this.militaresService.findMilitaresComAuxilioTransporte().subscribe(
+        response => {this.militaresComAuxilioTransporte = response; console.log(this.militaresComAuxilioTransporte); } ,
+        error => {console.log(error); } );
   }
 
   cancelar() {

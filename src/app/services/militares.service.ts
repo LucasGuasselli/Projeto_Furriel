@@ -18,7 +18,11 @@ export class MilitaresService {
 
     findMilitaresSemAuxilioTransporte(): Observable<MilitarDTO[]> {
       return this.http.get<MilitarDTO[]>(`${API_CONFIG.baseUrl}/militares/militaresSemAuxilioTransporte`);
-  }
+    }
+
+    findMilitaresComAuxilioTransporte(): Observable<MilitarDTO[]> {
+      return this.http.get<MilitarDTO[]>(`${API_CONFIG.baseUrl}/militares/militaresComAuxilioTransporte`);
+    }
 
     findMilitarByPrecCP(precCP: number): Observable<MilitarDTO> {
         return this.http.get<MilitarDTO>(`${API_CONFIG.baseUrl}/militares/searchMilitarByPrecCP/?precCP=${precCP}`);

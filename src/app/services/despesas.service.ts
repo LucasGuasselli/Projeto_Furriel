@@ -19,7 +19,6 @@ export class DespesasService {
         return this.http.get<DespesaDTO[]>(`${API_CONFIG.baseUrl}/despesas`);
     }
 
-
     findPrecCPById(id: number): Observable<DespesaDTO> {
         return this.http.get<DespesaDTO>(`${API_CONFIG.baseUrl}/despesas/searchPrecCPById/?id=${id}`);
     }

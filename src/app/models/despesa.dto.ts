@@ -4,8 +4,8 @@ export class DespesaDTO {
     militarPrecCP: number;
     nome: String;
     graduacao: String;
-    dataInicio: Date;
-    dataFim: Date;
+    dataInicio: String;
+    dataFim: String;
     quantidadeDias: number;
     valor: number;
     motivo: string;
