@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MilitaresService } from '../../services/militares.service';
-import { CrudAuxilioTransporteService } from '../../crud-auxilio-transporte.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Conducao } from '../../conducao';
 import { CrudAditamentosService } from '../../crud-aditamentos.service';
 import { MilitarDTO } from '../../models/militar.dto';
 import { InclusaoAuxilioTransporteDTO } from '../../models/inclusaoAuxilioTransporteDTO';
@@ -11,6 +9,9 @@ import { AuxiliosTransporteService } from '../../services/auxiliosTransporte.ser
 import { Aditamento } from '../../aditamento';
 import { ConducoesService } from '../../services/conducoes.service';
 import { ConducaoDTO } from '../../models/conducao.dto';
+import { InclusoesAuxiliosTransporteService } from '../../services/inclusoesAuxiliosTransporte.service';
+import { AuxilioTransporte } from '../../auxilio-transporte';
+import { UtilService } from '../../services/util.service';
 
 @Component({
   selector: 'app-form-auxilio-transporte',
@@ -41,14 +42,15 @@ export class FormAuxilioTransporteComponent implements OnInit {
                                     nomeEmpresa: null, tipoDeTransporte: null, valor: null},
         ];
 
+    // array com todos auxilios Transporte
     auxiliosTransporte: AuxilioTransporteDTO[] = [];
-    // objeto usado para insert
+    // objeto usado para inserir um auxílio no banco
     auxilioTransporte: AuxilioTransporteDTO = new AuxilioTransporteDTO;
     militaresSemAuxilioTransporte: MilitarDTO[] = [];
     inclusaoAuxilioTransporte: InclusaoAuxilioTransporteDTO = new InclusaoAuxilioTransporteDTO();
 
+    auxTransp: AuxilioTransporteDTO = new AuxilioTransporteDTO();
     precCP: number;
-    conducaoId: number;
     aditamentoAtual: Aditamento;
 
    //  postoGraduacao: PostoGraduacao[] = [];
@@ -56,8 +58,10 @@ export class FormAuxilioTransporteComponent implements OnInit {
     constructor(private militaresService: MilitaresService,
                 private router: Router, private rota: ActivatedRoute,
                 private auxiliosTransporteService: AuxiliosTransporteService,
+                private inclusaoAuxilioTransporteService: InclusoesAuxiliosTransporteService,
                 private conducoesService: ConducoesService,
-                private servicoCrudAditamento: CrudAditamentosService) { }
+                private servicoCrudAditamento: CrudAditamentosService,
+                private utilService: UtilService) { }
 
    ngOnInit() {
         this.loadMilitaresSemAuxilioTransporte();
@@ -66,29 +70,38 @@ export class FormAuxilioTransporteComponent implements OnInit {
 
     }
 
-    verifyConducoes() {
+    insertAuxilioTransporteAndConducoes() {
         if ( this.aditamentoAtual == null)    {
             alert('Selecione um aditamento!');
         } else {
             if (isNaN(this.precCP)) {
                 alert('selecione um militar!');
             } else {
-            // tslint:disable-next-line:prefer-const
-                let auxTransp: AuxilioTransporteDTO[] = [];
+
             // cadastra no banco e atualiza os auxilios transportes
                 this.insertAuxilioTransporte(this.precCP);
 
+               // this.validaConducoes();
         // verificando quais conducoes foram preenchidas corretamente para executar a inserção
             // tslint:disable-next-line:triple-equals
                 for (let k = 0; k < this.conducoes.length; k++) {
+                // todos campos devem ser preenchidos para cadastrar uma conducao
                     if (this.conducoes[k].valor != null && this.conducoes[k].tipoDeTransporte != null
                         && this.conducoes[k].nomeEmpresa != null && this.conducoes[k].itinerario != null) {
                             this.auxiliosTransporteService.findAuxilioTransporteByPrecCP(this.precCP).subscribe(
-                                response => { auxTransp[k] = response; this.insertConducao(this.conducoes[k], auxTransp[k].id); },
-                                error => {console.log(error); }
+                                response => { this.auxTransp = response; console.log(this.auxTransp);
+                                this.insertConducao(this.conducoes[k], this.auxTransp.id);
+                                 this.auxTransp = new AuxilioTransporteDTO(); }, error => {console.log(error); }
                             );
                     }
                 }
+                this.auxiliosTransporteService.findAuxilioTransporteByPrecCP(this.precCP).subscribe(response => {
+                        this.auxTransp = response; this.insertInclusaoAuxilioTransporte(this.inclusaoAuxilioTransporte,
+                        this.aditamentoAtual.codAditamento, this.precCP, this.auxTransp.valorTotalAT );
+                        this.auxTransp = new AuxilioTransporteDTO(); }, error => {console.log(error); }
+                );
+                // mudar a logica ou tornar auxTranspo um objeto, pois da maneira que esta se a
+                // primeira conducao nao for preenchida a inclusao tera valor errado
             }
         }
     }
@@ -111,6 +124,17 @@ export class FormAuxilioTransporteComponent implements OnInit {
         this.conducoesService.insert(conducao).subscribe(
             response => { console.log('Conducao cadastrada com sucesso'); console.log(conducao); } ,
             error => {console.log(error); } );
+    }
+
+    insertInclusaoAuxilioTransporte(inclusao: InclusaoAuxilioTransporteDTO, aditamentoId: number, precCP: number, valor: number) {
+        inclusao.militarPrecCP = precCP;
+        inclusao.aditamentoId = aditamentoId;
+        inclusao.valor = valor;
+        inclusao.dataInicio = this.utilService.formatDate(inclusao.dataInicio.toString());
+        this.inclusaoAuxilioTransporteService.insert(inclusao).subscribe(
+            response => { console.log('Inclusao cadastrada com sucesso'); console.log(inclusao); },
+            error => {console.log(error); }
+        );
     }
 
     loadMilitaresSemAuxilioTransporte() {

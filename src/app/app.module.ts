@@ -34,6 +34,7 @@ import { DespesasService } from './services/despesas.service';
 import { UtilService } from './services/util.service';
 import { ConducoesService } from './services/conducoes.service';
 import { AuxiliosTransporteService } from './services/auxiliosTransporte.service';
+import { InclusoesAuxiliosTransporteService } from './services/inclusoesAuxiliosTransporte.service';
 
 
 const routes: Routes = [
@@ -88,7 +89,7 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [MilitaresService, EnderecosService, PostosGraduacoesService,
+  providers: [MilitaresService, EnderecosService, PostosGraduacoesService, InclusoesAuxiliosTransporteService,
               DespesasService, UtilService, CrudAuxilioTransporteService, AuxiliosTransporteService,
               ConducoesService, CrudAditamentosService, CrudPagamentoAtrasadoService],
   bootstrap: [AppComponent]
