@@ -195,7 +195,7 @@
     <select id="tipoDeTransporte5" name="tipoDeTransporte5" [(ngModel)]="conducoes[5].tipoDeTransporte">
         <option></option>
         <option>Onibus</option>
-        <option>Tremsurb</option>
+        <option>Trensurb</option>
         <option>Onibus_intermunicipal</option>
     </select >
 
@@ -204,7 +204,7 @@
     <input type="number" name="valor5" [(ngModel)]="conducoes[5].valor">
 
     <div class="buttons">            
-      <input type="button" (click)="saveAuxilioTransporte()" value="Salvar">
+      <input type="button" (click)="verifyConducoes()" value="Salvar">
       <input type="button" (click)="cancelar()" value="Cancelar">    
     </div>
   </form>
