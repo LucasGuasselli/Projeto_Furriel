@@ -1,23 +1,24 @@
 <div>
   <form>
+    <div>
     <label for="precCP">Militar</label>
     <select id="precCP" name="precCP">
         <option></option>
-        <option *ngFor="let m of militares" (click)="salvarPrecCPMilitar(m.precCP)">{{m.nome}}</option>
+        <option *ngFor="let m of militaresComAuxilioTransporte" (click)="salvarPrecCPMilitar(m.precCP)">{{m.nome}}</option>
     </select>
 
     <br>
     <label for="data">A contar de:</label>
-    <input type="date" id="data" name="data" >
+    <input type="date" id="data" name="data" [(ngModel)]="exclusaoAuxilioTransporte.data">
     
     <br>
     <label for="motivo">Motivo</label>
-    <input type="text" id="motivo" placeholder="Motivo..." >
-          
+    <input type="text" id="motivo" name="motivo" placeholder="Motivo..." [(ngModel)]="exclusaoAuxilioTransporte.motivo">
+  </div>       
   </form>
 
   <div class="buttons">            
-    <input type="button"  value="Salvar">
+    <input type="button" (click)="saveExclusaoAuxilioTransporte()" value="Salvar">
     <input type="button" (click)="cancelar()" value="Cancelar">    
   </div>
 </div>

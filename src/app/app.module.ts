@@ -35,6 +35,7 @@ import { UtilService } from './services/util.service';
 import { ConducoesService } from './services/conducoes.service';
 import { AuxiliosTransporteService } from './services/auxiliosTransporte.service';
 import { InclusoesAuxiliosTransporteService } from './services/inclusoesAuxiliosTransporte.service';
+import { ExclusoesAuxiliosTransporteService } from './services/exclusaoAuxilioTransporte.service';
 
 
 const routes: Routes = [
@@ -90,8 +91,9 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   providers: [MilitaresService, EnderecosService, PostosGraduacoesService, InclusoesAuxiliosTransporteService,
-              DespesasService, UtilService, CrudAuxilioTransporteService, AuxiliosTransporteService,
-              ConducoesService, CrudAditamentosService, CrudPagamentoAtrasadoService],
+              DespesasService, UtilService, AuxiliosTransporteService , ExclusoesAuxiliosTransporteService,
+              ConducoesService,
+              CrudAuxilioTransporteService, CrudAditamentosService, CrudPagamentoAtrasadoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
