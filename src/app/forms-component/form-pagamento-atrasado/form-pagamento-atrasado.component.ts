@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { PagamentoAtrasado } from '../../pagamento-atrasado';
-import { CrudPagamentoAtrasadoService } from '../../crud-pagamento-atrasado.service';
 import { MilitaresService } from '../../services/militares.service';
 import { Aditamento } from '../../aditamento';
 import { CrudAditamentosService } from '../../crud-aditamentos.service';
+import { PagamentosAtrasadosService } from '../../services/pagamentosAtrasados.service';
+import { PagamentoAtrasadoDTO } from '../../models/pagamentoAtrasado.dto';
+import { MilitarDTO } from '../../models/militar.dto';
 
 @Component({
   selector: 'app-form-pagamento-atrasado',
@@ -13,54 +14,62 @@ import { CrudAditamentosService } from '../../crud-aditamentos.service';
 })
 export class FormPagamentoAtrasadoComponent implements OnInit {
 
-  codigo: number;
   precCP: number;
   aditamentoAtual: Aditamento;
-  pagamentoAtrasado: PagamentoAtrasado;
-  pagamentosAtrasados: PagamentoAtrasado[] = [];
-  // militares: Militar[] = [];
+  pagamentoAtrasado: PagamentoAtrasadoDTO = new PagamentoAtrasadoDTO();
+ // pagamentosAtrasados: PagamentoAtrasadoDTO[] = [];
+  militaresComAuxilioTransporte: MilitarDTO[] = [];
 
-  constructor(private servicoCrudMilitares: MilitaresService, private servicoCrudPagamentoAtrasado: CrudPagamentoAtrasadoService,
-              private router: Router, private rota: ActivatedRoute, private servicoCrudAditamento: CrudAditamentosService) { }
+  constructor(private militaresService: MilitaresService,
+              private pagamentoAtrasadoService: PagamentosAtrasadosService,
+              private router: Router, private rota: ActivatedRoute,
+              private servicoCrudAditamento: CrudAditamentosService) { }
 
     ngOnInit() {
-
-      if (isNaN(this.codigo)) {
-        // CADASTRAR
         this.aditamentoAtual = this.servicoCrudAditamento.getAditamentoAtual();
-       // this.militares = this.servicoCrudMilitares.getMilitares();
-        this.pagamentoAtrasado  = new PagamentoAtrasado();
-        this.pagamentoAtrasado.precCP = null;
+        this.loadMilitaresComAuxilioTransporte();
+
+        if ( this.aditamentoAtual == null)    {
+          alert('Selecione um aditamento!');
+        }
+    }
+
+    savePagamentoAtrasado() {
+      if ( this.aditamentoAtual == null)    {
+        alert('Selecione um aditamento!');
       } else {
-        // EDITAR
+        if (isNaN(this.precCP)) {
+            alert('selecione um militar!');
+        } else {
+            this.insertPagamentoAtrasado();
+
+        }
       }
+    }
+
+    insertPagamentoAtrasado() {
+      this.pagamentoAtrasado.militarPrecCP = this.precCP;
+      this.pagamentoAtrasado.aditamentoId = this.aditamentoAtual.codAditamento;
+      this.pagamentoAtrasadoService.insert(this.pagamentoAtrasado).subscribe(response => {
+        console.log(response); }, error => {console.log(error); } );
+    }
+
+    loadMilitaresComAuxilioTransporte() {
+      this.militaresService.findMilitaresComAuxilioTransporte().subscribe(
+          response => {this.militaresComAuxilioTransporte = response; console.log(this.militaresComAuxilioTransporte); } ,
+          error => {console.log(error); } );
     }
 
     salvarPrecCP(codigo: number) {
       if (isNaN(codigo)) {
           // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
       } else {
-          this.pagamentoAtrasado.codAditamento = this.aditamentoAtual.codAditamento;
-          this.pagamentoAtrasado.precCP = codigo;
-          console.log(codigo);
+         // this.pagamentoAtrasado.codAditamento = this.aditamentoAtual.codAditamento;
+          this.precCP = codigo;
       }
     }
 
-    salvarPagamentoAtrasado() {
-      if (isNaN(this.precCP)) {
-        this.servicoCrudPagamentoAtrasado.adiocionarPagamentoAtrasado(this.pagamentoAtrasado);
-        this.pagamentoAtrasado = new PagamentoAtrasado();
-      } else {
-        this.servicoCrudPagamentoAtrasado.atualizaPagamentoAtrasado(this.codigo, this.pagamentoAtrasado);
-      }
-      this.router.navigate(['/listaPagamentoAtrasado']);
+    cancelar() {
+      this.router.navigate(['/index']);
     }
-
-      removerPagamentoAtrasado(pagamentoAtrasado: PagamentoAtrasado) {
-        this.servicoCrudPagamentoAtrasado.removerPagamentoAtrasado(pagamentoAtrasado);
-      }
-
-      cancelar() {
-        this.router.navigate(['/index']);
-      }
 }

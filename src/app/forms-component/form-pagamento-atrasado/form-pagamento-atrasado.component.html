@@ -4,28 +4,25 @@
     <label for="precCP">Nome do Militar</label>
     <select id="precCP" name="precCP">
         <option></option>
-        <option *ngFor="let m of militares" (click)="salvarPrecCP(m.precCP)" >{{m.nome}}</option>
+        <option *ngFor="let m of militaresComAuxilioTransporte" (click)="salvarPrecCP(m.precCP)" >{{m.nome}}</option>
     </select > 
     <br>
       <label for="mesReferencia">Mes de Referencia</label>
       <input type="text" id="mesReferencia" name="mesReferencia" placeholder="Mes de Referencia..." [(ngModel)]="pagamentoAtrasado.mesReferencia">
     <br>
       <label for="quantidadeDeDias">Quantidade de dias</label>
-      <input type="number" name="quantidadeDeDias" [(ngModel)]="pagamentoAtrasado.quantidadeDeDias">
+      <input type="number" name="quantidadeDeDias" [(ngModel)]="pagamentoAtrasado.quantidadeDias">
     <br>
       <label for="motivo">Motivo</label>
       <input type="text" id="motivo" name="motivo" placeholder="Motivo..." [(ngModel)]="pagamentoAtrasado.motivo">
     <br>
     <br>
-      <label for="valor">Valor da Condução</label>
+      <label for="valor">Valor</label>
       <input type="number" name="valor" [(ngModel)]="pagamentoAtrasado.valor" >
     <br>
-      <label for="data">Data de Publicação em BI</label>
-      <input type="date" id="data" name="data" [(ngModel)]="pagamentoAtrasado.data"> 
-    <br>
-
+      
     <div class="buttons">
-      <input type="button"  (click)="salvarPagamentoAtrasado()" value="Salvar">
+      <input type="button"  (click)="savePagamentoAtrasado()" value="Salvar">
       <input type="button"  (click)="cancelar()" value="Cancelar">
     </div>
   </form>

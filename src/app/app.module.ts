@@ -36,6 +36,7 @@ import { ConducoesService } from './services/conducoes.service';
 import { AuxiliosTransporteService } from './services/auxiliosTransporte.service';
 import { InclusoesAuxiliosTransporteService } from './services/inclusoesAuxiliosTransporte.service';
 import { ExclusoesAuxiliosTransporteService } from './services/exclusaoAuxilioTransporte.service';
+import { PagamentosAtrasadosService } from './services/pagamentosAtrasados.service';
 
 
 const routes: Routes = [
@@ -92,7 +93,7 @@ const routes: Routes = [
   ],
   providers: [MilitaresService, EnderecosService, PostosGraduacoesService, InclusoesAuxiliosTransporteService,
               DespesasService, UtilService, AuxiliosTransporteService , ExclusoesAuxiliosTransporteService,
-              ConducoesService,
+              ConducoesService, PagamentosAtrasadosService,
               CrudAuxilioTransporteService, CrudAditamentosService, CrudPagamentoAtrasadoService],
   bootstrap: [AppComponent]
 })
