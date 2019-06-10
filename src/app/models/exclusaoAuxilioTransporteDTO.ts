@@ -5,4 +5,6 @@ export class ExclusaoAuxilioTransporteDTO {
     data: String;
     motivo: String;
     valor: number;
+    nome: String;
+    graduacao: String;
 }

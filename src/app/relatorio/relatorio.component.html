@@ -8,15 +8,17 @@
             as IR 70-21 (Port. nº 114, de 30 jun 1999), a Port. nº 98 – DGP, de 31 out 01, 
             a Prt. nº 269 – DGP, de 11 dez 07 e a Port. nº 849 – Cmt Ex, de 14 jul 16 (EB 10-IG-02.018).
                 
-        <div id="tudo1" *ngFor='let d of despesas'>       
+        <div id="tudo1" >       
             <table>
-                <tr>
+                <th>Graduacao-Nome</th> <th>Prec-CP</th> <th>Data de Inicio</th> 
+                <th>Data de Termino</th> <th>Valor</th> <th>Motivo</th>
+                <tr *ngFor='let d of despesas'>
                     <td>{{d.graduacao}} {{d.nome}}</td>
-                    <td>Prec-CP: {{d.militarPrecCP}}</td>
-                    <td>Data de Inicio: {{d.dataInicio}}</td>
-                    <td>Data de Termino: {{d.dataFim}}</td>
-                    <td>Valor: R$ {{d.valor}}</td>
-                    <td>Motivo: {{d.motivo}}</td>
+                    <td>{{d.militarPrecCP}}</td>
+                    <td>{{d.dataInicio}}</td>
+                    <td>{{d.dataFim}}</td>
+                    <td>R$: {{d.valor}}</td>
+                    <td>{{d.motivo}}</td>
                 </tr>
             </table>
         </div>    
@@ -36,6 +38,27 @@
             A partir de: {{inclusaoAuxTransp.dataInicio}} <br>
             Valor: R$ {{inclusaoAuxTransp.valor}}<br>
             -------------------------------------------------
+        </div>
+    </div>
+    <br>
+
+            Exclusao de Aux Transp           
+            Seja realizada a Despesa a Anular (DA) do benefício de Auxílio-Transporte (AT), de acordo com o 
+            Decreto nº 2.963, de 24 fev 1999, as IG 70-04 (Port. nº 334, de 25 jun 1999),
+            as IR 70-21 (Port. nº 114, de 30 jun 1999), a Port. nº 98 – DGP, de 31 out 01, 
+            a Prt. nº 269 – DGP, de 11 dez 07 e a Port. nº 849 – Cmt Ex, de 14 jul 16 (EB 10-IG-02.018).
+      
+        <div id="tudo1" >       
+            <table>
+                    <th>Graduacao-Nome</th> <th>Prec-CP</th> <th>Data</th> <th>Valor</th> <th>Motivo</th> 
+                    <tr *ngFor='let exclusaoAuxTransp of exclusaoAuxiliosTransporte'>
+                        <td>{{exclusaoAuxTransp.graduacao}} {{exclusaoAuxTransp.nome}}</td>
+                        <td>{{exclusaoAuxTransp.militarPrecCP}}</td>
+                        <td>{{exclusaoAuxTransp.data}}</td>
+                        <td>R$ {{exclusaoAuxTransp.valor}}</td>
+                        <td>Motivo: {{exclusaoAuxTransp.motivo}}</td>
+                    </tr>
+            </table>
         </div>
     </div> 
         <br>
@@ -60,23 +83,7 @@
             -------------------------------------------------
         </div>
 
-        <br>
-        <textarea rows="4" cols="50" >
-            Exclusao de Aux Transp           
-            Seja realizada a Despesa a Anular (DA) do benefício de Auxílio-Transporte (AT), de acordo com o 
-            Decreto nº 2.963, de 24 fev 1999, as IG 70-04 (Port. nº 334, de 25 jun 1999),
-            as IR 70-21 (Port. nº 114, de 30 jun 1999), a Port. nº 98 – DGP, de 31 out 01, 
-            a Prt. nº 269 – DGP, de 11 dez 07 e a Port. nº 849 – Cmt Ex, de 14 jul 16 (EB 10-IG-02.018).
-        </textarea>
-
-        <br>
-        <div id="tudo1" *ngFor='let exclusaoAuxTransp of exclusaoAuxiliosTransporte'>       
-            PrecCP do Militar: {{exclusaoAuxTransp.precCP}}<br>
-            Data: {{exclusaoAuxTransp.data}} <br>
-            Valor: R$ {{exclusaoAuxTransp.valor}}<br>
-            Motivo: {{exclusaoAuxTransp.motivo}}<br>
-            -------------------------------------------------
-        </div>
+        
 
         <textarea rows="4" cols="50" >
             Saque Atrasado           
@@ -99,4 +106,3 @@
     -->
         <button (click)="downloadPDF()">Downaload Relatorio </button>
     
-</div>
