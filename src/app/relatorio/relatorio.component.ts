@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MilitaresService } from '../services/militares.service';
-import { PagamentoAtrasado } from '../pagamento-atrasado';
 import { AtualizacaoAuxilioTransporte } from '../atualizacao-auxilio-transporte';
 import { DespesaDTO } from '../models/despesa.dto';
 import { MilitarDTO } from '../models/militar.dto';
@@ -8,7 +7,8 @@ import { PostoGraduacaoDTO } from '../models/postoGraduacao.dto';
 import { PostosGraduacoesService } from '../services/postosGraduacoes.service';
 import { DespesasService } from '../services/despesas.service';
 import { ExclusoesAuxiliosTransporteService } from '../services/exclusaoAuxilioTransporte.service';
-import { ExclusaoAuxilioTransporteDTO } from '../models/exclusaoAuxilioTransporteDTO';
+import { ExclusaoAuxilioTransporteDTO } from '../models/exclusaoAuxilioTransporte.dto';
+import { PagamentoAtrasadoDTO } from '../models/pagamentoAtrasado.dto';
 
 @Component({
   selector: 'app-relatorio',
@@ -23,8 +23,8 @@ export class RelatorioComponent implements OnInit {
 
   // inclusaoAuxiliosTransporte: InclusaoAuxilioTransporte[] = [];
   atualizacaoAuxiliosTransporte: AtualizacaoAuxilioTransporte[] = [];
-  exclusaoAuxiliosTransporte: ExclusaoAuxilioTransporteDTO[] = [];
-  pagamentosAtrasados: PagamentoAtrasado[] = [];
+  exclusoesAuxilioTransporte: ExclusaoAuxilioTransporteDTO[] = [];
+  pagamentosAtrasados: PagamentoAtrasadoDTO[] = [];
 
   texto: String = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 
@@ -77,8 +77,8 @@ export class RelatorioComponent implements OnInit {
 
   // EXCLUSOES AUXILIO TRANSPORTE
   loadExclusoesAuxiliosTransporte() {
-    this.exclusoesAuxiliosTransporteService.findAll().subscribe(response => {this.exclusaoAuxiliosTransporte = response;
-      console.log(this.exclusaoAuxiliosTransporte); this.loadMilitaresOnExclusao(this.exclusaoAuxiliosTransporte); } ,
+    this.exclusoesAuxiliosTransporteService.findAll().subscribe(response => {this.exclusoesAuxilioTransporte = response;
+      console.log(this.exclusoesAuxilioTransporte); this.loadMilitaresOnExclusao(this.exclusoesAuxilioTransporte); } ,
         error => {console.log(error); } );
   }
 

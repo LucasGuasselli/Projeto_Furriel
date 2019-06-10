@@ -21,7 +21,6 @@ import { FormAditamentoComponent } from './forms-component/form-aditamento/form-
 import { TabelaAditamentosComponent } from './tabelas-component/tabela-aditamentos/tabela-aditamentos.component';
 import { CrudAditamentosService } from './crud-aditamentos.service';
 import { TabelaPagamentosAtrasadosComponent } from './tabelas-component/tabela-pagamentos-atrasados/tabela-pagamentos-atrasados.component';
-import { CrudPagamentoAtrasadoService } from './crud-pagamento-atrasado.service';
 // tslint:disable-next-line:max-line-length
 import { FormExclusaoAuxilioTransporteComponent } from './forms-component/form-exclusao-auxilio-transporte/form-exclusao-auxilio-transporte.component';
 // tslint:disable-next-line:max-line-length
@@ -34,7 +33,7 @@ import { DespesasService } from './services/despesas.service';
 import { UtilService } from './services/util.service';
 import { ConducoesService } from './services/conducoes.service';
 import { AuxiliosTransporteService } from './services/auxiliosTransporte.service';
-import { InclusoesAuxiliosTransporteService } from './services/inclusoesAuxiliosTransporte.service';
+import { InclusoesAuxilioTransporteService } from './services/inclusoesAuxilioTransporte.service';
 import { ExclusoesAuxiliosTransporteService } from './services/exclusaoAuxilioTransporte.service';
 import { PagamentosAtrasadosService } from './services/pagamentosAtrasados.service';
 
@@ -91,10 +90,10 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [MilitaresService, EnderecosService, PostosGraduacoesService, InclusoesAuxiliosTransporteService,
+  providers: [MilitaresService, EnderecosService, PostosGraduacoesService, InclusoesAuxilioTransporteService,
               DespesasService, UtilService, AuxiliosTransporteService , ExclusoesAuxiliosTransporteService,
               ConducoesService, PagamentosAtrasadosService,
-              CrudAuxilioTransporteService, CrudAditamentosService, CrudPagamentoAtrasadoService],
+              CrudAuxilioTransporteService, CrudAditamentosService, ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

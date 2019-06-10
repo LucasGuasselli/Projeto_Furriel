@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Conducao } from '../../conducao';
 import { AtualizacaoAuxilioTransporte } from '../../atualizacao-auxilio-transporte';
 import { CrudAuxilioTransporteService } from '../../crud-auxilio-transporte.service';
 import { Aditamento } from '../../aditamento';
 import { CrudAditamentosService } from '../../crud-aditamentos.service';
-import { AuxilioTransporte } from '../../auxilio-transporte';
+import { ConducaoDTO } from '../../models/conducao.dto';
+import { AuxilioTransporteDTO } from '../../models/auxilioTransporte.dto';
 
 
 @Component({
@@ -15,22 +15,22 @@ import { AuxilioTransporte } from '../../auxilio-transporte';
 })
 export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
 
-  conducoes: Conducao[] = [
-    {codConducao: null, precCP: null, itinerario: null, codAT: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
-    {codConducao: null, precCP: null, itinerario: null, codAT: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
-    {codConducao: null, precCP: null, itinerario: null, codAT: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
-    {codConducao: null, precCP: null, itinerario: null, codAT: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
-    {codConducao: null, precCP: null, itinerario: null, codAT: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
-    {codConducao: null, precCP: null, itinerario: null, codAT: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
-    {codConducao: null, precCP: null, itinerario: null, codAT: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
-    {codConducao: null, precCP: null, itinerario: null, codAT: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null}
-  ];
+  conducoes: ConducaoDTO[] = [
+    {id: null, auxilioTransporteId: null, itinerario: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
+    {id: null, auxilioTransporteId: null, itinerario: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
+    {id: null, auxilioTransporteId: null, itinerario: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
+    {id: null, auxilioTransporteId: null, itinerario: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
+    {id: null, auxilioTransporteId: null, itinerario: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
+    {id: null, auxilioTransporteId: null, itinerario: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
+    {id: null, auxilioTransporteId: null, itinerario: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
+    {id: null, auxilioTransporteId: null, itinerario: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
+    ];
 
-  conducoesAtualizacao: Conducao[] = [];
+  conducoesAtualizacao: ConducaoDTO[] = [];
   valoresAntigos: Number[] = [];
   atualizacaoAuxilioTransporte: AtualizacaoAuxilioTransporte = new AtualizacaoAuxilioTransporte();
   aditamentoAtual: Aditamento = null;
-  auxilioTransporte: AuxilioTransporte = null;
+  auxilioTransporte: AuxilioTransporteDTO = null;
   precCP: number;
   codAT: number;
 
@@ -42,9 +42,9 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
 
     this.aditamentoAtual = this.servicoCrudAditamento.getAditamentoAtual();
 
-    this.precCP = this.servicoCrudAuxilioTransporte.getPrecCPPorCodAuxilioTransporte(this.codAT);
+    // this.precCP = this.servicoCrudAuxilioTransporte.getPrecCPPorCodAuxilioTransporte(this.codAT);
 
-    this.conducoesAtualizacao = this.servicoCrudAuxilioTransporte.getConducoesPorCod(this.codAT);
+    // this.conducoesAtualizacao = this.servicoCrudAuxilioTransporte.getConducoesPorCod(this.codAT);
 
      this.atribuiValoresAntigosParaValidacao();
      this.recebeValoresAuxilioTransporteAtualizado();
@@ -80,9 +80,9 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
 
   atualizarConducoes() {
     for (let  i = 0; i < this.conducoes.length; i++) {
-        if (this.conducoes[i].codConducao != null ) {
+        if (this.conducoes[i].id != null ) {
           console.log(this.conducoes[i]);
-          this.servicoCrudAuxilioTransporte.atualizarConducao(this.conducoes[i]);
+        //  this.servicoCrudAuxilioTransporte.atualizarConducao(this.conducoes[i]);
         }
     }
 
@@ -95,10 +95,10 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
     this.atualizacaoAuxilioTransporte.precCP = this.precCP;
     this.atualizacaoAuxilioTransporte.codAditamento = this.aditamentoAtual.codAditamento;
 
-    this.auxilioTransporte = this.servicoCrudAuxilioTransporte.getAuxilioTransportePorPrecCP(this.precCP);
+  //  this.auxilioTransporte = this.servicoCrudAuxilioTransporte.getAuxilioTransportePorPrecCP(this.precCP);
     this.atualizacaoAuxilioTransporte.valor = this.auxilioTransporte.valorTotalAT;
 
-    this.servicoCrudAuxilioTransporte.adicionarAtualizacaoAuxilioTransporte(this.atualizacaoAuxilioTransporte);
+  //  this.servicoCrudAuxilioTransporte.adicionarAtualizacaoAuxilioTransporte(this.atualizacaoAuxilioTransporte);
 
   }
 

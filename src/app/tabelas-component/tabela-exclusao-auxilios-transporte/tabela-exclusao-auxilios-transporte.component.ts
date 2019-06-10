@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ExclusaoAuxilioTransporte } from '../../exclusao-auxilio-transporte';
 import { CrudAuxilioTransporteService } from '../../crud-auxilio-transporte.service';
+import { ExclusaoAuxilioTransporteDTO } from '../../models/exclusaoAuxilioTransporte.dto';
 
 @Component({
   selector: 'app-tabela-exclusao-auxilios-transporte',
@@ -9,14 +9,14 @@ import { CrudAuxilioTransporteService } from '../../crud-auxilio-transporte.serv
 })
 export class TabelaExclusaoAuxiliosTransporteComponent implements OnInit {
 
-  exclusaoAuxiliosTransporte: ExclusaoAuxilioTransporte[] = [];
+  exclusaoAuxiliosTransporte: ExclusaoAuxilioTransporteDTO[] = [];
   constructor(private servicoExclusaoAuxilioTransporte: CrudAuxilioTransporteService) { }
 
   ngOnInit() {
-      this.exclusaoAuxiliosTransporte = this.servicoExclusaoAuxilioTransporte.getExclusaoAuxiliosTransporte();
+    //  this.exclusaoAuxiliosTransporte = this.servicoExclusaoAuxilioTransporte.getExclusaoAuxiliosTransporte();
   }
 
-  removerExclusaoAuxilioTransporte(exclusaoAuxilioTransporte: ExclusaoAuxilioTransporte) {
-    this.servicoExclusaoAuxilioTransporte.removerExclusaoAuxilioTransporte(exclusaoAuxilioTransporte);
+  removerExclusaoAuxilioTransporte(exclusaoAuxilioTransporte: ExclusaoAuxilioTransporteDTO) {
+   // this.servicoExclusaoAuxilioTransporte.removerExclusaoAuxilioTransporte(exclusaoAuxilioTransporte);
   }
 }

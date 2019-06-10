@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuxilioTransporte } from '../../auxilio-transporte';
-import { Conducao } from '../../conducao';
 import { CrudAuxilioTransporteService } from '../../crud-auxilio-transporte.service';
+import { ConducaoDTO } from '../../models/conducao.dto';
+import { AuxilioTransporteDTO } from '../../models/auxilioTransporte.dto';
 
 @Component({
   selector: 'app-tabela-auxilio-transporte',
@@ -12,21 +12,21 @@ export class TabelaAuxilioTransporteComponent implements OnInit {
   tituloAuxiliosNaoPublicados = 'AUXILIOS TRANSPORTE NAO PUBLICADOS';
   tituloAuxiliosTransportesPublicados = 'AUXILIOS TRANSPORTE PUBLICADOS';
 
-  auxiliosTransporteSemPublicacao: AuxilioTransporte[] = [];
-  conducoesSemPublicacao: Conducao[] = [];
+  auxiliosTransporteSemPublicacao: AuxilioTransporteDTO[] = [];
+  conducoesSemPublicacao: ConducaoDTO[] = [];
 
-  auxilioTransportes: AuxilioTransporte[] = [];
-  conducoes: Conducao[] = [];
+  auxilioTransportes: AuxilioTransporteDTO[] = [];
+  conducoes: ConducaoDTO[] = [];
   constructor(private servico: CrudAuxilioTransporteService) { }
 
   ngOnInit() {
-    this.auxilioTransportes = this.servico.getAT();
-    this.auxiliosTransporteSemPublicacao = this.servico.getATSemPublicacao();
-    this.conducoesSemPublicacao = this.servico.getConducoesSemPublicacao();
-    this.conducoes = this.servico.getConducoes();
+  //  this.auxilioTransportes = this.servico.getAT();
+  //  this.auxiliosTransporteSemPublicacao = this.servico.getATSemPublicacao();
+  //  this.conducoesSemPublicacao = this.servico.getConducoesSemPublicacao();
+   // this.conducoes = this.servico.getConducoes();
   }
 
-  removerConducao(conducao: Conducao) {
-    this.servico.removerConducao(conducao);
+  removerConducao(conducao: ConducaoDTO) {
+   // this.servico.removerConducao(conducao);
   }
 }

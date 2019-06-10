@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AuxilioTransporte } from './auxilio-transporte';
-import { Conducao } from './conducao';
 import { MilitaresService } from './services/militares.service';
-import { ExclusaoAuxilioTransporte } from './exclusao-auxilio-transporte';
 import { AtualizacaoAuxilioTransporte } from './atualizacao-auxilio-transporte';
+import { AuxilioTransporteDTO } from './models/auxilioTransporte.dto';
 
 @Injectable()
 export class CrudAuxilioTransporteService {
@@ -11,8 +9,8 @@ export class CrudAuxilioTransporteService {
 // militar: Militar;
 // postoGraduacao: PostoGraduacao;
 // militaresSemAuxilioTransporte: Militar[] = [];
-auxiliosTransporteSemPublicacao: AuxilioTransporte[] = [];
-conducoesSemPublicacao: Conducao [] = [];
+// auxiliosTransporteSemPublicacao: AuxilioTransporte[] = [];
+// conducoesSemPublicacao: Conducao [] = [];
 
 autoIncrementAT = 2;
 autoIncrementConducao = 2;
@@ -21,92 +19,49 @@ autoIncrementExclusaoAuxilioTransporte = 2;
 autoIncrementInclusaoAuxilioTransporte = 1;
 autoIncrementAtualizacaoAuxilioTransporte = 1;
 
-
-auxiliosTransporte: AuxilioTransporte[] = [
-    {codAT: 1, precCP: 12345, valorTotalAT: -107.756, valorDiarioAT: 12 }
-];
-
-conducoes: Conducao[] = [
-  {codConducao: 1, precCP: 1, codAT: 1, itinerario: 'Centro-Bairro', nomeEmpresa: 'SOUL', tipoDeTransporte: 'Onibus', valor: 10 }
-];
-
-exclusaoAuxiliosTransporte: ExclusaoAuxilioTransporte[] = [
-  {codExclusaoAuxilioTransporte: 1, precCP: 12345, codAditamento: 1, data: null, motivo: 'aa', valor: 10 }
-];
-
 atualizacaoAuxilioTransporte: AtualizacaoAuxilioTransporte[] = [];
 
   constructor(private servico: MilitaresService) { }
 
     getAT() {
-        return this.auxiliosTransporte;
+      //  return this.auxiliosTransporte;
         }
     getATSemPublicacao() {
-        return this.auxiliosTransporteSemPublicacao;
+        // return this.auxiliosTransporteSemPublicacao;
     }
-    getConducoesSemPublicacao() {
-        return this.conducoesSemPublicacao;
-    }
-    getConducoes() {
-        return this.conducoes;
-    }
+
 
     getAtualizacaoAuxiliosTransporte() {
         return this.atualizacaoAuxilioTransporte;
-    }
-    getExclusaoAuxiliosTransporte() {
-        return this.exclusaoAuxiliosTransporte;
     }
 
     getConducaoPorCodigo(codigo: number) {
         console.log(conducao => conducao.codConducao);
         console.log(codigo);
         // tslint:disable-next-line:triple-equals
-        return(this.conducoes.find(conducao => conducao.codConducao == codigo));
-    }
-
-    getPrecCPPorCodAuxilioTransporte(codigo: number) {
-        for (let i = 0; i < this.auxiliosTransporte.length; i++) {
-            // tslint:disable-next-line:triple-equals
-            if (this.auxiliosTransporte[i].codAT == codigo) {
-                return this.auxiliosTransporte[i].precCP;
-            }
-        }
-    }
-
-    // retornara um array com todas conducoes de um determinado militar
-    getConducoesPorCod(codAT: number) {
-        // tslint:disable-next-line:prefer-const
-        let conducoes: Conducao[] = [];
-
-        for (let i = 0; i < this.conducoes.length; i++) {
-            // tslint:disable-next-line:triple-equals
-            if (this.conducoes[i].codAT == codAT) {
-                conducoes.push(this.conducoes[i]);
-            }
-        }
-        return conducoes;
+      //  return(this.conducoes.find(conducao => conducao.codConducao == codigo));
     }
 
     getAuxilioTransportePorPrecCP(precCP: number) {
       // tslint:disable-next-line:triple-equals
-      return(this.auxiliosTransporte.find(auxilioTransporte => auxilioTransporte.precCP == precCP));
+   //   return(this.auxiliosTransporte.find(auxilioTransporte => auxilioTransporte.precCP == precCP));
     }
 
-    adiocionarAT(AT: AuxilioTransporte) {
-        AT.codAT = this.autoIncrementAT++;
+    adiocionarAT(AT: AuxilioTransporteDTO) {
+      //  AT.codAT = this.autoIncrementAT++;
       // encontra o militar correspondente ao auxilio transporte
       //  this.militar = this.servico.getMilitarPorPrecCP(AT.precCP);
       // encontra o postoGraduacao correspondente para saber o valor da cota parte
       //  this.postoGraduacao = this.servico.getPostoGraduacaoPorCodigo(this.militar.codPostoGraduacao);
 
       //  AT.valorTotalAT = (this.postoGraduacao.cotaParte * -1 );
-            this.auxiliosTransporte.push(AT);
+       //     this.auxiliosTransporte.push(AT);
 
     // this.militar = new Militar();
        // this.postoGraduacao = new PostoGraduacao();
       }
-
+}
+/*
   // TALVEZ SEJA NECESSARIO MODIFICAR O METODO QUANDO FOR PUBLICAR UM AUXILIO TRANSPORTE
   adiocionarConducao(conducao: Conducao) {
         conducao.codConducao = this.autoIncrementConducao++;
@@ -136,7 +91,7 @@ atualizacaoAuxilioTransporte: AtualizacaoAuxilioTransporte[] = [];
     console.log(atualizacaoAuxilioTransporte);
   }
 
-/*
+
   atualizaValorPassagem(codigo: number, valor: number) {
     for (let i = 0; i < this.auxiliosTransporte.length; i++) {
           // tslint:disable-next-line:triple-equals
@@ -146,7 +101,7 @@ atualizacaoAuxilioTransporte: AtualizacaoAuxilioTransporte[] = [];
           }
     }
   }
-  */
+
 
   atualizaValorPassagem(precCP: number, valor: number) {
     // encontra o militar correspondente ao auxilio transporte
@@ -208,13 +163,13 @@ atualizacaoAuxilioTransporte: AtualizacaoAuxilioTransporte[] = [];
         }
     }
   }
-/*
+
   adicionarDesconto(desconto: Desconto) {
       desconto.codDesconto = this.autoIncrementDesconto++;
       desconto.valorDesconto = this.calculaValorDesconto(desconto.precCP);
       this.descontos.push(desconto);
   }
-*/
+
   removerConducao(conducao: Conducao) {
     this.subtraiValorPassagem(conducao.precCP, conducao.valor);
 
@@ -239,7 +194,7 @@ atualizacaoAuxilioTransporte: AtualizacaoAuxilioTransporte[] = [];
   }
 
 }
-
+*/
 /*
 
 adiocionarConducaoSemPublicacao(conducao: Conducao) {

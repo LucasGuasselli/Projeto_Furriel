@@ -30,6 +30,7 @@ export class IndexComponent implements OnInit {
 
   salvarAditamentoAtual() {
       this.servico.salvarAditamentoAtual(this.codAditamento);
+      alert('Aditamento Salvo.');
   }
 
   cancelar() {

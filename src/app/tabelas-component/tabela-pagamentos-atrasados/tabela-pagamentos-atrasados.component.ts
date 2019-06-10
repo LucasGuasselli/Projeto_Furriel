@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PagamentoAtrasado } from '../../pagamento-atrasado';
-import { CrudPagamentoAtrasadoService } from '../../crud-pagamento-atrasado.service';
+import { PagamentoAtrasadoDTO } from '../../models/pagamentoAtrasado.dto';
+import { PagamentosAtrasadosService } from '../../services/pagamentosAtrasados.service';
 
 @Component({
   selector: 'app-tabela-pagamentos-atrasados',
@@ -9,14 +9,14 @@ import { CrudPagamentoAtrasadoService } from '../../crud-pagamento-atrasado.serv
 })
 export class TabelaPagamentosAtrasadosComponent implements OnInit {
 
-  pagamentosAtrasados: PagamentoAtrasado[] = [];
-  constructor(private servicoCrudPagamentoAtrasado: CrudPagamentoAtrasadoService) { }
+  pagamentosAtrasados: PagamentoAtrasadoDTO[] = [];
+  constructor(private PagamentoAtrasadoService: PagamentosAtrasadosService) { }
 
   ngOnInit() {
-      this.pagamentosAtrasados = this.servicoCrudPagamentoAtrasado.getPagamentosAtrasados();
+      // this.pagamentosAtrasados = this.servicoCrudPagamentoAtrasado.getPagamentosAtrasados();
   }
 
-  removerPagamentoAtrasado(pagamentoAtrasado: PagamentoAtrasado) {
-    this.servicoCrudPagamentoAtrasado.removerPagamentoAtrasado(pagamentoAtrasado);
+  removerPagamentoAtrasado(pagamentoAtrasado: PagamentoAtrasadoDTO) {
+   // this.servicoCrudPagamentoAtrasado.removerPagamentoAtrasado(pagamentoAtrasado);
   }
 }

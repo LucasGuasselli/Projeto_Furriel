@@ -3,10 +3,10 @@ import { HttpClient } from '@angular/common/http';
 // tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs';
 import { API_CONFIG } from '../config/api.config';
-import { InclusaoAuxilioTransporteDTO } from '../models/inclusaoAuxilioTransporteDTO';
+import { InclusaoAuxilioTransporteDTO } from '../models/inclusaoAuxilioTransporte.dto';
 
 @Injectable()
-export class InclusoesAuxiliosTransporteService {
+export class InclusoesAuxilioTransporteService {
 
   inclusaoAuxilioTransporte: InclusaoAuxilioTransporteDTO;
 

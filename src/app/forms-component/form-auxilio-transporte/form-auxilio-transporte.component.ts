@@ -3,14 +3,13 @@ import { MilitaresService } from '../../services/militares.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CrudAditamentosService } from '../../crud-aditamentos.service';
 import { MilitarDTO } from '../../models/militar.dto';
-import { InclusaoAuxilioTransporteDTO } from '../../models/inclusaoAuxilioTransporteDTO';
+import { InclusaoAuxilioTransporteDTO } from '../../models/inclusaoAuxilioTransporte.dto';
 import { AuxilioTransporteDTO } from '../../models/auxilioTransporte.dto';
 import { AuxiliosTransporteService } from '../../services/auxiliosTransporte.service';
 import { Aditamento } from '../../aditamento';
 import { ConducoesService } from '../../services/conducoes.service';
 import { ConducaoDTO } from '../../models/conducao.dto';
-import { InclusoesAuxiliosTransporteService } from '../../services/inclusoesAuxiliosTransporte.service';
-import { AuxilioTransporte } from '../../auxilio-transporte';
+import { InclusoesAuxilioTransporteService } from '../../services/inclusoesAuxilioTransporte.service';
 import { UtilService } from '../../services/util.service';
 
 @Component({
@@ -23,23 +22,14 @@ export class FormAuxilioTransporteComponent implements OnInit {
     titulo = 'Cadastro de AuxilioTransporte';
 
     conducoes: ConducaoDTO[] = [
-        // tslint:disable-next-line:max-line-length
-        {id: null, auxilioTransporteId: null, itinerario: null,
-                                nomeEmpresa: null, tipoDeTransporte: null, valor: null},
-        {id: null, auxilioTransporteId: null, itinerario: null,
-                                nomeEmpresa: null, tipoDeTransporte: null, valor: null},
-        {id: null, auxilioTransporteId: null, itinerario: null,
-                                nomeEmpresa: null, tipoDeTransporte: null, valor: null},
-        {id: null, auxilioTransporteId: null, itinerario: null,
-                                nomeEmpresa: null, tipoDeTransporte: null, valor: null},
-        {id: null, auxilioTransporteId: null, itinerario: null,
-                                nomeEmpresa: null, tipoDeTransporte: null, valor: null},
-        {id: null, auxilioTransporteId: null, itinerario: null,
-                                    nomeEmpresa: null, tipoDeTransporte: null, valor: null},
-        {id: null, auxilioTransporteId: null, itinerario: null,
-                                    nomeEmpresa: null, tipoDeTransporte: null, valor: null},
-        {id: null, auxilioTransporteId: null, itinerario: null,
-                                    nomeEmpresa: null, tipoDeTransporte: null, valor: null},
+        {id: null, auxilioTransporteId: null, itinerario: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
+        {id: null, auxilioTransporteId: null, itinerario: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
+        {id: null, auxilioTransporteId: null, itinerario: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
+        {id: null, auxilioTransporteId: null, itinerario: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
+        {id: null, auxilioTransporteId: null, itinerario: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
+        {id: null, auxilioTransporteId: null, itinerario: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
+        {id: null, auxilioTransporteId: null, itinerario: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
+        {id: null, auxilioTransporteId: null, itinerario: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
         ];
 
     // array com todos auxilios Transporte
@@ -58,7 +48,7 @@ export class FormAuxilioTransporteComponent implements OnInit {
     constructor(private militaresService: MilitaresService,
                 private router: Router, private rota: ActivatedRoute,
                 private auxiliosTransporteService: AuxiliosTransporteService,
-                private inclusaoAuxilioTransporteService: InclusoesAuxiliosTransporteService,
+                private inclusaoAuxilioTransporteService: InclusoesAuxilioTransporteService,
                 private conducoesService: ConducoesService,
                 private servicoCrudAditamento: CrudAditamentosService,
                 private utilService: UtilService) { }
@@ -70,7 +60,7 @@ export class FormAuxilioTransporteComponent implements OnInit {
 
     }
 
-    insertAuxilioTransporteAndConducoes() {
+    saveAuxilioTransporteAndConducoes() {
         if ( this.aditamentoAtual == null)    {
             alert('Selecione um aditamento!');
         } else {
