@@ -4,6 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule} from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
+// ANGULAR MATERIAL
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+
 
 import { AppComponent } from './app.component';
 import { TabelaMilitaresComponent } from './tabelas-component/tabela-militares/tabela-militares.component';
@@ -85,6 +92,11 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
     FormsModule,
     HttpModule,
     HttpClientModule,
