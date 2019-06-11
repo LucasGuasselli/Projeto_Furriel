@@ -35,9 +35,9 @@
                   <option *ngFor="let ad of aditamentos" (click)="salvarCodAditamento(ad.codAditamento)">{{ad.nome}}</option>
             </select >             
       </form>
-            <div class="buttons">            
-                  <input type="button" (click)="salvarAditamentoAtual()" value="Salvar">
-                  <input type="button" (click)="cancelar()" value="Cancelar">    
+            <div class="buttons">
+                  <button mat-raised-button color="primary" (click)="salvarAditamentoAtual()">Salvar</button>
+                  <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
             </div>
 </div>
 
