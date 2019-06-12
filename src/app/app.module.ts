@@ -10,7 +10,9 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
-
+import {MatTableModule} from '@angular/material/table';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
 
 import { AppComponent } from './app.component';
 import { TabelaMilitaresComponent } from './tabelas-component/tabela-militares/tabela-militares.component';
@@ -92,11 +94,16 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
+    // <ANGULAR MATERIAL>
     BrowserAnimationsModule,
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatTableModule,
+    MatMenuModule,
+    MatIconModule,
+    // </MATERIAL>
     FormsModule,
     HttpModule,
     HttpClientModule,

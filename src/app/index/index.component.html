@@ -1,44 +1,46 @@
 <body>
 <input type="checkbox" id="bt_menu">
 <label for="bt_menu">&#9776;</label>
-<div class="menu">
-      <ul>
-            <li>Cadastrar
-                  <ul>
-                        <li> <a routerLink="/cadastroDeMilitar">Militar</a> </li>             
-                        <li> <a routerLink="/cadastroDeAT">Auxilio Transporte</a> </li>             
-                        <li> <a routerLink="/cadastroDeDesconto">Descontos</a> </li>
-                        <li> <a routerLink="/cadastroPagamentoAtrasado">Valores Atrasados</a> </li>
-                        <li> <a routerLink="/cadastroAditamento">Aditamentos</a> </li>
-                        <li> <a routerLink="/cadastroExclusaoAuxilioTransporte">Excluir Auxilio Transporte</a> </li>
-                  </ul>
-            </li>
-            <li>Relatorios
-                  <ul>
-                        <li> <a routerLink="/relatorio">Gerar Aditamento</a> </li> 
-                        <li> <a routerLink="/listaAditamento">Lista de Aditamentos</a> </li> 
-                        <li> <a routerLink="/listaMilitares">Lista de Militares</a> </li> 
-                        <li> <a routerLink="/listaATConducao">Auxilios e Conducoes</a> </li>
-                        <li> <a routerLink="/listaDesconto">Lista dos Descontos</a> </li> 
-                        <li> <a routerLink="/listaPagamentoAtrasado">Lista dos Pagamentos Atrasados</a> </li>
-                        <li> <a routerLink="/listaExclusaoAuxiliosTransporte">Exclusoes de Auxilios Transporte</a> </li>             
-                  </ul>
-            </li>  
-      </ul>
-</div>
-
-<div>      
-      <form>
-            <label for="codAditamento">Selecionar aditamento atual</label>
-            <select id="codAditamento" name="codAditamento">
-                  <option></option>
-                  <option *ngFor="let ad of aditamentos" (click)="salvarCodAditamento(ad.codAditamento)">{{ad.nome}}</option>
-            </select >             
-      </form>
-            <div class="buttons">
-                  <button mat-raised-button color="primary" (click)="salvarAditamentoAtual()">Salvar</button>
-                  <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
-            </div>
-</div>
+      <div class="menu">
+            <button mat-button [matMenuTriggerFor]="menu">Cadastrar</button>
+                  <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="moveToSaveMilitar()">Militar</button>
+                  <button mat-menu-item (click)="moveToSaveAuxilioTransporte()">Auxilio Transporte</button>
+                  <button mat-menu-item (click)="moveToSaveDesconto()">Desconto</button>
+                  <button mat-menu-item (click)="moveToSaveSaqueAtrasado()">Saque Atrasado</button>
+                  <button mat-menu-item (click)="moveToSaveExclusaoAuxilioTransporte()">Exclusao de Auxilio Transporte</button>
+                  </mat-menu>
+            
+            <button mat-button [matMenuTriggerFor]="menu2">Listar</button>
+                  <mat-menu #menu2="matMenu">
+                        <button mat-menu-item (click)="moveToReadMilitares()">Militares</button>
+                        <button mat-menu-item (click)="moveToReadAuxiliosAndConducoes()">Auxilios e Conducoes</button>
+                        <button mat-menu-item (click)="moveToReadDescontos()">Descontos</button>
+                        <button mat-menu-item (click)="moveToReadPagamentosAtrasados()">Pagamentos Atrasados</button>
+                        <button mat-menu-item (click)="moveToReadExclusoesAuxilioTransporte()">Cadastrar</button>
+                  </mat-menu>  
+            <button mat-button [matMenuTriggerFor]="menu3">Aditamento</button>
+                  <mat-menu #menu3="matMenu">
+                        <button mat-menu-item (click)="moveToAditamentoPDF()">Gerar Aditamento</button>
+                        <button mat-menu-item (click)="moveFormAditamento()">Cadastrar</button>
+                        <button mat-menu-item (click)="moveToReadAditamento()">Listar</button>
+                  </mat-menu>           
+      </div>
+      <div> 
+            <form>
+            <mat-form-field>
+                  <mat-select placeholder="Selecione um aditamento">
+                              <mat-option>None</mat-option>
+                              <mat-option value="option" *ngFor="let ad of aditamentos" 
+                                          (click)="salvarCodAditamento(ad.codAditamento)">{{ad.nome}}</mat-option>
+                  </mat-select>
+            </mat-form-field>     
+                                 
+            </form>
+                  <div class="buttons">
+                        <button mat-raised-button color="primary" (click)="salvarAditamentoAtual()">Salvar</button>
+                        <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+                  </div>
+      </div>
 
 </body>

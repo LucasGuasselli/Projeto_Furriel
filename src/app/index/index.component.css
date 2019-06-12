@@ -117,7 +117,14 @@ label[for="bt_menu"]{
     FORMATACAO DO FORMULARIO
 */
 
+/*
+    // ANGULAR MATERIAL
+*/
 .buttons button {
     margin-right: 8px;
     z-index:2;
+}
+
+.mat-form-field {
+    width: 15%;
 }

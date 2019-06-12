@@ -18,6 +18,62 @@ export class IndexComponent implements OnInit {
   ngOnInit() {
     this.aditamentos = this.servico.getAditamentosSemData();
   }
+// CADASTRAR
+  moveToSaveMilitar() {
+    this.router.navigate(['/cadastroDeMilitar']);
+  }
+
+  moveToSaveAuxilioTransporte() {
+    this.router.navigate(['/cadastroDeAT']);
+  }
+
+  moveToSaveDesconto() {
+    this.router.navigate(['/cadastroDeDesconto']);
+  }
+
+  moveToSaveSaqueAtrasado() {
+    this.router.navigate(['/cadastroPagamentoAtrasado']);
+  }
+
+  moveToSaveExclusaoAuxilioTransporte() {
+    this.router.navigate(['/cadastroExclusaoAuxilioTransporte']);
+  }
+
+// LISTAR
+moveToReadMilitares() {
+  this.router.navigate(['/listaMilitares']);
+}
+
+moveToReadAuxiliosAndConducoes() {
+  this.router.navigate(['/listaATConducao']);
+}
+
+moveToReadDescontos() {
+  this.router.navigate(['/listaDesconto']);
+}
+
+moveToReadPagamentosAtrasados() {
+  this.router.navigate(['/listaPagamentoAtrasado']);
+
+}
+
+moveToReadExclusoesAuxilioTransporte() {
+  this.router.navigate(['/listaExclusaoAuxiliosTransporte']);
+
+}
+
+// ADITAMENTO
+  moveToAditamentoPDF() {
+    this.router.navigate(['/relatorio']);
+  }
+
+  moveFormAditamento() {
+    this.router.navigate(['/cadastroAditamento']);
+  }
+
+  moveToReadAditamento() {
+    this.router.navigate(['/listaAditamento']);
+  }
 
   salvarCodAditamento(codigo: number) {
     if (isNaN(codigo)) {
