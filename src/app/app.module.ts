@@ -43,7 +43,7 @@ import { UtilService } from './services/util.service';
 import { ConducoesService } from './services/conducoes.service';
 import { AuxiliosTransporteService } from './services/auxiliosTransporte.service';
 import { InclusoesAuxilioTransporteService } from './services/inclusoesAuxilioTransporte.service';
-import { ExclusoesAuxiliosTransporteService } from './services/exclusaoAuxilioTransporte.service';
+import { ExclusoesAuxilioTransporteService } from './services/exclusaoAuxilioTransporte.service';
 import { PagamentosAtrasadosService } from './services/pagamentosAtrasados.service';
 
 
@@ -110,7 +110,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   providers: [MilitaresService, EnderecosService, PostosGraduacoesService, InclusoesAuxilioTransporteService,
-              DespesasService, UtilService, AuxiliosTransporteService , ExclusoesAuxiliosTransporteService,
+              DespesasService, UtilService, AuxiliosTransporteService , ExclusoesAuxilioTransporteService,
               ConducoesService, PagamentosAtrasadosService,
               CrudAuxilioTransporteService, CrudAditamentosService, ],
   bootstrap: [AppComponent]

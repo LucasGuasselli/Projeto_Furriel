@@ -6,9 +6,12 @@ import { MilitarDTO } from '../models/militar.dto';
 import { PostoGraduacaoDTO } from '../models/postoGraduacao.dto';
 import { PostosGraduacoesService } from '../services/postosGraduacoes.service';
 import { DespesasService } from '../services/despesas.service';
-import { ExclusoesAuxiliosTransporteService } from '../services/exclusaoAuxilioTransporte.service';
+import { ExclusoesAuxilioTransporteService } from '../services/exclusaoAuxilioTransporte.service';
 import { ExclusaoAuxilioTransporteDTO } from '../models/exclusaoAuxilioTransporte.dto';
 import { PagamentoAtrasadoDTO } from '../models/pagamentoAtrasado.dto';
+import { InclusaoAuxilioTransporteDTO } from '../models/inclusaoAuxilioTransporte.dto';
+import { InclusoesAuxilioTransporteService } from '../services/inclusoesAuxilioTransporte.service';
+import { PagamentosAtrasadosService } from '../services/pagamentosAtrasados.service';
 
 @Component({
   selector: 'app-relatorio',
@@ -21,37 +24,32 @@ export class RelatorioComponent implements OnInit {
   despesas: DespesaDTO[] = [];
   postoGraduacao: PostoGraduacaoDTO;
 
-  // inclusaoAuxiliosTransporte: InclusaoAuxilioTransporte[] = [];
+  inclusoesAuxilioTransporte: InclusaoAuxilioTransporteDTO[] = [];
   atualizacaoAuxiliosTransporte: AtualizacaoAuxilioTransporte[] = [];
   exclusoesAuxilioTransporte: ExclusaoAuxilioTransporteDTO[] = [];
   pagamentosAtrasados: PagamentoAtrasadoDTO[] = [];
 
-  texto: String = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
-
   constructor(private militaresService: MilitaresService,
               private postosGraduacoesService: PostosGraduacoesService,
               private despesasService: DespesasService,
-              private exclusoesAuxiliosTransporteService: ExclusoesAuxiliosTransporteService) { }
+              private exclusoesAuxilioTransporteService: ExclusoesAuxilioTransporteService,
+              private inclusoesAuxilioTransporteService: InclusoesAuxilioTransporteService,
+              private pagamentosAtrasadosService: PagamentosAtrasadosService) { }
 
   ngOnInit() {
 
     this.loadDespesas();
-    this.loadExclusoesAuxiliosTransporte();
-
-      // this.militares = this.militaresService.getMilitares();
-      // this.enderecos = this.militaresService.getEnderecos();
-      //  this.inclusaoAuxiliosTransporte = this.servicoCrudAT.getInclusaoAuxiliosTransporte();
+    this.loadExclusoesAuxilioTransporte();
+    this.loadInclusoesAuxilioTransporte();
+    this.loadPagamentosAtrasados();
       // this.atualizacaoAuxiliosTransporte = this.servicoCrudAT.getAtualizacaoAuxiliosTransporte();
       //  this.pagamentosAtrasados = this.servicoCrudPagamentoAtrasado.getPagamentosAtrasados();
   }
 
   downloadPDF() {
     return xepOnline.Formatter.Format('content', {render: 'download'});
-
   }
-  getScreenshot() {
 
-  }
 // DESPESA A ANULAR
   loadDespesas() {
     this.despesasService.findAll().subscribe(response => {this.despesas = response;
@@ -76,8 +74,8 @@ export class RelatorioComponent implements OnInit {
   }
 
   // EXCLUSOES AUXILIO TRANSPORTE
-  loadExclusoesAuxiliosTransporte() {
-    this.exclusoesAuxiliosTransporteService.findAll().subscribe(response => {this.exclusoesAuxilioTransporte = response;
+  loadExclusoesAuxilioTransporte() {
+    this.exclusoesAuxilioTransporteService.findAll().subscribe(response => {this.exclusoesAuxilioTransporte = response;
       console.log(this.exclusoesAuxilioTransporte); this.loadMilitaresOnExclusao(this.exclusoesAuxilioTransporte); } ,
         error => {console.log(error); } );
   }
@@ -96,6 +94,52 @@ export class RelatorioComponent implements OnInit {
       this.postosGraduacoesService.findPostoGraduacaoById(militar.postoGraduacaoId).subscribe(
         response => {this.postoGraduacao = response; exclusao.graduacao = this.postoGraduacao.nome; },
            error => {console.log(error); } );
+  }
+
+  // INCLUSOES AUXILIO TRANSPORTE
+  loadInclusoesAuxilioTransporte() {
+    this.inclusoesAuxilioTransporteService.findAll().subscribe(response => {this.inclusoesAuxilioTransporte = response;
+      console.log(this.inclusoesAuxilioTransporte); this.loadMilitaresOnInclusao(this.inclusoesAuxilioTransporte); } ,
+        error => {console.log(error); } );
+  }
+
+  loadMilitaresOnInclusao(inclusoes: InclusaoAuxilioTransporteDTO[]) {
+    for (let i = 0; i < inclusoes.length; i++) {
+      this.militaresService.findMilitarByPrecCP(inclusoes[i].militarPrecCP).subscribe(
+        response => {this.militares[i] = response; inclusoes[i].nome = this.militares[i].nome;
+                    this.loadGraduacoesOnInclusao(inclusoes[i], this.militares[i]); },
+        error => {console.log(error); }
+      );
+    }
+  }
+
+  loadGraduacoesOnInclusao(inclusao: InclusaoAuxilioTransporteDTO, militar: MilitarDTO) {
+    this.postosGraduacoesService.findPostoGraduacaoById(militar.postoGraduacaoId).subscribe(
+      response => {this.postoGraduacao = response; inclusao.graduacao = this.postoGraduacao.nome; },
+         error => {console.log(error); } );
+  }
+
+// SAQUES ATRASADOS
+  loadPagamentosAtrasados() {
+      this.pagamentosAtrasadosService.findAll().subscribe(response => {this.pagamentosAtrasados = response;
+      console.log(this.pagamentosAtrasados); this.loadMilitaresOnPagamentoAtrasado(this.pagamentosAtrasados); } ,
+        error => {console.log(error); } );
+  }
+
+  loadMilitaresOnPagamentoAtrasado(pagamentos: PagamentoAtrasadoDTO[]) {
+      for (let i = 0; i < pagamentos.length; i++) {
+        this.militaresService.findMilitarByPrecCP(pagamentos[i].militarPrecCP).subscribe(
+          response => {this.militares[i] = response; pagamentos[i].nome = this.militares[i].nome;
+                      this.loadGraduacoesOnPagamentoAtrasado(pagamentos[i], this.militares[i]); },
+          error => {console.log(error); }
+        );
+      }
+  }
+
+  loadGraduacoesOnPagamentoAtrasado(pagamento: PagamentoAtrasadoDTO, militar: MilitarDTO) {
+    this.postosGraduacoesService.findPostoGraduacaoById(militar.postoGraduacaoId).subscribe(
+      response => {this.postoGraduacao = response; pagamento.graduacao = this.postoGraduacao.nome; },
+         error => {console.log(error); } );
   }
 
   /*

@@ -7,7 +7,7 @@ import { ExclusaoAuxilioTransporteDTO } from '../../models/exclusaoAuxilioTransp
 import { MilitarDTO } from '../../models/militar.dto';
 import { AuxiliosTransporteService } from '../../services/auxiliosTransporte.service';
 import { AuxilioTransporteDTO } from '../../models/auxilioTransporte.dto';
-import { ExclusoesAuxiliosTransporteService } from '../../services/exclusaoAuxilioTransporte.service';
+import { ExclusoesAuxilioTransporteService } from '../../services/exclusaoAuxilioTransporte.service';
 import { UtilService } from '../../services/util.service';
 
 
@@ -28,7 +28,7 @@ export class FormExclusaoAuxilioTransporteComponent implements OnInit {
   constructor(private militaresService: MilitaresService,
               private servicoCrudAditamento: CrudAditamentosService,
               private auxilioTransporteService: AuxiliosTransporteService,
-              private exclusaoAuxilioTransporteService: ExclusoesAuxiliosTransporteService,
+              private exclusaoAuxilioTransporteService: ExclusoesAuxilioTransporteService,
               private router: Router, private rota: ActivatedRoute,
               private utilService: UtilService ) { }
 

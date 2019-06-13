@@ -4,4 +4,6 @@ export class InclusaoAuxilioTransporteDTO {
     militarPrecCP: number;
     dataInicio: String;
     valor: number;
+    nome: String;
+    graduacao: String;
 }

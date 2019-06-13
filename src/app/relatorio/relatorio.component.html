@@ -8,9 +8,7 @@
             as IR 70-21 (Port. nº 114, de 30 jun 1999), a Port. nº 98 – DGP, de 31 out 01, 
             a Prt. nº 269 – DGP, de 11 dez 07 e a Port. nº 849 – Cmt Ex, de 14 jul 16 (EB 10-IG-02.018).
                 
-        <div id="tudo1" >   
-                
-                          
+        <div id="tudo1" >                          
             <table>
                 <th>Graduacao-Nome</th> <th>Prec-CP</th> <th>Data de Inicio</th> 
                 <th>Data de Termino</th> <th>Valor</th> <th>Motivo</th>
@@ -27,23 +25,26 @@
     </div>
     <br>
       
-    <div>   
-        
+    <div>          
             Inclusao de Aux Transp           
             Seja realizada a Inclusao do benefício de Auxílio-Transporte (AT), de acordo com o 
             Decreto nº 2.963, de 24 fev 1999, as IG 70-04 (Port. nº 334, de 25 jun 1999),
             as IR 70-21 (Port. nº 114, de 30 jun 1999), a Port. nº 98 – DGP, de 31 out 01, 
             a Prt. nº 269 – DGP, de 11 dez 07 e a Port. nº 849 – Cmt Ex, de 14 jul 16 (EB 10-IG-02.018).
         
-        <div id="tudo1" *ngFor='let inclusaoAuxTransp of inclusaoAuxiliosTransporte'>       
-            PrecCP do Militar: {{inclusaoAuxTransp.precCP}}<br>
-            A partir de: {{inclusaoAuxTransp.dataInicio}} <br>
-            Valor: R$ {{inclusaoAuxTransp.valor}}<br>
-            -------------------------------------------------
+        <div id="tudo1" >       
+            <table>
+                <th>Graduacao-Nome</th> <th>Prec-CP</th> <th>A contar de:</th> <th>Valor</th> 
+                <tr *ngFor='let inclusaoAuxTransp of inclusoesAuxilioTransporte'>
+                    <td>{{inclusaoAuxTransp.graduacao}} {{inclusaoAuxTransp.nome}}</td>
+                    <td>{{inclusaoAuxTransp.militarPrecCP}}</td>
+                    <td>{{inclusaoAuxTransp.dataInicio}}</td>
+                    <td>R$: {{inclusaoAuxTransp.valor}}</td>
+                </tr>
+            </table>         
         </div>
     </div>
     <br>
-
             Exclusao de Aux Transp           
             Seja realizada a Despesa a Anular (DA) do benefício de Auxílio-Transporte (AT), de acordo com o 
             Decreto nº 2.963, de 24 fev 1999, as IG 70-04 (Port. nº 334, de 25 jun 1999),
@@ -63,8 +64,28 @@
             </table>
         </div>
     </div> 
-
+    <br>
+        Saque Atrasado           
+        Seja realizado o saque atrasado do benefício de Auxlio-Transporte (AT), de acordo com o 
+        Decreto nº 2.963, de 24 fev 1999, as IG 70-04 (Port. nº 334, de 25 jun 1999), as IR 70-21 
+        (Port. nº 14, de 30 jun 1999), a Port. nº 98 - DGP, de 31 out 01, a Port. nº 269 - DGP,
+        de 11 dez 07 e a Port. nº 849 - Cmt Ex, de 14 jul 16 (EB 10-IG-02.018).
     
+    <br>
+    <div id="tudo1" >       
+        <table>
+            <th>Graduacao-Nome</th> <th>Prec-CP</th> <th>Mes de Referencia</th> 
+            <th>Quantidade de Dias</th> <th>Valor</th> <th>Motivo</th> 
+            <tr *ngFor='let pgmto of pagamentosAtrasados'>
+                <td>{{pgmto.graduacao}} {{pgmto.nome}}</td>
+                <td>{{pgmto.militarPrecCP}}</td>
+                <td>{{pgmto.mesReferencia}}</td>
+                <td>{{pgmto.quantidadeDias}}</td>
+                <td>R$ {{pgmto.valor}}</td>
+                <td>{{pgmto.motivo}}</td>
+            </tr>
+    </table>       
+    </div>
         <br>
         <br>
               
@@ -87,27 +108,6 @@
 
             -------------------------------------------------
         </div>
-
-        
-
-        <textarea rows="4" cols="50" >
-            Saque Atrasado           
-            Seja realizado o saque atrasado do benefício de Auxlio-Transporte (AT), de acordo com o 
-            Decreto nº 2.963, de 24 fev 1999, as IG 70-04 (Port. nº 334, de 25 jun 1999), as IR 70-21 
-            (Port. nº 14, de 30 jun 1999), a Port. nº 98 - DGP, de 31 out 01, a Port. nº 269 - DGP,
-            de 11 dez 07 e a Port. nº 849 - Cmt Ex, de 14 jul 16 (EB 10-IG-02.018).
-        </textarea>
-
-        <br>
-        <div id="tudo1" *ngFor='let pgmto of pagamentosAtrasados'>       
-            Codigo de Pagamento: {{pgmto.codPgmtoAtrasado}}<br>
-            PrecCP do Militar: {{pgmto.precCP}}<br>
-            Mes de referencia: {{pgmto.mesReferencia}}<br>
-            Quantidade de dias: {{pgmto.quantidadeDeDias}}<br>
-            Valor: R$ {{pgmto.valor}}<br>
-            Motivo: {{pgmto.motivo}}<br>
-            -------------------------------------------------
-        </div>
-    -->
+   -->
         <button (click)="downloadPDF()">Downaload Relatorio </button>
     

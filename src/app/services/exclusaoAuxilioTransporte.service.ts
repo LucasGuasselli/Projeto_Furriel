@@ -6,7 +6,7 @@ import { API_CONFIG } from '../config/api.config';
 import { ExclusaoAuxilioTransporteDTO } from '../models/exclusaoAuxilioTransporte.dto';
 
 @Injectable()
-export class ExclusoesAuxiliosTransporteService {
+export class ExclusoesAuxilioTransporteService {
 
   exclusaoAuxilioTransporte: ExclusaoAuxilioTransporteDTO;
 
