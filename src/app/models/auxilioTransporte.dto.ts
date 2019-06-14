@@ -3,4 +3,6 @@ export class AuxilioTransporteDTO {
     militarPrecCP: number;
     valorTotalAT: number;
     valorDiarioAT: number;
+    nome: String;
+    graduacao: String;
 }

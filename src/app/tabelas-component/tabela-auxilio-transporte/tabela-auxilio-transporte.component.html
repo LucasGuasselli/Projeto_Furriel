@@ -1,33 +1,32 @@
 
-<h2>{{tituloAuxiliosTransportesPublicados}}</h2>
 <table>
       <div id="tudo">
-      <tr>
-      <th>Codigo AT</th> <th>Codigo Militar</th> <th>Valor Total</th> <th>Valor Diário</th> <th>Aumento de passagem</th> 
-      </tr>
+            <tr>
+                  <th>Posto-Nome</th> <th>Prec-CP</th> <th>Valor Total</th> 
+                  <th>Valor Diário</th> <th>Aumento de passagem</th> 
+            </tr>
 
-      <tr *ngFor='let at of auxilioTransportes'>
-      <td>{{at.codAT}}</td>
-      <td>{{at.codMilitar}}</td>
-      <td>R$ {{at.valorTotalAT}}</td>  
-      <td>R$ {{at.valorDiarioAT}}</td>
-      <td>
-            <a [routerLink]="['/cadastroAtualizacaoAuxilioTransporte', at.codAT]">
-                  <img class="icons" src="../assets/icon-edit.png" alt="Editar"/>
-            </a>
-      </td>   
-      </tr>
+            <tr *ngFor='let at of auxiliosTransporte'>
+                  <td>{{at.graduacao}} {{at.nome}}</td>
+                  <td>{{at.militarPrecCP}}</td>
+                  <td>R$ {{at.valorTotalAT}}</td>  
+                  <td>R$ {{at.valorDiarioAT}}</td>
+                  <td>
+                        <a [routerLink]="['/cadastroAtualizacaoAuxilioTransporte', at.id]">
+                              <img class="icons" src="../assets/icon-edit.png" alt="Editar"/>
+                        </a>
+                  </td>   
+            </tr>
       </div>
 
       <div id="tudo1">
             <tr>
-            <th>Codigo Conducao</th> <th>Codigo Militar</th> <th>Codigo AT</th> <th>Itinerario</th>
-            <th>Nome da Empresa</th> <th>Tipo de Transporte</th> <th>Valor</th> <th>DELETAR</th>
+                  <th>Codigo Conducao</th> <th>Codigo AT</th> <th>Itinerario</th> <th>Nome da Empresa</th>
+                  <th>Tipo de Transporte</th> <th>Valor</th> <th>DELETAR</th>
             </tr>
             <tr *ngFor='let conducao of conducoes'>
-                  <td>{{conducao.codConducao}}</td>
-                  <td>{{conducao.codMilitar}}</td>
-                  <td>{{conducao.codAT}}</td>
+                  <td>{{conducao.id}}</td>
+                  <td>{{conducao.auxilioTransporteId}}</td>
                   <td>{{conducao.itinerario}}</td>
                   <td>{{conducao.nomeEmpresa}}</td>
                   <td>{{conducao.tipoDeTransporte}}</td>

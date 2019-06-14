@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CrudAuxilioTransporteService } from '../../crud-auxilio-transporte.service';
-import { ConducaoDTO } from '../../models/conducao.dto';
+import { AuxiliosTransporteService } from '../../services/auxiliosTransporte.service';
+import { PostosGraduacoesService } from '../../services/postosGraduacoes.service';
+import { MilitaresService } from '../../services/militares.service';
 import { AuxilioTransporteDTO } from '../../models/auxilioTransporte.dto';
+import { ConducaoDTO } from '../../models/conducao.dto';
+import { MilitarDTO } from '../../models/militar.dto';
+import { PostoGraduacaoDTO } from '../../models/postoGraduacao.dto';
+import { ConducoesService } from '../../services/conducoes.service';
 
 @Component({
   selector: 'app-tabela-auxilio-transporte',
@@ -9,24 +14,52 @@ import { AuxilioTransporteDTO } from '../../models/auxilioTransporte.dto';
   styleUrls: ['./tabela-auxilio-transporte.component.css']
 })
 export class TabelaAuxilioTransporteComponent implements OnInit {
-  tituloAuxiliosNaoPublicados = 'AUXILIOS TRANSPORTE NAO PUBLICADOS';
-  tituloAuxiliosTransportesPublicados = 'AUXILIOS TRANSPORTE PUBLICADOS';
 
-  auxiliosTransporteSemPublicacao: AuxilioTransporteDTO[] = [];
-  conducoesSemPublicacao: ConducaoDTO[] = [];
-
-  auxilioTransportes: AuxilioTransporteDTO[] = [];
+  auxiliosTransporte: AuxilioTransporteDTO[] = [];
   conducoes: ConducaoDTO[] = [];
-  constructor(private servico: CrudAuxilioTransporteService) { }
+  militares: MilitarDTO[] = [];
+  postoGraduacao: PostoGraduacaoDTO;
+
+  constructor(private auxilioTransporteService: AuxiliosTransporteService,
+              private militaresService: MilitaresService,
+              private postosGraduacoesService: PostosGraduacoesService,
+              private conducoesService: ConducoesService) { }
 
   ngOnInit() {
+    this.loadAuxiliosTransporte();
+    this.loadConducoes();
   //  this.auxilioTransportes = this.servico.getAT();
   //  this.auxiliosTransporteSemPublicacao = this.servico.getATSemPublicacao();
   //  this.conducoesSemPublicacao = this.servico.getConducoesSemPublicacao();
    // this.conducoes = this.servico.getConducoes();
   }
 
-  removerConducao(conducao: ConducaoDTO) {
-   // this.servico.removerConducao(conducao);
+  loadAuxiliosTransporte() {
+    this.auxilioTransporteService.findAll().subscribe(response => {this.auxiliosTransporte = response;
+      console.log(this.auxiliosTransporte); this.atribuiMilitares(this.auxiliosTransporte); } ,
+        error => {console.log(error); } );
   }
+
+  atribuiMilitares(auxiliosTransporte: AuxilioTransporteDTO[]) {
+    for (let i = 0; i < auxiliosTransporte.length; i++) {
+        this.militaresService.findMilitarByPrecCP(this.auxiliosTransporte[i].militarPrecCP).subscribe(
+          response => {this.militares[i] = response; auxiliosTransporte[i].nome = this.militares[i].nome;
+                      this.atribuiGraduacoes(this.auxiliosTransporte[i], this.militares[i]); },
+          error => {console.log(error); }
+        );
+    }
+  }
+
+  atribuiGraduacoes(auxilioTransporte: AuxilioTransporteDTO, militar: MilitarDTO) {
+    this.postosGraduacoesService.findPostoGraduacaoById(militar.postoGraduacaoId).subscribe(
+      response => {this.postoGraduacao = response; auxilioTransporte.graduacao = this.postoGraduacao.nome; },
+         error => {console.log(error); } );
+  }
+
+  loadConducoes() {
+    this.conducoesService.findAll().subscribe(response => {this.conducoes = response;
+      console.log(this.conducoes); }, error => {console.log(error); } );
+  }
+
+
 }

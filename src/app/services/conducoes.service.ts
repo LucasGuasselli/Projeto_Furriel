@@ -16,6 +16,10 @@ export class ConducoesService {
         return this.http.get<ConducaoDTO[]>(`${API_CONFIG.baseUrl}/conducoes`);
     }
 
+    findConducoesByAuxilioTransporteId(id: number): Observable<ConducaoDTO[]> {
+      return this.http.get<ConducaoDTO[]>(`${API_CONFIG.baseUrl}/conducoes/findConducoesByAuxilioTransporteId/${id}`);
+    }
+
     insert(obj: ConducaoDTO) {
         return this.http.post(`${API_CONFIG.baseUrl}/conducoes`, obj,
               {
@@ -25,8 +29,8 @@ export class ConducoesService {
         );
     }
 
-    update(obj: ConducaoDTO, id: number) {
-      return this.http.put(`${API_CONFIG.baseUrl}/conducoes/${id}`, obj,
+    update(obj: ConducaoDTO, id: number, oldValue: Number) {
+      return this.http.put(`${API_CONFIG.baseUrl}/conducoes/${id}/${oldValue}`, obj,
             {
               observe: 'response',
               responseType: 'text'
