@@ -8,6 +8,7 @@ import { ConducoesService } from '../../services/conducoes.service';
 import { AtualizacaoAuxilioTransporteDTO } from '../../models/atualizacaoAuxilioTransporte.dto';
 import { AuxiliosTransporteService } from '../../services/auxiliosTransporte.service';
 import { AtualizacoesAuxilioTransporteService } from '../../services/atualizacoesAuxilioTransporte.service';
+import { UtilService } from '../../services/util.service';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
   conducoesAtualizacao: ConducaoDTO[] = [];
   valoresAntigos: Number[] = [];
   aditamentoAtual: Aditamento = null;
-  auxilioTransporte: AuxilioTransporteDTO = null;
+  auxilioTransporte: AuxilioTransporteDTO = new AuxilioTransporteDTO();
   precCP: number;
   codAT: number;
   atualizacaoAuxilioTransporte: AtualizacaoAuxilioTransporteDTO = new AtualizacaoAuxilioTransporteDTO();
@@ -40,12 +41,13 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
               private auxiliosTransporteService: AuxiliosTransporteService,
               private atualizacoesAuxilioTransporteService: AtualizacoesAuxilioTransporteService,
               private servicoCrudAditamento: CrudAditamentosService,
+              private utilService: UtilService,
               private router: Router, private rota: ActivatedRoute
               ) { }
 
   ngOnInit() {
     this.codAT = this.rota.snapshot.params['cod'];
-    console.log(this.codAT);
+
     this.loadConducoesById(this.codAT);
 
     this.aditamentoAtual = this.servicoCrudAditamento.getAditamentoAtual();
@@ -54,6 +56,7 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
         alert('Voce precisa selecionar um aditamento!');
       }
   }
+
 // carregando do banco todas conducoes usando um @param id de um auxilioTransporte
   loadConducoesById(id: number) {
       this.conducoesService.findConducoesByAuxilioTransporteId(id).subscribe( response => {
@@ -68,8 +71,6 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
           this.conducoes[i] = this.conducoesAtualizacao[i];
       }
   }
-
-
 
   // este metodo e responsavel por nao permitir colocar valores menores que os existentes
   verifyValues() {
@@ -101,18 +102,26 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
         }
     }
 
-    // this.salvaAtualizacaoAuxilioTransporte();
+    this.findAuxilioTransporteById(this.codAT);
 
     this.router.navigate(['/listaATConducao']);
   }
 
-  saveAtualizacaoAuxilioTransporte() {
-    this.auxiliosTransporteService.findAuxilioTransporteByPrecCP(this.precCP).subscribe(
-      response => { this.auxilioTransporte = response; }
+  // buscando um auxilioTransporte
+  findAuxilioTransporteById(id: number) {
+    this.auxiliosTransporteService.findAuxilioTransporteById(id).subscribe(
+        response => { this.auxilioTransporte = response;
+        this.insertAtualizacaoAuxilioTransporte(this.auxilioTransporte);
+        } , error => { console.log(error); }
     );
-    this.atualizacaoAuxilioTransporte.militarPrecCP = this.precCP;
-    this.atualizacaoAuxilioTransporte.aditamentoId = this.aditamentoAtual.codAditamento;
-    this.atualizacaoAuxilioTransporte.valor = this.auxilioTransporte.valorTotalAT;
+  }
+
+  insertAtualizacaoAuxilioTransporte(auxilio: AuxilioTransporteDTO) {
+      this.atualizacaoAuxilioTransporte.militarPrecCP = auxilio.militarPrecCP;
+      this.atualizacaoAuxilioTransporte.aditamentoId = this.aditamentoAtual.codAditamento;
+      this.atualizacaoAuxilioTransporte.dataInicio = this.utilService.formatDate(
+                                    this.atualizacaoAuxilioTransporte.dataInicio.toString());
+        this.atualizacaoAuxilioTransporte.valor = auxilio.valorTotalAT;
 
     this.atualizacoesAuxilioTransporteService.insert(this.atualizacaoAuxilioTransporte).subscribe(
       response => {console.log(response); } , error => {console.log(error); }

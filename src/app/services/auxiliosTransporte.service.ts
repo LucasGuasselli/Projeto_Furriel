@@ -21,6 +21,11 @@ export class AuxiliosTransporteService {
         `${API_CONFIG.baseUrl}/auxiliosTransporte/searchAuxilioTransporteByPrecCP/?precCP=${precCP}`);
     }
 
+    findAuxilioTransporteById(id: number): Observable<AuxilioTransporteDTO> {
+      return this.http.get<AuxilioTransporteDTO>(
+        `${API_CONFIG.baseUrl}/auxiliosTransporte/${id}`);
+    }
+
     insert(obj: AuxilioTransporteDTO) {
         return this.http.post(`${API_CONFIG.baseUrl}/auxiliosTransporte`, obj,
               {
