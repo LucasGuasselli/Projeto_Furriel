@@ -1,13 +1,13 @@
 import { Component, OnInit, ɵConsole } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AtualizacaoAuxilioTransporte } from '../../atualizacao-auxilio-transporte';
-import { CrudAuxilioTransporteService } from '../../crud-auxilio-transporte.service';
 import { Aditamento } from '../../aditamento';
 import { CrudAditamentosService } from '../../crud-aditamentos.service';
 import { ConducaoDTO } from '../../models/conducao.dto';
 import { AuxilioTransporteDTO } from '../../models/auxilioTransporte.dto';
 import { ConducoesService } from '../../services/conducoes.service';
 import { AtualizacaoAuxilioTransporteDTO } from '../../models/atualizacaoAuxilioTransporte.dto';
+import { AuxiliosTransporteService } from '../../services/auxiliosTransporte.service';
+import { AtualizacoesAuxilioTransporteService } from '../../services/atualizacoesAuxilioTransporte.service';
 
 
 @Component({
@@ -36,8 +36,9 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
   codAT: number;
   atualizacaoAuxilioTransporte: AtualizacaoAuxilioTransporteDTO = new AtualizacaoAuxilioTransporteDTO();
 
-
   constructor(private conducoesService: ConducoesService,
+              private auxiliosTransporteService: AuxiliosTransporteService,
+              private atualizacoesAuxilioTransporteService: AtualizacoesAuxilioTransporteService,
               private servicoCrudAditamento: CrudAditamentosService,
               private router: Router, private rota: ActivatedRoute
               ) { }
@@ -53,25 +54,22 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
         alert('Voce precisa selecionar um aditamento!');
       }
   }
-
+// carregando do banco todas conducoes usando um @param id de um auxilioTransporte
   loadConducoesById(id: number) {
       this.conducoesService.findConducoesByAuxilioTransporteId(id).subscribe( response => {
         this.conducoesAtualizacao = response; this.loadOldValues(); },
         error => { console.log(error); });
   }
 
+// carregando valores antigos das conducoes para comparacoes
   loadOldValues() {
       for (let i = 0; i < this.conducoesAtualizacao.length; i++) {
           this.valoresAntigos[i] = this.conducoesAtualizacao[i].valor;
+          this.conducoes[i] = this.conducoesAtualizacao[i];
       }
-      this.loadConducoes();
   }
 
-  loadConducoes() {
-    for (let i = 0; i < this.conducoesAtualizacao.length; i++) {
-        this.conducoes[i] = this.conducoesAtualizacao[i];
-    }
-  }
+
 
   // este metodo e responsavel por nao permitir colocar valores menores que os existentes
   verifyValues() {
@@ -109,14 +107,16 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
   }
 
   saveAtualizacaoAuxilioTransporte() {
+    this.auxiliosTransporteService.findAuxilioTransporteByPrecCP(this.precCP).subscribe(
+      response => { this.auxilioTransporte = response; }
+    );
     this.atualizacaoAuxilioTransporte.militarPrecCP = this.precCP;
     this.atualizacaoAuxilioTransporte.aditamentoId = this.aditamentoAtual.codAditamento;
-
-  //  this.auxilioTransporte = this.servicoCrudAuxilioTransporte.getAuxilioTransportePorPrecCP(this.precCP);
     this.atualizacaoAuxilioTransporte.valor = this.auxilioTransporte.valorTotalAT;
 
-  //  this.servicoCrudAuxilioTransporte.adicionarAtualizacaoAuxilioTransporte(this.atualizacaoAuxilioTransporte);
-
+    this.atualizacoesAuxilioTransporteService.insert(this.atualizacaoAuxilioTransporte).subscribe(
+      response => {console.log(response); } , error => {console.log(error); }
+    );
   }
 
   cancel() {

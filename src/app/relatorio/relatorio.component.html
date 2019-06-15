@@ -44,7 +44,30 @@
             </table>         
         </div>
     </div>
-    <br>
+<br>
+    <div>
+        Atualização de Auxílio-Transporte           
+        Seja atualizado o valor do benefício do Auxílio-Transporte (AT) referente ao deslocamento
+        de 22 (vinte e dois) dias, de acordo com o Decreto nº 2.963, de 24 fev 1999, as IG 70-04 
+        (Port. nº 334, de 25 jun 1999), as IR 70-21 (Port. nº 14, de 30 jun 1999), 
+        a Port. nº 98 - DGP, de 31 out 01, a Port. nº 269 - DGP, de 11 dez 07 e a Port. 
+        nº 849 - Cmt Ex, de 14 jul 16 (EB 10-IG-02.018).    
+
+        <div id="tudo1">       
+            <table>
+                <th>Graduacao-Nome</th> <th>Prec-CP</th> <th>A contar de:</th> <th>Valor</th> <th>Motivo</th>
+                <tr *ngFor='let atualizacaoAuxTransp of atualizacoesAuxiliosTransporte'>
+                    <td>{{atualizacaoAuxTransp.graduacao}} {{atualizacaoAuxTransp.nome}}</td>
+                    <td>{{atualizacaoAuxTransp.militarPrecCP}}</td>
+                    <td>{{atualizacaoAuxTransp.dataInicio}}</td>
+                    <td>R$ {{atualizacaoAuxTransp.valor}}</td>
+                    <td>{{atualizacaoAuxTransp.motivo}}</td>
+                </tr>
+            </table>            
+        </div>
+    </div>
+<br>
+    <div>
             Exclusao de Aux Transp           
             Seja realizada a Despesa a Anular (DA) do benefício de Auxílio-Transporte (AT), de acordo com o 
             Decreto nº 2.963, de 24 fev 1999, as IG 70-04 (Port. nº 334, de 25 jun 1999),
@@ -89,25 +112,5 @@
         <br>
         <br>
               
-<!--
-        <textarea rows="4" cols="50" >
-            Atualização de Auxílio-Transporte           
-            Seja atualizado o valor do benefício do Auxílio-Transporte (AT) referente ao deslocamento
-            de 22 (vinte e dois) dias, de acordo com o Decreto nº 2.963, de 24 fev 1999, as IG 70-04 
-            (Port. nº 334, de 25 jun 1999), as IR 70-21 (Port. nº 14, de 30 jun 1999), 
-            a Port. nº 98 - DGP, de 31 out 01, a Port. nº 269 - DGP, de 11 dez 07 e a Port. 
-            nº 849 - Cmt Ex, de 14 jul 16 (EB 10-IG-02.018).
-        </textarea>
-
-        <br>
-        <div id="tudo1" *ngFor='let atualizacaoAuxTransp of atualizacaoAuxiliosTransporte'>       
-            PrecCP do Militar: {{atualizacaoAuxTransp.precCP}}<br>
-            A partir de: {{atualizacaoAuxTransp.dataInicio}} <br>
-            Valor: R$ {{atualizacaoAuxTransp.valor}}<br>
-            Motivo: {{atualizacaoAuxTransp.motivo}}<br>
-
-            -------------------------------------------------
-        </div>
-   -->
         <button (click)="downloadPDF()">Downaload Relatorio </button>
     

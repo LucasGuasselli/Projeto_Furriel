@@ -5,4 +5,6 @@ export class AtualizacaoAuxilioTransporteDTO {
     dataInicio: String;
     motivo: String;
     valor: number;
+    nome: String;
+    graduacao: String;
 }
