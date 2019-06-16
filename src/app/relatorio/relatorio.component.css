@@ -43,3 +43,7 @@ textarea{
     font-family: arial, sans-serif;
     width: 80%;
 }
+
+.mat-form-field {
+    width: 15%;
+}

@@ -13,6 +13,8 @@ import { InclusoesAuxilioTransporteService } from '../services/inclusoesAuxilioT
 import { PagamentosAtrasadosService } from '../services/pagamentosAtrasados.service';
 import { AtualizacaoAuxilioTransporteDTO } from '../models/atualizacaoAuxilioTransporte.dto';
 import { AtualizacoesAuxilioTransporteService } from '../services/atualizacoesAuxilioTransporte.service';
+import { AditamentoDTO } from '../models/aditamento.dto';
+import { AditamentosService } from '../services/aditamentos.service';
 
 @Component({
   selector: 'app-relatorio',
@@ -30,20 +32,24 @@ export class RelatorioComponent implements OnInit {
   exclusoesAuxilioTransporte: ExclusaoAuxilioTransporteDTO[] = [];
   pagamentosAtrasados: PagamentoAtrasadoDTO[] = [];
 
+  aditamentos: AditamentoDTO[] = [];
+
   constructor(private militaresService: MilitaresService,
               private postosGraduacoesService: PostosGraduacoesService,
               private despesasService: DespesasService,
               private exclusoesAuxilioTransporteService: ExclusoesAuxilioTransporteService,
               private inclusoesAuxilioTransporteService: InclusoesAuxilioTransporteService,
               private pagamentosAtrasadosService: PagamentosAtrasadosService,
-              private atualizacoesAuxilioTransporteService: AtualizacoesAuxilioTransporteService) { }
+              private atualizacoesAuxilioTransporteService: AtualizacoesAuxilioTransporteService,
+              private aditamentosService: AditamentosService) { }
 
   ngOnInit() {
-    this.loadDespesas();
-    this.loadExclusoesAuxilioTransporte();
-    this.loadInclusoesAuxilioTransporte();
-    this.loadPagamentosAtrasados();
-    this.loadAtualizacoesAuxilioTransporte();
+    this.loadAditamentos();
+    // this.loadDespesas();
+    // this.loadExclusoesAuxilioTransporte();
+    // this.loadInclusoesAuxilioTransporte();
+    // this.loadPagamentosAtrasados();
+    // this.loadAtualizacoesAuxilioTransporte();
     // this.atualizacaoAuxiliosTransporte = this.servicoCrudAT.getAtualizacaoAuxiliosTransporte();
   }
 
@@ -51,9 +57,18 @@ export class RelatorioComponent implements OnInit {
     return xepOnline.Formatter.Format('content', {render: 'download'});
   }
 
+  loadAditamentos() {
+    this.aditamentosService.findAll().subscribe( response => { this.aditamentos = response; },
+       error => {console.log(error); });
+  }
+
+  loadInfomationAditamento(id: number) {
+    this.loadDespesas(id);
+  }
+
 // DESPESA A ANULAR
-  loadDespesas() {
-    this.despesasService.findAll().subscribe(response => {this.despesas = response;
+  loadDespesas(id: number) {
+    this.despesasService.findDespesasByAditamentoId(id).subscribe(response => {this.despesas = response;
     console.log(this.despesas); this.loadMilitaresOnDespesas(this.despesas); } ,
       error => {console.log(error); } );
   }
