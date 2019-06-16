@@ -45,12 +45,6 @@ export class RelatorioComponent implements OnInit {
 
   ngOnInit() {
     this.loadAditamentos();
-    // this.loadDespesas();
-    // this.loadExclusoesAuxilioTransporte();
-    // this.loadInclusoesAuxilioTransporte();
-    // this.loadPagamentosAtrasados();
-    // this.loadAtualizacoesAuxilioTransporte();
-    // this.atualizacaoAuxiliosTransporte = this.servicoCrudAT.getAtualizacaoAuxiliosTransporte();
   }
 
   downloadPDF() {
@@ -64,6 +58,10 @@ export class RelatorioComponent implements OnInit {
 
   loadInfomationAditamento(id: number) {
     this.loadDespesas(id);
+    this.loadInclusoesAuxilioTransporte(id);
+    this.loadAtualizacoesAuxilioTransporte(id);
+    this.loadExclusoesAuxilioTransporte(id);
+    this.loadPagamentosAtrasados(id);
   }
 
 // DESPESA A ANULAR
@@ -90,8 +88,9 @@ export class RelatorioComponent implements OnInit {
   }
 
   // INCLUSOES AUXILIO TRANSPORTE
-  loadInclusoesAuxilioTransporte() {
-    this.inclusoesAuxilioTransporteService.findAll().subscribe(response => {this.inclusoesAuxilioTransporte = response;
+  loadInclusoesAuxilioTransporte(id: number) {
+    this.inclusoesAuxilioTransporteService.findInclusoesByAditamentoId(id).subscribe(
+      response => {this.inclusoesAuxilioTransporte = response;
       console.log(this.inclusoesAuxilioTransporte); this.loadMilitaresOnInclusao(this.inclusoesAuxilioTransporte); } ,
         error => {console.log(error); } );
   }
@@ -113,8 +112,8 @@ export class RelatorioComponent implements OnInit {
   }
 
   // AUMENTO DE PASSAGEM
-  loadAtualizacoesAuxilioTransporte() {
-    this.atualizacoesAuxilioTransporteService.findAll().subscribe(response => {
+  loadAtualizacoesAuxilioTransporte(id: number) {
+    this.atualizacoesAuxilioTransporteService.findAtualizacoesByAditamentoId(id).subscribe(response => {
       this.atualizacoesAuxiliosTransporte = response; console.log(this.atualizacoesAuxiliosTransporte);
       this.loadMilitaresOnAtualizacoes(this.atualizacoesAuxiliosTransporte); } , error => {console.log(error); } );
   }
@@ -136,8 +135,9 @@ export class RelatorioComponent implements OnInit {
   }
 
   // EXCLUSOES AUXILIO TRANSPORTE
-  loadExclusoesAuxilioTransporte() {
-    this.exclusoesAuxilioTransporteService.findAll().subscribe(response => {this.exclusoesAuxilioTransporte = response;
+  loadExclusoesAuxilioTransporte(id: number) {
+    this.exclusoesAuxilioTransporteService.findExclusoesByAditamentoId(id).subscribe(
+      response => {this.exclusoesAuxilioTransporte = response;
       console.log(this.exclusoesAuxilioTransporte); this.loadMilitaresOnExclusao(this.exclusoesAuxilioTransporte); } ,
         error => {console.log(error); } );
   }
@@ -159,8 +159,8 @@ export class RelatorioComponent implements OnInit {
   }
 
 // SAQUES ATRASADOS
-  loadPagamentosAtrasados() {
-      this.pagamentosAtrasadosService.findAll().subscribe(response => {this.pagamentosAtrasados = response;
+  loadPagamentosAtrasados(id: number) {
+      this.pagamentosAtrasadosService.findPagamentosAtrasadosByAditamentoId(id).subscribe(response => {this.pagamentosAtrasados = response;
       console.log(this.pagamentosAtrasados); this.loadMilitaresOnPagamentoAtrasado(this.pagamentosAtrasados); } ,
         error => {console.log(error); } );
   }

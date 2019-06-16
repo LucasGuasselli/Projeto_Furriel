@@ -17,6 +17,11 @@ export class PagamentosAtrasadosService {
         return this.http.get<PagamentoAtrasadoDTO[]>(`${API_CONFIG.baseUrl}/pagamentosAtrasados`);
     }
 
+    findPagamentosAtrasadosByAditamentoId(id: number): Observable<PagamentoAtrasadoDTO[]> {
+      return this.http.get<PagamentoAtrasadoDTO[]>(
+          `${API_CONFIG.baseUrl}/pagamentosAtrasados/searchPagamentosAtrasadosByAditamentoId/${id}`);
+    }
+
     insert(obj: PagamentoAtrasadoDTO) {
         return this.http.post(`${API_CONFIG.baseUrl}/pagamentosAtrasados`, obj,
               {

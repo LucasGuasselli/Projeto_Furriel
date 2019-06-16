@@ -17,6 +17,11 @@ export class AtualizacoesAuxilioTransporteService {
         return this.http.get<AtualizacaoAuxilioTransporteDTO[]>(`${API_CONFIG.baseUrl}/alteracoesValoresPassagens`);
     }
 
+    findAtualizacoesByAditamentoId(id: number): Observable<AtualizacaoAuxilioTransporteDTO[]> {
+      return this.http.get<AtualizacaoAuxilioTransporteDTO[]>(
+          `${API_CONFIG.baseUrl}/alteracoesValoresPassagens/searchAlteracoesByAditamentoId/${id}`);
+    }
+
     insert(obj: AtualizacaoAuxilioTransporteDTO) {
         return this.http.post(`${API_CONFIG.baseUrl}/alteracoesValoresPassagens`, obj,
               {

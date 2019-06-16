@@ -25,7 +25,7 @@ export class DespesasService {
 
     findDespesasByAditamentoId(id: number): Observable<DespesaDTO[]> {
       return this.http.get<DespesaDTO[]>(`${API_CONFIG.baseUrl}/despesas/searchDespesasByAditamentoId/${id}`);
-   }
+    }
 
     insert(obj: DespesaDTO) {
         return this.http.post(`${API_CONFIG.baseUrl}/despesas`, obj,
