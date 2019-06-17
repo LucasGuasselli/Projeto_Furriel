@@ -1,38 +1,49 @@
 <h3>{{titulo}}</h3>
-<div class = "form">
-        
+<div class="form">        
   <form>
-    <label for="precCP">Nome do Militar:</label>
-    <select id="precCP" name="precCP">
-        <option></option>
-        <option *ngFor="let m of militaresComAuxilioTransporte" (click)="salvarPrecCPMilitar(m.precCP)" >{{m.nome}}</option>
-    </select >      
-
+      <mat-form-field>
+          <mat-select placeholder="Militares">            
+            <mat-option value="option" *ngFor="let m of militaresComAuxilioTransporte" 
+            (click)="salvarPrecCPMilitar(m.precCP)">{{m.nome}}</mat-option>
+          </mat-select>
+      </mat-form-field>
     <br>
-      <label for="dataInicio">Data de Inicio:</label>
-      <input type="date" id="dataInicio" name="dataInicio" [(ngModel)]="despesa.dataInicio"> 
+    
+    <mat-form-field>
+        <input matInput [matDatepicker]="dataInicio" placeholder="Data de Inicio" 
+        (click)="test()" name="inicio" [(ngModel)]="despesa.dataInicio">
+        <mat-datepicker-toggle matSuffix [for]="dataInicio"></mat-datepicker-toggle>
+        <mat-datepicker #dataInicio></mat-datepicker>
+    </mat-form-field>      
     <br>
-      <label for="dataFim">Data de Termino:</label>
-      <input type="date" id="dataFim" name="dataFim" [(ngModel)]="despesa.dataFim">
-    <br>
-      <label for="quantidadeDias">Quantidade de dias:</label>
-      <input type="number" id="quantidadeDias" name="quantidadeDias" [(ngModel)]="despesa.quantidadeDias">       
-    <br>
-      <label for="motivo">Motivo:</label>
-      <select class="imbSelect" id="motivo" name="motivo" [(ngModel)]="despesa.motivo">
-        <option></option>
-        <option>Dispensa como Recompensa</option>
-        <option>Serviço</option>
-        <option>Viagem</option>
-        <option>Férias</option>
-        <option>Desconto em Férias</option>
-        <option>Núpcias</option>
-        <option>LTSP</option>
-    </select >
-      
-    <div>            
-      <input type="button" class="botaoSalvar" (click)="saveDespesa()" value="Salvar">
-      <input type="button" class="botaoCancelar" (click)="cancelar()" value="Cancelar">    
+    <mat-form-field>
+        <input matInput [matDatepicker]="dataFim" placeholder="Data de Termino" 
+        (click)="test()" name="fim" [(ngModel)]="despesa.dataFim">
+        <mat-datepicker-toggle matSuffix [for]="dataFim"></mat-datepicker-toggle>
+        <mat-datepicker #dataFim></mat-datepicker>
+    </mat-form-field>
+    
+    <br>    
+    <mat-form-field class="example-full-width">
+      <input type="number" matInput placeholder="Quantidade de Dias" name="quantidadeDias" value="" pattern="[0-9]{1,4}"  [(ngModel)]="despesa.quantidadeDias">
+    </mat-form-field>
+     
+    <form>
+    <mat-form-field>
+        <mat-select placeholder="Motivo" name="motivo" [(ngModel)]="despesa.motivo">            
+            <mat-option value="Dispensa como Recompensa">Dispensa como Recompensa</mat-option>
+            <mat-option value="Serviço">Serviço</mat-option>
+            <mat-option value="Viagem">Viagem</mat-option>
+            <mat-option value="Ferias">Férias</mat-option>
+            <mat-option value="Desconto em Ferias">Desconto em Férias</mat-option>
+            <mat-option value="Nupcias">Núpcias</mat-option>
+            <mat-option value="LTSP">LTSP</mat-option>
+        </mat-select>
+    </mat-form-field>      
+  </form> 
+    <div>
+      <button mat-raised-button color="primary" (click)="saveDespesa()">Salvar</button>
+      <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>            
     </div>
   </form>
 </div>

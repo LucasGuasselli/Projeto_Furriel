@@ -21,6 +21,9 @@ export class FormDescontosComponent implements OnInit {
 
   aditamentoAtual: Aditamento = new Aditamento;
 
+  // inicio: Date;
+  // fim: Date;
+
   constructor(private militaresService: MilitaresService,
               private despesasService: DespesasService,
               private utilService: UtilService,
@@ -85,6 +88,10 @@ export class FormDescontosComponent implements OnInit {
         error => {console.log(error); } );
   }
 
+  test() {
+    console.log(this.utilService.formatDate(this.despesa.dataInicio.toString()));
+    console.log(this.utilService.formatDate(this.despesa.dataFim.toString()));
+  }
   cancelar() {
     this.router.navigate(['/index']);
   }
