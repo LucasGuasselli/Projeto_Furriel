@@ -1,29 +1,38 @@
 <h3>{{titulo}}</h3>
 <div class = "form">
   <form>
-    <label for="precCP">Nome do Militar</label>
-    <select id="precCP" name="precCP">
-        <option></option>
-        <option *ngFor="let m of militaresComAuxilioTransporte" (click)="salvarPrecCP(m.precCP)" >{{m.nome}}</option>
-    </select > 
-    <br>
-      <label for="mesReferencia">Mes de Referencia</label>
-      <input type="text" id="mesReferencia" name="mesReferencia" placeholder="Mes de Referencia..." [(ngModel)]="pagamentoAtrasado.mesReferencia">
-    <br>
-      <label for="quantidadeDeDias">Quantidade de dias</label>
-      <input type="number" name="quantidadeDeDias" [(ngModel)]="pagamentoAtrasado.quantidadeDias">
-    <br>
-      <label for="motivo">Motivo</label>
-      <input type="text" id="motivo" name="motivo" placeholder="Motivo..." [(ngModel)]="pagamentoAtrasado.motivo">
-    <br>
-    <br>
-      <label for="valor">Valor</label>
-      <input type="number" name="valor" [(ngModel)]="pagamentoAtrasado.valor" >
-    <br>
-      
+    <div>
+      <mat-form-field>
+          <mat-select placeholder="Militares">            
+            <mat-option value="option" name="precCP" *ngFor="let m of militaresComAuxilioTransporte"
+            (click)="saveMilitarPrecCP(m.precCP)">{{m.nome}}</mat-option>
+      </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="input">
+          <input matInput placeholder="Mes de 
+          Referencia" name="mesReferencia" value="" [(ngModel)]="pagamentoAtrasado.mesReferencia">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="input">
+          <input type="number" matInput placeholder="Quantidade de Dias" name="quantidadeDias" value="" pattern="[0-9]"  [(ngModel)]="pagamentoAtrasado.quantidadeDias">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="input">
+            <input matInput placeholder="Motivo" name="motivo" value="" [(ngModel)]="pagamentoAtrasado.motivo">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="input">
+          <input type="number" matInput placeholder="Valor" name="valor" value="" [(ngModel)]="pagamentoAtrasado.valor">
+      </mat-form-field>  
+    </div>
     <div class="buttons">
-      <input type="button"  (click)="savePagamentoAtrasado()" value="Salvar">
-      <input type="button"  (click)="cancelar()" value="Cancelar">
+        <button mat-raised-button color="primary" (click)="savePagamentoAtrasado()">Salvar</button>
+        <button mat-raised-button color="warn" (click)="cancel()">Cancelar</button>
     </div>
   </form>
 </div>

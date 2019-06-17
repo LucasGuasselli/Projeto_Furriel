@@ -1,6 +1,6 @@
 <h3>{{titulo}}</h3>
 <div class = "form">     
-  <form>
+  <form class="form">
       <mat-form-field>
           <mat-select placeholder="Graduações">            
             <mat-option value="option" *ngFor="let posto of postosGraduacoes" 
@@ -36,34 +36,6 @@
       <input matInput placeholder="Complemento" name="complemento" value="" [(ngModel)]="endereco.complemento">
     </mat-form-field>
 
-  <!--
-
-    <label for="postoGraduacaoId">Posto</label>
-      <select id="postoGraduacaoId" name="postoGraduacaoId">
-          <option></option>
-          <option *ngFor="let posto of postosGraduacoes" (click)="salvarPostoGraduacao(posto.id)">{{posto.nome}}</option>
-      </select >  
-    <br>
-
-      <label for="precCP">Prec-CP</label>
-      <input type="number" id="precCP" name="precCP" placeholder="Prec-CP..." pattern="[A-Za-z]{3}-[0-9]{4}"  [(ngModel)]="militar.precCP">
-    
-      <label for="rua">Rua</label>
-      <input type="text" id="rua" name="rua" placeholder="Rua..." [(ngModel)]="endereco.rua">
-
-      <label for="bairro">Bairro</label>
-      <input type="text" id="bairro" name="bairro" placeholder="Bairro..." [(ngModel)]="endereco.bairro">
-
-      <label for="Cidade">Cidade</label>
-      <input type="text" id="cidade" name="cidade" placeholder="Cidade..." [(ngModel)]="endereco.cidade">
-    
-      <label for="numero">Numero</label>
-      <input type="number" id="numero" name="numero" placeholder="numero..." [(ngModel)]="endereco.numero">
-      
-      <label for="Complemento">Complemento</label>
-      <input type="text" id="complemento" name="complemento" placeholder="Complemento..." [(ngModel)]="endereco.complemento">
-
-    -->  
       <div class="buttons">
         <button mat-raised-button color="primary" (click)="salvarMilitar()">Salvar</button>
         <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>

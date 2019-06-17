@@ -15,10 +15,10 @@ import { MilitarDTO } from '../../models/militar.dto';
 export class FormPagamentoAtrasadoComponent implements OnInit {
 
   precCP: number;
-  aditamentoAtual: Aditamento;
   pagamentoAtrasado: PagamentoAtrasadoDTO = new PagamentoAtrasadoDTO();
- // pagamentosAtrasados: PagamentoAtrasadoDTO[] = [];
   militaresComAuxilioTransporte: MilitarDTO[] = [];
+
+  aditamentoAtual: Aditamento;
 
   constructor(private militaresService: MilitaresService,
               private pagamentoAtrasadoService: PagamentosAtrasadosService,
@@ -42,7 +42,6 @@ export class FormPagamentoAtrasadoComponent implements OnInit {
             alert('selecione um militar!');
         } else {
             this.insertPagamentoAtrasado();
-
         }
       }
     }
@@ -51,7 +50,7 @@ export class FormPagamentoAtrasadoComponent implements OnInit {
       this.pagamentoAtrasado.militarPrecCP = this.precCP;
       this.pagamentoAtrasado.aditamentoId = this.aditamentoAtual.codAditamento;
       this.pagamentoAtrasadoService.insert(this.pagamentoAtrasado).subscribe(response => {
-        console.log(response); }, error => {console.log(error); } );
+        console.log(response); alert('Saque Atrasado cadastrado com sucesso!'); }, error => {console.log(error); } );
     }
 
     loadMilitaresComAuxilioTransporte() {
@@ -60,16 +59,15 @@ export class FormPagamentoAtrasadoComponent implements OnInit {
           error => {console.log(error); } );
     }
 
-    salvarPrecCP(codigo: number) {
+    saveMilitarPrecCP(codigo: number) {
       if (isNaN(codigo)) {
           // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
       } else {
-         // this.pagamentoAtrasado.codAditamento = this.aditamentoAtual.codAditamento;
           this.precCP = codigo;
       }
     }
 
-    cancelar() {
+    cancel() {
       this.router.navigate(['/index']);
     }
 }

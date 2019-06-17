@@ -23,12 +23,12 @@ export class TabelaDescontosComponent implements OnInit {
               private postosGraduacoesService: PostosGraduacoesService) { }
 
   ngOnInit() {
-    this.carregaDespesas();
+    this.loadDespesas();
     // console.log(this.despesas[0]);
     // this.descontos = this.servicoCrudAT.getDescontos();
   }
 
-  carregaDespesas() {
+  loadDespesas() {
     this.despesasService.findAll().subscribe(response => {this.despesas = response;
     console.log(this.despesas); this.atribuiMilitares(this.despesas); } ,
       error => {console.log(error); } );

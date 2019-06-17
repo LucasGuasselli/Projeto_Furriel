@@ -8,10 +8,11 @@ input[type=text]{
     box-sizing:border-box;
 }
 
-
-
-.buttons button {
-  margin-right: 8px;
+.buttons{
+  text-align: center;
+  display: block;
+  width: 50%;
+  margin: auto;
 }
 
 .example-form {
@@ -22,4 +23,10 @@ input[type=text]{
 
 .example-full-width {
   width: 100%;
+}
+
+.form{
+  border-radius: 4px;
+  background-color: #F2f2f2;
+  padding: 20px;    
 }

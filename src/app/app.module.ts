@@ -13,6 +13,9 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 import { AppComponent } from './app.component';
 import { TabelaMilitaresComponent } from './tabelas-component/tabela-militares/tabela-militares.component';
@@ -105,6 +108,8 @@ const routes: Routes = [
     MatTableModule,
     MatMenuModule,
     MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     // </MATERIAL>
     FormsModule,
     HttpModule,
