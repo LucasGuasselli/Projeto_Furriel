@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MilitaresService } from '../../services/militares.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Aditamento } from '../../aditamento';
-import { CrudAditamentosService } from '../../crud-aditamentos.service';
 import { ExclusaoAuxilioTransporteDTO } from '../../models/exclusaoAuxilioTransporte.dto';
 import { MilitarDTO } from '../../models/militar.dto';
 import { AuxiliosTransporteService } from '../../services/auxiliosTransporte.service';
 import { AuxilioTransporteDTO } from '../../models/auxilioTransporte.dto';
 import { ExclusoesAuxilioTransporteService } from '../../services/exclusaoAuxilioTransporte.service';
 import { UtilService } from '../../services/util.service';
+import { AditamentosService } from '../../services/aditamentos.service';
+import { AditamentoDTO } from '../../models/aditamento.dto';
 
 
 @Component({
@@ -22,19 +22,23 @@ export class FormExclusaoAuxilioTransporteComponent implements OnInit {
   exclusaoAuxilioTransporte: ExclusaoAuxilioTransporteDTO = new ExclusaoAuxilioTransporteDTO();
   auxilioTransporte: AuxilioTransporteDTO = new AuxilioTransporteDTO();
   militaresComAuxilioTransporte: MilitarDTO[] = [];
-  aditamentoAtual: Aditamento;
+  aditamentoAtual: AditamentoDTO = null;
   precCP: number;
   valor: number;
 
   constructor(private militaresService: MilitaresService,
-              private servicoCrudAditamento: CrudAditamentosService,
+              private aditamentosService: AditamentosService,
               private auxilioTransporteService: AuxiliosTransporteService,
               private exclusaoAuxilioTransporteService: ExclusoesAuxilioTransporteService,
               private router: Router, private rota: ActivatedRoute,
               private utilService: UtilService ) { }
 
   ngOnInit() {
-      this.aditamentoAtual = this.servicoCrudAditamento.getAditamentoAtual();
+      this.aditamentoAtual = this.aditamentosService.getAditamentoAtual();
+      if ( this.aditamentoAtual == null)    {
+        alert('Selecione um aditamento!');
+        this.router.navigate(['/index']);
+      }
       this.loadMilitaresComAuxilioTransporte();
   }
 
@@ -47,7 +51,7 @@ export class FormExclusaoAuxilioTransporteComponent implements OnInit {
         } else {
           this.auxilioTransporteService.findAuxilioTransporteByPrecCP(this.precCP).subscribe(
             response => {this.auxilioTransporte = response; this.insertExclusaoAuxilioTransporte(
-              this.precCP, this.aditamentoAtual.codAditamento, this.auxilioTransporte); } ,
+              this.precCP, this.aditamentoAtual.id, this.auxilioTransporte); } ,
             error => {console.log(error); }
           );
 

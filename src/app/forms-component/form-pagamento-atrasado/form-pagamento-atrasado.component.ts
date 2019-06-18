@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MilitaresService } from '../../services/militares.service';
-import { Aditamento } from '../../aditamento';
-import { CrudAditamentosService } from '../../crud-aditamentos.service';
 import { PagamentosAtrasadosService } from '../../services/pagamentosAtrasados.service';
 import { PagamentoAtrasadoDTO } from '../../models/pagamentoAtrasado.dto';
 import { MilitarDTO } from '../../models/militar.dto';
+import { AditamentoDTO } from '../../models/aditamento.dto';
+import { AditamentosService } from '../../services/aditamentos.service';
 
 @Component({
   selector: 'app-form-pagamento-atrasado',
@@ -18,20 +18,20 @@ export class FormPagamentoAtrasadoComponent implements OnInit {
   pagamentoAtrasado: PagamentoAtrasadoDTO = new PagamentoAtrasadoDTO();
   militaresComAuxilioTransporte: MilitarDTO[] = [];
 
-  aditamentoAtual: Aditamento;
+  aditamentoAtual: AditamentoDTO = null;
 
   constructor(private militaresService: MilitaresService,
               private pagamentoAtrasadoService: PagamentosAtrasadosService,
               private router: Router, private rota: ActivatedRoute,
-              private servicoCrudAditamento: CrudAditamentosService) { }
+              private aditamentosService: AditamentosService) { }
 
     ngOnInit() {
-        this.aditamentoAtual = this.servicoCrudAditamento.getAditamentoAtual();
+      this.aditamentoAtual = this.aditamentosService.getAditamentoAtual();
+      if ( this.aditamentoAtual == null)    {
+        alert('Selecione um aditamento!');
+        this.router.navigate(['/index']);
+      }
         this.loadMilitaresComAuxilioTransporte();
-
-        if ( this.aditamentoAtual == null)    {
-          alert('Selecione um aditamento!');
-        }
     }
 
     savePagamentoAtrasado() {
@@ -48,7 +48,7 @@ export class FormPagamentoAtrasadoComponent implements OnInit {
 
     insertPagamentoAtrasado() {
       this.pagamentoAtrasado.militarPrecCP = this.precCP;
-      this.pagamentoAtrasado.aditamentoId = this.aditamentoAtual.codAditamento;
+      this.pagamentoAtrasado.aditamentoId = this.aditamentoAtual.id;
       this.pagamentoAtrasadoService.insert(this.pagamentoAtrasado).subscribe(response => {
         console.log(response); alert('Saque Atrasado cadastrado com sucesso!'); }, error => {console.log(error); } );
     }

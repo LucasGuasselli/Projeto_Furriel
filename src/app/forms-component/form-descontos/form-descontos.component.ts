@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MilitaresService } from '../../services/militares.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CrudAditamentosService } from '../../crud-aditamentos.service';
-import { Aditamento } from '../../aditamento';
 import { MilitarDTO } from '../../models/militar.dto';
 import { DespesaDTO } from '../../models/despesa.dto';
 import { DespesasService } from '../../services/despesas.service';
 import { UtilService } from '../../services/util.service';
+import { AditamentoDTO } from '../../models/aditamento.dto';
+import { AditamentosService } from '../../services/aditamentos.service';
 
 @Component({
   selector: 'app-form-descontos',
@@ -19,32 +19,22 @@ export class FormDescontosComponent implements OnInit {
   despesa = new DespesaDTO();
   precCP: number;
 
-  aditamentoAtual: Aditamento = new Aditamento;
-
-  // inicio: Date;
-  // fim: Date;
+  aditamentoAtual: AditamentoDTO = null;
 
   constructor(private militaresService: MilitaresService,
               private despesasService: DespesasService,
               private utilService: UtilService,
-              private servicoCrudAditamento: CrudAditamentosService,
+              private aditamentosService: AditamentosService,
               private router: Router,
               private rota: ActivatedRoute) { }
 
   ngOnInit() {
-      this.aditamentoAtual = this.servicoCrudAditamento.getAditamentoAtual();
-      this.aditamentoAtual.codAditamento = 1;
-      // tslint:disable-next-line:no-unused-expression
-      Date.parse;
-      this.loadMilitaresComAuxilioTransporte();
-
-      if (isNaN(this.precCP)) {
-        // CADASTRAR
-      } else {
-        // EDITAR
-        // this.militar = Object.assign({}, this.servico.getMilitarPorCodigo(this.codMilitar));
-        // this.endereco = Object.assign({}, this.servico.getEnderecoPorCodigo(this.codMilitar));
+    this.aditamentoAtual = this.aditamentosService.getAditamentoAtual();
+      if ( this.aditamentoAtual == null)    {
+        alert('Selecione um aditamento!');
+        this.router.navigate(['/index']);
       }
+    this.loadMilitaresComAuxilioTransporte();
   }
 
   saveDespesa() {
@@ -55,10 +45,8 @@ export class FormDescontosComponent implements OnInit {
           alert('Voce precisa selecionar um aditamento!');
         } else {
           this.despesa.militarPrecCP = this.precCP;
-          this.despesa.aditamentoId = this.aditamentoAtual.codAditamento;
+          this.despesa.aditamentoId = this.aditamentoAtual.id;
           this.insertDespesa();
-            // salvando
-        //    this.desconto = new Desconto();
         }
     }
   }
@@ -67,9 +55,7 @@ export class FormDescontosComponent implements OnInit {
     this.despesa.dataInicio = this.utilService.formatDate(this.despesa.dataInicio.toString());
     this.despesa.dataFim = this.utilService.formatDate(this.despesa.dataFim.toString());
 
-    console.log(this.despesa.dataInicio);
-    console.log(this.despesa.dataFim);
-      this.despesasService.insert(this.despesa).subscribe(response => { console.log('Despesa cadastrada com sucesso!'); } ,
+      this.despesasService.insert(this.despesa).subscribe(response => { console.log(response); } ,
         error => {console.log(error); });
   }
 
@@ -88,10 +74,6 @@ export class FormDescontosComponent implements OnInit {
         error => {console.log(error); } );
   }
 
-  test() {
-    console.log(this.utilService.formatDate(this.despesa.dataInicio.toString()));
-    console.log(this.utilService.formatDate(this.despesa.dataFim.toString()));
-  }
   cancelar() {
     this.router.navigate(['/index']);
   }

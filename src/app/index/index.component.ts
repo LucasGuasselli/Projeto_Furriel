@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Aditamento } from '../aditamento';
-import { CrudAditamentosService } from '../crud-aditamentos.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AditamentoDTO } from '../models/aditamento.dto';
+import { AditamentosService } from '../services/aditamentos.service';
 
 @Component({
   selector: 'app-index',
@@ -10,14 +10,17 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class IndexComponent implements OnInit {
 
-  aditamentos: Aditamento[] = [];
-  codAditamento: number;
+  aditamentos: AditamentoDTO[] = [];
+  aditamentoId: number;
 
-  constructor(private servico: CrudAditamentosService, private router: Router, private rota: ActivatedRoute ) { }
+  constructor(private aditamentosService: AditamentosService,
+              private router: Router,
+              private rota: ActivatedRoute ) { }
 
   ngOnInit() {
-    this.aditamentos = this.servico.getAditamentosSemData();
+    this.loadAditamentos();
   }
+
 // CADASTRAR
   moveToSaveMilitar() {
     this.router.navigate(['/cadastroDeMilitar']);
@@ -75,21 +78,26 @@ moveToReadExclusoesAuxilioTransporte() {
     this.router.navigate(['/listaAditamento']);
   }
 
-  salvarCodAditamento(codigo: number) {
-    if (isNaN(codigo)) {
+  saveAditamentoId(id: number) {
+    if (isNaN(id)) {
         // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
     } else {
-        this.codAditamento = codigo;
-        console.log(this.codAditamento);
+        this.aditamentoId = id;
+        console.log(this.aditamentoId);
     }
   }
 
-  salvarAditamentoAtual() {
-      this.servico.salvarAditamentoAtual(this.codAditamento);
+  loadAditamentos() {
+    this.aditamentosService.findAll().subscribe( response => { this.aditamentos = response; },
+       error => {console.log(error); });
+  }
+
+  saveAditamentoAtualId() {
+      this.aditamentosService.saveAditamentoAtualId(this.aditamentoId);
       alert('Aditamento Salvo.');
   }
 
-  cancelar() {
+  cancel() {
     this.router.navigate(['/index']);
   }
 }

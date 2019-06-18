@@ -32,14 +32,14 @@
                   <mat-select placeholder="Selecione um aditamento">
                               <mat-option>None</mat-option>
                               <mat-option value="option" *ngFor="let ad of aditamentos" 
-                                          (click)="salvarCodAditamento(ad.codAditamento)">{{ad.nome}}</mat-option>
+                                          (click)="saveAditamentoId(ad.id)">{{ad.nome}}</mat-option>
                   </mat-select>
             </mat-form-field>     
                                  
             </form>
                   <div class="buttons">
-                        <button mat-raised-button color="primary" (click)="salvarAditamentoAtual()">Salvar</button>
-                        <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+                        <button mat-raised-button color="primary" (click)="saveAditamentoAtualId()">Salvar</button>
+                        <button mat-raised-button color="warn" (click)="cancel()">Cancelar</button>
                   </div>
       </div>
 

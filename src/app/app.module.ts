@@ -31,7 +31,6 @@ import { RelatorioComponent } from './relatorio/relatorio.component';
 import { FormPagamentoAtrasadoComponent } from './forms-component/form-pagamento-atrasado/form-pagamento-atrasado.component';
 import { FormAditamentoComponent } from './forms-component/form-aditamento/form-aditamento.component';
 import { TabelaAditamentosComponent } from './tabelas-component/tabela-aditamentos/tabela-aditamentos.component';
-import { CrudAditamentosService } from './crud-aditamentos.service';
 import { TabelaPagamentosAtrasadosComponent } from './tabelas-component/tabela-pagamentos-atrasados/tabela-pagamentos-atrasados.component';
 // tslint:disable-next-line:max-line-length
 import { FormExclusaoAuxilioTransporteComponent } from './forms-component/form-exclusao-auxilio-transporte/form-exclusao-auxilio-transporte.component';
@@ -119,7 +118,7 @@ const routes: Routes = [
   providers: [MilitaresService, EnderecosService, PostosGraduacoesService, InclusoesAuxilioTransporteService,
               DespesasService, UtilService, AuxiliosTransporteService , ExclusoesAuxilioTransporteService,
               ConducoesService, PagamentosAtrasadosService, AtualizacoesAuxilioTransporteService,
-              AditamentosService, CrudAuxilioTransporteService, CrudAditamentosService, ],
+              AditamentosService, CrudAuxilioTransporteService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

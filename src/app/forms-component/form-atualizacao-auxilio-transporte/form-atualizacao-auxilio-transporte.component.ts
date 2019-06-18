@@ -1,7 +1,5 @@
 import { Component, OnInit, ɵConsole } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Aditamento } from '../../aditamento';
-import { CrudAditamentosService } from '../../crud-aditamentos.service';
 import { ConducaoDTO } from '../../models/conducao.dto';
 import { AuxilioTransporteDTO } from '../../models/auxilioTransporte.dto';
 import { ConducoesService } from '../../services/conducoes.service';
@@ -9,6 +7,8 @@ import { AtualizacaoAuxilioTransporteDTO } from '../../models/atualizacaoAuxilio
 import { AuxiliosTransporteService } from '../../services/auxiliosTransporte.service';
 import { AtualizacoesAuxilioTransporteService } from '../../services/atualizacoesAuxilioTransporte.service';
 import { UtilService } from '../../services/util.service';
+import { AditamentosService } from '../../services/aditamentos.service';
+import { AditamentoDTO } from '../../models/aditamento.dto';
 
 
 @Component({
@@ -31,7 +31,7 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
 
   conducoesAtualizacao: ConducaoDTO[] = [];
   valoresAntigos: Number[] = [];
-  aditamentoAtual: Aditamento = null;
+  aditamentoAtual: AditamentoDTO = null;
   auxilioTransporte: AuxilioTransporteDTO = new AuxilioTransporteDTO();
   precCP: number;
   codAT: number;
@@ -40,21 +40,19 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
   constructor(private conducoesService: ConducoesService,
               private auxiliosTransporteService: AuxiliosTransporteService,
               private atualizacoesAuxilioTransporteService: AtualizacoesAuxilioTransporteService,
-              private servicoCrudAditamento: CrudAditamentosService,
+              private aditamentosService: AditamentosService,
               private utilService: UtilService,
               private router: Router, private rota: ActivatedRoute
               ) { }
 
   ngOnInit() {
     this.codAT = this.rota.snapshot.params['cod'];
-
+    this.aditamentoAtual = this.aditamentosService.getAditamentoAtual();
+    if ( this.aditamentoAtual == null)    {
+      alert('Selecione um aditamento!');
+      this.router.navigate(['/index']);
+    }
     this.loadConducoesById(this.codAT);
-
-    this.aditamentoAtual = this.servicoCrudAditamento.getAditamentoAtual();
-
-      if (this.aditamentoAtual == null) {
-        alert('Voce precisa selecionar um aditamento!');
-      }
   }
 
 // carregando do banco todas conducoes usando um @param id de um auxilioTransporte
@@ -118,7 +116,7 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
 
   insertAtualizacaoAuxilioTransporte(auxilio: AuxilioTransporteDTO) {
       this.atualizacaoAuxilioTransporte.militarPrecCP = auxilio.militarPrecCP;
-      this.atualizacaoAuxilioTransporte.aditamentoId = this.aditamentoAtual.codAditamento;
+      this.atualizacaoAuxilioTransporte.aditamentoId = this.aditamentoAtual.id;
       this.atualizacaoAuxilioTransporte.dataInicio = this.utilService.formatDate(
                                     this.atualizacaoAuxilioTransporte.dataInicio.toString());
         this.atualizacaoAuxilioTransporte.valor = auxilio.valorTotalAT;

@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { MilitaresService } from '../../services/militares.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CrudAditamentosService } from '../../crud-aditamentos.service';
 import { MilitarDTO } from '../../models/militar.dto';
 import { InclusaoAuxilioTransporteDTO } from '../../models/inclusaoAuxilioTransporte.dto';
 import { AuxilioTransporteDTO } from '../../models/auxilioTransporte.dto';
 import { AuxiliosTransporteService } from '../../services/auxiliosTransporte.service';
-import { Aditamento } from '../../aditamento';
 import { ConducoesService } from '../../services/conducoes.service';
 import { ConducaoDTO } from '../../models/conducao.dto';
 import { InclusoesAuxilioTransporteService } from '../../services/inclusoesAuxilioTransporte.service';
 import { UtilService } from '../../services/util.service';
+import { AditamentoDTO } from '../../models/aditamento.dto';
+import { AditamentosService } from '../../services/aditamentos.service';
 
 @Component({
   selector: 'app-form-auxilio-transporte',
@@ -41,7 +41,7 @@ export class FormAuxilioTransporteComponent implements OnInit {
 
     auxTransp: AuxilioTransporteDTO = new AuxilioTransporteDTO();
     precCP: number;
-    aditamentoAtual: Aditamento;
+    aditamentoAtual: AditamentoDTO = null;
 
    //  postoGraduacao: PostoGraduacao[] = [];
 
@@ -50,13 +50,17 @@ export class FormAuxilioTransporteComponent implements OnInit {
                 private auxiliosTransporteService: AuxiliosTransporteService,
                 private inclusaoAuxilioTransporteService: InclusoesAuxilioTransporteService,
                 private conducoesService: ConducoesService,
-                private servicoCrudAditamento: CrudAditamentosService,
+                private aditamentoService: AditamentosService,
                 private utilService: UtilService) { }
 
    ngOnInit() {
+    this.aditamentoAtual = this.aditamentoService.getAditamentoAtual();
+    if ( this.aditamentoAtual == null)    {
+        alert('Selecione um aditamento!');
+        this.router.navigate(['/index']);
+    }
         this.loadMilitaresSemAuxilioTransporte();
         this.loadAuxiliosTransporte();
-        this.aditamentoAtual = this.servicoCrudAditamento.getAditamentoAtual();
     }
 
     saveAuxilioTransporteAndConducoes() {
@@ -86,7 +90,7 @@ export class FormAuxilioTransporteComponent implements OnInit {
                 }
                 this.auxiliosTransporteService.findAuxilioTransporteByPrecCP(this.precCP).subscribe(response => {
                         this.auxTransp = response; this.insertInclusaoAuxilioTransporte(this.inclusaoAuxilioTransporte,
-                        this.aditamentoAtual.codAditamento, this.precCP, this.auxTransp.valorTotalAT );
+                        this.aditamentoAtual.id, this.precCP, this.auxTransp.valorTotalAT );
                         this.auxTransp = new AuxilioTransporteDTO(); }, error => {console.log(error); }
                 );
                 // mudar a logica ou tornar auxTranspo um objeto, pois da maneira que esta se a

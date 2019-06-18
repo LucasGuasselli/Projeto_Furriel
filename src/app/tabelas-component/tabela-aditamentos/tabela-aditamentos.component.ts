@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Aditamento } from '../../aditamento';
-import { CrudAditamentosService } from '../../crud-aditamentos.service';
+import { AditamentosService } from '../../services/aditamentos.service';
+import { AditamentoDTO } from '../../models/aditamento.dto';
 
 @Component({
   selector: 'app-tabela-aditamentos',
@@ -9,11 +9,12 @@ import { CrudAditamentosService } from '../../crud-aditamentos.service';
 })
 export class TabelaAditamentosComponent implements OnInit {
 
-  aditamentos: Aditamento[] = [];
-  constructor(private service: CrudAditamentosService) { }
+  aditamentos: AditamentoDTO[] = [];
+  constructor(private aditamentosService: AditamentosService) { }
 
   ngOnInit() {
-      this.aditamentos = this.service.getAditamentos();
+      this.aditamentosService.findAll().subscribe( response => {this.aditamentos = response; },
+       error => { console.log(error); });
   }
 
 }

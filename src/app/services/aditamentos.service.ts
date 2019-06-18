@@ -5,13 +5,23 @@ import { Observable } from 'rxjs';
 import { API_CONFIG } from '../config/api.config';
 import { AtualizacaoAuxilioTransporteDTO } from '../models/atualizacaoAuxilioTransporte.dto';
 import { AditamentoDTO } from '../models/aditamento.dto';
+import { Aditamento } from '../aditamento';
 
 @Injectable()
 export class AditamentosService {
 
-  aditamento: AditamentoDTO;
+  aditamentoAtual: AditamentoDTO = null;
 
   constructor(public http: HttpClient) { }
+
+    saveAditamentoAtualId(id: number) {
+      this.aditamentoAtual = new AditamentoDTO;
+      this.aditamentoAtual.id = id;
+    }
+
+    getAditamentoAtual() {
+      return this.aditamentoAtual;
+    }
 
     // retorna todos militares cadastrados
     findAll(): Observable<AditamentoDTO[]> {
