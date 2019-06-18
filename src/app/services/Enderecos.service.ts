@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { API_CONFIG } from '../config/api.config';
+import { API_CEP } from '../config/api.cep';
 
 import { EnderecoDTO } from '../models/endereco.dto';
 
@@ -13,6 +14,10 @@ export class EnderecosService {
 
     findAll(): Observable<EnderecoDTO[]> {
         return this.http.get<EnderecoDTO[]>(`${API_CONFIG.baseUrl}/enderecos`);
+    }
+
+    findAdressByCEP(cep: String): Observable<EnderecoDTO> {
+        return this.http.get<EnderecoDTO>(`${API_CEP.baseUrl}${cep}/json`);
     }
 
     // buscando um endereco a partir de um militar

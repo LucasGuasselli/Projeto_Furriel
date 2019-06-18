@@ -17,7 +17,11 @@
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
-      <input matInput placeholder="Rua" name="rua" value="" [(ngModel)]="endereco.rua">
+      <input matInput placeholder="CEP" name="cep" value="" (blur)="getAdress()" [(ngModel)]="cep">
+    </mat-form-field>
+    
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Rua" name="rua" value="" [(ngModel)]="endereco.logradouro">
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
@@ -25,7 +29,7 @@
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
-      <input matInput placeholder="Cidade" name="cidade" value="" [(ngModel)]="endereco.cidade">
+      <input matInput placeholder="Cidade" name="cidade" value="" [(ngModel)]="endereco.localidade">
     </mat-form-field>
 
     <mat-form-field class="example-full-width">

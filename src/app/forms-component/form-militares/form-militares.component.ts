@@ -19,6 +19,7 @@ export class FormMilitaresComponent implements OnInit {
     endereco: EnderecoDTO = new EnderecoDTO();
     postosGraduacoes: PostoGraduacaoDTO[] = [];
     precCP: number = null;
+    cep: String;
 
   constructor(private militaresService: MilitaresService,
               private enderecosService: EnderecosService,
@@ -117,6 +118,10 @@ export class FormMilitaresComponent implements OnInit {
       }
   }
 
+  getAdress() {
+    this.enderecosService.findAdressByCEP(this.cep).subscribe( response => { this.endereco = response; },
+      error => {console.log(error); });
+  }
   cancelar() {
     this.router.navigate(['/index']);
   }
