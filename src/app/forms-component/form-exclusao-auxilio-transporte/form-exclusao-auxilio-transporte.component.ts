@@ -17,6 +17,7 @@ import { UtilService } from '../../services/util.service';
   styleUrls: ['./form-exclusao-auxilio-transporte.component.css']
 })
 export class FormExclusaoAuxilioTransporteComponent implements OnInit {
+  titulo = 'Exclusao de Auxilio Transporte';
 
   exclusaoAuxilioTransporte: ExclusaoAuxilioTransporteDTO = new ExclusaoAuxilioTransporteDTO();
   auxilioTransporte: AuxilioTransporteDTO = new AuxilioTransporteDTO();
@@ -77,7 +78,7 @@ export class FormExclusaoAuxilioTransporteComponent implements OnInit {
         error => {console.log(error); } );
   }
 
-  salvarPrecCPMilitar(precCP: number) {
+  saveMilitarPrecCP(precCP: number) {
     if (isNaN(precCP)) {
         // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
     } else {
@@ -85,7 +86,7 @@ export class FormExclusaoAuxilioTransporteComponent implements OnInit {
         console.log(this.precCP);
     }
   }
-  cancelar() {
+  cancel() {
     this.router.navigate(['/index']);
   }
 

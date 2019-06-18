@@ -7,24 +7,13 @@ input[type=text]{
     border-radius: 4px;
 }
 
-input[type=button]{
-    width:40%;
-    background-color: #848484;
-    color: white;
-    padding: 10px 0px;
-    border:none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-input[type=button]{
-    background-color: #B8B8B8;
+.buttons button {
+    margin-right: 8px;
 }
 
 .buttons{
     text-align: center;
     display: block;
-    width: 50%;
     margin: auto;    
 }
 

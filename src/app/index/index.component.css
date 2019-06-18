@@ -122,7 +122,6 @@ label[for="bt_menu"]{
 */
 .buttons button {
     margin-right: 8px;
-    z-index:2;
 }
 
 .mat-form-field {

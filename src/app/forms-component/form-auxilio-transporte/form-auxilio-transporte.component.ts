@@ -57,7 +57,6 @@ export class FormAuxilioTransporteComponent implements OnInit {
         this.loadMilitaresSemAuxilioTransporte();
         this.loadAuxiliosTransporte();
         this.aditamentoAtual = this.servicoCrudAditamento.getAditamentoAtual();
-
     }
 
     saveAuxilioTransporteAndConducoes() {
@@ -151,7 +150,7 @@ export class FormAuxilioTransporteComponent implements OnInit {
         alert('Cadastro efetuado com sucesso!');
     }
 
-    cancelar() {
+    cancel() {
         this.router.navigate(['/index']);
     }
 }

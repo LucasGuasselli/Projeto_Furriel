@@ -1,24 +1,5 @@
-input[type=text]{
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-input[type=button]{
-    width:40%;
-    background-color: #848484;
-    color: white;
-    padding: 10px 0px;
-    border:none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-input[type=button]{
-    background-color: #B8B8B8;
+.buttons button {
+    margin-right: 8px;
 }
 
 .buttons{
@@ -30,7 +11,6 @@ input[type=button]{
 
 .form{
     border-radius: 4px;
-    background-color: #F2f2f2;
     padding: 20px;    
 }
 
@@ -46,4 +26,11 @@ border: 0;
 border-radius: 0;
 height: 34px;
 -webkit-appearance: none;
+}
+
+.formConducao {
+    margin-right: 8px;
+    margin: 8px 0;
+    border-radius: 4px;
+    padding: 8px 5px 5px 5px;
 }

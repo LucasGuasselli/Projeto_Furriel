@@ -1,211 +1,194 @@
-<h3>{{titulo}}</h3>
-<div class = "form">
-        
-  <form>
-    <label for="precCP">Nome do Militar</label>
-    <select id="precCP" name="precCP">
-        <option></option>
-        <option *ngFor="let m of militaresSemAuxilioTransporte" (click)="savePrecCPMilitar(m.precCP)" >{{m.nome}}</option>
-    </select >      
-
-    <label for="data">A contar de:</label>
-    <input type="date" id="data" name="data" [(ngModel)]="inclusaoAuxilioTransporte.dataInicio">
-
-    <br><br>
-    <label for="itinerario">Itinerario</label>
-    <select class="imbSelect" id="itinerario" name="itinerario" [(ngModel)]="conducoes[0].itinerario">
-        <option></option>
-        <option>Bairro-Centro</option>
-        <option>Centro-Bairro</option>
-        <option>Centro-OM</option>
-        <option>OM-Centro</option>
-    </select >
-
-    <br>
-    <label for="nomeEmpresa">Nome da Empresa do Transporte</label>
-    <select id="nomeEmpresa" name="nomeEmpresa" [(ngModel)]="conducoes[0].nomeEmpresa">
-        <option></option>
-        <option>VIVA_SUL</option>
-        <option>CONORTE</option>
-        <option>SOUL</option>
-    </select >
-
-    <br>
-    <label for="tipoDeTransporte">Tipo de Transporte</label>
-    <select id="tipoDeTransporte" name="tipoDeTransporte" [(ngModel)]="conducoes[0].tipoDeTransporte">
-        <option></option>
-        <option>Onibus</option>
-        <option>Tremsurb</option>
-        <option>Onibus_intermunicipal</option>
-    </select >
-
-    <br>
-    <label for="valor">Valor da Condução</label>
-    <input type="number" name="valor" [(ngModel)]="conducoes[0].valor">
-       
-    <br>---------------------SEGUNDA CONDUCAO-------------------------------<br>
-    <label for="itinerario1">Itinerario</label>
-    <select class="imbSelect" id="itinerario1" name="itinerario1" [(ngModel)]="conducoes[1].itinerario">
-        <option></option>
-        <option>Bairro-Centro</option>
-        <option>Centro-Bairro</option>
-        <option>Centro-OM</option>
-        <option>OM-Centro</option>
-    </select >
-
-    <br>
-    <label for="nomeEmpresa1">Nome da Empresa do Transporte</label>
-    <select id="nomeEmpresa1" name="nomeEmpresa1" [(ngModel)]="conducoes[1].nomeEmpresa">
-        <option></option>
-        <option>VIVA_SUL</option>
-        <option>CONORTE</option>
-        <option>SOUL</option>
-    </select >
-
-    <br>
-    <label for="tipoDeTransporte1">Tipo de Transporte</label>
-    <select id="tipoDeTransporte1" name="tipoDeTransporte1" [(ngModel)]="conducoes[1].tipoDeTransporte">
-        <option></option>
-        <option>Onibus</option>
-        <option>Tremsurb</option>
-        <option>Onibus_intermunicipal</option>
-    </select >
-
-    <br>
-    <label for="valor1">Valor da Condução</label>
-    <input type="number" name="valor1" [(ngModel)]="conducoes[1].valor">
-
-    <br>---------------------TERCEIRA CONDUCAO-------------------------------<br>
-    <label for="itinerario2">Itinerario</label>
-    <select class="imbSelect" id="itinerario2" name="itinerario2" [(ngModel)]="conducoes[2].itinerario">
-        <option></option>
-        <option>Bairro-Centro</option>
-        <option>Centro-Bairro</option>
-        <option>Centro-OM</option>
-        <option>OM-Centro</option>
-    </select >
-
-    <br>
-    <label for="nomeEmpresa2">Nome da Empresa do Transporte</label>
-    <select id="nomeEmpresa2" name="nomeEmpresa2" [(ngModel)]="conducoes[2].nomeEmpresa">
-        <option></option>
-        <option>VIVA_SUL</option>
-        <option>CONORTE</option>
-        <option>SOUL</option>
-    </select >
-
-    <br>
-    <label for="tipoDeTransporte2">Tipo de Transporte</label>
-    <select id="tipoDeTransporte2" name="tipoDeTransporte2" [(ngModel)]="conducoes[2].tipoDeTransporte">
-        <option></option>
-        <option>Onibus</option>
-        <option>Tremsurb</option>
-        <option>Onibus_intermunicipal</option>
-    </select >
-
-    <br>
-    <label for="valor2">Valor da Condução</label>
-    <input type="number" name="valor2" [(ngModel)]="conducoes[2].valor">
-
-    <br>---------------------QUARTA CONDUCAO-------------------------------<br>
-    <label for="itinerario3">Itinerario</label>
-    <select class="imbSelect" id="itinerario3" name="itinerario3" [(ngModel)]="conducoes[3].itinerario">
-        <option></option>
-        <option>Bairro-Centro</option>
-        <option>Centro-Bairro</option>
-        <option>Centro-OM</option>
-        <option>OM-Centro</option>
-    </select >
-
-    <br>
-    <label for="nomeEmpresa3">Nome da Empresa do Transporte</label>
-    <select id="nomeEmpresa3" name="nomeEmpresa3" [(ngModel)]="conducoes[3].nomeEmpresa">
-        <option></option>
-        <option>VIVA_SUL</option>
-        <option>CONORTE</option>
-        <option>SOUL</option>
-    </select >
-
-    <br>
-    <label for="tipoDeTransporte3">Tipo de Transporte</label>
-    <select id="tipoDeTransporte3" name="tipoDeTransporte3" [(ngModel)]="conducoes[3].tipoDeTransporte">
-        <option></option>
-        <option>Onibus</option>
-        <option>Tremsurb</option>
-        <option>Onibus_intermunicipal</option>
-    </select >
-
-    <br>
-    <label for="valor3">Valor da Condução</label>
-    <input type="number" name="valor3" [(ngModel)]="conducoes[3].valor">
-  
-    <br>---------------------QUINTA CONDUCAO-------------------------------<br>
-    <label for="itinerario4">Itinerario</label>
-    <select class="imbSelect" id="itinerario4" name="itinerario4" [(ngModel)]="conducoes[4].itinerario">
-        <option></option>
-        <option>Bairro-Centro</option>
-        <option>Centro-Bairro</option>
-        <option>Centro-OM</option>
-        <option>OM-Centro</option>
-    </select >
-
-    <br>
-    <label for="nomeEmpresa4">Nome da Empresa do Transporte</label>
-    <select id="nomeEmpresa4" name="nomeEmpresa4" [(ngModel)]="conducoes[4].nomeEmpresa">
-        <option></option>
-        <option>VIVA_SUL</option>
-        <option>CONORTE</option>
-        <option>SOUL</option>
-    </select >
-
-    <br>
-    <label for="tipoDeTransporte4">Tipo de Transporte</label>
-    <select id="tipoDeTransporte4" name="tipoDeTransporte4" [(ngModel)]="conducoes[4].tipoDeTransporte">
-        <option></option>
-        <option>Onibus</option>
-        <option>Tremsurb</option>
-        <option>Onibus_intermunicipal</option>
-    </select >
-
-    <br>
-    <label for="valor4">Valor da Condução</label>
-    <input type="number" name="valor4" [(ngModel)]="conducoes[4].valor">
-
-    <br>---------------------SEXTA CONDUCAO-------------------------------<br>
-    <label for="itinerario5">Itinerario</label>
-    <select class="imbSelect" id="itinerario5" name="itinerario5" [(ngModel)]="conducoes[5].itinerario">
-        <option></option>
-        <option>Bairro-Centro</option>
-        <option>Centro-Bairro</option>
-        <option>Centro-OM</option>
-        <option>OM-Centro</option>
-    </select >
-
-    <br>
-    <label for="nomeEmpresa5">Nome da Empresa do Transporte</label>
-    <select id="nomeEmpresa5" name="nomeEmpresa5" [(ngModel)]="conducoes[5].nomeEmpresa">
-        <option></option>
-        <option>VIVA_SUL</option>
-        <option>CONORTE</option>
-        <option>SOUL</option>
-    </select >
-
-    <br>
-    <label for="tipoDeTransporte5">Tipo de Transporte</label>
-    <select id="tipoDeTransporte5" name="tipoDeTransporte5" [(ngModel)]="conducoes[5].tipoDeTransporte">
-        <option></option>
-        <option>Onibus</option>
-        <option>Trensurb</option>
-        <option>Onibus_intermunicipal</option>
-    </select >
-
-    <br>
-    <label for="valor5">Valor da Condução</label>
-    <input type="number" name="valor5" [(ngModel)]="conducoes[5].valor">
-
-    <div class="buttons">            
-      <input type="button" (click)="saveAuxilioTransporteAndConducoes()" value="Salvar">
-      <input type="button" (click)="cancelar()" value="Cancelar">    
+<h2>{{titulo}}</h2>
+<div class = "form">        
+    <form>
+        <mat-form-field>
+            <mat-select placeholder="Militares">            
+                <mat-option value="option" *ngFor="let m of militaresSemAuxilioTransporte" 
+                    (click)="savePrecCPMilitar(m.precCP)">{{m.nome}}</mat-option>
+            </mat-select>
+        </mat-form-field>    
+            
+            <mat-form-field>
+                <input matInput [matDatepicker]="dataInicio" placeholder="A contar de: " 
+                    class="datePicker" name="inicio" [(ngModel)]="inclusaoAuxilioTransporte.dataInicio">
+                <mat-datepicker-toggle matSuffix [for]="dataInicio"></mat-datepicker-toggle>
+                <mat-datepicker #dataInicio></mat-datepicker>
+            </mat-form-field>      
+    <div>
+        <h3>Primeira Conducao</h3>
+        <mat-form-field>
+                <mat-select placeholder="Itinerario" name="itinerario" [(ngModel)]="conducoes[0].itinerario">            
+                    <mat-option value="Bairro-Centro">Bairro-Centro</mat-option>
+                    <mat-option value="Centro-Bairro">Centro-Bairro</mat-option>
+                    <mat-option value="Centro-OM">Centro-OM</mat-option>
+                    <mat-option value="OM-Centro">OM-Centro</mat-option>
+                </mat-select>
+        </mat-form-field>        
+        <mat-form-field>
+                <mat-select placeholder="Nome da Empresa" name="nomeEmpresa" [(ngModel)]="conducoes[0].nomeEmpresa">            
+                    <mat-option value="VIVA_SUL">VIVA SUL</mat-option>
+                    <mat-option value="CONORTE">CONORTE</mat-option>
+                    <mat-option value="SOUL">SOUL</mat-option>
+                </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select placeholder="Tipo de Transporte" name="tipoDeTransporte" [(ngModel)]="conducoes[0].tipoDeTransporte">            
+                <mat-option value="Onibus">Onibus</mat-option>
+                <mat-option value="Trensurb">Trensurb</mat-option>
+                <mat-option value="Onibus_intermunicipal">Onibus intermunicipal</mat-option>
+            </mat-select>
+        </mat-form-field>    
+        <mat-form-field class="input">
+            <input type="number" matInput placeholder="Valor da Conducao" name="valor" value="" pattern="[0-9]{1,8}"  [(ngModel)]="conducoes[0].valor">
+        </mat-form-field>
     </div>
-  </form>
+
+    <div>
+        <h3>Segunda Conducao</h3>
+        <mat-form-field>
+                <mat-select placeholder="Itinerario" name="itinerario" [(ngModel)]="conducoes[1].itinerario">            
+                    <mat-option value="Bairro-Centro">Bairro-Centro</mat-option>
+                    <mat-option value="Centro-Bairro">Centro-Bairro</mat-option>
+                    <mat-option value="Centro-OM">Centro-OM</mat-option>
+                    <mat-option value="OM-Centro">OM-Centro</mat-option>
+                </mat-select>
+        </mat-form-field>        
+        <mat-form-field>
+                <mat-select placeholder="Nome da Empresa" name="nomeEmpresa" [(ngModel)]="conducoes[1].nomeEmpresa">            
+                    <mat-option value="VIVA_SUL">VIVA SUL</mat-option>
+                    <mat-option value="CONORTE">CONORTE</mat-option>
+                    <mat-option value="SOUL">SOUL</mat-option>
+                </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select placeholder="Tipo de Transporte" name="tipoDeTransporte" [(ngModel)]="conducoes[1].tipoDeTransporte">            
+                <mat-option value="Onibus">Onibus</mat-option>
+                <mat-option value="Trensurb">Trensurb</mat-option>
+                <mat-option value="Onibus_intermunicipal">Onibus intermunicipal</mat-option>
+            </mat-select>
+        </mat-form-field>    
+        <mat-form-field class="input">
+            <input type="number" matInput placeholder="Valor da Conducao" name="valor" value="" pattern="[0-9]{1,8}"  [(ngModel)]="conducoes[1].valor">
+        </mat-form-field>
+    </div>
+
+    <div>
+        <h3>Terceira Conducao</h3>
+        <mat-form-field>
+            <mat-select placeholder="Itinerario" name="itinerario" [(ngModel)]="conducoes[2].itinerario">            
+                <mat-option value="Bairro-Centro">Bairro-Centro</mat-option>
+                <mat-option value="Centro-Bairro">Centro-Bairro</mat-option>
+                <mat-option value="Centro-OM">Centro-OM</mat-option>
+                <mat-option value="OM-Centro">OM-Centro</mat-option>
+            </mat-select>
+        </mat-form-field>        
+        <mat-form-field>
+            <mat-select placeholder="Nome da Empresa" name="nomeEmpresa" [(ngModel)]="conducoes[2].nomeEmpresa">            
+                <mat-option value="VIVA_SUL">VIVA SUL</mat-option>
+                <mat-option value="CONORTE">CONORTE</mat-option>
+                <mat-option value="SOUL">SOUL</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select placeholder="Tipo de Transporte" name="tipoDeTransporte" [(ngModel)]="conducoes[2].tipoDeTransporte">            
+                <mat-option value="Onibus">Onibus</mat-option>
+                <mat-option value="Trensurb">Trensurb</mat-option>
+                <mat-option value="Onibus_intermunicipal">Onibus intermunicipal</mat-option>
+            </mat-select>
+        </mat-form-field>    
+        <mat-form-field class="input">
+            <input type="number" matInput placeholder="Valor da Conducao" name="valor" value="" pattern="[0-9]{1,8}"  [(ngModel)]="conducoes[2].valor">
+        </mat-form-field>
+    </div>
+
+    <div>
+        <h3>Quarta Conducao</h3>
+        <mat-form-field>
+            <mat-select placeholder="Itinerario" name="itinerario" [(ngModel)]="conducoes[3].itinerario">            
+                <mat-option value="Bairro-Centro">Bairro-Centro</mat-option>
+                <mat-option value="Centro-Bairro">Centro-Bairro</mat-option>
+                <mat-option value="Centro-OM">Centro-OM</mat-option>
+                <mat-option value="OM-Centro">OM-Centro</mat-option>
+            </mat-select>
+        </mat-form-field>        
+        <mat-form-field>
+            <mat-select placeholder="Nome da Empresa" name="nomeEmpresa" [(ngModel)]="conducoes[3].nomeEmpresa">            
+                <mat-option value="VIVA_SUL">VIVA SUL</mat-option>
+                <mat-option value="CONORTE">CONORTE</mat-option>
+                <mat-option value="SOUL">SOUL</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select placeholder="Tipo de Transporte" name="tipoDeTransporte" [(ngModel)]="conducoes[3].tipoDeTransporte">            
+                <mat-option value="Onibus">Onibus</mat-option>
+                <mat-option value="Trensurb">Trensurb</mat-option>
+                <mat-option value="Onibus_intermunicipal">Onibus intermunicipal</mat-option>
+            </mat-select>
+        </mat-form-field>    
+        <mat-form-field class="input">
+            <input type="number" matInput placeholder="Valor da Conducao" name="valor" value="" pattern="[0-9]{1,8}"  [(ngModel)]="conducoes[3].valor">
+        </mat-form-field>
+    </div>
+  
+    <div>
+        <h3>Quinta Conducao</h3>
+        <mat-form-field>
+            <mat-select placeholder="Itinerario" name="itinerario" [(ngModel)]="conducoes[4].itinerario">            
+                <mat-option value="Bairro-Centro">Bairro-Centro</mat-option>
+                <mat-option value="Centro-Bairro">Centro-Bairro</mat-option>
+                <mat-option value="Centro-OM">Centro-OM</mat-option>
+                <mat-option value="OM-Centro">OM-Centro</mat-option>
+            </mat-select>
+        </mat-form-field>        
+        <mat-form-field>
+            <mat-select placeholder="Nome da Empresa" name="nomeEmpresa" [(ngModel)]="conducoes[4].nomeEmpresa">            
+                <mat-option value="VIVA_SUL">VIVA SUL</mat-option>
+                <mat-option value="CONORTE">CONORTE</mat-option>
+                <mat-option value="SOUL">SOUL</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select placeholder="Tipo de Transporte" name="tipoDeTransporte" [(ngModel)]="conducoes[4].tipoDeTransporte">            
+                <mat-option value="Onibus">Onibus</mat-option>
+                <mat-option value="Trensurb">Trensurb</mat-option>
+                <mat-option value="Onibus_intermunicipal">Onibus intermunicipal</mat-option>
+            </mat-select>
+        </mat-form-field>    
+        <mat-form-field class="input">
+                <input type="number" matInput placeholder="Valor da Conducao" name="valor" value="" pattern="[0-9]{1,8}"  [(ngModel)]="conducoes[4].valor">
+            </mat-form-field>
+    </div>
+    <div>
+        <h3>Sexta Conducao</h3>
+        <mat-form-field>
+            <mat-select placeholder="Itinerario" name="itinerario" [(ngModel)]="conducoes[5].itinerario">            
+                <mat-option value="Bairro-Centro">Bairro-Centro</mat-option>
+                <mat-option value="Centro-Bairro">Centro-Bairro</mat-option>
+                <mat-option value="Centro-OM">Centro-OM</mat-option>
+                <mat-option value="OM-Centro">OM-Centro</mat-option>
+            </mat-select>
+        </mat-form-field>        
+        <mat-form-field>
+            <mat-select placeholder="Nome da Empresa" name="nomeEmpresa" [(ngModel)]="conducoes[5].nomeEmpresa">            
+                <mat-option value="VIVA_SUL">VIVA SUL</mat-option>
+                <mat-option value="CONORTE">CONORTE</mat-option>
+                <mat-option value="SOUL">SOUL</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select placeholder="Tipo de Transporte" name="tipoDeTransporte" [(ngModel)]="conducoes[5].tipoDeTransporte">            
+                <mat-option value="Onibus">Onibus</mat-option>
+                <mat-option value="Trensurb">Trensurb</mat-option>
+                <mat-option value="Onibus_intermunicipal">Onibus intermunicipal</mat-option>
+            </mat-select>
+        </mat-form-field>    
+        <mat-form-field class="input">
+            <input type="number" matInput placeholder="Valor da Conducao" name="valor" value="" pattern="[0-9]{1,8}"  [(ngModel)]="conducoes[5].valor">
+        </mat-form-field>
+    </div>
+    <div class="buttons">
+            <button mat-raised-button color="primary" (click)="saveAuxilioTransporteAndConducoes()">Salvar</button>
+            <button mat-raised-button color="warn" (click)="cancel()">Voltar</button>            
+    </div>
+    </form>
 </div>

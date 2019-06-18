@@ -1,25 +1,31 @@
-<div>
+<div class = "form">
+    <h3>{{titulo}}</h3>
   <form>
-    <div>
-    <label for="precCP">Militar</label>
-    <select id="precCP" name="precCP">
-        <option></option>
-        <option *ngFor="let m of militaresComAuxilioTransporte" (click)="salvarPrecCPMilitar(m.precCP)">{{m.nome}}</option>
-    </select>
-
-    <br>
-    <label for="data">A contar de:</label>
-    <input type="date" id="data" name="data" [(ngModel)]="exclusaoAuxilioTransporte.data">
-    
-    <br>
-    <label for="motivo">Motivo</label>
-    <input type="text" id="motivo" name="motivo" placeholder="Motivo..." [(ngModel)]="exclusaoAuxilioTransporte.motivo">
-  </div>       
+      <div>
+          <mat-form-field>
+              <mat-select placeholder="Militares">            
+                <mat-option value="option" name="precCP" *ngFor="let m of militaresComAuxilioTransporte"
+                (click)="saveMilitarPrecCP(m.precCP)">{{m.nome}}</mat-option>
+          </mat-select>
+          </mat-form-field>
+      </div>    
+      <div>    
+        <mat-form-field>
+          <input matInput [matDatepicker]="dataInicio" placeholder="A contar de: " 
+            class="datePicker" name="inicio" [(ngModel)]="exclusaoAuxilioTransporte.data">
+            <mat-datepicker-toggle matSuffix [for]="dataInicio"></mat-datepicker-toggle>
+            <mat-datepicker #dataInicio></mat-datepicker>
+        </mat-form-field>      
+      </div>
+      <div>
+        <mat-form-field class="input">
+          <input matInput placeholder="Motivo" name="motivo" value="" [(ngModel)]="exclusaoAuxilioTransporte.motivo">
+        </mat-form-field>
+      </div>
+      <div class="buttons">
+          <button mat-raised-button color="primary" (click)="saveExclusaoAuxilioTransporte()" >Salvar</button>
+          <button mat-raised-button color="warn" (click)="cancel()">Cancelar</button>
+      </div>
   </form>
-
-  <div class="buttons">            
-    <input type="button" (click)="saveExclusaoAuxilioTransporte()" value="Salvar">
-    <input type="button" (click)="cancelar()" value="Cancelar">    
-  </div>
 </div>
 
