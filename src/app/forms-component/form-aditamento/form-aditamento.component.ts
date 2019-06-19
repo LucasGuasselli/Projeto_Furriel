@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Aditamento } from '../../aditamento';
 import { AditamentosService } from '../../services/aditamentos.service';
+import { AditamentoDTO } from '../../models/aditamento.dto';
 
 
 @Component({
@@ -11,21 +11,20 @@ import { AditamentosService } from '../../services/aditamentos.service';
 })
 export class FormAditamentoComponent implements OnInit {
 
-  aditamento: Aditamento;
+  aditamento: AditamentoDTO = new AditamentoDTO();
   constructor(private aditamentosService: AditamentosService,
               private router: Router, private rota: ActivatedRoute) { }
 
   ngOnInit() {
-      this.aditamento = new Aditamento();
+
   }
 
-  salvarAditamento() {
-      this.aditamento.data = null;
-      // this.servico.adicionarAditamento(this.aditamento);
-      this.aditamento = new Aditamento();
+  saveAditamento() {
+      this.aditamentosService.insert(this.aditamento).subscribe( response => {console.log(response); },
+        error => {console.log(error); } );
   }
 
-  cancelar() {
+  cancel() {
     this.router.navigate(['/index']);
   }
 }

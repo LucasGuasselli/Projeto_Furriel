@@ -1,12 +1,40 @@
 <h3>{{titulo}}</h3>
-<div class = "form">        
-  <form>
-    <label for="nome">Nome do aditamento</label>
-    <input type="text" name="valor" [(ngModel)]="aditamento.nome">   
-  </form>
- 
-    <div class="buttons">            
-      <input type="button" (click)="salvarAditamento()" value="Salvar">
-      <input type="button" (click)="cancelar()" value="Cancelar">    
-    </div>                       
+<div>        
+  <form class = "form">
+    
+        <mat-form-field >
+            <input matInput placeholder="Nome do Aditamento" name="nome" name="nome" [(ngModel)]="aditamento.nome">
+        </mat-form-field>
+      <!--  
+      <div>
+        <mat-form-field class="mat-form">
+            <textarea matInput placeholder="Despesa a Anular" name="despesaTexto" [(ngModel)]="aditamento.despesaTexto"></textarea>
+        </mat-form-field>
+      </div>
+      <div>  
+        <mat-form-field class="mat-form">
+            <textarea matInput placeholder="Inclusao de Auxilio Transporte" name="inclusaoTexto" [(ngModel)]="aditamento.inclusaoTexto"></textarea>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="mat-form">
+            <textarea matInput placeholder="Atualizacao de Auxilio Transporte" name="atualizacaoTexto" [(ngModel)]="aditamento.atualizacaoTexto"></textarea>
+        </mat-form-field>
+      </div>  
+      <div>
+        <mat-form-field class="mat-form">
+          <textarea matInput placeholder="Exclusao de Auxilio Transporte" name="exclusaoTexto" [(ngModel)]="aditamento.exclusaoTexto"></textarea>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field class="mat-form">
+            <textarea matInput placeholder="Saque Atrasado" name="pagamentoAtrasadoTexto" [(ngModel)]="aditamento.pagamentoAtrasadoTexto"></textarea>
+        </mat-form-field>
+      </div>
+      -->
+    <div class="buttons">
+        <button mat-raised-button color="primary" (click)="saveAditamento()">Salvar</button>
+        <button mat-raised-button color="warn" (click)="cancel()">Voltar</button>
+    </div>
+  </form>                       
 </div>

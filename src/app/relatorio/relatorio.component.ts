@@ -33,7 +33,7 @@ export class RelatorioComponent implements OnInit {
   pagamentosAtrasados: PagamentoAtrasadoDTO[] = [];
 
   aditamentos: AditamentoDTO[] = [];
-
+  aditamento: AditamentoDTO = new AditamentoDTO;
   constructor(private militaresService: MilitaresService,
               private postosGraduacoesService: PostosGraduacoesService,
               private despesasService: DespesasService,
@@ -44,6 +44,7 @@ export class RelatorioComponent implements OnInit {
               private aditamentosService: AditamentosService) { }
 
   ngOnInit() {
+    this.loadTexto();
     this.loadAditamentos();
   }
 
@@ -181,6 +182,37 @@ export class RelatorioComponent implements OnInit {
          error => {console.log(error); } );
   }
 
+  loadTexto() {
+    this.aditamento.despesaTexto = 'Seja realizada a Despesa a Anular (DA) do benefício ' +
+                                   'de Auxílio Transporte (AT), de acordo com o Decreto nº 2.963, de 24 fev 1999,' +
+                                   ' as IG 70-04 (Port. nº 334, de 25 jun 1999), as IR 70-21 (Port. nº 114, de 30 jun 1999), ' +
+                                   'a Port. nº 98 – DGP, de 31 out 01, a Prt. nº 269 – DGP, de 11 dez 07 e a Port. nº 849 – Cmt ' +
+                                   'Ex, de 14 jul 16 (EB 10-IG-02.018).';
+
+    this.aditamento.inclusaoTexto = 'Seja realizada a Inclusão do benefício de Auxílio Transporte (AT), ' +
+                                    'de acordo com o Decreto nº 2.963, de 24 fev 1999, as IG 70-04 (Port. nº 334, ' +
+                                    ' de 25 jun 1999), as IR 70-21 (Port. nº 114, de 30 jun 1999), a Port. nº 98 – DGP, ' +
+                                    'de 31 out 01, a Prt. nº 269 – DGP, de 11 dez 07 e a Port. nº 849 – Cmt Ex, de 14 jul 16 ' +
+                                    '(EB 10-IG-02.018). ';
+
+    this.aditamento.atualizacaoTexto =  'Seja atualizado o valor do benefício do Auxílio-Transporte (AT) referente ' +
+                                        'ao deslocamento de 22 (vinte e dois) dias, de acordo com o Decreto nº 2.963, ' +
+                                        'de 24 fev 1999, as IG 70-04 (Port. nº 334, de 25 jun 1999), as IR 70-21 (Port. nº 14, ' +
+                                        'de 30 jun 1999), a Port. nº 98 - DGP, de 31 out 01, a Port. nº 269 - DGP, de 11 dez 07 ' +
+                                        'e a Port. nº 849 - Cmt Ex, de 14 jul 16 (EB 10-IG-02.018).' ;
+
+    this.aditamento.exclusaoTexto = 'Seja atualizado o valor do benefício do Auxílio-Transporte (AT) referente ' +
+                                    'ao deslocamento de 22 (vinte e dois) dias, de acordo com o Decreto nº 2.963, ' +
+                                    'de 24 fev 1999, as IG 70-04 (Port. nº 334, de 25 jun 1999), as IR 70-21 (Port. nº 14, ' +
+                                    'de 30 jun 1999), a Port. nº 98 - DGP, de 31 out 01, a Port. nº 269 - DGP, de 11 dez 07 ' +
+                                    'e a Port. nº 849 - Cmt Ex, de 14 jul 16 (EB 10-IG-02.018).' ;
+
+    this.aditamento.pagamentoAtrasadoTexto =  'Seja realizado o saque atrasado do benefício de Auxlio-Transporte (AT), ' +
+                                              'de acordo com o Decreto nº 2.963, de 24 fev 1999, as IG 70-04 (Port. nº 334, ' +
+                                              'de 25 jun 1999), as IR 70-21 (Port. nº 14, de 30 jun 1999), a Port. nº 98 - DGP, ' +
+                                              'de 31 out 01, a Port. nº 269 - DGP, de 11 dez 07 e a Port. nº 849 - Cmt Ex, de 14 ' +
+                                              'jul 16 (EB 10-IG-02.018).';
+  }
   /*
   // tslint:disable-next-line:member-ordering
   @ViewChild('content') content: ElementRef;

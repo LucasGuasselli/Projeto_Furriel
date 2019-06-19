@@ -3,9 +3,7 @@ import { HttpClient } from '@angular/common/http';
 // tslint:disable-next-line:import-blacklist
 import { Observable } from 'rxjs';
 import { API_CONFIG } from '../config/api.config';
-import { AtualizacaoAuxilioTransporteDTO } from '../models/atualizacaoAuxilioTransporte.dto';
 import { AditamentoDTO } from '../models/aditamento.dto';
-import { Aditamento } from '../aditamento';
 
 @Injectable()
 export class AditamentosService {

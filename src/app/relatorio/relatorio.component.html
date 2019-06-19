@@ -10,15 +10,9 @@
     </form>
 
 <div id="content" >
-    <h1>RELATORIO DOS DESCONTOS </h1>
-    <div>    
-            Despesa a Anular           
-            Seja realizada a Despesa a Anular (DA) do benefício de Auxílio-Transporte (AT), de acordo com o 
-            Decreto nº 2.963, de 24 fev 1999, as IG 70-04 (Port. nº 334, de 25 jun 1999),
-            as IR 70-21 (Port. nº 114, de 30 jun 1999), a Port. nº 98 – DGP, de 31 out 01, 
-            a Prt. nº 269 – DGP, de 11 dez 07 e a Port. nº 849 – Cmt Ex, de 14 jul 16 (EB 10-IG-02.018).
-                
-        <div id="tudo1" >                          
+    <h1>Aditamento</h1>
+    <div>          
+        <h3>Despesa a Anular</h3> {{aditamento.despesaTexto}}
             <table>
                 <th>Graduacao-Nome</th> <th>Prec-CP</th> <th>Data de Inicio</th> 
                 <th>Data de Termino</th> <th>Valor</th> <th>Motivo</th>
@@ -30,19 +24,10 @@
                     <td>R$: {{d.valor}}</td>
                     <td>{{d.motivo}}</td>
                 </tr>
-            </table>
-        </div>    
-    </div>
-    <br>
-      
-    <div>          
-            Inclusao de Aux Transp           
-            Seja realizada a Inclusao do benefício de Auxílio-Transporte (AT), de acordo com o 
-            Decreto nº 2.963, de 24 fev 1999, as IG 70-04 (Port. nº 334, de 25 jun 1999),
-            as IR 70-21 (Port. nº 114, de 30 jun 1999), a Port. nº 98 – DGP, de 31 out 01, 
-            a Prt. nº 269 – DGP, de 11 dez 07 e a Port. nº 849 – Cmt Ex, de 14 jul 16 (EB 10-IG-02.018).
-        
-        <div id="tudo1" >       
+            </table>            
+    </div>      
+    <div> 
+        <h3>Inclusão de Auxílio Transporte</h3> {{aditamento.inclusaoTexto}}         
             <table>
                 <th>Graduacao-Nome</th> <th>Prec-CP</th> <th>A contar de:</th> <th>Valor</th> 
                 <tr *ngFor='let inclusaoAuxTransp of inclusoesAuxilioTransporte'>
@@ -52,18 +37,9 @@
                     <td>R$: {{inclusaoAuxTransp.valor}}</td>
                 </tr>
             </table>         
-        </div>
     </div>
-<br>
     <div>
-        Atualização de Auxílio-Transporte           
-        Seja atualizado o valor do benefício do Auxílio-Transporte (AT) referente ao deslocamento
-        de 22 (vinte e dois) dias, de acordo com o Decreto nº 2.963, de 24 fev 1999, as IG 70-04 
-        (Port. nº 334, de 25 jun 1999), as IR 70-21 (Port. nº 14, de 30 jun 1999), 
-        a Port. nº 98 - DGP, de 31 out 01, a Port. nº 269 - DGP, de 11 dez 07 e a Port. 
-        nº 849 - Cmt Ex, de 14 jul 16 (EB 10-IG-02.018).    
-
-        <div id="tudo1">       
+        <h3>Atualização de Auxílio Transporte</h3> {{aditamento.atualizacaoTexto}}         
             <table>
                 <th>Graduacao-Nome</th> <th>Prec-CP</th> <th>A contar de:</th> <th>Valor</th> <th>Motivo</th>
                 <tr *ngFor='let atualizacaoAuxTransp of atualizacoesAuxiliosTransporte'>
@@ -74,17 +50,9 @@
                     <td>{{atualizacaoAuxTransp.motivo}}</td>
                 </tr>
             </table>            
-        </div>
     </div>
-<br>
     <div>
-            Exclusao de Aux Transp           
-            Seja realizada a Despesa a Anular (DA) do benefício de Auxílio-Transporte (AT), de acordo com o 
-            Decreto nº 2.963, de 24 fev 1999, as IG 70-04 (Port. nº 334, de 25 jun 1999),
-            as IR 70-21 (Port. nº 114, de 30 jun 1999), a Port. nº 98 – DGP, de 31 out 01, 
-            a Prt. nº 269 – DGP, de 11 dez 07 e a Port. nº 849 – Cmt Ex, de 14 jul 16 (EB 10-IG-02.018).
-      
-        <div id="tudo1" >       
+        <h3>Exclusão de Auxílio Transporte</h3> {{aditamento.exclusaoTexto}}         
             <table>
                     <th>Graduacao-Nome</th> <th>Prec-CP</th> <th>Data</th> <th>Valor</th> <th>Motivo</th> 
                     <tr *ngFor='let exclusaoAuxTransp of exclusoesAuxilioTransporte'>
@@ -95,32 +63,22 @@
                         <td>Motivo: {{exclusaoAuxTransp.motivo}}</td>
                     </tr>
             </table>
-        </div>
     </div> 
-    <br>
-        Saque Atrasado           
-        Seja realizado o saque atrasado do benefício de Auxlio-Transporte (AT), de acordo com o 
-        Decreto nº 2.963, de 24 fev 1999, as IG 70-04 (Port. nº 334, de 25 jun 1999), as IR 70-21 
-        (Port. nº 14, de 30 jun 1999), a Port. nº 98 - DGP, de 31 out 01, a Port. nº 269 - DGP,
-        de 11 dez 07 e a Port. nº 849 - Cmt Ex, de 14 jul 16 (EB 10-IG-02.018).
-    
-    <br>
-    <div id="tudo1" >       
-        <table>
-            <th>Graduacao-Nome</th> <th>Prec-CP</th> <th>Mes de Referencia</th> 
-            <th>Quantidade de Dias</th> <th>Valor</th> <th>Motivo</th> 
-            <tr *ngFor='let pgmto of pagamentosAtrasados'>
-                <td>{{pgmto.graduacao}} {{pgmto.nome}}</td>
-                <td>{{pgmto.militarPrecCP}}</td>
-                <td>{{pgmto.mesReferencia}}</td>
-                <td>{{pgmto.quantidadeDias}}</td>
-                <td>R$ {{pgmto.valor}}</td>
-                <td>{{pgmto.motivo}}</td>
-            </tr>
-    </table>       
+    <div>
+        <h3>Saque Atrasado</h3> {{aditamento.pagamentoAtrasadoTexto}}         
+            <table>
+                <th>Graduacao-Nome</th> <th>Prec-CP</th> <th>Mes de Referencia</th> 
+                <th>Quantidade de Dias</th> <th>Valor</th> <th>Motivo</th> 
+                <tr *ngFor='let pgmto of pagamentosAtrasados'>
+                    <td>{{pgmto.graduacao}} {{pgmto.nome}}</td>
+                    <td>{{pgmto.militarPrecCP}}</td>
+                    <td>{{pgmto.mesReferencia}}</td>
+                    <td>{{pgmto.quantidadeDias}}</td>
+                    <td>R$ {{pgmto.valor}}</td>
+                    <td>{{pgmto.motivo}}</td>
+                </tr>
+            </table>       
     </div>
-        <br>
-        <br>
-              
+                      
         <button (click)="downloadPDF()">Downaload Relatorio </button>
     
