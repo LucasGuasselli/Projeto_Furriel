@@ -39,24 +39,62 @@ export class FormDescontosComponent implements OnInit {
 
   saveDespesa() {
     if (isNaN(this.precCP)) {
-      alert('Voce precisa selecionar um militar.');
+      alert('Você precisa selecionar um militar!');
     } else {
         if (this.aditamentoAtual == null) {
-          alert('Voce precisa selecionar um aditamento!');
+          alert('Você precisa selecionar um aditamento!');
         } else {
-          this.despesa.militarPrecCP = this.precCP;
-          this.despesa.aditamentoId = this.aditamentoAtual.id;
-          this.insertDespesa();
+          if (this.despesa.calculoDataInicio == null || this.despesa.calculoDataFim == null) {
+              alert('Você deve informar as datas!');
+          } else {
+            if (this.despesa.motivo == null) {
+              alert('Você deve selecionar um motivo!');
+            } else {
+              this.validDate();
+              this.insertDespesa();
+            }
+          }
         }
-    }
+      }
   }
 
   insertDespesa() {
-    this.despesa.dataInicio = this.utilService.formatDate(this.despesa.dataInicio.toString());
-    this.despesa.dataFim = this.utilService.formatDate(this.despesa.dataFim.toString());
+    // console.log(this.data.setDate(this.data.getDay() + 2));
+    this.despesa.militarPrecCP = this.precCP;
+    this.despesa.aditamentoId = this.aditamentoAtual.id;
+    // e necessario receber as datas antes dos calculos, pois elas podem ser alteradas para os calculos
+      this.despesa.dataInicio = this.utilService.formatDate(this.despesa.calculoDataInicio.toString());
+      this.despesa.dataFim = this.utilService.formatDate(this.despesa.calculoDataFim.toString());
+
+    this.despesa.quantidadeDias = this.utilService.calculaQuantidadeDias(
+            this.despesa.calculoDataInicio, this.despesa.calculoDataFim, this.despesa.motivo,
+            this.despesa.feriados, this.despesa.administrativos);
 
       this.despesasService.insert(this.despesa).subscribe(response => { console.log(response); } ,
         error => {console.log(error); });
+  }
+
+  validDate() {
+    if (this.despesa.calculoDataInicio.getDate() > this.despesa.calculoDataFim.getDate()) {
+        alert('A data de término deve ser maior ou igual a data de início!!!');
+          this.despesa.calculoDataInicio = null;
+          this.despesa.calculoDataFim = null;
+    }
+  }
+
+  click() {
+    this.despesa.quantidadeDias = this.utilService.calculaQuantidadeDias(
+      this.despesa.calculoDataInicio, this.despesa.calculoDataFim, this.despesa.motivo,
+      this.despesa.feriados, this.despesa.administrativos);
+
+    // console.log(this.despesa.dataInicio.setDate((this.despesa.dataInicio.getDate() + 1)));
+    // console.log(this.despesa.dataInicio.toString());
+    // console.log(this.despesa.dataFim.toString());
+
+    // tslint:disable-next-line:triple-equals
+    // if (this.despesa.calculoDataInicio.getDate() == this.despesa.calculoDataFim.getDate()) {
+    //    console.log('DEU CERTO');
+    // }
   }
 
   salvarPrecCPMilitar(precCP: number) {

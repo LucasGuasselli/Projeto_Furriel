@@ -7,29 +7,7 @@
             (click)="salvarPrecCPMilitar(m.precCP)">{{m.nome}}</mat-option>
           </mat-select>
       </mat-form-field>
-    <div>    
       <mat-form-field>
-          <input matInput [matDatepicker]="dataInicio" placeholder="Data de Inicio" 
-          class="datePicker" name="inicio" [(ngModel)]="despesa.dataInicio">
-          <mat-datepicker-toggle matSuffix [for]="dataInicio"></mat-datepicker-toggle>
-          <mat-datepicker #dataInicio></mat-datepicker>
-      </mat-form-field>      
-    </div>
-    <div>
-      <mat-form-field>
-          <input matInput [matDatepicker]="dataFim" placeholder="Data de Termino" 
-          class="datePicker" name="fim" [(ngModel)]="despesa.dataFim">
-          <mat-datepicker-toggle matSuffix [for]="dataFim"></mat-datepicker-toggle>
-          <mat-datepicker #dataFim></mat-datepicker>
-      </mat-form-field>
-    </div>
-    <div>    
-      <mat-form-field class="input">
-        <input type="number" matInput placeholder="Quantidade de Dias" name="quantidadeDias" value="" pattern="[0-9]{1,4}"  [(ngModel)]="despesa.quantidadeDias">
-      </mat-form-field>
-    </div>
-    
-    <mat-form-field>
         <mat-select placeholder="Motivo" name="motivo" [(ngModel)]="despesa.motivo">            
             <mat-option value="Dispensa como Recompensa">Dispensa como Recompensa</mat-option>
             <mat-option value="Serviço">Serviço</mat-option>
@@ -39,8 +17,39 @@
             <mat-option value="Nupcias">Núpcias</mat-option>
             <mat-option value="LTSP">LTSP</mat-option>
         </mat-select>
-    </mat-form-field>      
- 
+    </mat-form-field>
+    <div>    
+      <mat-form-field>
+          <input matInput [matDatepicker]="dataInicio" placeholder="Data de Inicio" 
+          class="datePicker" name="inicio" (click)="click()" [(ngModel)]="despesa.calculoDataInicio">
+          <mat-datepicker-toggle matSuffix [for]="dataInicio"></mat-datepicker-toggle>
+          <mat-datepicker #dataInicio></mat-datepicker>
+      </mat-form-field>      
+    
+      <mat-form-field>
+          <input matInput [matDatepicker]="dataFim" placeholder="Data de Termino" 
+          class="datePicker" name="fim" (blur)="validDate()" [(ngModel)]="despesa.calculoDataFim">
+          <mat-datepicker-toggle matSuffix [for]="dataFim"></mat-datepicker-toggle>
+          <mat-datepicker #dataFim></mat-datepicker>
+      </mat-form-field>
+    </div>
+    
+    <div>    
+      <mat-form-field class="input">
+        <input type="number" matInput placeholder="Feriados" name="feriados" pattern="[0-9]{1,4}"  [(ngModel)]="despesa.feriados">
+      </mat-form-field>
+    </div>
+    <div>    
+      <mat-form-field class="input">
+        <input type="number" matInput placeholder="Administrativos" name="administrativos" pattern="[0-9]{1,4}"  [(ngModel)]="despesa.administrativos">
+      </mat-form-field>
+    </div>
+          
+    <div>    
+      <mat-form-field class="input">
+        <input type="number" matInput placeholder="Quantidade de Dias" name="quantidadeDias" value="" disabled [(ngModel)]="despesa.quantidadeDias">
+      </mat-form-field>
+    </div>
     <div class="buttons">
       <button mat-raised-button color="primary" (click)="saveDespesa()">Salvar</button>
       <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>            

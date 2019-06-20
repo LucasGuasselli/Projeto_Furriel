@@ -9,4 +9,10 @@ export class DespesaDTO {
     quantidadeDias: number;
     valor: number;
     motivo: string;
+    calculoDataInicio: Date;
+    calculoDataFim: Date;
+    // tslint:disable-next-line:no-inferrable-types
+    feriados: number = 0;
+    // tslint:disable-next-line:no-inferrable-types
+    administrativos: number = 0;
 }
