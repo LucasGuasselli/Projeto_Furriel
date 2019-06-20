@@ -8,41 +8,41 @@
           </mat-select>
       </mat-form-field>
       
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Nome Completo" name="nome" value="" [(ngModel)]="militar.nome">
+    <mat-form-field class="mat-form">
+      <input matInput placeholder="Nome Completo" name="nome"  [(ngModel)]="militar.nome">
     </mat-form-field>
     
-    <mat-form-field class="example-full-width">
-      <input type="number" matInput placeholder="Prec-CP" name="precCP" value="" pattern="[0-9]{4}"  [(ngModel)]="militar.precCP">
+    <mat-form-field class="mat-form">
+      <input type="number" matInput placeholder="Prec-CP" name="precCP" pattern="[0-9]{4}"  [(ngModel)]="militar.precCP">
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="CEP" name="cep" value="" (blur)="getAdress()" [(ngModel)]="cep">
+    <mat-form-field class="mat-form">
+      <input matInput placeholder="CEP" name="cep" (blur)="getAdress()" [(ngModel)]="cep">
     </mat-form-field>
     
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Rua" name="rua" value="" [(ngModel)]="endereco.logradouro">
+    <mat-form-field class="mat-form">
+      <input matInput placeholder="Rua" name="rua" [(ngModel)]="endereco.logradouro">
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Bairro" name="bairro" value="" [(ngModel)]="endereco.bairro">
+    <mat-form-field class="mat-form">
+      <input matInput placeholder="Bairro" name="bairro" [(ngModel)]="endereco.bairro">
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Cidade" name="cidade" value="" [(ngModel)]="endereco.localidade">
+    <mat-form-field class="mat-form">
+      <input matInput placeholder="Cidade" name="cidade" [(ngModel)]="endereco.localidade">
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
-      <input type="number" matInput placeholder="numero" name="numero" value="" pattern="[0-9]{4}"  [(ngModel)]="endereco.numero">
+    <mat-form-field class="mat-form">
+      <input type="number" matInput placeholder="numero" name="numero" pattern="[0-9]{4}"  [(ngModel)]="endereco.numero">
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Complemento" name="complemento" value="" [(ngModel)]="endereco.complemento">
+    <mat-form-field class="mat-form">
+      <input matInput placeholder="Complemento" name="complemento" [(ngModel)]="endereco.complemento">
     </mat-form-field>
 
       <div class="buttons">
         <button mat-raised-button color="primary" (click)="salvarMilitar()">Salvar</button>
-        <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+        <button mat-raised-button color="warn" (click)="cancelar()">Voltar</button>
       </div>      
   </form>
 </div>

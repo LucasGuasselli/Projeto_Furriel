@@ -7,6 +7,7 @@ import { ConducaoDTO } from '../../models/conducao.dto';
 import { MilitarDTO } from '../../models/militar.dto';
 import { PostoGraduacaoDTO } from '../../models/postoGraduacao.dto';
 import { ConducoesService } from '../../services/conducoes.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-tabela-auxilio-transporte',
@@ -23,7 +24,9 @@ export class TabelaAuxilioTransporteComponent implements OnInit {
   constructor(private auxilioTransporteService: AuxiliosTransporteService,
               private militaresService: MilitaresService,
               private postosGraduacoesService: PostosGraduacoesService,
-              private conducoesService: ConducoesService) { }
+              private conducoesService: ConducoesService,
+              private router: Router,
+              private rota: ActivatedRoute) { }
 
   ngOnInit() {
     this.loadAuxiliosTransporte();
@@ -61,5 +64,13 @@ export class TabelaAuxilioTransporteComponent implements OnInit {
       console.log(this.conducoes); }, error => {console.log(error); } );
   }
 
+  moveToFormAuxilioTransporte() {
+    this.router.navigate(['/cadastroDeAT']);
 
+  }
+
+  cancel() {
+    this.router.navigate(['/index']);
+
+  }
 }

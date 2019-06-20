@@ -34,3 +34,7 @@ height: 34px;
     border-radius: 4px;
     padding: 8px 5px 5px 5px;
 }
+
+mat-form-field {
+    margin-right: 12px;
+}

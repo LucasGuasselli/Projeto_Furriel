@@ -2,14 +2,13 @@
     <h3>{{titulo}}</h3>
   <form>
       <div>
-          <mat-form-field>
-              <mat-select placeholder="Militares">            
-                <mat-option value="option" name="precCP" *ngFor="let m of militaresComAuxilioTransporte"
-                (click)="saveMilitarPrecCP(m.precCP)">{{m.nome}}</mat-option>
+        <mat-form-field>
+          <mat-select placeholder="Militares">            
+            <mat-option value="option" name="precCP" *ngFor="let m of militaresComAuxilioTransporte"
+              (click)="saveMilitarPrecCP(m.precCP)">{{m.nome}}</mat-option>
           </mat-select>
-          </mat-form-field>
-      </div>    
-      <div>    
+        </mat-form-field>
+          
         <mat-form-field>
           <input matInput [matDatepicker]="dataInicio" placeholder="A contar de: " 
             class="datePicker" name="inicio" [(ngModel)]="exclusaoAuxilioTransporte.data">
