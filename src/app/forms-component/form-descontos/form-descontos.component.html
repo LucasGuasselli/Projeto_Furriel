@@ -28,7 +28,7 @@
     
       <mat-form-field>
           <input matInput [matDatepicker]="dataFim" placeholder="Data de Termino" 
-          class="datePicker" name="fim" (blur)="validDate()" [(ngModel)]="despesa.calculoDataFim">
+          class="datePicker" name="fim" [(ngModel)]="despesa.calculoDataFim">
           <mat-datepicker-toggle matSuffix [for]="dataFim"></mat-datepicker-toggle>
           <mat-datepicker #dataFim></mat-datepicker>
       </mat-form-field>

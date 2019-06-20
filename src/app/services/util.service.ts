@@ -60,9 +60,7 @@ export class UtilService {
     calculaQuantidadeDias(inicio: Date, fim: Date, motivo: String, feriados: number, administrativos: number) {
        // tslint:disable-next-line:prefer-const
        let quantidadeDias = 0;
-       this.inicio.setDate(inicio.getDate());
-       this.fim.setDate(fim.getDate());
-
+       let contador = 0;
             switch (motivo) {
                 case 'Serviço': {
                     console.log(inicio.toString().substring(0, 3));
@@ -73,21 +71,111 @@ export class UtilService {
                     } else {
                         quantidadeDias = 1;
                     }
+                        // caso informem datas muito distantes
+                        if (inicio.getDate() !== fim.getDate() && (inicio.getDate() + 1) !== fim.getDate()) {
+                                fim.setDate(inicio.getDate() + 1 );
+                        }
                         break;
                 }
                 case 'Dispensa como Recompensa': {
                     do {
                         // tslint:disable-next-line:max-line-length
-                        if (this.inicio.toString().substring(0, 3) === 'Mon' || this.inicio.toString().substring(0, 3) === 'Tue' ||  this.inicio.toString().substring(0, 3) === 'Wed' || this.inicio.toString().substring(0, 3) === 'Thu' || this.inicio.toString().substring(0, 3) === 'Fri') {
+                        if (inicio.toString().substring(0, 3) === 'Mon' || inicio.toString().substring(0, 3) === 'Tue' ||  inicio.toString().substring(0, 3) === 'Wed' || inicio.toString().substring(0, 3) === 'Thu' || inicio.toString().substring(0, 3) === 'Fri') {
                             quantidadeDias += 1;
                         }
-                            this.inicio.setDate(this.inicio.getDate() + 1);
-                    }while ( this.inicio.getDate() <= this.fim.getDate() && quantidadeDias < 23);
+                            inicio.setDate(inicio.getDate() + 1);
+                                contador += 1;
+                    // tslint:disable-next-line:max-line-length
+                    }while ( inicio.getDate() <= fim.getDate() && quantidadeDias < 22 || inicio.toString().substring(4, 7) !== fim.toString().substring(4, 7) && quantidadeDias < 22);
+                        inicio.setDate(inicio.getDate() - contador);
                         quantidadeDias -= feriados + administrativos;
-                            console.log(quantidadeDias);
+                            // evitando que o usuario avacalhe nos feriados e administrativos
+                            if ( quantidadeDias < 0 ) { quantidadeDias = 0; }
                     break;
                 }
 
+                case 'Viagem': {
+                    do {
+                        // tslint:disable-next-line:max-line-length
+                        if (inicio.toString().substring(0, 3) === 'Mon' || inicio.toString().substring(0, 3) === 'Tue' ||  inicio.toString().substring(0, 3) === 'Wed' || inicio.toString().substring(0, 3) === 'Thu' || inicio.toString().substring(0, 3) === 'Fri') {
+                            quantidadeDias += 1;
+                        }
+                            inicio.setDate(inicio.getDate() + 1);
+                                contador += 1;
+                        // tslint:disable-next-line:max-line-length
+                        }while ( inicio.getDate() <= fim.getDate() && quantidadeDias < 22 || inicio.toString().substring(4, 7) !== fim.toString().substring(4, 7) && quantidadeDias < 22);
+                            inicio.setDate(inicio.getDate() - contador);
+                                quantidadeDias -= feriados + administrativos;
+                            // tirando a passagem que gasta até o quartel e depois para retornar
+                            if ( quantidadeDias > 0) { quantidadeDias -= 1; }
+                            // evitando que o usuario avacalhe nos feriados e administrativos
+                            if ( quantidadeDias < 0 ) { quantidadeDias = 0; }
+                    break;
+                }
+
+                case 'Desconto em Ferias': {
+                    do {
+                        // tslint:disable-next-line:max-line-length
+                        if (inicio.toString().substring(0, 3) === 'Mon' || inicio.toString().substring(0, 3) === 'Tue' ||  inicio.toString().substring(0, 3) === 'Wed' || inicio.toString().substring(0, 3) === 'Thu' || inicio.toString().substring(0, 3) === 'Fri') {
+                            quantidadeDias += 1;
+                        }
+                            this.inicio.setDate(inicio.getDate() + 1);
+                               contador += 1;
+                        // tslint:disable-next-line:max-line-length
+                        }while ( inicio.getDate() <= fim.getDate() && quantidadeDias < 22 || inicio.toString().substring(4, 7) !== fim.toString().substring(4, 7) && quantidadeDias < 22);
+                            inicio.setDate(inicio.getDate() - contador);
+                                quantidadeDias -= feriados + administrativos;
+                            // evitando que o usuario avacalhe nos feriados e administrativos
+                            if (quantidadeDias < 0 ) {
+                                quantidadeDias = 0;
+                            }
+                    break;
+                }
+
+                case 'Nupcias': {
+                        // caso informem datas com diferenca maior que 7 dias
+                        if ((inicio.getDate() + 7) !== (fim.getDate())) {
+                            fim.setDate(inicio.getDate() + 7 );
+                        }
+                    do {
+                        // tslint:disable-next-line:max-line-length
+                        if (inicio.toString().substring(0, 3) === 'Mon' || inicio.toString().substring(0, 3) === 'Tue' ||  inicio.toString().substring(0, 3) === 'Wed' || inicio.toString().substring(0, 3) === 'Thu' || inicio.toString().substring(0, 3) === 'Fri') {
+                            quantidadeDias += 1;
+                        }
+                            inicio.setDate(inicio.getDate() + 1);
+                                contador += 1;
+                        // tslint:disable-next-line:max-line-length
+                        }while ( inicio.getDate() <= fim.getDate() && quantidadeDias < 8 || inicio.toString().substring(4, 7) !== fim.toString().substring(4, 7) && quantidadeDias < 8);
+                            inicio.setDate(inicio.getDate() - contador);
+                                quantidadeDias -= feriados + administrativos;
+                        // evitando que o usuario avacalhe nos feriados e administrativos
+                        if (quantidadeDias < 0 ) { quantidadeDias = 0; }
+                    break;
+                }
+
+                case 'LTSP': {
+                    do {
+                        // tslint:disable-next-line:max-line-length
+                        if (inicio.toString().substring(0, 3) === 'Mon' || inicio.toString().substring(0, 3) === 'Tue' ||  inicio.toString().substring(0, 3) === 'Wed' || inicio.toString().substring(0, 3) === 'Thu' || inicio.toString().substring(0, 3) === 'Fri') {
+                            quantidadeDias += 1;
+                        }
+                            inicio.setDate(inicio.getDate() + 1);
+                                contador += 1;
+                    // tslint:disable-next-line:max-line-length
+                    }while ( inicio.getDate() <= fim.getDate() && quantidadeDias < 22 || inicio.toString().substring(4, 7) !== fim.toString().substring(4, 7) && quantidadeDias < 22);
+                        inicio.setDate(inicio.getDate() - contador);
+                            quantidadeDias -= feriados + administrativos;
+                            // tirando a passagem que gasta até o quartel e depois para retornar
+                            if (quantidadeDias > 0) { quantidadeDias -= 1; }
+                            // evitando que o usuario avacalhe nos feriados e administrativos
+                            if (quantidadeDias < 0 ) { quantidadeDias = 0; }
+                    break;
+                }
+
+                case 'Ferias': {
+
+                    break;
+                }
             }
 
         return quantidadeDias;

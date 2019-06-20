@@ -59,6 +59,10 @@ export class FormDescontosComponent implements OnInit {
   }
 
   insertDespesa() {
+    this.despesa.quantidadeDias = this.utilService.calculaQuantidadeDias(
+      this.despesa.calculoDataInicio, this.despesa.calculoDataFim, this.despesa.motivo,
+      this.despesa.feriados, this.despesa.administrativos);
+
     // console.log(this.data.setDate(this.data.getDay() + 2));
     this.despesa.militarPrecCP = this.precCP;
     this.despesa.aditamentoId = this.aditamentoAtual.id;
@@ -66,20 +70,19 @@ export class FormDescontosComponent implements OnInit {
       this.despesa.dataInicio = this.utilService.formatDate(this.despesa.calculoDataInicio.toString());
       this.despesa.dataFim = this.utilService.formatDate(this.despesa.calculoDataFim.toString());
 
-    this.despesa.quantidadeDias = this.utilService.calculaQuantidadeDias(
-            this.despesa.calculoDataInicio, this.despesa.calculoDataFim, this.despesa.motivo,
-            this.despesa.feriados, this.despesa.administrativos);
-
-      this.despesasService.insert(this.despesa).subscribe(response => { console.log(response); } ,
+      this.despesasService.insert(this.despesa).subscribe(response => { console.log(response);
+      if (response.status === 201 ) { alert('Despesa Cadastrada com Sucesso!'); } } ,
         error => {console.log(error); });
   }
 
   validDate() {
+    /*
     if (this.despesa.calculoDataInicio.getDate() > this.despesa.calculoDataFim.getDate()) {
         alert('A data de término deve ser maior ou igual a data de início!!!');
           this.despesa.calculoDataInicio = null;
           this.despesa.calculoDataFim = null;
     }
+    */
   }
 
   click() {
