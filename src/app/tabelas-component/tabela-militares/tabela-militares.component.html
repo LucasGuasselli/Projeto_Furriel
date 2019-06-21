@@ -27,16 +27,15 @@
           <th>Rua</th> <th>Numero</th> <th>Bairro</th> <th>Cidade</th> <th>Complemento</th>
       </tr>
       <tr *ngFor='let endereco of enderecos'>
-            <td>{{endereco.rua}}</td>
+            <td>{{endereco.logradouro}}</td>
             <td>{{endereco.numero}}</td>
             <td>{{endereco.bairro}}</td>
-            <td>{{endereco.cidade}}</td>
+            <td>{{endereco.localidade}}</td>
             <td>{{endereco.complemento}}</td>
       </tr>
 </div>
    
 </table>
-<div>
-<a routerLink="/cadastroDeMilitar">Novo Militar</a>
-<a routerLink="/index">VOLTAR</a>
+<div class="buttons">
+  <button mat-raised-button color="warn" (click)="cancel()">Voltar</button>
 </div>

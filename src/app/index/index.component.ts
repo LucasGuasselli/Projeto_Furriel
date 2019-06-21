@@ -22,23 +22,23 @@ export class IndexComponent implements OnInit {
   }
 
 // CADASTRAR
-  moveToSaveMilitar() {
+  moveToFormMilitar() {
     this.router.navigate(['/cadastroDeMilitar']);
   }
 
-  moveToSaveAuxilioTransporte() {
+  moveToFormAuxilioTransporte() {
     this.router.navigate(['/cadastroDeAT']);
   }
 
-  moveToSaveDesconto() {
+  moveToFormDesconto() {
     this.router.navigate(['/cadastroDeDesconto']);
   }
 
-  moveToSaveSaqueAtrasado() {
+  moveToFormSaqueAtrasado() {
     this.router.navigate(['/cadastroPagamentoAtrasado']);
   }
 
-  moveToSaveExclusaoAuxilioTransporte() {
+  moveToFormExclusaoAuxilioTransporte() {
     this.router.navigate(['/cadastroExclusaoAuxilioTransporte']);
   }
 

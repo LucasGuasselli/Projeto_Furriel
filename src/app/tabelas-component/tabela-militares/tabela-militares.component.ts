@@ -38,4 +38,7 @@ export class TabelaMilitaresComponent implements OnInit {
       this.ngOnInit();
   }
 
+  cancel() {
+    this.router.navigate(['/index']);
+  }
 }

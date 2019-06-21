@@ -5,6 +5,7 @@ import { MilitarDTO } from '../../models/militar.dto';
 import { MilitaresService } from '../../services/militares.service';
 import { PostosGraduacoesService } from '../../services/postosGraduacoes.service';
 import { PostoGraduacaoDTO } from '../../models/postoGraduacao.dto';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-tabela-descontos',
@@ -20,7 +21,9 @@ export class TabelaDescontosComponent implements OnInit {
 
   constructor(private despesasService: DespesasService,
               private militaresService: MilitaresService,
-              private postosGraduacoesService: PostosGraduacoesService) { }
+              private postosGraduacoesService: PostosGraduacoesService,
+              private router: Router,
+              private rota: ActivatedRoute) { }
 
   ngOnInit() {
     this.loadDespesas();
@@ -50,5 +53,12 @@ export class TabelaDescontosComponent implements OnInit {
            error => {console.log(error); } );
   }
 
+  moveToFormDesconto() {
+    this.router.navigate(['/cadastroDeDesconto']);
+  }
+
+  cancel() {
+    this.router.navigate(['/index']);
+  }
 
 }

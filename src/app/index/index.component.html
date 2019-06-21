@@ -1,14 +1,14 @@
-<body>
+<body class="body">
 <input type="checkbox" id="bt_menu">
 <label for="bt_menu">&#9776;</label>
       <div class="menu">
             <button mat-button [matMenuTriggerFor]="menu">Cadastrar</button>
                   <mat-menu #menu="matMenu">
-                  <button mat-menu-item (click)="moveToSaveMilitar()">Militar</button>
-                  <button mat-menu-item (click)="moveToSaveAuxilioTransporte()">Auxilio Transporte</button>
-                  <button mat-menu-item (click)="moveToSaveDesconto()">Desconto</button>
-                  <button mat-menu-item (click)="moveToSaveSaqueAtrasado()">Saque Atrasado</button>
-                  <button mat-menu-item (click)="moveToSaveExclusaoAuxilioTransporte()">Exclusao de Auxilio Transporte</button>
+                  <button mat-menu-item (click)="moveToFormMilitar()">Militar</button>
+                  <button mat-menu-item (click)="moveToFormAuxilioTransporte()">Auxilio Transporte</button>
+                  <button mat-menu-item (click)="moveToFormDesconto()">Desconto</button>
+                  <button mat-menu-item (click)="moveToFormSaqueAtrasado()">Saque Atrasado</button>
+                  <button mat-menu-item (click)="moveToFormExclusaoAuxilioTransporte()">Exclusao de Auxilio Transporte</button>
                   </mat-menu>
             
             <button mat-button [matMenuTriggerFor]="menu2">Listar</button>
@@ -42,5 +42,6 @@
                         <button mat-raised-button color="warn" (click)="cancel()">Cancelar</button>
                   </div>
       </div>
+
 
 </body>

@@ -3,7 +3,7 @@
   <div id="tudo">
     <tr>
       <th>Codigo Desconto</th> <th>Graduacao</th> <th>Nome</th> <th>Prec-CP</th> <th>Data de Inicio</th> <th>Data de Fim</th> 
-      <th>Valor</th> <th>Motivo</th> 
+      <th>Quantidade de Dias</th><th>Valor</th> <th>Motivo</th> 
     </tr>
 
     <tr *ngFor='let d of despesas'>
@@ -13,12 +13,13 @@
       <td>{{d.militarPrecCP}}</td>
       <td>{{d.dataInicio}}</td>
       <td>{{d.dataFim}}</td>
+      <td>{{d.quantidadeDias}}</td>
       <td>R${{d.valor}}</td>
       <td>{{d.motivo}}</td>
     </tr>
   </div>
 </table>
-<div>
-    <a routerLink="/cadastroDeDesconto">Nova Desconto</a>
-    <a routerLink="/index">VOLTAR</a>
+<div class="buttons">
+  <button mat-raised-button color="primary" (click)="moveToFormDesconto()">Cadastrar Desconto</button>
+  <button mat-raised-button color="warn" (click)="cancel()">Voltar</button>            
 </div>

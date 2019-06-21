@@ -29,3 +29,15 @@ tr:nth-child(even){
 	background-color: red;
 	float: left;
 }
+
+.buttons{
+    text-align: center;
+    display: block;
+    width: 50%;
+    margin: auto;
+  }
+  
+  .buttons button {
+    margin-right: 8px;
+    z-index:2;
+  }

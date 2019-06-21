@@ -13,19 +13,21 @@ td, th {
 tr:nth-child(even){
     background-color: #F2F2F2;
 }
-#tudo {
-    float:left;
-    width:35%;
+
+.buttons{
+    text-align: center;
+    display: block;
+    width: 50%;
+    margin: auto;    
 }
-#tudo1 {
-	width: 50%;
-	float: left;
+
+.form{
+    border-radius: 4px;
+    padding: 20px;    
 }
-#tudo2 {
-	position: relative;
-	left: 200px;
-	width: 200px;
-	height: 200px;
-	background-color: red;
-	float: left;
+
+.buttons button {
+    margin-right: 8px;
+    z-index:2;
 }
+
