@@ -72,44 +72,31 @@ export class FormAuxilioTransporteComponent implements OnInit {
             } else {
 
             // cadastra no banco e atualiza os auxilios transportes
-                this.insertAuxilioTransporte(this.precCP);
-
-               // this.validaConducoes();
-        // verificando quais conducoes foram preenchidas corretamente para executar a inserção
-            // tslint:disable-next-line:triple-equals
-                for (let k = 0; k < this.conducoes.length; k++) {
-                // todos campos devem ser preenchidos para cadastrar uma conducao
-                    if (this.conducoes[k].valor != null && this.conducoes[k].tipoDeTransporte != null
-                        && this.conducoes[k].nomeEmpresa != null && this.conducoes[k].itinerario != null) {
-                            this.auxiliosTransporteService.findAuxilioTransporteByPrecCP(this.precCP).subscribe(
-                                response => { this.auxTransp = response; console.log(this.auxTransp);
-                                this.insertConducao(this.conducoes[k], this.auxTransp.id);
-                                 this.auxTransp = new AuxilioTransporteDTO(); }, error => {console.log(error); }
-                            );
-                    }
-                }
-                this.auxiliosTransporteService.findAuxilioTransporteByPrecCP(this.precCP).subscribe(response => {
-                        this.auxTransp = response; this.insertInclusaoAuxilioTransporte(this.inclusaoAuxilioTransporte,
-                        this.aditamentoAtual.id, this.precCP, this.auxTransp.valorTotalAT );
-                        this.auxTransp = new AuxilioTransporteDTO(); }, error => {console.log(error); }
-                );
-                // mudar a logica ou tornar auxTranspo um objeto, pois da maneira que esta se a
-                // primeira conducao nao for preenchida a inclusao tera valor errado
+                this.insertAuxilioTransporte();
             }
         }
     }
 
     // alem de inserir um auxilioTransporte no banco, carrega novamente via GET os auxilios e militares sem auxilio
-    insertAuxilioTransporte(militarPrecCP: number) {
+    insertAuxilioTransporte() {
         if (isNaN(this.precCP)) {
             alert('selecione um militar!');
        } else {
-            this.auxilioTransporte.militarPrecCP = militarPrecCP;
+            this.auxilioTransporte.militarPrecCP = this.precCP;
+            console.log(this.auxilioTransporte);
             this.auxiliosTransporteService.insert(this.auxilioTransporte).subscribe(
-                response => { console.log('Auxilio Transporte cadastrado com sucesso');
-                this.loadAuxiliosTransporte(); this.loadMilitaresSemAuxilioTransporte(); } ,
+                response => { console.log(response); console.log('Auxilio Transporte cadastrado com sucesso');
+                this.validConducoes(); this.loadAuxiliosTransporte();
+                this.loadMilitaresSemAuxilioTransporte(); } ,
                 error => {console.log(error); } );
        }
+    }
+
+    findAuxilioTransporteByPerecCP() {
+        this.auxiliosTransporteService.findAuxilioTransporteByPrecCP(this.precCP).subscribe(
+            response => { this.auxTransp = response; this.insertInclusaoAuxilioTransporte(
+                this.inclusaoAuxilioTransporte, this.aditamentoAtual.id, this.precCP,
+                this.auxTransp.valorTotalAT); }, error => {console.log(error); });
     }
 
     insertConducao(conducao: ConducaoDTO, auxilioTransporteId: number) {
@@ -130,6 +117,28 @@ export class FormAuxilioTransporteComponent implements OnInit {
         );
     }
 
+    validConducoes() {
+        const conducoesValidas: number [] = [];
+        // busca os indices validos para cadastrar as conducoes
+        // isto foi necessario para cadastrar a inclusao somente depois do cadastro da ULTIMA CONDUCAO
+            for (let k = 0; k < this.conducoes.length; k++) {
+                // todos campos devem ser preenchidos para cadastrar uma conducao
+                    if (this.conducoes[k].valor != null && this.conducoes[k].tipoDeTransporte != null
+                        && this.conducoes[k].nomeEmpresa != null && this.conducoes[k].itinerario != null) {
+                            conducoesValidas.push(k);
+                    }
+            }
+
+            for (let i = 0; i < conducoesValidas.length; i++) {
+                this.auxiliosTransporteService.findAuxilioTransporteByPrecCP(this.precCP).subscribe(
+                    response => { this.auxTransp = response;
+                    this.insertConducao(this.conducoes[conducoesValidas[i]], this.auxTransp.id);
+                     if (i === (conducoesValidas.length - 1)) { this.findAuxilioTransporteByPerecCP(); }
+                    this.auxTransp = new AuxilioTransporteDTO(); }, error => {console.log(error); }
+                );
+            }
+    }
+
     loadMilitaresSemAuxilioTransporte() {
         this.militaresService.findMilitaresSemAuxilioTransporte().subscribe(
             response => {this.militaresSemAuxilioTransporte = response; console.log(this.militaresSemAuxilioTransporte); } ,
@@ -147,6 +156,7 @@ export class FormAuxilioTransporteComponent implements OnInit {
 
         } else {
             this.precCP = precCP;
+            console.log(this.precCP);
         }
     }
 
