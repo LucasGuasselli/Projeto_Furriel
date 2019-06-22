@@ -34,6 +34,10 @@ export class IndexComponent implements OnInit {
     this.router.navigate(['/cadastroDeDesconto']);
   }
 
+  moveToFormDescontoFeriadoAdm() {
+    this.router.navigate(['/cadastroDeDescontoFeriadoAdm']);
+  }
+
   moveToFormSaqueAtrasado() {
     this.router.navigate(['/cadastroPagamentoAtrasado']);
   }

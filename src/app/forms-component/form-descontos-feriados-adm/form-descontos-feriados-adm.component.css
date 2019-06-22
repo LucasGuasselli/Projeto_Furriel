@@ -1,0 +1,28 @@
+.input{
+    width: 100%
+}
+
+
+.buttons{
+    text-align: center;
+    display: block;
+    width: 50%;
+    margin: auto;    
+}
+
+.form{
+    border-radius: 4px;
+    padding: 20px;    
+}
+
+.buttons button {
+    margin-right: 8px;
+}
+
+mat-form-field {
+    margin-right: 20px;
+}
+
+mat-form-field{
+    width: 280px;
+}

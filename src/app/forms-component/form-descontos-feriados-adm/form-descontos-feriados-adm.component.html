@@ -1,0 +1,35 @@
+<h3>{{titulo}}</h3>
+<div class="form">        
+  <form>
+    <div>
+      <mat-form-field>
+          <mat-select placeholder="Todos Militares serão descontados!">            
+            <mat-option value="Todos Militares serão descontados!">Todos Militares serão descontados!</mat-option>
+          </mat-select>
+      </mat-form-field>
+      
+      <mat-form-field>
+        <mat-select placeholder="Motivo" name="motivo" [(ngModel)]="despesa.motivo">            
+          <mat-option value="Administrativo">Expediente Administrativo</mat-option>            
+          <mat-option value="Feriado">Feriado</mat-option>
+        </mat-select>
+      </mat-form-field>
+     
+      <mat-form-field>
+          <input matInput [matDatepicker]="dataInicio" placeholder="Data" 
+          class="datePicker" name="inicio" [(ngModel)]="despesa.calculoDataInicio">
+          <mat-datepicker-toggle matSuffix [for]="dataInicio"></mat-datepicker-toggle>
+          <mat-datepicker #dataInicio></mat-datepicker>
+      </mat-form-field>       
+                
+      <mat-form-field class="input">
+        <input type="number" matInput placeholder="Quantidade de Dias" name="quantidadeDias" disabled [(ngModel)]="despesa.quantidadeDias">
+      </mat-form-field>
+    </div>
+
+    <div class="buttons">
+      <button mat-raised-button color="primary" (click)="saveDespesa()" >Salvar</button>
+      <button mat-raised-button color="warn" (click)="cancel()">Voltar</button>            
+    </div>  
+  </form>
+</div>

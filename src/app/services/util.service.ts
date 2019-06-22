@@ -85,6 +85,8 @@ export class UtilService {
                         }
                             inicio.setDate(inicio.getDate() + 1);
                                 contador += 1;
+
+                                if (quantidadeDias > 25) { break; }
                     // tslint:disable-next-line:max-line-length
                     }while ( inicio.getDate() <= fim.getDate()  || inicio.toString().substring(4, 7) !== fim.toString().substring(4, 7) );
                         inicio.setDate(inicio.getDate() - contador);
@@ -103,6 +105,8 @@ export class UtilService {
                         }
                             inicio.setDate(inicio.getDate() + 1);
                                 contador += 1;
+
+                                if (quantidadeDias > 25) { break; }
                         // tslint:disable-next-line:max-line-length
                         }while ( inicio.getDate() <= fim.getDate()  || inicio.toString().substring(4, 7) !== fim.toString().substring(4, 7) );
                             inicio.setDate(inicio.getDate() - contador);
@@ -123,6 +127,8 @@ export class UtilService {
                         }
                             this.inicio.setDate(inicio.getDate() + 1);
                                contador += 1;
+
+                               if (quantidadeDias > 25) { break; }
                         // tslint:disable-next-line:max-line-length
                         }while ( inicio.getDate() <= fim.getDate()  || inicio.toString().substring(4, 7) !== fim.toString().substring(4, 7) );
                             inicio.setDate(inicio.getDate() - contador);
@@ -148,8 +154,10 @@ export class UtilService {
                         }
                             inicio.setDate(inicio.getDate() + 1);
                                 contador += 1;
+
+                                if (quantidadeDias > 25) { break; }
                         // tslint:disable-next-line:max-line-length
-                        }while ( inicio.getDate() <= fim.getDate()  || inicio.toString().substring(4, 7) !== fim.toString().substring(4, 7) );
+                        } while ( inicio.getDate() <= fim.getDate()  || inicio.toString().substring(4, 7) !== fim.toString().substring(4, 7) );
                             inicio.setDate(inicio.getDate() - contador);
                                 if ( quantidadeDias > 23 ) { quantidadeDias = 22; }
                                     quantidadeDias -= feriados + administrativos;
@@ -166,6 +174,8 @@ export class UtilService {
                         }
                             inicio.setDate(inicio.getDate() + 1);
                                 contador += 1;
+
+                                if (quantidadeDias > 25) { break; }
                     // tslint:disable-next-line:max-line-length
                     }while ( inicio.getDate() <= fim.getDate()  || inicio.toString().substring(4, 7) !== fim.toString().substring(4, 7) );
                         inicio.setDate(inicio.getDate() - contador);
@@ -186,6 +196,8 @@ export class UtilService {
                         }
                             this.inicio.setDate(inicio.getDate() + 1);
                                contador += 1;
+
+                               if (quantidadeDias > 25) { break; }
                         // tslint:disable-next-line:max-line-length
                         }while ( inicio.getDate() <= fim.getDate() && quantidadeDias < 23 || inicio.toString().substring(4, 7) !== fim.toString().substring(4, 7) && quantidadeDias < 23);
                             inicio.setDate(inicio.getDate() - contador);
@@ -195,6 +207,22 @@ export class UtilService {
                                 quantidadeDias = 0;
                             }
                     break;
+                }
+
+                case 'Administrativo': {
+                    // tslint:disable-next-line:max-line-length
+                    if (inicio.toString().substring(0, 3) === 'Mon' || inicio.toString().substring(0, 3) === 'Tue' ||  inicio.toString().substring(0, 3) === 'Wed' || inicio.toString().substring(0, 3) === 'Thu' || inicio.toString().substring(0, 3) === 'Fri') {
+                        quantidadeDias = 1;
+                    }
+                        break;
+                }
+
+                case 'Feriado': {
+                    // tslint:disable-next-line:max-line-length
+                    if (inicio.toString().substring(0, 3) === 'Mon' || inicio.toString().substring(0, 3) === 'Tue' ||  inicio.toString().substring(0, 3) === 'Wed' || inicio.toString().substring(0, 3) === 'Thu' || inicio.toString().substring(0, 3) === 'Fri') {
+                        quantidadeDias = 1;
+                    }
+                        break;
                 }
             }
 

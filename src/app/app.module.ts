@@ -18,26 +18,32 @@ import { MatNativeDateModule } from '@angular/material/core';
 
 
 import { AppComponent } from './app.component';
-import { TabelaMilitaresComponent } from './tabelas-component/tabela-militares/tabela-militares.component';
-import { FormMilitaresComponent } from './forms-component/form-militares/form-militares.component';
-import { MilitaresService } from './services/militares.service';
-import { CrudAuxilioTransporteService } from './crud-auxilio-transporte.service';
 import { IndexComponent } from './index/index.component';
-import { FormAuxilioTransporteComponent } from './forms-component/form-auxilio-transporte/form-auxilio-transporte.component';
-import { TabelaAuxilioTransporteComponent } from './tabelas-component/tabela-auxilio-transporte/tabela-auxilio-transporte.component';
-import { FormDescontosComponent } from './forms-component/form-descontos/form-descontos.component';
-import { TabelaDescontosComponent } from './tabelas-component/tabela-descontos/tabela-descontos.component';
 import { RelatorioComponent } from './relatorio/relatorio.component';
+
+// FORMS
+import { FormMilitaresComponent } from './forms-component/form-militares/form-militares.component';
+import { FormDescontosFeriadosAdmComponent } from './forms-component/form-descontos-feriados-adm/form-descontos-feriados-adm.component';
+import { FormAuxilioTransporteComponent } from './forms-component/form-auxilio-transporte/form-auxilio-transporte.component';
+import { FormDescontosComponent } from './forms-component/form-descontos/form-descontos.component';
 import { FormPagamentoAtrasadoComponent } from './forms-component/form-pagamento-atrasado/form-pagamento-atrasado.component';
 import { FormAditamentoComponent } from './forms-component/form-aditamento/form-aditamento.component';
+// tslint:disable-next-line:max-line-length
+import { FormAtualizacaoAuxilioTransporteComponent } from './forms-component/form-atualizacao-auxilio-transporte/form-atualizacao-auxilio-transporte.component';
+// tslint:disable-next-line:max-line-length
+import { FormExclusaoAuxilioTransporteComponent } from './forms-component/form-exclusao-auxilio-transporte/form-exclusao-auxilio-transporte.component';
+
+// TABLES
+import { TabelaAuxilioTransporteComponent } from './tabelas-component/tabela-auxilio-transporte/tabela-auxilio-transporte.component';
+import { TabelaDescontosComponent } from './tabelas-component/tabela-descontos/tabela-descontos.component';
+import { TabelaMilitaresComponent } from './tabelas-component/tabela-militares/tabela-militares.component';
 import { TabelaAditamentosComponent } from './tabelas-component/tabela-aditamentos/tabela-aditamentos.component';
 import { TabelaPagamentosAtrasadosComponent } from './tabelas-component/tabela-pagamentos-atrasados/tabela-pagamentos-atrasados.component';
 // tslint:disable-next-line:max-line-length
-import { FormExclusaoAuxilioTransporteComponent } from './forms-component/form-exclusao-auxilio-transporte/form-exclusao-auxilio-transporte.component';
-// tslint:disable-next-line:max-line-length
 import { TabelaExclusaoAuxiliosTransporteComponent } from './tabelas-component/tabela-exclusao-auxilios-transporte/tabela-exclusao-auxilios-transporte.component';
-// tslint:disable-next-line:max-line-length
-import { FormAtualizacaoAuxilioTransporteComponent } from './forms-component/form-atualizacao-auxilio-transporte/form-atualizacao-auxilio-transporte.component';
+
+// SERVICES
+import { MilitaresService } from './services/militares.service';
 import { EnderecosService } from './services/enderecos.service';
 import { PostosGraduacoesService } from './services/postosGraduacoes.service';
 import { DespesasService } from './services/despesas.service';
@@ -58,6 +64,7 @@ const routes: Routes = [
     { path: 'cadastroDeMilitar', component: FormMilitaresComponent },
     { path: 'cadastroDeAT', component: FormAuxilioTransporteComponent },
     { path: 'cadastroDeDesconto', component: FormDescontosComponent },
+    { path: 'cadastroDeDescontoFeriadoAdm', component: FormDescontosFeriadosAdmComponent },
     { path: 'cadastroPagamentoAtrasado', component: FormPagamentoAtrasadoComponent },
     { path: 'cadastroAditamento', component: FormAditamentoComponent },
     { path: 'cadastroExclusaoAuxilioTransporte', component: FormExclusaoAuxilioTransporteComponent },
@@ -95,6 +102,7 @@ const routes: Routes = [
     FormExclusaoAuxilioTransporteComponent,
     TabelaExclusaoAuxiliosTransporteComponent,
     FormAtualizacaoAuxilioTransporteComponent,
+    FormDescontosFeriadosAdmComponent,
   ],
   imports: [
     BrowserModule,
@@ -117,8 +125,7 @@ const routes: Routes = [
   ],
   providers: [MilitaresService, EnderecosService, PostosGraduacoesService, InclusoesAuxilioTransporteService,
               DespesasService, UtilService, AuxiliosTransporteService , ExclusoesAuxilioTransporteService,
-              ConducoesService, PagamentosAtrasadosService, AtualizacoesAuxilioTransporteService,
-              AditamentosService, CrudAuxilioTransporteService ],
+              ConducoesService, PagamentosAtrasadosService, AtualizacoesAuxilioTransporteService, AditamentosService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
