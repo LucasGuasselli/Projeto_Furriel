@@ -6,10 +6,25 @@
                                 (click)="loadInfomationAditamento(ad.id)"  >{{ad.nome}}</mat-option>
           </mat-select>
     </mat-form-field>     
-                         
-    </form>
+      
+        <button mat-raised-button color="warn" (click)="downloadPDF()" >Downaload Relatorio</button>
+</form>
 
 <div id="content" >
+    <!--
+    <div >
+        <table > 
+            <td>
+                <tr>
+                    <img src="../assets/armas_nacionais.jpg"  >
+                </tr>               
+                <tr>
+                    {{cabecalho}}
+                </tr>  
+            </td>
+        </table>
+    </div>
+    -->
     <h1>Aditamento</h1>
     <div>          
         <h3>Despesa a Anular</h3> {{aditamento.despesaTexto}}
@@ -79,6 +94,8 @@
                 </tr>
             </table>       
     </div>
-                      
-        <button (click)="downloadPDF()">Downaload Relatorio </button>
+             
+    <div class="buttons">
+        <button mat-raised-button color="warn" (click)="downloadPDF()" >Downaload Relatorio</button>
+    </div>
     

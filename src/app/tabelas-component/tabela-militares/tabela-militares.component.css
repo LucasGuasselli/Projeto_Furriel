@@ -41,3 +41,7 @@ tr:nth-child(even){
     margin-right: 8px;
     z-index:2;
   }
+
+  h3 {
+      text-align: center;
+  }
