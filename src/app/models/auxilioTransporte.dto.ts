@@ -5,4 +5,5 @@ export class AuxilioTransporteDTO {
     valorDiarioAT: number;
     nome: String;
     graduacao: String;
+    exclusao: Boolean = false;
 }
