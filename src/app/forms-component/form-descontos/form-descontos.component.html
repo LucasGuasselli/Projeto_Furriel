@@ -21,7 +21,7 @@
     <div>    
       <mat-form-field>
           <input matInput [matDatepicker]="dataInicio" placeholder="Data de Inicio" 
-          class="datePicker" name="inicio" (click)="click()" [(ngModel)]="despesa.calculoDataInicio">
+          class="datePicker" name="inicio" (click)="calculateQuantidadeDias()" [(ngModel)]="despesa.calculoDataInicio">
           <mat-datepicker-toggle matSuffix [for]="dataInicio"></mat-datepicker-toggle>
           <mat-datepicker #dataInicio></mat-datepicker>
       </mat-form-field>      

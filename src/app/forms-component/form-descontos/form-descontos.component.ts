@@ -85,19 +85,10 @@ export class FormDescontosComponent implements OnInit {
     */
   }
 
-  click() {
+  calculateQuantidadeDias() {
     this.despesa.quantidadeDias = this.utilService.calculaQuantidadeDias(
       this.despesa.calculoDataInicio, this.despesa.calculoDataFim, this.despesa.motivo,
       this.despesa.feriados, this.despesa.administrativos);
-
-    // console.log(this.despesa.dataInicio.setDate((this.despesa.dataInicio.getDate() + 1)));
-    // console.log(this.despesa.dataInicio.toString());
-    // console.log(this.despesa.dataFim.toString());
-
-    // tslint:disable-next-line:triple-equals
-    // if (this.despesa.calculoDataInicio.getDate() == this.despesa.calculoDataFim.getDate()) {
-    //    console.log('DEU CERTO');
-    // }
   }
 
   salvarPrecCPMilitar(precCP: number) {

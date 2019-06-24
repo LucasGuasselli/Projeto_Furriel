@@ -17,7 +17,7 @@ import { AditamentoDTO } from '../../models/aditamento.dto';
   styleUrls: ['./form-exclusao-auxilio-transporte.component.css']
 })
 export class FormExclusaoAuxilioTransporteComponent implements OnInit {
-  titulo = 'Exclusao de Auxilio Transporte';
+  titulo = 'Exclusão de Auxílio Transporte';
 
   exclusaoAuxilioTransporte: ExclusaoAuxilioTransporteDTO = new ExclusaoAuxilioTransporteDTO();
   auxilioTransporte: AuxilioTransporteDTO = new AuxilioTransporteDTO();
@@ -78,7 +78,7 @@ export class FormExclusaoAuxilioTransporteComponent implements OnInit {
 
   loadMilitaresComAuxilioTransporte() {
     this.militaresService.findMilitaresComAuxilioTransporte().subscribe(
-        response => {this.militaresComAuxilioTransporte = response; console.log(this.militaresComAuxilioTransporte); } ,
+        response => { this.militaresComAuxilioTransporte = response; console.log(this.militaresComAuxilioTransporte); } ,
         error => {console.log(error); } );
   }
 

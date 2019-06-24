@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CrudAuxilioTransporteService } from '../../crud-auxilio-transporte.service';
 import { ExclusaoAuxilioTransporteDTO } from '../../models/exclusaoAuxilioTransporte.dto';
+import { ExclusoesAuxilioTransporteService } from '../../services/exclusaoAuxilioTransporte.service';
 
 @Component({
   selector: 'app-tabela-exclusao-auxilios-transporte',
@@ -10,7 +10,7 @@ import { ExclusaoAuxilioTransporteDTO } from '../../models/exclusaoAuxilioTransp
 export class TabelaExclusaoAuxiliosTransporteComponent implements OnInit {
 
   exclusaoAuxiliosTransporte: ExclusaoAuxilioTransporteDTO[] = [];
-  constructor(private servicoExclusaoAuxilioTransporte: CrudAuxilioTransporteService) { }
+  constructor(private servicoExclusaoAuxilioTransporte: ExclusoesAuxilioTransporteService) { }
 
   ngOnInit() {
     //  this.exclusaoAuxiliosTransporte = this.servicoExclusaoAuxilioTransporte.getExclusaoAuxiliosTransporte();

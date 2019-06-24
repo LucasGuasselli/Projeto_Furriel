@@ -29,8 +29,8 @@
     <div>          
         <h3>Despesa a Anular</h3> {{aditamento.despesaTexto}}
             <table>
-                <th>Graduacao-Nome</th> <th>Prec-CP</th> <th>Data de Inicio</th> 
-                <th>Data de Termino</th> <th>Valor</th> <th>Motivo</th>
+                <th>Graduação-Nome</th> <th>Prec-CP</th> <th>Data de Início</th> 
+                <th>Data de Término</th> <th>Valor</th> <th>Motivo</th>
                 <tr *ngFor='let d of despesas'>
                     <td>{{d.graduacao}} {{d.nome}}</td>
                     <td>{{d.militarPrecCP}}</td>
@@ -44,7 +44,7 @@
     <div> 
         <h3>Inclusão de Auxílio Transporte</h3> {{aditamento.inclusaoTexto}}         
             <table>
-                <th>Graduacao-Nome</th> <th>Prec-CP</th> <th>A contar de:</th> <th>Valor</th> 
+                <th>Graduação-Nome</th> <th>Prec-CP</th> <th>A contar de:</th> <th>Valor</th> 
                 <tr *ngFor='let inclusaoAuxTransp of inclusoesAuxilioTransporte'>
                     <td>{{inclusaoAuxTransp.graduacao}} {{inclusaoAuxTransp.nome}}</td>
                     <td>{{inclusaoAuxTransp.militarPrecCP}}</td>
@@ -56,7 +56,7 @@
     <div>
         <h3>Atualização de Auxílio Transporte</h3> {{aditamento.atualizacaoTexto}}         
             <table>
-                <th>Graduacao-Nome</th> <th>Prec-CP</th> <th>A contar de:</th> <th>Valor</th> <th>Motivo</th>
+                <th>Graduação-Nome</th> <th>Prec-CP</th> <th>A contar de:</th> <th>Valor</th> <th>Motivo</th>
                 <tr *ngFor='let atualizacaoAuxTransp of atualizacoesAuxiliosTransporte'>
                     <td>{{atualizacaoAuxTransp.graduacao}} {{atualizacaoAuxTransp.nome}}</td>
                     <td>{{atualizacaoAuxTransp.militarPrecCP}}</td>
@@ -69,7 +69,7 @@
     <div>
         <h3>Exclusão de Auxílio Transporte</h3> {{aditamento.exclusaoTexto}}         
             <table>
-                    <th>Graduacao-Nome</th> <th>Prec-CP</th> <th>Data</th> <th>Valor</th> <th>Motivo</th> 
+                    <th>Graduação-Nome</th> <th>Prec-CP</th> <th>Data</th> <th>Valor</th> <th>Motivo</th> 
                     <tr *ngFor='let exclusaoAuxTransp of exclusoesAuxilioTransporte'>
                         <td>{{exclusaoAuxTransp.graduacao}} {{exclusaoAuxTransp.nome}}</td>
                         <td>{{exclusaoAuxTransp.militarPrecCP}}</td>
@@ -82,7 +82,7 @@
     <div>
         <h3>Saque Atrasado</h3> {{aditamento.pagamentoAtrasadoTexto}}         
             <table>
-                <th>Graduacao-Nome</th> <th>Prec-CP</th> <th>Mes de Referencia</th> 
+                <th>Graduação-Nome</th> <th>Prec-CP</th> <th>Mês de Referência</th> 
                 <th>Quantidade de Dias</th> <th>Valor</th> <th>Motivo</th> 
                 <tr *ngFor='let pgmto of pagamentosAtrasados'>
                     <td>{{pgmto.graduacao}} {{pgmto.nome}}</td>
@@ -98,4 +98,6 @@
     <div class="buttons">
         <button mat-raised-button color="warn" (click)="downloadPDF()" >Downaload Relatorio</button>
     </div>
-    
+    <div class="buttons">
+        <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>            
+    </div>

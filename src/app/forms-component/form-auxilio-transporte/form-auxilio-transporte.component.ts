@@ -19,7 +19,7 @@ import { AditamentosService } from '../../services/aditamentos.service';
 })
 export class FormAuxilioTransporteComponent implements OnInit {
 
-    titulo = 'Cadastro de AuxilioTransporte';
+    titulo = 'Cadastro de Auxílio Transporte';
 
     conducoes: ConducaoDTO[] = [
         {id: null, auxilioTransporteId: null, itinerario: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
@@ -68,7 +68,7 @@ export class FormAuxilioTransporteComponent implements OnInit {
             alert('Selecione um aditamento!');
         } else {
             if (isNaN(this.precCP)) {
-                alert('selecione um militar!');
+                alert('Selecione um militar!');
             } else {
 
             // cadastra no banco e atualiza os auxilios transportes
@@ -80,7 +80,7 @@ export class FormAuxilioTransporteComponent implements OnInit {
     // alem de inserir um auxilioTransporte no banco, carrega novamente via GET os auxilios e militares sem auxilio
     insertAuxilioTransporte() {
         if (isNaN(this.precCP)) {
-            alert('selecione um militar!');
+            alert('Selecione um militar!');
        } else {
             this.auxilioTransporte.militarPrecCP = this.precCP;
             console.log(this.auxilioTransporte);

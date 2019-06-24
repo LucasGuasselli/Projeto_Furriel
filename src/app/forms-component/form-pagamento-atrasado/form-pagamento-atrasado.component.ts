@@ -39,7 +39,7 @@ export class FormPagamentoAtrasadoComponent implements OnInit {
         alert('Selecione um aditamento!');
       } else {
         if (isNaN(this.precCP)) {
-            alert('selecione um militar!');
+            alert('Selecione um militar!');
         } else {
             this.insertPagamentoAtrasado();
         }

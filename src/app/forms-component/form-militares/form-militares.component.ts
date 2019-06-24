@@ -38,7 +38,7 @@ export class FormMilitaresComponent implements OnInit {
     this.militar  = new MilitarDTO();
     this.endereco  = new EnderecoDTO();
   } else {
-      alert('PrecCP nao deve ser alterado!');
+      alert('O Prec-CP não deve ser alterado!');
       this.loadUpdateMilitarAndEndereco();
       console.log(this.endereco.militarPrecCP);
     }
@@ -57,7 +57,7 @@ export class FormMilitaresComponent implements OnInit {
                   this.router.navigate(['/listaMilitares']);
             } else {
               // substituir por uma janela ou pop-up posteriormente
-              alert('valor invalido inserido no campo precCP');
+              alert('valor inválido inserido no campo Prec-CP');
             }
     } else {
         console.log('chegou na edicao' + this.precCP);

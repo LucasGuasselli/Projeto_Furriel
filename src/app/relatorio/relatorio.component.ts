@@ -15,6 +15,7 @@ import { AtualizacaoAuxilioTransporteDTO } from '../models/atualizacaoAuxilioTra
 import { AtualizacoesAuxilioTransporteService } from '../services/atualizacoesAuxilioTransporte.service';
 import { AditamentoDTO } from '../models/aditamento.dto';
 import { AditamentosService } from '../services/aditamentos.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-relatorio',
@@ -44,7 +45,8 @@ export class RelatorioComponent implements OnInit {
               private inclusoesAuxilioTransporteService: InclusoesAuxilioTransporteService,
               private pagamentosAtrasadosService: PagamentosAtrasadosService,
               private atualizacoesAuxilioTransporteService: AtualizacoesAuxilioTransporteService,
-              private aditamentosService: AditamentosService) { }
+              private aditamentosService: AditamentosService,
+              private router: Router) { }
 
   ngOnInit() {
     this.loadTexto();
@@ -215,6 +217,10 @@ export class RelatorioComponent implements OnInit {
                                               'de 25 jun 1999), as IR 70-21 (Port. nº 14, de 30 jun 1999), a Port. nº 98 - DGP, ' +
                                               'de 31 out 01, a Port. nº 269 - DGP, de 11 dez 07 e a Port. nº 849 - Cmt Ex, de 14 ' +
                                               'jul 16 (EB 10-IG-02.018).';
+  }
+
+  cancelar() {
+    this.router.navigate(['/index']);
   }
   /*
   // tslint:disable-next-line:member-ordering
