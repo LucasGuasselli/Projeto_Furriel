@@ -25,8 +25,6 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
     {id: null, auxilioTransporteId: null, itinerario: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
     {id: null, auxilioTransporteId: null, itinerario: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
     {id: null, auxilioTransporteId: null, itinerario: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
-    {id: null, auxilioTransporteId: null, itinerario: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
-    {id: null, auxilioTransporteId: null, itinerario: null, nomeEmpresa: null, tipoDeTransporte: null, valor: null},
     ];
 
   conducoesAtualizacao: ConducaoDTO[] = [];
@@ -58,15 +56,15 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
 // carregando do banco todas conducoes usando um @param id de um auxilioTransporte
   loadConducoesById(id: number) {
       this.conducoesService.findConducoesByAuxilioTransporteId(id).subscribe( response => {
-        this.conducoesAtualizacao = response; this.loadOldValues(); },
+        this.conducoesAtualizacao = response; this.loadOldValues(this.conducoesAtualizacao); },
         error => { console.log(error); });
   }
 
 // carregando valores antigos das conducoes para comparacoes
-  loadOldValues() {
-      for (let i = 0; i < this.conducoesAtualizacao.length; i++) {
-          this.valoresAntigos[i] = this.conducoesAtualizacao[i].valor;
-          this.conducoes[i] = this.conducoesAtualizacao[i];
+  loadOldValues(conducoesAtualizacao: ConducaoDTO[]) {
+      for (let i = 0; i < conducoesAtualizacao.length; i++) {
+          this.valoresAntigos[i] = conducoesAtualizacao[i].valor;
+          this.conducoes[i] = conducoesAtualizacao[i];
       }
   }
 
@@ -74,35 +72,21 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
   verifyValues() {
     let validacao = true;
     if (this.aditamentoAtual == null) {
-      alert('Voce precisa selecionar um aditamento!');
+      alert('Você precisa selecionar um aditamento!');
     } else {
       for (let i = 0; i < this.valoresAntigos.length; i++) {
         if (this.valoresAntigos[i] > this.conducoes[i].valor) {
-          alert('Voce nao pode inserir um valor menor que o anterior.\n Verifique os valores inseridos!');
+          alert('Você não pode inserir um valor menor que o anterior.\n Verifique os valores inseridos!');
           validacao = false;
         }
       }
 
-      // tslint:disable-next-line:triple-equals
-      if (validacao == true) {
-        this.updateConducoes();
+      if (validacao === true && this.atualizacaoAuxilioTransporte.dataInicio != null) {
+        this.findAuxilioTransporteById(this.codAT);
+      } else {
+        alert ('Você deve selecionar uma data inicial!');
       }
     }
-  }
-
-  updateConducoes() {
-    for (let  i = 0; i < this.conducoes.length; i++) {
-        if (this.conducoes[i].id != null ) {
-          console.log(this.conducoes[i]);
-          this.conducoesService.update(this.conducoes[i], this.conducoes[i].id, this.valoresAntigos[i]).subscribe(
-            response => { console.log(response); } , error => {console.log(error); }
-          );
-        }
-    }
-
-    this.findAuxilioTransporteById(this.codAT);
-
-    this.router.navigate(['/listaATConducao']);
   }
 
   // buscando um auxilioTransporte
@@ -115,15 +99,29 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
   }
 
   insertAtualizacaoAuxilioTransporte(auxilio: AuxilioTransporteDTO) {
-      this.atualizacaoAuxilioTransporte.militarPrecCP = auxilio.militarPrecCP;
-      this.atualizacaoAuxilioTransporte.aditamentoId = this.aditamentoAtual.id;
-      this.atualizacaoAuxilioTransporte.dataInicio = this.utilService.formatDate(
-                                    this.atualizacaoAuxilioTransporte.dataInicio.toString());
-        this.atualizacaoAuxilioTransporte.valor = auxilio.valorTotalAT;
+    this.atualizacaoAuxilioTransporte.militarPrecCP = auxilio.militarPrecCP;
+    this.atualizacaoAuxilioTransporte.aditamentoId = this.aditamentoAtual.id;
+    this.atualizacaoAuxilioTransporte.dataInicio = this.utilService.formatDate(
+                                  this.atualizacaoAuxilioTransporte.dataInicio.toString());
+    this.atualizacaoAuxilioTransporte.valor = 0;
 
-    this.atualizacoesAuxilioTransporteService.insert(this.atualizacaoAuxilioTransporte).subscribe(
-      response => {console.log(response); } , error => {console.log(error); }
-    );
+  this.atualizacoesAuxilioTransporteService.insert(this.atualizacaoAuxilioTransporte).subscribe(
+    response => { if (response.status === 201 ) { this.updateConducoes(); } },
+     error => {console.log(error); }
+  );
+}
+
+  updateConducoes() {
+    for (let  i = 0; i < this.conducoes.length; i++) {
+      // so serao alteradas conducoes que nao sao nulas e tiveram aumento no valor
+        if (this.conducoes[i].id != null && this.valoresAntigos[i] < this.conducoes[i].valor) {
+          this.conducoesService.update(this.conducoes[i], this.conducoes[i].id).subscribe(
+            response => { console.log(response); } ,
+            error => {console.log(error); }
+          );
+        }
+    }
+    this.router.navigate(['/listaATConducao']);
   }
 
   cancel() {

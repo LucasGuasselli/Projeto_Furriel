@@ -23,16 +23,6 @@ input[type=text]{
     padding: 20px;    
 }
 
-.imbSelect select {
-font-family: "Trebuchet MS", Helvetica, sans-serif;
-background: transparent;
-width: 233px;
-color: #474747;
-padding: 8px 5px 5px 5px;
-font-size: 12px;
-line-height: 1;
-border: 0;
-border-radius: 0;
-height: 34px;
--webkit-appearance: none;
+mat-form-field {
+    margin-right: 12px;
 }

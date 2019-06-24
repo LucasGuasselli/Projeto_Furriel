@@ -29,8 +29,8 @@ export class ConducoesService {
         );
     }
 
-    update(obj: ConducaoDTO, id: number, oldValue: Number) {
-      return this.http.put(`${API_CONFIG.baseUrl}/conducoes/${id}/${oldValue}`, obj,
+    update(obj: ConducaoDTO, id: number) {
+      return this.http.put(`${API_CONFIG.baseUrl}/conducoes/${id}`, obj,
             {
               observe: 'response',
               responseType: 'text'
