@@ -64,6 +64,19 @@ mat-form-field {
     margin-top: 8px;
 }
 
+.cabecalho{
+    text-align: center;
+    align-content: center;
+    width: 100%;
+}
+
+.rodape{
+    text-align: center;
+}
+
+.rodape1{
+    text-align: left;
+}
 
 
 

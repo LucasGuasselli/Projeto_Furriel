@@ -10,24 +10,32 @@
         <button mat-raised-button color="warn" (click)="downloadPDF()" >Downaload Relatorio</button>
 </form>
 
-<div id="content" >
-    <!--
-    <div >
-        <table > 
-            <td>
-                <tr>
-                    <img src="../assets/armas_nacionais.jpg"  >
-                </tr>               
-                <tr>
-                    {{cabecalho}}
-                </tr>  
-            </td>
-        </table>
-    </div>
-    -->
-    <h1>Aditamento</h1>
+<div id="content" >    
+                    <!--<img src="../assets/armas_nacionais.jpg"  > -->
+            <div class="cabecalho">                   
+                <div> {{cabecalho0}} </div>
+                <div> {{cabecalho1}} </div>
+                <div> {{cabecalho2}} </div>
+                <div> {{cabecalho3}} </div>
+                <br><br><b>Para conhecimento deste aquartelamento e devida execução, publico seguinte:</b> <br><br>
+                
+                <div> <b>1ª Parte</b></div>
+                    <div> <b>SERVICOS DIÁRIOS</b> </div>
+                        <br>Sem Alteração<br>
+
+                <div><b>2ª Parte</b></div>
+                    <div><b>INSTRUÇÃO</b></div>
+                        <br>Sem Alteração<br>
+
+                <div><b>3ª Parte</b></div>
+                <div><b>ASSUNTOS GERAIS E ADMINISTRATIVOS</b><br></div>
+
+            </div>
+                1. <b>ASSUNTOS GERAIS</b><br>
+                AUXÍLIO TRANSPORTE
+
     <div>          
-        <h3>Despesa a Anular</h3> {{aditamento.despesaTexto}}
+        <h3>a. Despesa a Anular</h3> {{aditamento.despesaTexto}}
             <table>
                 <th>Graduação-Nome</th> <th>Prec-CP</th> <th>Data de Início</th> 
                 <th>Data de Término</th> <th>Valor</th> <th>Motivo</th>
@@ -42,7 +50,7 @@
             </table>            
     </div>      
     <div> 
-        <h3>Inclusão de Auxílio Transporte</h3> {{aditamento.inclusaoTexto}}         
+        <h3>b. Inclusão de Auxílio Transporte</h3> {{aditamento.inclusaoTexto}}         
             <table>
                 <th>Graduação-Nome</th> <th>Prec-CP</th> <th>A contar de:</th> <th>Valor</th> 
                 <tr *ngFor='let inclusaoAuxTransp of inclusoesAuxilioTransporte'>
@@ -54,7 +62,7 @@
             </table>         
     </div>
     <div>
-        <h3>Atualização de Auxílio Transporte</h3> {{aditamento.atualizacaoTexto}}         
+        <h3>c. Atualização de Auxílio Transporte</h3> {{aditamento.atualizacaoTexto}}         
             <table>
                 <th>Graduação-Nome</th> <th>Prec-CP</th> <th>A contar de:</th> <th>Valor</th> <th>Motivo</th>
                 <tr *ngFor='let atualizacaoAuxTransp of atualizacoesAuxiliosTransporte'>
@@ -67,7 +75,7 @@
             </table>            
     </div>
     <div>
-        <h3>Exclusão de Auxílio Transporte</h3> {{aditamento.exclusaoTexto}}         
+        <h3>d. Exclusão de Auxílio Transporte</h3> {{aditamento.exclusaoTexto}}         
             <table>
                     <th>Graduação-Nome</th> <th>Prec-CP</th> <th>Data</th> <th>Valor</th> <th>Motivo</th> 
                     <tr *ngFor='let exclusaoAuxTransp of exclusoesAuxilioTransporte'>
@@ -80,7 +88,7 @@
             </table>
     </div> 
     <div>
-        <h3>Saque Atrasado</h3> {{aditamento.pagamentoAtrasadoTexto}}         
+        <h3>e. Saque Atrasado</h3> {{aditamento.pagamentoAtrasadoTexto}}         
             <table>
                 <th>Graduação-Nome</th> <th>Prec-CP</th> <th>Mês de Referência</th> 
                 <th>Quantidade de Dias</th> <th>Valor</th> <th>Motivo</th> 
@@ -92,7 +100,24 @@
                     <td>R$ {{pgmto.valor}}</td>
                     <td>{{pgmto.motivo}}</td>
                 </tr>
-            </table>       
+            </table> 
+            <div class="rodape">
+                <div class="rodape1"><br><br>  2.  <b>ASSUNTOS ADMINISTRATIVOS</b>
+                    <br>Sem Alteração<br>
+                </div>
+                <div> <b>4ª Parte</b></div>
+                    <div> <b>JUSTIÇA E DISCIPLINA</b> </div>
+                    <div class="rodape1">    
+                        <br>1. <b>JUSTIÇA</b>
+                            <br>Sem Alteração<br>
+
+                        <br>2. <b>DISCIPLINA</b>
+                            <br>Sem Alteração<br>
+                    </div>
+
+                    <div><b>NOME COMPLETO - Maj</b></div>
+                    Comandante da Companhia de Comando do Comando Militar do Sul
+            </div>
     </div>
              
     <div class="buttons">

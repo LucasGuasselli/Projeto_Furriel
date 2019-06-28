@@ -36,8 +36,10 @@ export class RelatorioComponent implements OnInit {
   aditamentos: AditamentoDTO[] = [];
   aditamento: AditamentoDTO = new AditamentoDTO;
 
-  cabecalho = 'MINISTÉRIO DA DEFESA\n EXÉRCITO BRASILEIRO\n COMANDO MILITAR DO SUL' +
-             '\n COMPANHIA DE COMANDO DO COMANDO MILITAR DO SUL';
+  cabecalho0 = 'MINISTÉRIO DA DEFESA';
+  cabecalho1 = 'EXÉRCITO BRASILEIRO';
+  cabecalho2 = 'COMANDO MILITAR DO SUL';
+  cabecalho3 = 'COMPANHIA DE COMANDO DO COMANDO MILITAR DO SUL';
   constructor(private militaresService: MilitaresService,
               private postosGraduacoesService: PostosGraduacoesService,
               private despesasService: DespesasService,
