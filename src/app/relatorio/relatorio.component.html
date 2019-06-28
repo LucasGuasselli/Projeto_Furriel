@@ -37,13 +37,12 @@
     <div>          
         <h3>a. Despesa a Anular</h3> {{aditamento.despesaTexto}}
             <table>
-                <th>Graduação-Nome</th> <th>Prec-CP</th> <th>Data de Início</th> 
-                <th>Data de Término</th> <th>Valor</th> <th>Motivo</th>
+                <th>Graduação-Nome</th> <th>Prec-CP</th> <th>Quantidade de Dias</th> 
+                <th>Valor</th> <th>Motivo</th>
                 <tr *ngFor='let d of despesas'>
                     <td>{{d.graduacao}} {{d.nome}}</td>
                     <td>{{d.militarPrecCP}}</td>
-                    <td>{{d.dataInicio}}</td>
-                    <td>{{d.dataFim}}</td>
+                    <td>{{d.quantidadeDias}}</td>
                     <td>R$: {{d.valor}}</td>
                     <td>{{d.motivo}}</td>
                 </tr>
