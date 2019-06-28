@@ -92,31 +92,6 @@ export class FormAuxilioTransporteComponent implements OnInit {
        }
     }
 
-    findAuxilioTransporteByPerecCP() {
-        this.auxiliosTransporteService.findAuxilioTransporteByPrecCP(this.precCP).subscribe(
-            response => { this.auxTransp = response; this.insertInclusaoAuxilioTransporte(
-                this.inclusaoAuxilioTransporte, this.aditamentoAtual.id, this.precCP,
-                this.auxTransp.valorTotalAT); }, error => {console.log(error); });
-    }
-
-    insertConducao(conducao: ConducaoDTO, auxilioTransporteId: number) {
-        conducao.auxilioTransporteId = auxilioTransporteId;
-        this.conducoesService.insert(conducao).subscribe(
-            response => { console.log('Conducao cadastrada com sucesso'); console.log(conducao); } ,
-            error => {console.log(error); } );
-    }
-
-    insertInclusaoAuxilioTransporte(inclusao: InclusaoAuxilioTransporteDTO, aditamentoId: number, precCP: number, valor: number) {
-        inclusao.militarPrecCP = precCP;
-        inclusao.aditamentoId = aditamentoId;
-        inclusao.valor = valor;
-        inclusao.dataInicio = this.utilService.formatDate(inclusao.dataInicio.toString());
-        this.inclusaoAuxilioTransporteService.insert(inclusao).subscribe(
-            response => { console.log('Inclusao cadastrada com sucesso'); console.log(inclusao); },
-            error => {console.log(error); }
-        );
-    }
-
     validConducoes() {
         const conducoesValidas: number [] = [];
         // busca os indices validos para cadastrar as conducoes
@@ -130,13 +105,38 @@ export class FormAuxilioTransporteComponent implements OnInit {
             }
 
             for (let i = 0; i < conducoesValidas.length; i++) {
+                let valida = false;
                 this.auxiliosTransporteService.findAuxilioTransporteByPrecCP(this.precCP).subscribe(
                     response => { this.auxTransp = response;
-                    this.insertConducao(this.conducoes[conducoesValidas[i]], this.auxTransp.id);
-                     if (i === (conducoesValidas.length - 1)) { this.findAuxilioTransporteByPerecCP(); }
+                    if (i === (conducoesValidas.length - 1) ) { valida = true; }
+                        this.insertConducao(this.conducoes[conducoesValidas[i]], this.auxTransp.id, valida);
                     this.auxTransp = new AuxilioTransporteDTO(); }, error => {console.log(error); }
                 );
             }
+    }
+
+    insertConducao(conducao: ConducaoDTO, auxilioTransporteId: number, valida: boolean) {
+        conducao.auxilioTransporteId = auxilioTransporteId;
+        this.conducoesService.insert(conducao).subscribe(
+            response => { if (valida === true && response.status === 201 ) { this.insertInclusaoAuxilioTransporte(); }
+                console.log('Conducao cadastrada com sucesso'); console.log(conducao); } ,
+            error => {console.log(error); } );
+    }
+
+    insertInclusaoAuxilioTransporte() {
+        this.inclusaoAuxilioTransporte.militarPrecCP = this.precCP;
+        this.inclusaoAuxilioTransporte.aditamentoId = this.aditamentoAtual.id;
+        this.inclusaoAuxilioTransporte.valor = 0;
+        this.inclusaoAuxilioTransporte.dataInicio = this.utilService.formatDate(this.inclusaoAuxilioTransporte.dataInicio.toString());
+        this.inclusaoAuxilioTransporteService.insert(this.inclusaoAuxilioTransporte).subscribe(
+            response => { console.log('Inclusao cadastrada com sucesso'); console.log(this.inclusaoAuxilioTransporte); },
+            error => {console.log(error); }
+        );
+    }
+
+    findAuxilioTransporteByPrecCP() {
+        this.auxiliosTransporteService.findAuxilioTransporteByPrecCP(this.precCP).subscribe(
+            response => { this.auxTransp = response; }, error => {console.log(error); });
     }
 
     loadMilitaresSemAuxilioTransporte() {

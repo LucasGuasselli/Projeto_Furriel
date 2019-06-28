@@ -206,11 +206,8 @@ export class RelatorioComponent implements OnInit {
                                         'de 30 jun 1999), a Port. nº 98 - DGP, de 31 out 01, a Port. nº 269 - DGP, de 11 dez 07 ' +
                                         'e a Port. nº 849 - Cmt Ex, de 14 jul 16 (EB 10-IG-02.018).' ;
 
-    this.aditamento.exclusaoTexto = 'Seja atualizado o valor do benefício do Auxílio-Transporte (AT) referente ' +
-                                    'ao deslocamento de 22 (vinte e dois) dias, de acordo com o Decreto nº 2.963, ' +
-                                    'de 24 fev 1999, as IG 70-04 (Port. nº 334, de 25 jun 1999), as IR 70-21 (Port. nº 14, ' +
-                                    'de 30 jun 1999), a Port. nº 98 - DGP, de 31 out 01, a Port. nº 269 - DGP, de 11 dez 07 ' +
-                                    'e a Port. nº 849 - Cmt Ex, de 14 jul 16 (EB 10-IG-02.018).' ;
+    this.aditamento.exclusaoTexto = 'Seja cancelado o benefício do AT de acordo com o Art. 11. das Instruções Reguladoras ' +
+                                      'para a Concessão do Auxílio-Transporte no Exército Brasileiro (IR 70-21).';
 
     this.aditamento.pagamentoAtrasadoTexto =  'Seja realizado o saque atrasado do benefício de Auxlio-Transporte (AT), ' +
                                               'de acordo com o Decreto nº 2.963, de 24 fev 1999, as IG 70-04 (Port. nº 334, ' +
