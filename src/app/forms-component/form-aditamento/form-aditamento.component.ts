@@ -20,8 +20,8 @@ export class FormAditamentoComponent implements OnInit {
   }
 
   saveAditamento() {
-      this.aditamentosService.insert(this.aditamento).subscribe( response => {console.log(response); },
-        error => {console.log(error); } );
+      this.aditamentosService.insert(this.aditamento).subscribe( response =>  { if (response.status === 201) {}
+     console.log(response); },  error => {console.log(error); } );
   }
 
   cancel() {

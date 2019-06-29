@@ -15,7 +15,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import { MatPaginatorModule, MatSortModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
@@ -57,6 +57,7 @@ import { AtualizacoesAuxilioTransporteService } from './services/atualizacoesAux
 import { AditamentosService } from './services/aditamentos.service';
 
 
+
 const routes: Routes = [
     { path: '', redirectTo: 'index', pathMatch: 'full'},
     { path: 'index', component: IndexComponent },
@@ -81,7 +82,8 @@ const routes: Routes = [
     { path: 'edicaoPagamentoAtrasado/:cod', component: FormPagamentoAtrasadoComponent },
     { path: 'cadastroAtualizacaoAuxilioTransporte/:cod', component: FormAtualizacaoAuxilioTransporteComponent},
 
-    { path: 'relatorio', component: RelatorioComponent }
+    { path: 'relatorio', component: RelatorioComponent },
+
 ];
 
 @NgModule({
@@ -113,6 +115,8 @@ const routes: Routes = [
     MatFormFieldModule,
     MatSelectModule,
     MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
     MatMenuModule,
     MatIconModule,
     MatDatepickerModule,
@@ -121,7 +125,9 @@ const routes: Routes = [
     FormsModule,
     HttpModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [MilitaresService, EnderecosService, PostosGraduacoesService, InclusoesAuxilioTransporteService,
               DespesasService, UtilService, AuxiliosTransporteService , ExclusoesAuxilioTransporteService,

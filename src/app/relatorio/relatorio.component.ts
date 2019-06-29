@@ -28,6 +28,7 @@ export class RelatorioComponent implements OnInit {
   postoGraduacao: PostoGraduacaoDTO;
 
   despesas: DespesaDTO[] = [];
+  despesasSomadas: DespesaDTO[] = [];
   inclusoesAuxilioTransporte: InclusaoAuxilioTransporteDTO[] = [];
   atualizacoesAuxiliosTransporte: AtualizacaoAuxilioTransporteDTO[] = [];
   exclusoesAuxilioTransporte: ExclusaoAuxilioTransporteDTO[] = [];
@@ -74,16 +75,37 @@ export class RelatorioComponent implements OnInit {
 
 // DESPESA A ANULAR
   loadDespesas(id: number) {
-    this.despesasService.findDespesasByAditamentoId(id).subscribe(response => {this.despesas = response;
-    console.log(this.despesas); this.loadMilitaresOnDespesas(this.despesas); } ,
-      error => {console.log(error); } );
+    this.despesasService.findDespesasByAditamentoId(id).subscribe(response => {this.despesasSomadas = response;
+    console.log(this.despesas); this.sumDespesas(this.despesasSomadas); } ,
+      error =>  {console.log(error); } );
+  }
+
+  sumDespesas(despesas: DespesaDTO[]) {
+      let index = 1;
+       this.despesas[0] = despesas[0];
+        for (let i = 1; i < despesas.length; i++) {
+          let contador = 0;
+          for (let k = 0; k < this.despesas.length; k++) {
+          if (this.despesas[k].militarPrecCP === despesas[i].militarPrecCP) {
+                    this.despesas[k].valor += despesas[i].valor;
+                    this.despesas[k].quantidadeDias += despesas[i].quantidadeDias;
+                      contador = 1;
+                }
+          }
+            if (contador === 0) {
+              this.despesas[index] = despesas[i];
+               index++;
+            }
+        }
+          console.log(this.despesas);
+    this.loadMilitaresOnDespesas(this.despesas);
   }
 
   loadMilitaresOnDespesas(despesas: DespesaDTO[]) {
     for (let i = 0; i < despesas.length; i++) {
         this.militaresService.findMilitarByPrecCP(despesas[i].militarPrecCP).subscribe(
           response => {this.militares[i] = response; despesas[i].nome = this.militares[i].nome;
-                      this.loadGraduacoesOnDespesa(this.despesas[i], this.militares[i]); },
+                      this.loadGraduacoesOnDespesa(despesas[i], this.militares[i]); },
           error => {console.log(error); }
         );
     }

@@ -8,6 +8,7 @@ export class DespesaDTO {
     dataFim: String;
     quantidadeDias: number;
     valor: number;
+    valorTotal: number = this.valor;
     motivo: string;
     calculoDataInicio: Date;
     calculoDataFim: Date;
