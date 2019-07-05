@@ -66,6 +66,7 @@ export class RelatorioComponent implements OnInit {
   }
 
   loadInfomationAditamento(id: number) {
+    this.setNull();
     this.loadDespesas(id);
     this.loadInclusoesAuxilioTransporte(id);
     this.loadAtualizacoesAuxilioTransporte(id);
@@ -73,6 +74,14 @@ export class RelatorioComponent implements OnInit {
     this.loadPagamentosAtrasados(id);
   }
 
+  setNull() {
+    this.despesas = [];
+    this.despesasSomadas = [];
+    this.inclusoesAuxilioTransporte = [];
+    this.atualizacoesAuxiliosTransporte = [];
+    this.exclusoesAuxilioTransporte = [];
+    this.pagamentosAtrasados = [];
+  }
 // DESPESA A ANULAR
   loadDespesas(id: number) {
     this.despesasService.findDespesasByAditamentoId(id).subscribe(response => {this.despesasSomadas = response;

@@ -15,11 +15,10 @@
             <button mat-button [matMenuTriggerFor]="menu2">Listar</button>
                   <mat-menu #menu2="matMenu">
                         <button mat-menu-item (click)="moveToReadMilitares()">Militares</button>
-                        <button mat-menu-item (click)="moveToReadAuxiliosAndConducoes()">Auxílios e Conduções</button>
+                        <button mat-menu-item (click)="moveToReadAuxiliosAndConducoes()">Auxílios</button>
                         <button mat-menu-item (click)="moveToReadDescontos()">Descontos</button>
                         <button mat-menu-item (click)="moveToReadPagamentosAtrasados()">Pagamentos Atrasados</button>
                         <button mat-menu-item (click)="moveToReadExclusoesAuxilioTransporte()">Exclusões de Auxílio Transporte</button>
-                        <button mat-menu-item (click)="moveToTableTest()">Testando Tabelas</button>
                   </mat-menu>  
             <button mat-button [matMenuTriggerFor]="menu3">Aditamento</button>
                   <mat-menu #menu3="matMenu">
