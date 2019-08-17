@@ -27,8 +27,10 @@ export class RelatorioComponent implements OnInit {
   militares: MilitarDTO[] = [];
   postoGraduacao: PostoGraduacaoDTO;
 
+  despesa: DespesaDTO = new DespesaDTO;
   despesas: DespesaDTO[] = [];
   despesasSomadas: DespesaDTO[] = [];
+  militaresSemDespesas: DespesaDTO[] = [];
   inclusoesAuxilioTransporte: InclusaoAuxilioTransporteDTO[] = [];
   atualizacoesAuxiliosTransporte: AtualizacaoAuxilioTransporteDTO[] = [];
   exclusoesAuxilioTransporte: ExclusaoAuxilioTransporteDTO[] = [];
@@ -52,7 +54,7 @@ export class RelatorioComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.loadTexto();
+    this.loadText();
     this.loadAditamentos();
   }
 
@@ -83,12 +85,14 @@ export class RelatorioComponent implements OnInit {
     this.pagamentosAtrasados = [];
   }
 // DESPESA A ANULAR
+
   loadDespesas(id: number) {
     this.despesasService.findDespesasByAditamentoId(id).subscribe(response => {this.despesasSomadas = response;
     console.log(this.despesas); this.sumDespesas(this.despesasSomadas); } ,
       error =>  {console.log(error); } );
   }
 
+  // inverter a logica de despesas e despesasSomadas
   sumDespesas(despesas: DespesaDTO[]) {
       let index = 1;
        this.despesas[0] = despesas[0];
@@ -108,6 +112,33 @@ export class RelatorioComponent implements OnInit {
         }
           console.log(this.despesas);
     this.loadMilitaresOnDespesas(this.despesas);
+    this.loadMilitares(this.despesas);
+  }
+
+
+  loadMilitares(despesas: DespesaDTO[]) {
+    this.militaresService.findAll().subscribe( response => { this.militares = response;
+    this.verifyWhoHasNoDespesa(despesas, this.militares); } , error => { console.log(error); } );
+
+  }
+
+// compara todos os militares com as despesas do aditamento selecionado para saber quais militares nao tiveram despesas
+  verifyWhoHasNoDespesa(despesas: DespesaDTO[], militares: MilitarDTO[]) {
+    for ( let  i = 0; i < militares.length; i++) {
+      let contador = 0;
+        for ( let  k = 0; k < despesas.length; k++) {
+          if ( militares[i].precCP !== this.despesas[k].militarPrecCP ) {
+              contador++;
+              console.log('valor do contador e: ' + contador);
+          }
+          if (contador === despesas.length) {
+            this.despesa.militarPrecCP = militares[i].precCP;
+              this.militaresSemDespesas.push(this.despesa);
+            this.despesa = new DespesaDTO;
+          }
+        }
+    }
+    this.loadMilitaresOnDespesas(this.militaresSemDespesas);
   }
 
   loadMilitaresOnDespesas(despesas: DespesaDTO[]) {
@@ -220,7 +251,7 @@ export class RelatorioComponent implements OnInit {
          error => {console.log(error); } );
   }
 
-  loadTexto() {
+  loadText() {
     this.aditamento.despesaTexto = 'Seja realizada a Despesa a Anular (DA) do benefício ' +
                                    'de Auxílio Transporte (AT), de acordo com o Decreto nº 2.963, de 24 fev 1999,' +
                                    ' as IG 70-04 (Port. nº 334, de 25 jun 1999), as IR 70-21 (Port. nº 114, de 30 jun 1999), ' +

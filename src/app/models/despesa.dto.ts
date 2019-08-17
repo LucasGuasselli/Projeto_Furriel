@@ -6,10 +6,10 @@ export class DespesaDTO {
     graduacao: String;
     dataInicio: String;
     dataFim: String;
-    quantidadeDias: number;
-    valor: number;
+    quantidadeDias = 0;
+    valor = 0;
     valorTotal: number = this.valor;
-    motivo: string;
+    motivo = 'não houve despesa';
     calculoDataInicio: Date;
     calculoDataFim: Date;
     // tslint:disable-next-line:no-inferrable-types

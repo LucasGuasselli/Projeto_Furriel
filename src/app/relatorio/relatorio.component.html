@@ -46,6 +46,13 @@
                     <td>R$: {{d.valor}}</td>
                     <td>{{d.motivo}}</td>
                 </tr>
+                <tr *ngFor='let d of militaresSemDespesas'>
+                    <td>{{d.graduacao}} {{d.nome}}</td>
+                    <td>{{d.militarPrecCP}}</td>
+                    <td>{{d.quantidadeDias}}</td>
+                    <td>R$: {{d.valor}}</td>
+                    <td>{{d.motivo}}</td>
+                </tr>
             </table>            
     </div>      
     <div> 
@@ -114,7 +121,7 @@
                             <br>Sem Alteração<br>
                     </div>
 
-                    <div><b>NOME COMPLETO - Maj</b></div>
+                    <div><b>DIEGO PINTO DE ALENCAR - Maj</b></div>
                     Comandante da Companhia de Comando do Comando Militar do Sul
             </div>
     </div>
