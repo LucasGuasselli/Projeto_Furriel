@@ -36,6 +36,10 @@ export class RelatorioComponent implements OnInit {
   exclusoesAuxilioTransporte: ExclusaoAuxilioTransporteDTO[] = [];
   pagamentosAtrasados: PagamentoAtrasadoDTO[] = [];
 
+  displayedColumns: string[] = ['graduacaoNome', 'precCP', 'quantidadeDias', 'valor', 'motivo'];
+  dataSourceDespesas;
+  dataSourceDespesasSomadas;
+
   aditamentos: AditamentoDTO[] = [];
   aditamento: AditamentoDTO = new AditamentoDTO;
 
@@ -110,8 +114,9 @@ export class RelatorioComponent implements OnInit {
                index++;
             }
         }
-          console.log(this.despesas);
-    this.loadMilitaresOnDespesas(this.despesas);
+        this.dataSourceDespesas = this.despesas;
+         // console.log(this.despesas);
+    this.loadMilitaresOnDespesas(this.dataSourceDespesas);
     this.loadMilitares(this.despesas);
   }
 
@@ -138,7 +143,8 @@ export class RelatorioComponent implements OnInit {
           }
         }
     }
-    this.loadMilitaresOnDespesas(this.militaresSemDespesas);
+    this.dataSourceDespesasSomadas = this.militaresSemDespesas;
+    this.loadMilitaresOnDespesas(this.dataSourceDespesasSomadas);
   }
 
   loadMilitaresOnDespesas(despesas: DespesaDTO[]) {
