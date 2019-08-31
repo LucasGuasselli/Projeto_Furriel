@@ -6,6 +6,7 @@ import { MilitarDTO } from '../../models/militar.dto';
 import { EnderecoDTO } from '../../models/endereco.dto';
 import { EnderecosService } from '../../services/enderecos.service';
 
+
 @Component({
   selector: 'app-tabela-militares',
   templateUrl: './tabela-militares.component.html',
@@ -17,6 +18,10 @@ export class TabelaMilitaresComponent implements OnInit {
 
   militares: MilitarDTO[] = [];
   enderecos: EnderecoDTO[] = [];
+  ELEMENT_DATA = this.militares;
+
+  displayedColumns: string[] = ['nome', 'precCP', 'Editar', 'Remover'];
+  dataSource;
 
   constructor(private militaresService: MilitaresService,
               private enderecosService: EnderecosService,
@@ -26,7 +31,7 @@ export class TabelaMilitaresComponent implements OnInit {
   ngOnInit() {
       this.enderecosService.findAll().subscribe(response => {this.enderecos = response; } ,
           error => {console.log(error); } );
-      this.militaresService.findAll().subscribe(response => {this.militares = response; } ,
+      this.militaresService.findAll().subscribe(response => { this.dataSource = response; this.militares  = response; } ,
           error => {console.log(error); } );
   }
 
@@ -41,4 +46,6 @@ export class TabelaMilitaresComponent implements OnInit {
   cancel() {
     this.router.navigate(['/index']);
   }
+
+
 }
