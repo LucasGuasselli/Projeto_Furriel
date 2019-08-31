@@ -18,6 +18,11 @@ export class TabelaDescontosComponent implements OnInit {
   militares: MilitarDTO[] = [];
   postoGraduacao: PostoGraduacaoDTO;
   militarPrecCP: number;
+  dataSource;
+
+
+  displayedColumns: string[] = ['id', 'graduacao', 'nome', 'militarPrecCP', 'dataInicio', 'dataFim',
+                                'quantidadeDias', 'valor', 'motivo'];
 
   constructor(private despesasService: DespesasService,
               private militaresService: MilitaresService,
@@ -32,16 +37,16 @@ export class TabelaDescontosComponent implements OnInit {
   }
 
   loadDespesas() {
-    this.despesasService.findAll().subscribe(response => {this.despesas = response;
-    console.log(this.despesas); this.atribuiMilitares(this.despesas); } ,
+    this.despesasService.findAll().subscribe(response => {this.dataSource = response;
+    console.log(this.dataSource); this.atribuiMilitares(this.dataSource); } ,
       error => {console.log(error); } );
   }
 
   atribuiMilitares(despesas: DespesaDTO[]) {
     for (let i = 0; i < despesas.length; i++) {
-        this.militaresService.findMilitarByPrecCP(this.despesas[i].militarPrecCP).subscribe(
+        this.militaresService.findMilitarByPrecCP(despesas[i].militarPrecCP).subscribe(
           response => {this.militares[i] = response; despesas[i].nome = this.militares[i].nome;
-                      this.atribuiGraduacoes(this.despesas[i], this.militares[i]); },
+                      this.atribuiGraduacoes(despesas[i], this.militares[i]); },
           error => {console.log(error); }
         );
     }

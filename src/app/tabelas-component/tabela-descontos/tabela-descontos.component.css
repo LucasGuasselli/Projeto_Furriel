@@ -29,5 +29,6 @@ tr:nth-child(even){
 .buttons button {
     margin-right: 8px;
     z-index:2;
+    margin-top: 10px;
 }
 
