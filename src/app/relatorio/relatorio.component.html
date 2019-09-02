@@ -68,11 +68,11 @@
                 <td mat-cell *matCellDef="let element"> {{element.motivo}} </td>
             </ng-container>
             
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsDespesas"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumnsDespesas;"></tr>
         </table>
 
-        <table mat-table [dataSource]="dataSourceDespesasSomadas" class="mat-elevation-z8">                
+        <table mat-table [dataSource]="dataSourceMilitaresSemDespesas" class="mat-elevation-z8">                
                 <!-- Graduacao-Nome Column -->
                 <ng-container matColumnDef="graduacaoNome">
                     <th mat-header-cell *matHeaderCellDef> Graduação-Nome </th>
@@ -103,62 +103,162 @@
                     <td mat-cell *matCellDef="let element"> {{element.motivo}} </td>
                 </ng-container>
                 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsDespesas"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsDespesas;"></tr>
             </table>
       </div>      
     <div> 
         <h3>b. Inclusão de Auxílio Transporte</h3> {{aditamento.inclusaoTexto}}         
-            <table>
-                <th>Graduação-Nome</th> <th>Prec-CP</th> <th>A contar de:</th> <th>Valor</th> 
-                <tr *ngFor='let inclusaoAuxTransp of inclusoesAuxilioTransporte'>
-                    <td>{{inclusaoAuxTransp.graduacao}} {{inclusaoAuxTransp.nome}}</td>
-                    <td>{{inclusaoAuxTransp.militarPrecCP}}</td>
-                    <td>{{inclusaoAuxTransp.dataInicio}}</td>
-                    <td>R$: {{inclusaoAuxTransp.valor}}</td>
-                </tr>
-            </table>         
+                     
+            <table mat-table [dataSource]="inclusoesAuxilioTransporte" class="mat-elevation-z8">                
+                <!-- Graduacao-Nome Column -->
+                <ng-container matColumnDef="graduacaoNome">
+                    <th mat-header-cell *matHeaderCellDef> Graduação-Nome </th>
+                    <td mat-cell *matCellDef="let element"> {{element.graduacao}} {{element.nome}} </td>
+                </ng-container>
+                
+                <!-- PrecCP Column -->
+                <ng-container matColumnDef="precCP">
+                    <th mat-header-cell *matHeaderCellDef> Prec-CP </th>
+                    <td mat-cell *matCellDef="let element"> {{element.militarPrecCP}} </td>
+                </ng-container>
+            
+                <!-- Data Inicio Column -->
+                <ng-container matColumnDef="dataInicio">
+                    <th mat-header-cell *matHeaderCellDef> A contar de </th>
+                    <td mat-cell *matCellDef="let element"> {{element.dataInicio}} </td>
+                </ng-container>
+                
+                <!-- Valor Column -->
+                <ng-container matColumnDef="valor">
+                    <th mat-header-cell *matHeaderCellDef> Valor </th>
+                    <td mat-cell *matCellDef="let element"> R$ {{element.valor}} </td>
+                </ng-container>
+                
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsInclusoes"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsInclusoes;"></tr>
+            </table>
     </div>
     <div>
         <h3>c. Atualização de Auxílio Transporte</h3> {{aditamento.atualizacaoTexto}}         
-            <table>
-                <th>Graduação-Nome</th> <th>Prec-CP</th> <th>A contar de:</th> <th>Valor</th> <th>Motivo</th>
-                <tr *ngFor='let atualizacaoAuxTransp of atualizacoesAuxiliosTransporte'>
-                    <td>{{atualizacaoAuxTransp.graduacao}} {{atualizacaoAuxTransp.nome}}</td>
-                    <td>{{atualizacaoAuxTransp.militarPrecCP}}</td>
-                    <td>{{atualizacaoAuxTransp.dataInicio}}</td>
-                    <td>R$ {{atualizacaoAuxTransp.valor}}</td>
-                    <td>{{atualizacaoAuxTransp.motivo}}</td>
-                </tr>
-            </table>            
+                        
+            <table mat-table [dataSource]="atualizacoesAuxilioTransporte" class="mat-elevation-z8">                
+                <!-- Graduacao-Nome Column -->
+                <ng-container matColumnDef="graduacaoNome">
+                    <th mat-header-cell *matHeaderCellDef> Graduação-Nome </th>
+                    <td mat-cell *matCellDef="let element"> {{element.graduacao}} {{element.nome}} </td>
+                </ng-container>
+                
+                <!-- PrecCP Column -->
+                <ng-container matColumnDef="precCP">
+                    <th mat-header-cell *matHeaderCellDef> Prec-CP </th>
+                    <td mat-cell *matCellDef="let element"> {{element.militarPrecCP}} </td>
+                </ng-container>
+            
+                <!-- Data Inicio Column -->
+                <ng-container matColumnDef="dataInicio">
+                    <th mat-header-cell *matHeaderCellDef> A contar de </th>
+                    <td mat-cell *matCellDef="let element"> {{element.dataInicio}} </td>
+                </ng-container>
+                
+                <!-- Valor Column -->
+                <ng-container matColumnDef="valor">
+                    <th mat-header-cell *matHeaderCellDef> Valor </th>
+                    <td mat-cell *matCellDef="let element"> R$ {{element.valor}} </td>
+                </ng-container>
+                
+                 <!-- Motivo Column -->
+                 <ng-container matColumnDef="motivo">
+                    <th mat-header-cell *matHeaderCellDef> Motivo </th>
+                    <td mat-cell *matCellDef="let element"> {{element.motivo}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsAtualizacoes"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsAtualizacoes;"></tr>
+            </table>
     </div>
     <div>
         <h3>d. Exclusão de Auxílio Transporte</h3> {{aditamento.exclusaoTexto}}         
-            <table>
-                    <th>Graduação-Nome</th> <th>Prec-CP</th> <th>Data</th> <th>Valor</th> <th>Motivo</th> 
-                    <tr *ngFor='let exclusaoAuxTransp of exclusoesAuxilioTransporte'>
-                        <td>{{exclusaoAuxTransp.graduacao}} {{exclusaoAuxTransp.nome}}</td>
-                        <td>{{exclusaoAuxTransp.militarPrecCP}}</td>
-                        <td>{{exclusaoAuxTransp.data}}</td>
-                        <td>R$ {{exclusaoAuxTransp.valor}}</td>
-                        <td>Motivo: {{exclusaoAuxTransp.motivo}}</td>
-                    </tr>
+            
+            <table mat-table [dataSource]="exclusoesAuxilioTransporte" class="mat-elevation-z8">                
+                <!-- Graduacao-Nome Column -->
+                <ng-container matColumnDef="graduacaoNome">
+                    <th mat-header-cell *matHeaderCellDef> Graduação-Nome </th>
+                    <td mat-cell *matCellDef="let element"> {{element.graduacao}} {{element.nome}} </td>
+                </ng-container>
+                
+                <!-- PrecCP Column -->
+                <ng-container matColumnDef="precCP">
+                    <th mat-header-cell *matHeaderCellDef> Prec-CP </th>
+                    <td mat-cell *matCellDef="let element"> {{element.militarPrecCP}} </td>
+                </ng-container>
+            
+                <!-- Data Inicio Column -->
+                <ng-container matColumnDef="dataInicio">
+                    <th mat-header-cell *matHeaderCellDef> Data </th>
+                    <td mat-cell *matCellDef="let element"> {{element.data}} </td>
+                </ng-container>
+                
+                <!-- Valor Column -->
+                <ng-container matColumnDef="valor">
+                    <th mat-header-cell *matHeaderCellDef> Valor </th>
+                    <td mat-cell *matCellDef="let element"> R$ {{element.valor}} </td>
+                </ng-container>
+                
+                 <!-- Motivo Column -->
+                 <ng-container matColumnDef="motivo">
+                    <th mat-header-cell *matHeaderCellDef> Motivo </th>
+                    <td mat-cell *matCellDef="let element"> {{element.motivo}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsExclusoes"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsExclusoes;"></tr>
             </table>
     </div> 
     <div>
         <h3>e. Saque Atrasado</h3> {{aditamento.pagamentoAtrasadoTexto}}         
-            <table>
-                <th>Graduação-Nome</th> <th>Prec-CP</th> <th>Mês de Referência</th> 
-                <th>Quantidade de Dias</th> <th>Valor</th> <th>Motivo</th> 
-                <tr *ngFor='let pgmto of pagamentosAtrasados'>
-                    <td>{{pgmto.graduacao}} {{pgmto.nome}}</td>
-                    <td>{{pgmto.militarPrecCP}}</td>
-                    <td>{{pgmto.mesReferencia}}</td>
-                    <td>{{pgmto.quantidadeDias}}</td>
-                    <td>R$ {{pgmto.valor}}</td>
-                    <td>{{pgmto.motivo}}</td>
-                </tr>
-            </table> 
+           
+            <table mat-table [dataSource]="pagamentosAtrasados" class="mat-elevation-z8">                
+                <!-- Graduacao-Nome Column -->
+                <ng-container matColumnDef="graduacaoNome">
+                    <th mat-header-cell *matHeaderCellDef> Graduação-Nome </th>
+                    <td mat-cell *matCellDef="let element"> {{element.graduacao}} {{element.nome}} </td>
+                </ng-container>
+                
+                <!-- PrecCP Column -->
+                <ng-container matColumnDef="precCP">
+                    <th mat-header-cell *matHeaderCellDef> Prec-CP </th>
+                    <td mat-cell *matCellDef="let element"> {{element.militarPrecCP}} </td>
+                </ng-container>
+            
+                <!-- Mes de Referencia Column -->
+                <ng-container matColumnDef="mesReferencia">
+                    <th mat-header-cell *matHeaderCellDef> Mês de Referência </th>
+                    <td mat-cell *matCellDef="let element"> {{element.mesReferencia}} </td>
+                </ng-container>
+
+                <!-- Quantidade de Dias Column -->
+                <ng-container matColumnDef="quantidadeDias">
+                    <th mat-header-cell *matHeaderCellDef> Quantidade de Dias </th>
+                    <td mat-cell *matCellDef="let element"> {{element.quantidadeDias}} </td>
+                </ng-container>
+                
+                <!-- Valor Column -->
+                <ng-container matColumnDef="valor">
+                    <th mat-header-cell *matHeaderCellDef> Valor </th>
+                    <td mat-cell *matCellDef="let element"> R$ {{element.valor}} </td>
+                </ng-container>
+                
+                <!-- Motivo Column -->
+                <ng-container matColumnDef="motivo">
+                    <th mat-header-cell *matHeaderCellDef> Motivo </th>
+                    <td mat-cell *matCellDef="let element"> {{element.motivo}} </td>
+                </ng-container>
+                
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsDespesas"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsDespesas;"></tr>
+            </table>
+
             <div class="rodape">
                 <div class="rodape1"><br><br>  2.  <b>ASSUNTOS ADMINISTRATIVOS</b>
                     <br>Sem Alteração<br>

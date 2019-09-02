@@ -32,13 +32,19 @@ export class RelatorioComponent implements OnInit {
   despesasSomadas: DespesaDTO[] = [];
   militaresSemDespesas: DespesaDTO[] = [];
   inclusoesAuxilioTransporte: InclusaoAuxilioTransporteDTO[] = [];
-  atualizacoesAuxiliosTransporte: AtualizacaoAuxilioTransporteDTO[] = [];
+  atualizacoesAuxilioTransporte: AtualizacaoAuxilioTransporteDTO[] = [];
   exclusoesAuxilioTransporte: ExclusaoAuxilioTransporteDTO[] = [];
   pagamentosAtrasados: PagamentoAtrasadoDTO[] = [];
 
-  displayedColumns: string[] = ['graduacaoNome', 'precCP', 'quantidadeDias', 'valor', 'motivo'];
+  displayedColumnsDespesas: string[] = ['graduacaoNome', 'precCP', 'quantidadeDias', 'valor', 'motivo'];
+  displayedColumnsInclusoes: string[] = ['graduacaoNome', 'precCP', 'dataInicio', 'valor'];
+  displayedColumnsAtualizacoes: string[] = ['graduacaoNome', 'precCP', 'dataInicio', 'valor', 'motivo'];
+  displayedColumnsExclusoes: string[] = ['graduacaoNome', 'precCP', 'dataInicio', 'valor', 'motivo'];
+  displayedColumnsPagamentosAtrasados: string[] = ['graduacaoNome', 'precCP', 'mesReferencia', 'dataInicio', 'valor', 'motivo'];
+
+
   dataSourceDespesas;
-  dataSourceDespesasSomadas;
+  dataSourceMilitaresSemDespesas;
 
   aditamentos: AditamentoDTO[] = [];
   aditamento: AditamentoDTO = new AditamentoDTO;
@@ -84,7 +90,7 @@ export class RelatorioComponent implements OnInit {
     this.despesas = [];
     this.despesasSomadas = [];
     this.inclusoesAuxilioTransporte = [];
-    this.atualizacoesAuxiliosTransporte = [];
+    this.atualizacoesAuxilioTransporte = [];
     this.exclusoesAuxilioTransporte = [];
     this.pagamentosAtrasados = [];
   }
@@ -134,7 +140,7 @@ export class RelatorioComponent implements OnInit {
         for ( let  k = 0; k < despesas.length; k++) {
           if ( militares[i].precCP !== this.despesas[k].militarPrecCP ) {
               contador++;
-              console.log('valor do contador e: ' + contador);
+            //  console.log('valor do contador e: ' + contador);
           }
           if (contador === despesas.length) {
             this.despesa.militarPrecCP = militares[i].precCP;
@@ -143,8 +149,8 @@ export class RelatorioComponent implements OnInit {
           }
         }
     }
-    this.dataSourceDespesasSomadas = this.militaresSemDespesas;
-    this.loadMilitaresOnDespesas(this.dataSourceDespesasSomadas);
+    this.dataSourceMilitaresSemDespesas = this.militaresSemDespesas;
+    this.loadMilitaresOnDespesas(this.dataSourceMilitaresSemDespesas);
   }
 
   loadMilitaresOnDespesas(despesas: DespesaDTO[]) {
@@ -190,8 +196,8 @@ export class RelatorioComponent implements OnInit {
   // AUMENTO DE PASSAGEM
   loadAtualizacoesAuxilioTransporte(id: number) {
     this.atualizacoesAuxilioTransporteService.findAtualizacoesByAditamentoId(id).subscribe(response => {
-      this.atualizacoesAuxiliosTransporte = response; console.log(this.atualizacoesAuxiliosTransporte);
-      this.loadMilitaresOnAtualizacoes(this.atualizacoesAuxiliosTransporte); } , error => {console.log(error); } );
+      this.atualizacoesAuxilioTransporte = response; console.log(this.atualizacoesAuxilioTransporte);
+      this.loadMilitaresOnAtualizacoes(this.atualizacoesAuxilioTransporte); } , error => {console.log(error); } );
   }
 
   loadMilitaresOnAtualizacoes(atualizacoes: AtualizacaoAuxilioTransporteDTO[]) {
