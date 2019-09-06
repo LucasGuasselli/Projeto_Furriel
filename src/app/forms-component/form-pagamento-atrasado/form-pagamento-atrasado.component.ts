@@ -35,27 +35,23 @@ export class FormPagamentoAtrasadoComponent implements OnInit {
     }
 
     savePagamentoAtrasado() {
-      if ( this.aditamentoAtual == null)    {
-        alert('Selecione um aditamento!');
-      } else {
         if (isNaN(this.precCP)) {
             alert('Selecione um militar!');
         } else {
             this.insertPagamentoAtrasado();
         }
-      }
     }
 
     insertPagamentoAtrasado() {
       this.pagamentoAtrasado.militarPrecCP = this.precCP;
       this.pagamentoAtrasado.aditamentoId = this.aditamentoAtual.id;
       this.pagamentoAtrasadoService.insert(this.pagamentoAtrasado).subscribe(response => {
-        console.log(response); alert('Saque Atrasado cadastrado com sucesso!'); }, error => {console.log(error); } );
+        alert('Saque Atrasado cadastrado com sucesso!'); }, error => {console.log(error); } );
     }
 
     loadMilitaresComAuxilioTransporte() {
       this.militaresService.findMilitaresComAuxilioTransporte().subscribe(
-          response => {this.militaresComAuxilioTransporte = response; console.log(this.militaresComAuxilioTransporte); } ,
+          response => {this.militaresComAuxilioTransporte = response; } ,
           error => {console.log(error); } );
     }
 
