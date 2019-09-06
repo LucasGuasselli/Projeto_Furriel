@@ -1,31 +1,19 @@
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
+.table table{    
+        border-radius: 4px;    
+        width: 100%;        
 }
 
-td, th {
-    border: 1px solid #F2F2F2;
-    text-align: left;
-    padding:8px;
+.buttons button{
+    margin-right: 8px;
+    margin-top: 10px;
+    text-align: center;
 }
 
-tr:nth-child(even){
-    background-color: #F2F2F2;
+.buttons{
+    text-align: center;
+    display: block;
+    width: 50%;
+    margin: auto;    
 }
-#tudo {
-    float:left;
-    width:35%;
-}
-#tudo1 {
-	width: 50%;
-	float: left;
-}
-#tudo2 {
-	position: relative;
-	left: 200px;
-	width: 200px;
-	height: 200px;
-	background-color: red;
-	float: left;
-}
+
+
