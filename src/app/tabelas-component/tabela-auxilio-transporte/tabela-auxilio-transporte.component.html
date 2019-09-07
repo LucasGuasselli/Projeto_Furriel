@@ -1,24 +1,51 @@
+<div>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+     
+            <!-- GraduacaoNome Column -->
+            <ng-container matColumnDef="graduacaoNome">
+              <th mat-header-cell *matHeaderCellDef> Graduação-Nome </th>
+              <td mat-cell *matCellDef="let element"> {{element.graduacao}} {{element.nome}} </td>
+            </ng-container>
+            
+            <!-- PrecCP Column -->
+            <ng-container matColumnDef="militarPrecCP">
+              <th mat-header-cell *matHeaderCellDef> Prec-CP </th>
+              <td mat-cell *matCellDef="let element"> {{element.militarPrecCP}} </td>
+            </ng-container>
+               
+            <!-- Valor Total Column -->
+            <ng-container matColumnDef="valorTotal">
+              <th mat-header-cell *matHeaderCellDef> Valor Total </th>
+              <td mat-cell *matCellDef="let element"> {{element.valorTotalAT}} </td>
+            </ng-container>
+        
+            <!-- Valor Diario Column -->
+            <ng-container matColumnDef="valorDiario">
+              <th mat-header-cell *matHeaderCellDef> Valor Diário </th>
+              <td mat-cell *matCellDef="let element"> {{element.valorDiario}} </td>
+            </ng-container>
 
-<table>
-      <div >
-            <tr>
-                  <th>Posto-Nome</th> <th>Prec-CP</th> <th>Valor Total</th> 
-                  <th>Valor Diário</th> <th>Aumento de passagem</th> 
-            </tr>
+            <!-- Editar Column -->
+            <ng-container matColumnDef="editar">
+                  <th mat-header-cell *matHeaderCellDef> Aumentar Passagem </th>
+                  <td mat-cell *matCellDef="let element" > 
+                  <a [routerLink]="['/edicaoMilitar', element.precCP]">
+                  <img class="icons" src="../assets/icon-edit.png" alt="Editar"/>
+                  </a>
+                  </td>
+            </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+</div>
 
-            <tr *ngFor='let at of auxiliosTransporte'>
-                  <td>{{at.graduacao}} {{at.nome}}</td>
-                  <td>{{at.militarPrecCP}}</td>
-                  <td>R$ {{at.valorTotalAT}}</td>  
-                  <td>R$ {{at.valorDiarioAT}}</td>
-                  <td>
-                        <a [routerLink]="['/cadastroAtualizacaoAuxilioTransporte', at.id]">
-                              <img class="icons" src="../assets/icon-edit.png" alt="Editar"/>
-                        </a>
-                  </td>   
-            </tr>
-      </div>
-<!--
+<div class="buttons">
+      <button mat-raised-button color="primary" (click)="moveToFormAuxilioTransporte()">Cadastro de Auxilio Transporte</button>
+      <button mat-raised-button color="warn" (click)="cancel()">Voltar</button>            
+</div>     
+
+      <!--
       <div >
             <tr>
                   <th>Codigo Conducao</th> <th>Codigo AT</th> <th>Itinerario</th> <th>Nome da Empresa</th>
@@ -39,8 +66,3 @@
             </tr>
       </div>
   -->    
-</table>
-      <div class="buttons">
-            <button mat-raised-button color="primary" (click)="moveToFormAuxilioTransporte()">Cadastro de Auxilio Transporte</button>
-            <button mat-raised-button color="warn" (click)="cancel()">Voltar</button>            
-      </div>     

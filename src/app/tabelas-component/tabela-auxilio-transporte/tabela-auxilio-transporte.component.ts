@@ -21,6 +21,10 @@ export class TabelaAuxilioTransporteComponent implements OnInit {
   militares: MilitarDTO[] = [];
   postoGraduacao: PostoGraduacaoDTO;
 
+  displayedColumns: string[] = [ 'graduacaoNome', 'militarPrecCP', 'valorTotal', 'valorDiario', 'editar'];
+
+  dataSource;
+
   constructor(private auxilioTransporteService: AuxiliosTransporteService,
               private militaresService: MilitaresService,
               private postosGraduacoesService: PostosGraduacoesService,
@@ -38,16 +42,16 @@ export class TabelaAuxilioTransporteComponent implements OnInit {
   }
 
   loadAuxiliosTransporte() {
-    this.auxilioTransporteService.findAll().subscribe(response => {this.auxiliosTransporte = response;
-      console.log(this.auxiliosTransporte); this.atribuiMilitares(this.auxiliosTransporte); } ,
+    this.auxilioTransporteService.findAll().subscribe(response => {this.dataSource = response;
+      console.log(this.auxiliosTransporte); this.atribuiMilitares(this.dataSource); } ,
         error => {console.log(error); } );
   }
 
   atribuiMilitares(auxiliosTransporte: AuxilioTransporteDTO[]) {
     for (let i = 0; i < auxiliosTransporte.length; i++) {
-        this.militaresService.findMilitarByPrecCP(this.auxiliosTransporte[i].militarPrecCP).subscribe(
+        this.militaresService.findMilitarByPrecCP(auxiliosTransporte[i].militarPrecCP).subscribe(
           response => {this.militares[i] = response; auxiliosTransporte[i].nome = this.militares[i].nome;
-                      this.atribuiGraduacoes(this.auxiliosTransporte[i], this.militares[i]); },
+                      this.atribuiGraduacoes(auxiliosTransporte[i], this.militares[i]); },
           error => {console.log(error); }
         );
     }
