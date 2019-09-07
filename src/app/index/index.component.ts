@@ -61,12 +61,10 @@ moveToReadDescontos() {
 
 moveToReadPagamentosAtrasados() {
   this.router.navigate(['/listaPagamentoAtrasado']);
-
 }
 
 moveToReadExclusoesAuxilioTransporte() {
   this.router.navigate(['/listaExclusaoAuxiliosTransporte']);
-
 }
 
 // ADITAMENTO

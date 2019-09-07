@@ -32,8 +32,6 @@ export class TabelaDescontosComponent implements OnInit {
 
   ngOnInit() {
     this.loadDespesas();
-    // console.log(this.despesas[0]);
-    // this.descontos = this.servicoCrudAT.getDescontos();
   }
 
   loadDespesas() {

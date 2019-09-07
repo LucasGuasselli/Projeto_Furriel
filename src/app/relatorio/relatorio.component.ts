@@ -51,8 +51,8 @@ export class RelatorioComponent implements OnInit {
 
   cabecalho0 = 'MINISTÉRIO DA DEFESA';
   cabecalho1 = 'EXÉRCITO BRASILEIRO';
-  cabecalho2 = 'COMANDO MILITAR DO SUL';
-  cabecalho3 = 'COMPANHIA DE COMANDO DO COMANDO MILITAR DO SUL';
+  cabecalho2 = 'COMPANHIA DE COMANDO DO COMANDO MILITAR DO SUL';
+  cabecalho3 = '(COMPANHIA CAPITÃO EURICO CAPITULINO DE BARROS)';
   constructor(private militaresService: MilitaresService,
               private postosGraduacoesService: PostosGraduacoesService,
               private despesasService: DespesasService,

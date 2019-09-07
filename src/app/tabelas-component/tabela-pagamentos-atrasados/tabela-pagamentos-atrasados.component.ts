@@ -25,10 +25,10 @@ export class TabelaPagamentosAtrasadosComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.loadDespesas();
+    this.loadPagamentosAtrasados();
   }
 
-  loadDespesas() {
+  loadPagamentosAtrasados() {
     this.pagamentosAtrasadosService.findAll().subscribe(response => {this.pagamentosAtrasados = response;
     console.log(this.pagamentosAtrasados); this.atribuiMilitares(this.pagamentosAtrasados); } ,
       error => {console.log(error); } );
