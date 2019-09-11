@@ -1,0 +1,17 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.buttons{
+    text-align: center;
+    display: block;
+    width: 50%;
+    margin: auto;
+  }
+  
+.buttons button {
+    margin-right: 8px;
+    z-index:2;
+}
