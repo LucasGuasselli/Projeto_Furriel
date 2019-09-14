@@ -26,3 +26,10 @@ mat-form-field {
 mat-form-field{
     width: 280px;
 }
+
+.aditamentoAtual{
+    font-family: 'Times New Roman', Times, serif;
+    color: firebrick;
+    text-align: center;
+    font-size: 30px;
+}

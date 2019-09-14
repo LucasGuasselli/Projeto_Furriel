@@ -38,3 +38,10 @@ height: 34px;
 mat-form-field {
     margin-right: 12px;
 }
+
+.aditamentoAtual{
+    font-family: 'Times New Roman', Times, serif;
+    color: firebrick;
+    text-align: center;
+    font-size: 30px;
+}

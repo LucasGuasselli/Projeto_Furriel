@@ -12,9 +12,9 @@ export class AditamentosService {
 
   constructor(public http: HttpClient) { }
 
-    saveAditamentoAtualId(id: number) {
+    saveAditamentoAtual(aditamento: AditamentoDTO) {
       this.aditamentoAtual = new AditamentoDTO;
-      this.aditamentoAtual.id = id;
+      this.aditamentoAtual = aditamento;
     }
 
     getAditamentoAtual() {

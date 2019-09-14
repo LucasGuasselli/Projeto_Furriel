@@ -11,7 +11,7 @@ import { AditamentosService } from '../services/aditamentos.service';
 export class IndexComponent implements OnInit {
 
   aditamentos: AditamentoDTO[] = [];
-  aditamentoId: number;
+  aditamentoAtual: AditamentoDTO;
 
   constructor(private aditamentosService: AditamentosService,
               private router: Router,
@@ -80,12 +80,19 @@ moveToReadExclusoesAuxilioTransporte() {
     this.router.navigate(['/listaAditamento']);
   }
 
-  saveAditamentoId(id: number) {
-    if (isNaN(id)) {
+// Passagens
+
+moveToReadValores() {
+  this.router.navigate(['/listaValoresPassagens']);
+}
+
+  saveAditamento(aditamento: AditamentoDTO) {
+    if (isNaN(aditamento.id)) {
         // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
     } else {
-        this.aditamentoId = id;
-        console.log(this.aditamentoId);
+        this.aditamentoAtual = new AditamentoDTO;
+        this.aditamentoAtual = aditamento;
+         console.log(this.aditamentoAtual);
     }
   }
 
@@ -94,8 +101,8 @@ moveToReadExclusoesAuxilioTransporte() {
        error => {console.log(error); });
   }
 
-  saveAditamentoAtualId() {
-      this.aditamentosService.saveAditamentoAtualId(this.aditamentoId);
+  saveAditamentoAtual() {
+      this.aditamentosService.saveAditamentoAtual(this.aditamentoAtual);
       alert('Aditamento Salvo.');
   }
 
