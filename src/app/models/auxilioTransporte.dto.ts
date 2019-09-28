@@ -6,4 +6,6 @@ export class AuxilioTransporteDTO {
     nome: String;
     graduacao: String;
     exclusao: Boolean = false;
+    atualizacao: Boolean = true;
+    atualizacaoTexto: String;
 }

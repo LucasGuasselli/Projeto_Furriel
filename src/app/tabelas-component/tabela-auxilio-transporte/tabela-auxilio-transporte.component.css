@@ -37,5 +37,11 @@ tr:nth-child(even){
 .buttons{
     text-align: center;
     display: block;
-    margin: auto;    
+    margin: auto; 
+    margin-top: 10px;
+    margin-bottom: 10px;   
+}
+
+.atualizacao {
+    color:firebrick;
 }

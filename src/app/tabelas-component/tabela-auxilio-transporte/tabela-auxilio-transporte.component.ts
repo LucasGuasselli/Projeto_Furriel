@@ -21,7 +21,7 @@ export class TabelaAuxilioTransporteComponent implements OnInit {
   militares: MilitarDTO[] = [];
   postoGraduacao: PostoGraduacaoDTO;
 
-  displayedColumns: string[] = [ 'graduacaoNome', 'militarPrecCP', 'valorTotal', 'valorDiario', 'editar'];
+  displayedColumns: string[] = [ 'graduacaoNome', 'militarPrecCP', 'valorTotal', 'valorDiario', 'atualizacao', 'editar'];
 
   dataSource;
 
@@ -59,13 +59,28 @@ export class TabelaAuxilioTransporteComponent implements OnInit {
 
   atribuiGraduacoes(auxilioTransporte: AuxilioTransporteDTO, militar: MilitarDTO) {
     this.postosGraduacoesService.findPostoGraduacaoById(militar.postoGraduacaoId).subscribe(
-      response => {this.postoGraduacao = response; auxilioTransporte.graduacao = this.postoGraduacao.nome; },
-         error => {console.log(error); } );
+      response => {this.postoGraduacao = response; auxilioTransporte.graduacao = this.postoGraduacao.nome;
+                   this.atribuiTextoAtualizacao(auxilioTransporte); }, error => {console.log(error); } );
+  }
+
+  atribuiTextoAtualizacao(auxilioTransporte: AuxilioTransporteDTO) {
+      if (auxilioTransporte.atualizacao === true) {
+        auxilioTransporte.atualizacaoTexto = 'Atualizado';
+        console.log(auxilioTransporte.atualizacaoTexto);
+      } else {
+        auxilioTransporte.atualizacaoTexto = 'DESATUALIZADO!';
+      }
   }
 
   loadConducoes() {
     this.conducoesService.findAll().subscribe(response => {this.conducoes = response;
       console.log(this.conducoes); }, error => {console.log(error); } );
+  }
+
+  updateAuxilioTransporte() {
+    this.auxilioTransporteService.updateAuxilioTransporte().subscribe(response => { console.log(response);
+      this.ngOnInit(); }, error => {console.log(error); } );
+
   }
 
   moveToFormAuxilioTransporte() {
