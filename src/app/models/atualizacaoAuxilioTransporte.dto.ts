@@ -7,4 +7,5 @@ export class AtualizacaoAuxilioTransporteDTO {
     valor: number;
     nome: String;
     graduacao: String;
+    atualizacao: Boolean = true;
 }

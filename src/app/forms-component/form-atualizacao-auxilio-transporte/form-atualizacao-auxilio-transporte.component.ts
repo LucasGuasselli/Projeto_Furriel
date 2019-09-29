@@ -71,21 +71,16 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
   // este metodo e responsavel por nao permitir colocar valores menores que os existentes
   verifyValues() {
     let validacao = true;
-    if (this.aditamentoAtual == null) {
-      alert('Você precisa selecionar um aditamento!');
-    } else {
       for (let i = 0; i < this.valoresAntigos.length; i++) {
         if (this.valoresAntigos[i] > this.conducoes[i].valor) {
           alert('Você não pode inserir um valor menor que o anterior.\n Verifique os valores inseridos!');
           validacao = false;
         }
-      }
-
-      if (validacao === true && this.atualizacaoAuxilioTransporte.dataInicio != null) {
-        this.findAuxilioTransporteById(this.codAT);
-      } else {
-        alert ('Você deve selecionar uma data inicial!');
-      }
+        if (validacao === true && this.atualizacaoAuxilioTransporte.dataInicio != null) {
+          this.findAuxilioTransporteById(this.codAT);
+        } else {
+          alert ('Você deve selecionar uma data inicial!');
+        }
     }
   }
 
@@ -104,6 +99,7 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
     this.atualizacaoAuxilioTransporte.dataInicio = this.utilService.formatDate(
                                   this.atualizacaoAuxilioTransporte.dataInicio.toString());
     this.atualizacaoAuxilioTransporte.valor = 0;
+    this.atualizacaoAuxilioTransporte.atualizacao = true;
 
   this.atualizacoesAuxilioTransporteService.insert(this.atualizacaoAuxilioTransporte).subscribe(
     response => { if (response.status === 201 ) { this.updateConducoes(); } },
