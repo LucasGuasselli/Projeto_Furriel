@@ -4,9 +4,9 @@ import { PassagensService } from '../../services/passagens.service';
 import { PassagemDTO } from '../../models/Passagem.dto';
 
 @Component({
-  selector: 'app-tabela-valores-passagens',
-  templateUrl: './tabela-valores-passagens.component.html',
-  styleUrls: ['./tabela-valores-passagens.component.css']
+  selector: 'app-tabela-passagens',
+  templateUrl: './tabela-passagens.component.html',
+  styleUrls: ['./tabela-passagens.component.css']
 })
 export class TabelaValoresPassagensComponent implements OnInit {
 
