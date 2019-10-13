@@ -41,6 +41,7 @@ import { TabelaAditamentosComponent } from './tabelas-component/tabela-aditament
 import { TabelaPagamentosAtrasadosComponent } from './tabelas-component/tabela-pagamentos-atrasados/tabela-pagamentos-atrasados.component';
 // tslint:disable-next-line:max-line-length
 import { TabelaExclusaoAuxiliosTransporteComponent } from './tabelas-component/tabela-exclusao-auxilios-transporte/tabela-exclusao-auxilios-transporte.component';
+import { TabelaValoresPassagensComponent } from './tabelas-component/tabela-passagens/tabela-passagens.component';
 
 // SERVICES
 import { MilitaresService } from './services/militares.service';
@@ -55,6 +56,8 @@ import { ExclusoesAuxilioTransporteService } from './services/exclusaoAuxilioTra
 import { PagamentosAtrasadosService } from './services/pagamentosAtrasados.service';
 import { AtualizacoesAuxilioTransporteService } from './services/atualizacoesAuxilioTransporte.service';
 import { AditamentosService } from './services/aditamentos.service';
+import { PassagensService } from './services/passagens.service';
+import { FormPassagensComponent } from './forms-component/form-passagens/form-passagens.component';
 
 
 
@@ -69,7 +72,8 @@ const routes: Routes = [
     { path: 'cadastroPagamentoAtrasado', component: FormPagamentoAtrasadoComponent },
     { path: 'cadastroAditamento', component: FormAditamentoComponent },
     { path: 'cadastroExclusaoAuxilioTransporte', component: FormExclusaoAuxilioTransporteComponent },
-   // { path: 'cadastroAtualizacaoAuxilioTransporte', component: FormAtualizacaoAuxilioTransporteComponent},
+    { path: 'cadastroPassagem', component: FormPassagensComponent},
+       // { path: 'cadastroAtualizacaoAuxilioTransporte', component: FormAtualizacaoAuxilioTransporteComponent},
 
     { path: 'listaMilitares', component: TabelaMilitaresComponent },
     { path: 'listaATConducao', component: TabelaAuxilioTransporteComponent },
@@ -77,8 +81,10 @@ const routes: Routes = [
     { path: 'listaAditamento', component: TabelaAditamentosComponent },
     { path: 'listaPagamentoAtrasado', component: TabelaPagamentosAtrasadosComponent },
     { path: 'listaExclusaoAuxiliosTransporte', component: TabelaExclusaoAuxiliosTransporteComponent },
+    { path: 'listaValoresPassagens', component: TabelaValoresPassagensComponent},
 
     { path: 'edicaoMilitar/:cod', component: FormMilitaresComponent },
+    { path: 'edicaoPassagem/:cod', component: FormPassagensComponent },
     { path: 'edicaoPagamentoAtrasado/:cod', component: FormPagamentoAtrasadoComponent },
     { path: 'cadastroAtualizacaoAuxilioTransporte/:cod', component: FormAtualizacaoAuxilioTransporteComponent},
 
@@ -89,22 +95,24 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    TabelaMilitaresComponent,
     FormMilitaresComponent,
-    IndexComponent,
-    FormAuxilioTransporteComponent,
-    TabelaAuxilioTransporteComponent,
-    FormDescontosComponent,
-    TabelaDescontosComponent,
-    RelatorioComponent,
     FormPagamentoAtrasadoComponent,
     FormAditamentoComponent,
-    TabelaAditamentosComponent,
-    TabelaPagamentosAtrasadosComponent,
+    FormAuxilioTransporteComponent,
+    FormDescontosComponent,
     FormExclusaoAuxilioTransporteComponent,
-    TabelaExclusaoAuxiliosTransporteComponent,
     FormAtualizacaoAuxilioTransporteComponent,
     FormDescontosFeriadosAdmComponent,
+    FormPassagensComponent,
+    TabelaAditamentosComponent,
+    TabelaPagamentosAtrasadosComponent,
+    TabelaExclusaoAuxiliosTransporteComponent,
+    TabelaValoresPassagensComponent,
+    TabelaMilitaresComponent,
+    TabelaAuxilioTransporteComponent,
+    TabelaDescontosComponent,
+    IndexComponent,
+    RelatorioComponent
   ],
   imports: [
     BrowserModule,
@@ -131,7 +139,7 @@ const routes: Routes = [
   ],
   providers: [MilitaresService, EnderecosService, PostosGraduacoesService, InclusoesAuxilioTransporteService,
               DespesasService, UtilService, AuxiliosTransporteService , ExclusoesAuxilioTransporteService,
-              ConducoesService, PagamentosAtrasadosService, AtualizacoesAuxilioTransporteService, AditamentosService ],
+              ConducoesService, PagamentosAtrasadosService, PassagensService, AtualizacoesAuxilioTransporteService, AditamentosService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

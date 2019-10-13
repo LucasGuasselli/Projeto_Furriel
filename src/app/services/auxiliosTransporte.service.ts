@@ -46,7 +46,7 @@ export class AuxiliosTransporteService {
 
     updateAuxilioTransporte(): Observable<AuxilioTransporteDTO> {
       return this.http.get<AuxilioTransporteDTO>(
-        `${API_CONFIG.baseUrl}/auxiliosTransporte/updated`);
+        `${API_CONFIG.baseUrl}/auxiliosTransporte/update`);
     }
 
     delete(obj: AuxilioTransporteDTO) {

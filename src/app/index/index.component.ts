@@ -82,8 +82,12 @@ moveToReadExclusoesAuxilioTransporte() {
 
 // Passagens
 
-moveToReadValores() {
+moveToReadPassagens() {
   this.router.navigate(['/listaValoresPassagens']);
+}
+
+moveToFormPassagens() {
+  this.router.navigate(['/cadastroPassagem']);
 }
 
   saveAditamento(aditamento: AditamentoDTO) {

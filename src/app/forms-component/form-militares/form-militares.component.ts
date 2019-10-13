@@ -45,7 +45,7 @@ export class FormMilitaresComponent implements OnInit {
   }
 
   // salva  ou edita uma entidade militar e endereco no banco de dados
-  salvarMilitar() {
+  saveMilitar() {
     if (isNaN(this.precCP)) {
         this.precCP = this.militar.precCP;
             // tslint:disable-next-line:triple-equals

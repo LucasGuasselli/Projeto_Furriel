@@ -93,13 +93,13 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
     );
   }
 
+// inserindo uma atualizacao de auxilio transporte
   insertAtualizacaoAuxilioTransporte(auxilio: AuxilioTransporteDTO) {
     this.atualizacaoAuxilioTransporte.militarPrecCP = auxilio.militarPrecCP;
     this.atualizacaoAuxilioTransporte.aditamentoId = this.aditamentoAtual.id;
     this.atualizacaoAuxilioTransporte.dataInicio = this.utilService.formatDate(
                                   this.atualizacaoAuxilioTransporte.dataInicio.toString());
     this.atualizacaoAuxilioTransporte.valor = 0;
-    this.atualizacaoAuxilioTransporte.atualizacao = true;
 
   this.atualizacoesAuxilioTransporteService.insert(this.atualizacaoAuxilioTransporte).subscribe(
     response => { if (response.status === 201 ) { this.updateConducoes(); } },
