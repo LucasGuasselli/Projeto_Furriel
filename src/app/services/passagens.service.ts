@@ -16,6 +16,10 @@ export class PassagensService {
         return this.http.get<PassagemDTO[]>(`${API_CONFIG.baseUrl}/passagens`);
     }
 
+    findPassagemById(id: number): Observable<PassagemDTO> {
+      return this.http.get<PassagemDTO>(`${API_CONFIG.baseUrl}/passagens/${id}`);
+    }
+
     insert(obj: PassagemDTO) {
         return this.http.post(`${API_CONFIG.baseUrl}/passagens`, obj,
               {

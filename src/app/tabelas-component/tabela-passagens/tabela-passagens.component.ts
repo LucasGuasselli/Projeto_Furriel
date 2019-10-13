@@ -10,7 +10,7 @@ import { PassagemDTO } from '../../models/Passagem.dto';
 })
 export class TabelaValoresPassagensComponent implements OnInit {
 
-  displayedColumns: string[] = ['tipoTransporte', 'valor'];
+  displayedColumns: string[] = ['tipoTransporte', 'valor', 'editar', 'remover'];
   dataSource;
   passagens: PassagemDTO[] = [];
 
@@ -18,13 +18,19 @@ export class TabelaValoresPassagensComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-      this.loadPassagens();
+    this.loadPassagens();
   }
 
   loadPassagens() {
       this.passagensService.findAll().subscribe( response => { this.passagens = response;
         }, error => { console.log(error); } );
   }
+
+  removePassagem(passagem: PassagemDTO) {
+      this.passagensService.delete(passagem).subscribe( response => { console.log(response); },
+                                                        error => { console.log(error); });
+  }
+
   cancel() {
     this.router.navigate(['/index']);
   }

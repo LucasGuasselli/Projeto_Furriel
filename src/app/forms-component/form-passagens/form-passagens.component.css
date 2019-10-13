@@ -1,0 +1,22 @@
+.buttons{
+  text-align: center;
+  display: block;
+  width: 50%;
+  margin: auto;  
+}
+
+.buttons button {
+  margin-right: 8px;
+  margin-top: 8px;
+}
+
+.mat-form {
+  width: 100%;
+  margin-right: 18px;
+}
+
+.form{
+  border-radius: 4px;
+  padding: 20px;
+}
+
