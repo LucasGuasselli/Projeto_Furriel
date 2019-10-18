@@ -16,7 +16,7 @@ export class FormAditamentoComponent implements OnInit {
               private router: Router, private rota: ActivatedRoute) { }
 
   ngOnInit() {
-
+    this.loadText();
   }
 
   saveAditamento() {
@@ -24,7 +24,15 @@ export class FormAditamentoComponent implements OnInit {
      console.log(response); },  error => {console.log(error); } );
   }
 
+  loadText() {
+    this.aditamento.despesaPeriodo = 'referente as publicações em Boletim no período compreendido de 16 de Abril a 15 de Maio de 2019';
+
+    this.aditamento.exclusaoTexto = 'Seja cancelado o benefício do AT de acordo com o Art. 11. das Instruções Reguladoras ' +
+    'para a Concessão do Auxílio-Transporte no Exército Brasileiro (IR 70-21).';
+  }
+
   cancel() {
     this.router.navigate(['/index']);
   }
+
 }

@@ -3,7 +3,7 @@
           <mat-select placeholder="Selecione um aditamento">
                       <mat-option>None</mat-option>
                       <mat-option value="option" *ngFor="let ad of aditamentos" 
-                                (click)="loadInfomationAditamento(ad.id)"  >{{ad.nome}}</mat-option>
+                                (click)="loadInfomationAditamento(ad)"  >{{ad.nome}}</mat-option>
           </mat-select>
     </mat-form-field>     
       

@@ -47,7 +47,7 @@ export class RelatorioComponent implements OnInit {
   dataSourceMilitaresSemDespesas;
 
   aditamentos: AditamentoDTO[] = [];
-  aditamento: AditamentoDTO = new AditamentoDTO;
+  aditamento: AditamentoDTO = new AditamentoDTO();
 
   cabecalho0 = 'MINISTÉRIO DA DEFESA';
   cabecalho1 = 'EXÉRCITO BRASILEIRO';
@@ -64,7 +64,7 @@ export class RelatorioComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.loadText();
+    this.loadText('');
     this.loadAditamentos();
   }
 
@@ -77,13 +77,14 @@ export class RelatorioComponent implements OnInit {
        error => {console.log(error); });
   }
 
-  loadInfomationAditamento(id: number) {
+  loadInfomationAditamento(aditamento: AditamentoDTO) {
     this.setNull();
-    this.loadDespesas(id);
-    this.loadInclusoesAuxilioTransporte(id);
-    this.loadAtualizacoesAuxilioTransporte(id);
-    this.loadExclusoesAuxilioTransporte(id);
-    this.loadPagamentosAtrasados(id);
+    this.loadText(aditamento.despesaPeriodo);
+    this.loadDespesas(aditamento.id);
+    this.loadInclusoesAuxilioTransporte(aditamento.id);
+    this.loadAtualizacoesAuxilioTransporte(aditamento.id);
+    this.loadExclusoesAuxilioTransporte(aditamento.id);
+    this.loadPagamentosAtrasados(aditamento.id);
   }
 
   setNull() {
@@ -263,12 +264,13 @@ export class RelatorioComponent implements OnInit {
          error => {console.log(error); } );
   }
 
-  loadText() {
+  loadText(despesaPeriodo: String) {
     this.aditamento.despesaTexto = 'Seja realizada a Despesa a Anular (DA) do benefício ' +
-                                   'de Auxílio Transporte (AT), de acordo com o Decreto nº 2.963, de 24 fev 1999,' +
-                                   ' as IG 70-04 (Port. nº 334, de 25 jun 1999), as IR 70-21 (Port. nº 114, de 30 jun 1999), ' +
-                                   'a Port. nº 98 – DGP, de 31 out 01, a Prt. nº 269 – DGP, de 11 dez 07 e a Port. nº 849 – Cmt ' +
-                                   'Ex, de 14 jul 16 (EB 10-IG-02.018).';
+    'de Auxílio Transporte (AT), dos militares abaixo, ' + despesaPeriodo +
+    ', de acordo com o Decreto nº 2.963, de 24 fev 1999,' +
+    ' as IG 70-04 (Port. nº 334, de 25 jun 1999), as IR 70-21 (Port. nº 114, de 30 jun 1999), ' +
+    'a Port. nº 98 – DGP, de 31 out 01, a Prt. nº 269 – DGP, de 11 dez 07 e a Port. nº 849 – Cmt ' +
+    'Ex, de 14 jul 16 (EB 10-IG-02.018).';
 
     this.aditamento.inclusaoTexto = 'Seja realizada a Inclusão do benefício de Auxílio Transporte (AT), ' +
                                     'de acordo com o Decreto nº 2.963, de 24 fev 1999, as IG 70-04 (Port. nº 334, ' +
@@ -281,9 +283,6 @@ export class RelatorioComponent implements OnInit {
                                         'de 24 fev 1999, as IG 70-04 (Port. nº 334, de 25 jun 1999), as IR 70-21 (Port. nº 14, ' +
                                         'de 30 jun 1999), a Port. nº 98 - DGP, de 31 out 01, a Port. nº 269 - DGP, de 11 dez 07 ' +
                                         'e a Port. nº 849 - Cmt Ex, de 14 jul 16 (EB 10-IG-02.018).' ;
-
-    this.aditamento.exclusaoTexto = 'Seja cancelado o benefício do AT de acordo com o Art. 11. das Instruções Reguladoras ' +
-                                      'para a Concessão do Auxílio-Transporte no Exército Brasileiro (IR 70-21).';
 
     this.aditamento.pagamentoAtrasadoTexto =  'Seja realizado o saque atrasado do benefício de Auxlio-Transporte (AT), ' +
                                               'de acordo com o Decreto nº 2.963, de 24 fev 1999, as IG 70-04 (Port. nº 334, ' +
