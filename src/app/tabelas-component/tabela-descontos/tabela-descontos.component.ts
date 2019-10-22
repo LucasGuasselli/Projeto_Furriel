@@ -57,7 +57,7 @@ export class TabelaDescontosComponent implements OnInit {
   }
 
   moveToFormDesconto() {
-    this.router.navigate(['/cadastroDeDesconto']);
+    this.router.navigate(['/cadastroDesconto']);
   }
 
   cancel() {

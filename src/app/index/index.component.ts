@@ -23,19 +23,19 @@ export class IndexComponent implements OnInit {
 
 // CADASTRAR
   moveToFormMilitar() {
-    this.router.navigate(['/cadastroDeMilitar']);
+    this.router.navigate(['/cadastroMilitar']);
   }
 
   moveToFormAuxilioTransporte() {
-    this.router.navigate(['/cadastroDeAT']);
+    this.router.navigate(['/cadastroAT']);
   }
 
   moveToFormDesconto() {
-    this.router.navigate(['/cadastroDeDesconto']);
+    this.router.navigate(['/cadastroDesconto']);
   }
 
   moveToFormDescontoFeriadoAdm() {
-    this.router.navigate(['/cadastroDeDescontoFeriadoAdm']);
+    this.router.navigate(['/cadastroDescontoFeriadoAdm']);
   }
 
   moveToFormSaqueAtrasado() {

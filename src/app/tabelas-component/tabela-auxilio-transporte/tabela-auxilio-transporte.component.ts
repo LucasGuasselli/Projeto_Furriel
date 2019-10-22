@@ -84,7 +84,7 @@ export class TabelaAuxilioTransporteComponent implements OnInit {
   }
 
   moveToFormAuxilioTransporte() {
-    this.router.navigate(['/cadastroDeAT']);
+    this.router.navigate(['/cadastroAT']);
 
   }
 
