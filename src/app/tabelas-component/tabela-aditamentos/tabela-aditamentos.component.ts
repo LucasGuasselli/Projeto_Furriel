@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class TabelaAditamentosComponent implements OnInit {
 
   aditamentos: AditamentoDTO[] = [];
-  displayedColumns: string[] = ['nome', 'data'];
+  displayedColumns: string[] = ['nome', 'data', 'editar'];
 
   constructor(private aditamentosService: AditamentosService,
               private router: Router) { }

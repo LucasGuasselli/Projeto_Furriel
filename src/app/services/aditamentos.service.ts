@@ -26,6 +26,10 @@ export class AditamentosService {
         return this.http.get<AditamentoDTO[]>(`${API_CONFIG.baseUrl}/aditamentos`);
     }
 
+    findById(id: number): Observable<AditamentoDTO> {
+      return this.http.get<AditamentoDTO>(`${API_CONFIG.baseUrl}/aditamentos/${id}`);
+    }
+
     insert(obj: AditamentoDTO) {
         return this.http.post(`${API_CONFIG.baseUrl}/aditamentos`, obj,
               {

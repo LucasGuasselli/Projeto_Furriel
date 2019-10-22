@@ -86,6 +86,7 @@ const routes: Routes = [
     { path: 'edicaoMilitar/:cod', component: FormMilitaresComponent },
     { path: 'edicaoPassagem/:cod', component: FormPassagensComponent },
     { path: 'edicaoPagamentoAtrasado/:cod', component: FormPagamentoAtrasadoComponent },
+    { path: 'edicaoAditamento/:cod', component: FormAditamentoComponent },
     { path: 'cadastroAtualizacaoAuxilioTransporte/:cod', component: FormAtualizacaoAuxilioTransporteComponent},
 
     { path: 'relatorio', component: RelatorioComponent },

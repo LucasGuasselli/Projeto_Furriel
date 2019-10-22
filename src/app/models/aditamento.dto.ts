@@ -1,6 +1,6 @@
 export class AditamentoDTO {
     id: number;
-    nome: string;
+    nome: String = '';
     despesaTexto: String;
     despesaPeriodo: String = '';
     inclusaoTexto: String;

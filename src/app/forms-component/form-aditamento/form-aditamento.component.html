@@ -4,32 +4,38 @@
         <mat-form-field >
             <input matInput placeholder="Nome do Aditamento" name="nome" name="nome" [(ngModel)]="aditamento.nome">
         </mat-form-field>
-      <!--  
+        
       <div>
         <mat-form-field class="mat-form">
-            <textarea matInput placeholder="Despesa a Anular" name="despesaTexto" [(ngModel)]="aditamento.despesaTexto"></textarea>
+            <textarea matInput placeholder="Período das Publicações das Despesas" 
+            name="despesaTexto" [(ngModel)]="aditamento.despesaPeriodo" ></textarea>
         </mat-form-field>
       </div>
-      <div>  
-        <mat-form-field class="mat-form">
-            <textarea matInput placeholder="Inclusao de Auxilio Transporte" name="inclusaoTexto" [(ngModel)]="aditamento.inclusaoTexto"></textarea>
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field class="mat-form">
-            <textarea matInput placeholder="Atualizacao de Auxilio Transporte" name="atualizacaoTexto" [(ngModel)]="aditamento.atualizacaoTexto"></textarea>
-        </mat-form-field>
-      </div>  
+      
       <div>
         <mat-form-field class="mat-form">
           <textarea matInput placeholder="Exclusao de Auxilio Transporte" name="exclusaoTexto" [(ngModel)]="aditamento.exclusaoTexto"></textarea>
         </mat-form-field>
       </div>
-      <div>
-        <mat-form-field class="mat-form">
-            <textarea matInput placeholder="Saque Atrasado" name="pagamentoAtrasadoTexto" [(ngModel)]="aditamento.pagamentoAtrasadoTexto"></textarea>
-        </mat-form-field>
-      </div>
+
+      <!--
+        <div>  
+        
+          <mat-form-field class="mat-form">
+              <textarea matInput placeholder="Inclusao de Auxilio Transporte" name="inclusaoTexto" [(ngModel)]="aditamento.inclusaoTexto"></textarea>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="mat-form">
+              <textarea matInput placeholder="Atualizacao de Auxilio Transporte" name="atualizacaoTexto" [(ngModel)]="aditamento.atualizacaoTexto"></textarea>
+          </mat-form-field>
+        </div>  
+        
+        <div>
+          <mat-form-field class="mat-form">
+              <textarea matInput placeholder="Saque Atrasado" name="pagamentoAtrasadoTexto" [(ngModel)]="aditamento.pagamentoAtrasadoTexto"></textarea>
+          </mat-form-field>
+        </div>
       -->
     <div class="buttons">
         <button mat-raised-button color="primary" (click)="saveAditamento()">Salvar</button>
