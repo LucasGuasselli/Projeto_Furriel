@@ -16,6 +16,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatPaginatorModule, MatSortModule } from '@angular/material';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
@@ -130,6 +131,7 @@ const routes: Routes = [
     MatIconModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatCheckboxModule,
     // </MATERIAL>
     FormsModule,
     HttpModule,

@@ -8,4 +8,6 @@ export class AuxilioTransporteDTO {
     exclusao: Boolean = false;
     atualizacao: Boolean = true;
     atualizacaoTexto: String;
+    entregaSPP: Boolean = false;
+    entregaTexto: String;
 }
