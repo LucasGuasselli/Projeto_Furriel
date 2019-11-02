@@ -1,3 +1,7 @@
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Pesquisar">
+</mat-form-field>
+
 <div>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
      
@@ -60,6 +64,7 @@
   </table>
   
 </div>
+
 <div class="buttons">
   <button mat-raised-button color="primary" (click)="moveToFormDesconto()">Cadastrar Desconto</button>
   <button mat-raised-button color="warn" (click)="cancel()">Voltar</button>            

@@ -6,6 +6,7 @@ import { MilitarDTO } from '../../models/militar.dto';
 import { PostosGraduacoesService } from '../../services/postosGraduacoes.service';
 import { PostoGraduacaoDTO } from '../../models/postoGraduacao.dto';
 import { Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-tabela-pagamentos-atrasados',
@@ -17,8 +18,13 @@ export class TabelaPagamentosAtrasadosComponent implements OnInit {
   pagamentosAtrasados: PagamentoAtrasadoDTO[] = [];
   militares: MilitarDTO[] = [];
   postoGraduacao: PostoGraduacaoDTO;
-
+  dataSource;
   displayedColumns: string[] = ['graduacaoNome', 'militarPrecCP', 'mesReferencia', 'quantidadeDias', 'valor'];
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   constructor(private pagamentosAtrasadosService: PagamentosAtrasadosService,
               private militaresService: MilitaresService,
               private postosGraduacoesService: PostosGraduacoesService,
@@ -42,6 +48,7 @@ export class TabelaPagamentosAtrasadosComponent implements OnInit {
           error => {console.log(error); }
         );
     }
+    this.dataSource = new MatTableDataSource(pagamentosAtrasados);
   }
 
   atribuiGraduacoes(pagamentosAtrasados: PagamentoAtrasadoDTO, militar: MilitarDTO) {

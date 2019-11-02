@@ -11,8 +11,12 @@ table {
     margin: auto;
   }
   
-  .buttons button {
+.buttons button {
     margin-right: 8px;
     z-index:2;
-  }
+}
 
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}

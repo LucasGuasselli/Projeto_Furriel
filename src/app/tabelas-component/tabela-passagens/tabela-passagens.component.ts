@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PassagensService } from '../../services/passagens.service';
 import { PassagemDTO } from '../../models/Passagem.dto';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-tabela-passagens',
@@ -14,6 +15,10 @@ export class TabelaValoresPassagensComponent implements OnInit {
   dataSource;
   passagens: PassagemDTO[] = [];
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   constructor(private passagensService: PassagensService,
               private router: Router) { }
 
@@ -22,7 +27,7 @@ export class TabelaValoresPassagensComponent implements OnInit {
   }
 
   loadPassagens() {
-      this.passagensService.findAll().subscribe( response => { this.passagens = response;
+      this.passagensService.findAll().subscribe( response => { this.dataSource = new MatTableDataSource(response);
         }, error => { console.log(error); } );
   }
 

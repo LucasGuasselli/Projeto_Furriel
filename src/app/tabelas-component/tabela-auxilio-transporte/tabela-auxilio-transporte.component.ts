@@ -8,6 +8,7 @@ import { MilitarDTO } from '../../models/militar.dto';
 import { PostoGraduacaoDTO } from '../../models/postoGraduacao.dto';
 import { ConducoesService } from '../../services/conducoes.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-tabela-auxilio-transporte',
@@ -28,6 +29,10 @@ export class TabelaAuxilioTransporteComponent implements OnInit {
 
   dataSource;
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   constructor(private auxilioTransporteService: AuxiliosTransporteService,
               private militaresService: MilitaresService,
               private postosGraduacoesService: PostosGraduacoesService,
@@ -45,7 +50,7 @@ export class TabelaAuxilioTransporteComponent implements OnInit {
   }
 
   loadAuxiliosTransporte() {
-    this.auxilioTransporteService.findAll().subscribe(response => {this.dataSource = response;
+    this.auxilioTransporteService.findAll().subscribe(response => { this.dataSource = response;
       console.log(this.auxiliosTransporte); this.atribuiMilitares(this.dataSource); } ,
         error => {console.log(error); } );
   }
@@ -58,6 +63,7 @@ export class TabelaAuxilioTransporteComponent implements OnInit {
           error => {console.log(error); }
         );
     }
+    this.dataSource = new MatTableDataSource(auxiliosTransporte);
   }
 
   atribuiGraduacoes(auxilioTransporte: AuxilioTransporteDTO, militar: MilitarDTO) {

@@ -6,6 +6,7 @@ import { PostosGraduacoesService } from '../../services/postosGraduacoes.service
 import { Router } from '@angular/router';
 import { MilitarDTO } from '../../models/militar.dto';
 import { PostoGraduacaoDTO } from '../../models/postoGraduacao.dto';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-tabela-exclusao-auxilios-transporte',
@@ -19,6 +20,11 @@ export class TabelaExclusaoAuxiliosTransporteComponent implements OnInit {
   postoGraduacao: PostoGraduacaoDTO;
 
   displayedColumns: string[] = ['graduacaoNome', 'militarPrecCP', 'data', 'motivo', 'valor'];
+  dataSource;
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
   constructor(private exclusoesAuxilioTransporteService: ExclusoesAuxilioTransporteService,
               private militaresService: MilitaresService,
@@ -30,8 +36,8 @@ export class TabelaExclusaoAuxiliosTransporteComponent implements OnInit {
   }
 
   loadExclusoes() {
-    this.exclusoesAuxilioTransporteService.findAll().subscribe(response => {this.exclusaoAuxiliosTransporte = response;
-    console.log(this.exclusaoAuxiliosTransporte); this.atribuiMilitares(this.exclusaoAuxiliosTransporte); } ,
+    this.exclusoesAuxilioTransporteService.findAll().subscribe(response => {this.dataSource = response;
+    console.log(this.exclusaoAuxiliosTransporte); this.atribuiMilitares(this.dataSource); } ,
       error => {console.log(error); } );
   }
 
@@ -43,6 +49,7 @@ export class TabelaExclusaoAuxiliosTransporteComponent implements OnInit {
           error => {console.log(error); }
         );
     }
+    this.dataSource = new MatTableDataSource(exclusaoAuxiliosTransporte);
   }
 
   atribuiGraduacoes(exclusaoAuxiliosTransporte: ExclusaoAuxilioTransporteDTO, militar: MilitarDTO) {

@@ -6,6 +6,7 @@ import { MilitaresService } from '../../services/militares.service';
 import { PostosGraduacoesService } from '../../services/postosGraduacoes.service';
 import { PostoGraduacaoDTO } from '../../models/postoGraduacao.dto';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-tabela-descontos',
@@ -20,9 +21,12 @@ export class TabelaDescontosComponent implements OnInit {
   militarPrecCP: number;
   dataSource;
 
-
   displayedColumns: string[] = ['id', 'graduacao', 'nome', 'militarPrecCP', 'dataInicio', 'dataFim',
                                 'quantidadeDias', 'valor', 'motivo'];
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
   constructor(private despesasService: DespesasService,
               private militaresService: MilitaresService,
@@ -48,6 +52,7 @@ export class TabelaDescontosComponent implements OnInit {
           error => {console.log(error); }
         );
     }
+    this.dataSource = new MatTableDataSource(despesas);
   }
 
   atribuiGraduacoes(despesa: DespesaDTO, militar: MilitarDTO) {

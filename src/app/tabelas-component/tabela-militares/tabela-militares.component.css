@@ -45,3 +45,8 @@ tr:nth-child(even){
   h3 {
       text-align: center;
   }
+
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import {MatTableDataSource} from '@angular/material';
 
 import { MilitaresService } from '../../services/militares.service';
 import { MilitarDTO } from '../../models/militar.dto';
@@ -23,18 +24,28 @@ export class TabelaMilitaresComponent implements OnInit {
   displayedColumns: string[] = ['nome', 'precCP', 'Editar', 'Remover'];
   dataSource;
 
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   constructor(private militaresService: MilitaresService,
               private enderecosService: EnderecosService,
               private router: Router,
               private rota: ActivatedRoute) { }
 
   ngOnInit() {
-      this.enderecosService.findAll().subscribe(response => {this.enderecos = response; } ,
-          error => {console.log(error); } );
-      this.militaresService.findAll().subscribe(response => { this.dataSource = response; this.militares  = response; } ,
-          error => {console.log(error); } );
+      this.loadMilitares();
   }
 
+  loadMilitares() {
+    this.militaresService.findAll().subscribe(response => { this.dataSource = new MatTableDataSource(response);
+      this.militares  = response; } , error => {console.log(error); } );
+  }
+
+  loadEnderecos() {
+    this.enderecosService.findAll().subscribe(response => {this.enderecos = response; } ,
+      error => {console.log(error); } );
+  }
   removerMilitar(militar: MilitarDTO) {
       this.militaresService.delete(militar).subscribe(response => { console.log('Militar deletado com sucesso!'); } ,
         error => {console.log(error); } );

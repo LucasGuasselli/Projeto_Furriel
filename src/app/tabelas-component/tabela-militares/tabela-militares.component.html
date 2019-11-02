@@ -1,4 +1,5 @@
 <h3>{{titulo}}</h3>
+<!--
 <table>
   <div id="tudo">
    <tr>
@@ -34,15 +35,18 @@
             <td>{{endereco.complemento}}</td>
       </tr>
 </div>
-   
+  
 </table>
-<div class="buttons">
-  <button mat-raised-button color="warn" (click)="cancel()">Voltar</button>
-</div>
+
+ -->
 
 <div>
-  <table mat-table [dataSource]="militares" class="mat-elevation-z8">
 
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Pesquisar">
+  </mat-form-field>
+      
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
   
@@ -82,4 +86,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
   
+  <div class="buttons">
+      <button mat-raised-button color="warn" (click)="cancel()">Voltar</button>
+  </div>
 </div>
