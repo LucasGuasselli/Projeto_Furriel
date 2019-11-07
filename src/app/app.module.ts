@@ -30,6 +30,8 @@ import { FormDescontosComponent } from './forms-component/form-descontos/form-de
 import { FormPagamentoAtrasadoComponent } from './forms-component/form-pagamento-atrasado/form-pagamento-atrasado.component';
 import { FormAditamentoComponent } from './forms-component/form-aditamento/form-aditamento.component';
 // tslint:disable-next-line:max-line-length
+import { FormDescontoGuarnicaoServicoComponent } from './forms-component/form-desconto-guarnicao-servico/form-desconto-guarnicao-servico.component';
+// tslint:disable-next-line:max-line-length
 import { FormAtualizacaoAuxilioTransporteComponent } from './forms-component/form-atualizacao-auxilio-transporte/form-atualizacao-auxilio-transporte.component';
 // tslint:disable-next-line:max-line-length
 import { FormExclusaoAuxilioTransporteComponent } from './forms-component/form-exclusao-auxilio-transporte/form-exclusao-auxilio-transporte.component';
@@ -61,7 +63,6 @@ import { PassagensService } from './services/passagens.service';
 import { FormPassagensComponent } from './forms-component/form-passagens/form-passagens.component';
 
 
-
 const routes: Routes = [
     { path: '', redirectTo: 'index', pathMatch: 'full'},
     { path: 'index', component: IndexComponent },
@@ -74,6 +75,7 @@ const routes: Routes = [
     { path: 'cadastroAditamento', component: FormAditamentoComponent },
     { path: 'cadastroExclusaoAuxilioTransporte', component: FormExclusaoAuxilioTransporteComponent },
     { path: 'cadastroPassagem', component: FormPassagensComponent},
+    { path: 'cadastroDescontoGuarnicao', component: FormDescontoGuarnicaoServicoComponent },
        // { path: 'cadastroAtualizacaoAuxilioTransporte', component: FormAtualizacaoAuxilioTransporteComponent},
 
     { path: 'listaMilitares', component: TabelaMilitaresComponent },
@@ -106,6 +108,7 @@ const routes: Routes = [
     FormAtualizacaoAuxilioTransporteComponent,
     FormDescontosFeriadosAdmComponent,
     FormPassagensComponent,
+    FormDescontoGuarnicaoServicoComponent,
     TabelaAditamentosComponent,
     TabelaPagamentosAtrasadosComponent,
     TabelaExclusaoAuxiliosTransporteComponent,

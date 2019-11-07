@@ -1,0 +1,68 @@
+<div class="aditamentoAtual">
+  Aditamento Atual:  {{aditamentoAtual.nome}} 
+</div>
+
+<div class="form">        
+  <form>
+    <div>
+      <mat-form-field>
+          <input matInput [matDatepicker]="dataInicio" placeholder="Data" 
+          class="datePicker" name="inicio" (click)="calculateQuantidadeDias()" >
+          <mat-datepicker-toggle matSuffix [for]="dataInicio"></mat-datepicker-toggle>
+          <mat-datepicker #dataInicio></mat-datepicker>
+      </mat-form-field>  
+    </div>
+    <div>
+      <mat-form-field>
+          <mat-select placeholder="Sargento de Dia">            
+            <mat-option value="option" *ngFor="let sgt of sargentosDeDia" 
+            >{{sgt.nome}}</mat-option>
+          </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+          <mat-select placeholder="Cabo de Dia">            
+            <mat-option value="option" *ngFor="let cb of cabosDeDia" 
+            >{{cb.nome}}</mat-option>
+          </mat-select>
+      </mat-form-field>
+      
+      <mat-form-field>
+          <mat-select placeholder="Plantão">            
+            <mat-option value="option" *ngFor="let p of plantoes" 
+            >{{p.nome}}</mat-option>
+          </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+          <mat-select placeholder="Plantão">            
+            <mat-option value="option" *ngFor="let p of plantoes" 
+            >{{p.nome}}</mat-option>
+          </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+          <mat-select placeholder="Plantão">            
+            <mat-option value="option" *ngFor="let p of plantoes" 
+            >{{p.nome}}</mat-option>
+          </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div>
+       <mat-checkbox   >Feriado</mat-checkbox>
+       <mat-checkbox   >Administrativos</mat-checkbox>     
+    </div>
+         
+    <div>    
+      <mat-form-field class="input">
+        <input type="number" matInput placeholder="Quantidade de Dias" name="quantidadeDias" value="" disabled >
+      </mat-form-field>
+    </div>
+
+    <div class="buttons">
+      <button mat-raised-button color="primary" (click)="saveDespesa()">Salvar</button>
+      <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>            
+    </div>  
+  </form>
+</div>
