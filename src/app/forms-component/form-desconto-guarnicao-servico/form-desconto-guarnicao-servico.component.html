@@ -6,57 +6,87 @@
   <form>
     <div>
       <mat-form-field>
-          <input matInput [matDatepicker]="dataInicio" placeholder="Data" 
-          class="datePicker" name="inicio" (click)="calculateQuantidadeDias()" >
+          <input matInput [matDatepicker]="dataInicio" placeholder="Data" class="datePicker" name="inicio" 
+          [(ngModel)]="despesa.calculoDataInicio"  >
           <mat-datepicker-toggle matSuffix [for]="dataInicio"></mat-datepicker-toggle>
           <mat-datepicker #dataInicio></mat-datepicker>
       </mat-form-field>  
     </div>
     <div>
       <mat-form-field>
+          <mat-select placeholder="Adjunto">            
+            <mat-option value="option" *ngFor="let adj of adjuntos" (click)="saveMilitar(adj, 'Adjunto')"
+              >{{adj.nome}}</mat-option>
+            </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
           <mat-select placeholder="Sargento de Dia">            
-            <mat-option value="option" *ngFor="let sgt of sargentosDeDia" 
+            <mat-option value="option" *ngFor="let sgt of sargentosDeDia" (click)="saveMilitar(sgt, 'Sargento')"
             >{{sgt.nome}}</mat-option>
           </mat-select>
       </mat-form-field>
 
       <mat-form-field>
           <mat-select placeholder="Cabo de Dia">            
-            <mat-option value="option" *ngFor="let cb of cabosDeDia" 
+            <mat-option value="option"*ngFor="let cb of cabosDeDia"  (click)="saveMilitar(cb, 'Cabo')"
             >{{cb.nome}}</mat-option>
           </mat-select>
       </mat-form-field>
       
+      
+
       <mat-form-field>
           <mat-select placeholder="Plantão">            
-            <mat-option value="option" *ngFor="let p of plantoes" 
+            <mat-option value="option" *ngFor="let p of plantoes" (click)="saveMilitar(p, 'Plantao')"
             >{{p.nome}}</mat-option>
           </mat-select>
       </mat-form-field>
 
       <mat-form-field>
           <mat-select placeholder="Plantão">            
-            <mat-option value="option" *ngFor="let p of plantoes" 
+            <mat-option value="option" *ngFor="let p of plantoes" (click)="saveMilitar(p, 'Plantao1')"
             >{{p.nome}}</mat-option>
           </mat-select>
       </mat-form-field>
 
       <mat-form-field>
           <mat-select placeholder="Plantão">            
-            <mat-option value="option" *ngFor="let p of plantoes" 
+            <mat-option value="option" *ngFor="let p of plantoes"  (click)="saveMilitar(p, 'Plantao2')"
+            >{{p.nome}}</mat-option>
+          </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+          <mat-select placeholder="Plantão">            
+            <mat-option value="option" *ngFor="let p of plantoes"  (click)="saveMilitar(p, 'Plantao3')"
+            >{{p.nome}}</mat-option>
+          </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+          <mat-select placeholder="Plantão">            
+            <mat-option value="option" *ngFor="let p of plantoes"  (click)="saveMilitar(p, 'Plantao4')"
+            >{{p.nome}}</mat-option>
+          </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+          <mat-select placeholder="Plantão">            
+            <mat-option value="option" *ngFor="let p of plantoes"  (click)="saveMilitar(p, 'Plantao5')"
             >{{p.nome}}</mat-option>
           </mat-select>
       </mat-form-field>
     </div>
 
     <div>
-       <mat-checkbox   >Feriado</mat-checkbox>
-       <mat-checkbox   >Administrativos</mat-checkbox>     
+       <mat-checkbox  name="feriado" [(ngModel)]="feriado" [disabled]="administrativo" (click)="modifyDespesaFeriadoAdm()">Feriado</mat-checkbox>
+       <mat-checkbox  name="administrativo" [(ngModel)]="administrativo" [disabled]="feriado" (click)="modifyDespesaFeriadoAdm()">Administrativo</mat-checkbox>     
     </div>
          
     <div>    
       <mat-form-field class="input">
-        <input type="number" matInput placeholder="Quantidade de Dias" name="quantidadeDias" value="" disabled >
+        <input type="number" matInput placeholder="Quantidade de Dias" name="quantidadeDias" [(ngModel)]="despesa.quantidadeDias" value="" disabled >
       </mat-form-field>
     </div>
 
