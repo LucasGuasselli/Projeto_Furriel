@@ -65,10 +65,13 @@ export class UtilService {
                 case 'Serviço': {
                     console.log(inicio.toString().substring(0, 3));
                     if (inicio.toString().substring(0, 3) === 'Sat' || feriados >= 1 || administrativos >= 1) {
+                        // abate um dia de desconto
                         quantidadeDias = -1;
                     } else if (inicio.toString().substring(0, 3) === 'Fri' || inicio.toString().substring(0, 3) === 'Sun') {
+                        // não desconta, somente registra o evento
                         quantidadeDias = 0;
                     } else {
+                        // desconta um dia
                         quantidadeDias = 1;
                     }
                         // caso informem datas muito distantes
