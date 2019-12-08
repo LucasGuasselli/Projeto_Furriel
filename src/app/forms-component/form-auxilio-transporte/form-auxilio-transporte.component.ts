@@ -83,19 +83,17 @@ export class FormAuxilioTransporteComponent implements OnInit {
             alert('Selecione um militar!');
        } else {
             this.auxilioTransporte.militarPrecCP = this.precCP;
-            console.log(this.auxilioTransporte);
+            // console.log(this.auxilioTransporte);
             this.auxiliosTransporteService.insert(this.auxilioTransporte).subscribe(
-                response => { console.log(response); console.log('Auxilio Transporte cadastrado com sucesso');
-                this.validConducoes(); this.loadAuxiliosTransporte();
-                this.loadMilitaresSemAuxilioTransporte(); } ,
-                error => {console.log(error); } );
+                response => { console.log(response); this.validConducoes(); this.loadAuxiliosTransporte();
+                              this.loadMilitaresSemAuxilioTransporte(); }, error => {console.log(error); } );
        }
     }
 
     validConducoes() {
         const conducoesValidas: number [] = [];
         // busca os indices validos para cadastrar as conducoes
-        // isto foi necessario para cadastrar a inclusao somente depois do cadastro da ULTIMA CONDUCAO
+        // este 'for' foi necessario para cadastrar a inclusao somente depois do cadastro da ULTIMA CONDUCAO
             for (let k = 0; k < this.conducoes.length; k++) {
                 // todos campos devem ser preenchidos para cadastrar uma conducao
                     if (this.conducoes[k].valor != null && this.conducoes[k].tipoDeTransporte != null
@@ -128,10 +126,10 @@ export class FormAuxilioTransporteComponent implements OnInit {
         this.inclusaoAuxilioTransporte.aditamentoId = this.aditamentoAtual.id;
         this.inclusaoAuxilioTransporte.valor = 0;
         this.inclusaoAuxilioTransporte.dataInicio = this.utilService.formatDate(this.inclusaoAuxilioTransporte.dataInicio.toString());
-        this.inclusaoAuxilioTransporteService.insert(this.inclusaoAuxilioTransporte).subscribe(
-            response => { console.log('Inclusao cadastrada com sucesso'); console.log(this.inclusaoAuxilioTransporte); },
-            error => {console.log(error); }
-        );
+            this.inclusaoAuxilioTransporteService.insert(this.inclusaoAuxilioTransporte).subscribe(
+                response => { if (response.status === 201) { this.moveToReadAuxiliosAndConducoes(); } },
+                    error => {console.log(error); }
+            );
     }
 
     findAuxilioTransporteByPrecCP() {
@@ -147,8 +145,8 @@ export class FormAuxilioTransporteComponent implements OnInit {
 
     loadAuxiliosTransporte() {
         this.auxiliosTransporteService.findAll().subscribe(
-            response => {this.auxiliosTransporte = response; console.log(this.auxiliosTransporte); } ,
-            error => {console.log(error); } );
+            response => {this.auxiliosTransporte = response; console.log(this.auxiliosTransporte);
+            } , error => {console.log(error); } );
     }
 
     savePrecCPMilitar(precCP: number) {
@@ -158,6 +156,10 @@ export class FormAuxilioTransporteComponent implements OnInit {
             this.precCP = precCP;
             console.log(this.precCP);
         }
+    }
+
+    moveToReadAuxiliosAndConducoes() {
+        this.router.navigate(['/listaATConducao']);
     }
 
     informarCadastro() {

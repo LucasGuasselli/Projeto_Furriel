@@ -64,16 +64,17 @@ export class FormExclusaoAuxilioTransporteComponent implements OnInit {
       this.exclusaoAuxilioTransporte.militarPrecCP = precCP;
       this.exclusaoAuxilioTransporte.aditamentoId = aditamentoId;
       this.exclusaoAuxilioTransporte.valor = auxilioTransporte.valorTotalAT;
-      this.exclusaoAuxilioTransporteService.insert(this.exclusaoAuxilioTransporte).subscribe(
-            response => {console.log(response); if (response.status === 201) { alert('Exclusão Cadastrada com Sucesso!'); }
-            this.deleteAuxilioTransporte(auxilioTransporte); }, error => {console.log(error); }
-      );
+        this.exclusaoAuxilioTransporteService.insert(this.exclusaoAuxilioTransporte).subscribe(
+          response => { if (response.status === 201) { alert('Exclusão Cadastrada com Sucesso!');
+          } this.deleteAuxilioTransporte(auxilioTransporte); }, error => {console.log(error); }
+        );
   }
 
   deleteAuxilioTransporte(auxilioTransporte: AuxilioTransporteDTO) {
     auxilioTransporte.exclusao = true;
     this.auxilioTransporteService.update(auxilioTransporte, auxilioTransporte.id).subscribe( response => { console.log(response);
-      if (response.status === 204) { this.loadMilitaresComAuxilioTransporte(); } }, error => {console.log(error); } );
+      if (response.status === 204) { this.loadMilitaresComAuxilioTransporte(); } this.moveToReadExclusoesAuxilioTransporte();
+    }, error => {console.log(error); } );
   }
 
   loadMilitaresComAuxilioTransporte() {
@@ -90,6 +91,11 @@ export class FormExclusaoAuxilioTransporteComponent implements OnInit {
         console.log(this.precCP);
     }
   }
+
+  moveToReadExclusoesAuxilioTransporte() {
+    this.router.navigate(['/listaExclusaoAuxiliosTransporte']);
+  }
+
   cancel() {
     this.router.navigate(['/index']);
   }

@@ -10,8 +10,16 @@
         <button mat-raised-button color="warn" (click)="downloadPDF()" >Downaload Relatorio</button>
 </form>
 
-<div id="content" >    
-                    <!--<img src="../assets/armas_nacionais.jpg"  > -->
+<div id="content" >  
+        <script src="xepOnline.jqPlugin.js"></script>  
+                    <a href="#" onclick="return xepOnline.Formatter.Format('Usage');">
+                        <img src="../assets/indice.svg"  >
+                    </a>
+
+                    <svg width="400" height="180">
+                            <rect x="50" y="20" rx="20" ry="20" width="150" height="150"
+                            style="fill:red;stroke:black;stroke-width:5;opacity:0.5" />
+                          </svg>
             <div class="cabecalho">                   
                 <div> {{cabecalho0}} </div>
                 <div> {{cabecalho1}} </div>

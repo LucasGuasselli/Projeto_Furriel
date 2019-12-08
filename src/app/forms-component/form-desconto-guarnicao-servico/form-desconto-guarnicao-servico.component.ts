@@ -138,7 +138,7 @@ export class FormDescontoGuarnicaoServicoComponent implements OnInit {
           this.insertDespesa(this.plantao4);
           this.insertDespesa(this.plantao5);
 
-          alert(this.despesa.quantidadeDias + " Dia(s) Descontado(s)");
+          alert(this.despesa.quantidadeDias + ' Dia(s) Descontado(s)');
       } else {
         alert('Você deve selecionar no MÍNIMO UM militar!!!');
       }
@@ -151,7 +151,7 @@ export class FormDescontoGuarnicaoServicoComponent implements OnInit {
       this.despesa.militarPrecCP = militar.precCP;
 
       this.despesasService.insert(this.despesa).subscribe(response => { console.log(response);
-        if (response.status != 201 ) { alert('Erro ao cadastrar despesa do ' + militar.nome + 'Prec-CP ' + militar.precCP); } } ,
+        if (response.status !== 201 ) { alert('Erro ao cadastrar despesa do ' + militar.nome + 'Prec-CP ' + militar.precCP); } } ,
         error => {console.log(error); });
     }
   }

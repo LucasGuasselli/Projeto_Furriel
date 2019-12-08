@@ -41,11 +41,11 @@ export class FormAditamentoComponent implements OnInit {
         this.insertAditamento();
         // redireciona para a lista
             this.router.navigate(['/listaAditamento']);
-    } else {
+      } else {
         console.log('Chegou na edicao' + this.id);
             this.updateAditamento();
                 this.router.navigate(['/listaAditamento']);
-    }
+      }
     }
   }
 
@@ -67,9 +67,6 @@ insertAditamento() {
 
   loadText() {
     this.aditamento.despesaPeriodo = 'referente as publicações em Boletim no período compreendido de 16 de Abril a 15 de Maio de 2019';
-
-    this.aditamento.exclusaoTexto = 'Seja cancelado o benefício do AT de acordo com o Art. 11. das Instruções Reguladoras ' +
-    'para a Concessão do Auxílio-Transporte no Exército Brasileiro (IR 70-21).';
   }
 
   cancel() {
