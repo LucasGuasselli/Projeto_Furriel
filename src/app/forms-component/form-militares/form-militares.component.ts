@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MilitarDTO } from '../../models/militar.dto';
 import { PostoGraduacaoDTO } from '../../models/postoGraduacao.dto';
 import { EnderecoDTO } from '../../models/endereco.dto';
-import { EnderecosService } from '../../services/enderecos.service';
+// import { EnderecosService } from '../../services/enderecos.service';
 
 @Component({
   selector: 'app-form-militares',
@@ -22,7 +22,6 @@ export class FormMilitaresComponent implements OnInit {
     cep: String;
 
   constructor(private militaresService: MilitaresService,
-              private enderecosService: EnderecosService,
               private postosGraduacoesService: PostosGraduacoesService,
               private router: Router,
               private rota: ActivatedRoute) { }
@@ -76,18 +75,18 @@ export class FormMilitaresComponent implements OnInit {
   }
 
   insertEndereco() {
-    this.enderecosService.insert(this.endereco).subscribe(response => {
-      console.log('Endereco cadastrado com sucesso!'); },
-      error => {console.log(error); } );
-          this.endereco = new EnderecoDTO();
+  //  this.enderecosService.insert(this.endereco).subscribe(response => {
+   //   console.log('Endereco cadastrado com sucesso!'); },
+   //   error => {console.log(error); } );
+     //     this.endereco = new EnderecoDTO();
   }
 
   loadUpdateMilitarAndEndereco() {
     this.militaresService.findMilitarByPrecCP(this.precCP).subscribe( response => {
       this.militar = response; }, error => {console.log(error); } );
 
-    this.enderecosService.findEnderecoByPrecCP(this.precCP).subscribe( response => {
-      this.endereco = response; }, error => {console.log(error); } );
+   // this.enderecosService.findEnderecoByPrecCP(this.precCP).subscribe( response => {
+   //   this.endereco = response; }, error => {console.log(error); } );
   }
 
   updateMilitarAndEndereco() {
@@ -95,10 +94,10 @@ export class FormMilitaresComponent implements OnInit {
       console.log('Militar editado com sucesso!'); } ,
       error => {console.log(error); } );
           this.militar = new MilitarDTO();
-    this.enderecosService.update(this.endereco, this.endereco.id).subscribe(response => {
-      console.log('Endereco editado com sucesso!'); } ,
-      error => {console.log(error); } );
-          this.endereco = new EnderecoDTO();
+   // this.enderecosService.update(this.endereco, this.endereco.id).subscribe(response => {
+   //   console.log('Endereco editado com sucesso!'); } ,
+   //   error => {console.log(error); } );
+   //       this.endereco = new EnderecoDTO();
   }
 
   salvarPostoGraduacao(codigo: number) {
@@ -119,8 +118,8 @@ export class FormMilitaresComponent implements OnInit {
   }
 
   getAdress() {
-    this.enderecosService.findAdressByCEP(this.cep).subscribe( response => { this.endereco = response; },
-      error => {console.log(error); });
+   // this.enderecosService.findAdressByCEP(this.cep).subscribe( response => { this.endereco = response; },
+    //  error => {console.log(error); });
   }
   cancelar() {
     this.router.navigate(['/index']);
