@@ -17,12 +17,17 @@ import { AditamentoDTO } from '../models/aditamento.dto';
 import { AditamentosService } from '../services/aditamentos.service';
 import { Router } from '@angular/router';
 
+// sem esta declaracao o sistema nao gera o PDF
+declare var xepOnline: any;
 @Component({
   selector: 'app-relatorio',
   templateUrl: './relatorio.component.html',
   styleUrls: ['./relatorio.component.css']
 })
+
+
 export class RelatorioComponent implements OnInit {
+  // xepOnline: any;
 
   militares: MilitarDTO[] = [];
   postoGraduacao: PostoGraduacaoDTO;
@@ -69,7 +74,8 @@ export class RelatorioComponent implements OnInit {
   }
 
   downloadPDF() {
-    return xepOnline.Formatter.Format('content', {render: 'download'});
+    console.log(xepOnline);
+     return xepOnline.Formatter.Format('content', {render: 'download'});
   }
 
   loadAditamentos() {
