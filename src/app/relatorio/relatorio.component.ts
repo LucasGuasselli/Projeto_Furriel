@@ -303,9 +303,10 @@ export class RelatorioComponent implements OnInit {
                                               'jul 16 (EB 10-IG-02.018).';
   }
 
-  cancelar() {
+  cancel() {
     this.router.navigate(['/index']);
   }
+  
   /*
   // tslint:disable-next-line:member-ordering
   @ViewChild('content') content: ElementRef;

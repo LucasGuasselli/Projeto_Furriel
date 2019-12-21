@@ -36,22 +36,22 @@ export class TabelaPagamentosAtrasadosComponent implements OnInit {
 
   loadPagamentosAtrasados() {
     this.pagamentosAtrasadosService.findAll().subscribe(response => {this.pagamentosAtrasados = response;
-    console.log(this.pagamentosAtrasados); this.atribuiMilitares(this.pagamentosAtrasados); } ,
+    console.log(this.pagamentosAtrasados); this.assignMilitares(this.pagamentosAtrasados); } ,
       error => {console.log(error); } );
   }
 
-  atribuiMilitares(pagamentosAtrasados: PagamentoAtrasadoDTO[]) {
+  assignMilitares(pagamentosAtrasados: PagamentoAtrasadoDTO[]) {
     for (let i = 0; i < pagamentosAtrasados.length; i++) {
         this.militaresService.findMilitarByPrecCP(pagamentosAtrasados[i].militarPrecCP).subscribe(
           response => {this.militares[i] = response; pagamentosAtrasados[i].nome = this.militares[i].nome;
-                      this.atribuiGraduacoes(pagamentosAtrasados[i], this.militares[i]); },
+                      this.assignGraduacoes(pagamentosAtrasados[i], this.militares[i]); },
           error => {console.log(error); }
         );
     }
     this.dataSource = new MatTableDataSource(pagamentosAtrasados);
   }
 
-  atribuiGraduacoes(pagamentosAtrasados: PagamentoAtrasadoDTO, militar: MilitarDTO) {
+  assignGraduacoes(pagamentosAtrasados: PagamentoAtrasadoDTO, militar: MilitarDTO) {
       this.postosGraduacoesService.findPostoGraduacaoById(militar.postoGraduacaoId).subscribe(
         response => {this.postoGraduacao = response; pagamentosAtrasados.graduacao = this.postoGraduacao.nome; },
            error => {console.log(error); } );

@@ -121,7 +121,8 @@ export class FormMilitaresComponent implements OnInit {
    // this.enderecosService.findAdressByCEP(this.cep).subscribe( response => { this.endereco = response; },
     //  error => {console.log(error); });
   }
-  cancelar() {
+
+  cancel() {
     this.router.navigate(['/index']);
   }
 

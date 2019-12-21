@@ -51,29 +51,29 @@ export class TabelaAuxilioTransporteComponent implements OnInit {
 
   loadAuxiliosTransporte() {
     this.auxilioTransporteService.findAll().subscribe(response => { this.dataSource = response;
-      console.log(this.auxiliosTransporte); this.atribuiMilitares(this.dataSource); } ,
+      console.log(this.auxiliosTransporte); this.assignMilitares(this.dataSource); } ,
         error => {console.log(error); } );
   }
 
-  atribuiMilitares(auxiliosTransporte: AuxilioTransporteDTO[]) {
+  assignMilitares(auxiliosTransporte: AuxilioTransporteDTO[]) {
     for (let i = 0; i < auxiliosTransporte.length; i++) {
         this.militaresService.findMilitarByPrecCP(auxiliosTransporte[i].militarPrecCP).subscribe(
           response => {this.militares[i] = response; auxiliosTransporte[i].nome = this.militares[i].nome;
-                      this.atribuiGraduacoes(auxiliosTransporte[i], this.militares[i]); },
+                      this.assignGraduacoes(auxiliosTransporte[i], this.militares[i]); },
           error => {console.log(error); }
         );
     }
     this.dataSource = new MatTableDataSource(auxiliosTransporte);
   }
 
-  atribuiGraduacoes(auxilioTransporte: AuxilioTransporteDTO, militar: MilitarDTO) {
+  assignGraduacoes(auxilioTransporte: AuxilioTransporteDTO, militar: MilitarDTO) {
     this.postosGraduacoesService.findPostoGraduacaoById(militar.postoGraduacaoId).subscribe(
       response => {this.postoGraduacao = response; auxilioTransporte.graduacao = this.postoGraduacao.nome;
-      this.atribuiTextoAtualizacao(auxilioTransporte); this.atribuiTextoEntrega(auxilioTransporte); },
+      this.assignTextoAtualizacao(auxilioTransporte); this.assignTextoEntrega(auxilioTransporte); },
       error => {console.log(error); } );
   }
 
-  atribuiTextoAtualizacao(auxilioTransporte: AuxilioTransporteDTO) {
+  assignTextoAtualizacao(auxilioTransporte: AuxilioTransporteDTO) {
       if (auxilioTransporte.atualizacao === true) {
         auxilioTransporte.atualizacaoTexto = 'Atualizado';
           console.log(auxilioTransporte.atualizacaoTexto);
@@ -82,7 +82,7 @@ export class TabelaAuxilioTransporteComponent implements OnInit {
       }
   }
 
-  atribuiTextoEntrega(auxilioTransporte: AuxilioTransporteDTO) {
+  assignTextoEntrega(auxilioTransporte: AuxilioTransporteDTO) {
     if (auxilioTransporte.entregaSPP === true) {
       auxilioTransporte.entregaTexto = 'Entregue';
       console.log(auxilioTransporte.atualizacaoTexto);

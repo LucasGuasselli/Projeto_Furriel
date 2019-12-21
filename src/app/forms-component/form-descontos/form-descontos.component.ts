@@ -91,7 +91,7 @@ export class FormDescontosComponent implements OnInit {
       this.despesa.feriados, this.despesa.administrativos);
   }
 
-  salvarPrecCPMilitar(precCP: number) {
+  savePrecCPMilitar(precCP: number) {
     if (isNaN(precCP)) {
         // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
     } else {

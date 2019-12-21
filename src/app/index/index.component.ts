@@ -71,17 +71,17 @@ moveToReadExclusoesAuxilioTransporte() {
 }
 
 // ADITAMENTO
-  moveToAditamentoPDF() {
-    this.router.navigate(['/relatorio']);
-  }
+moveToAditamentoPDF() {
+  this.router.navigate(['/relatorio']);
+}
 
-  moveFormAditamento() {
-    this.router.navigate(['/cadastroAditamento']);
-  }
+moveFormAditamento() {
+  this.router.navigate(['/cadastroAditamento']);
+}
 
-  moveToReadAditamento() {
-    this.router.navigate(['/listaAditamento']);
-  }
+moveToReadAditamento() {
+  this.router.navigate(['/listaAditamento']);
+}
 
 // Passagens
 
@@ -93,25 +93,25 @@ moveToFormPassagens() {
   this.router.navigate(['/cadastroPassagem']);
 }
 
-  saveAditamento(aditamento: AditamentoDTO) {
-    if (isNaN(aditamento.id)) {
-        // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
-    } else {
-        this.aditamentoAtual = new AditamentoDTO;
-        this.aditamentoAtual = aditamento;
-         console.log(this.aditamentoAtual);
+saveAditamento(aditamento: AditamentoDTO) {
+  if (isNaN(aditamento.id)) {
+      // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
+  } else {
+     this.aditamentoAtual = new AditamentoDTO;
+     this.aditamentoAtual = aditamento;
+       console.log(this.aditamentoAtual);
     }
   }
 
-  loadAditamentos() {
-    this.aditamentosService.findAll().subscribe( response => { this.aditamentos = response; },
-       error => {console.log(error); });
-  }
+ loadAditamentos() {
+   this.aditamentosService.findAll().subscribe( response => { this.aditamentos = response; },
+     error => {console.log(error); });
+ }
 
-  saveAditamentoAtual() {
-      this.aditamentosService.saveAditamentoAtual(this.aditamentoAtual);
-      alert('Aditamento Salvo.');
-  }
+ saveAditamentoAtual() {
+   this.aditamentosService.saveAditamentoAtual(this.aditamentoAtual);
+     alert('Aditamento Salvo.');
+ }
 
   cancel() {
     this.router.navigate(['/index']);

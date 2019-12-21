@@ -49,21 +49,21 @@ export class FormAditamentoComponent implements OnInit {
     }
   }
 
-updateAditamento() {
-  this.aditamentosService.update(this.aditamento, this.id).subscribe(response => {
-    console.log('Aditamento editado com sucesso!'); } , error => {console.log(error); } );
-        this.aditamento = new AditamentoDTO();
-}
+  updateAditamento() {
+    this.aditamentosService.update(this.aditamento, this.id).subscribe(response => {
+      console.log('Aditamento editado com sucesso!'); } , error => {console.log(error); } );
+          this.aditamento = new AditamentoDTO();
+  }
 
-loadAditamentoForUpdate( ) {
-  this.aditamentosService.findById(this.id).subscribe(  response => { this.aditamento = response; },
-    error => { console.log(error); });
-}
+  loadAditamentoForUpdate( ) {
+    this.aditamentosService.findById(this.id).subscribe(  response => { this.aditamento = response; },
+      error => { console.log(error); });
+  }
 
-insertAditamento() {
-    this.aditamentosService.insert(this.aditamento).subscribe( response =>  { if (response.status === 201) {}
-   console.log(response); },  error => {console.log(error); } );
-}
+  insertAditamento() {
+      this.aditamentosService.insert(this.aditamento).subscribe( response =>  { if (response.status === 201) {}
+    console.log(response); },  error => {console.log(error); } );
+  }
 
   loadText() {
     this.aditamento.despesaPeriodo = 'referente as publicações em Boletim no período compreendido de 16 de Abril a 15 de Maio de 2019';

@@ -46,7 +46,8 @@ export class TabelaMilitaresComponent implements OnInit {
     this.enderecosService.findAll().subscribe(response => {this.enderecos = response; } ,
       error => {console.log(error); } );
   }
-  removerMilitar(militar: MilitarDTO) {
+
+  removeMilitar(militar: MilitarDTO) {
       this.militaresService.delete(militar).subscribe(response => { console.log('Militar deletado com sucesso!'); } ,
         error => {console.log(error); } );
       // deve ter alguns segundos entre o delete e o ngOnInit para dar tempo de receber a lista de militares atualizadas

@@ -37,22 +37,22 @@ export class TabelaExclusaoAuxiliosTransporteComponent implements OnInit {
 
   loadExclusoes() {
     this.exclusoesAuxilioTransporteService.findAll().subscribe(response => {this.dataSource = response;
-    console.log(this.exclusaoAuxiliosTransporte); this.atribuiMilitares(this.dataSource); } ,
+    console.log(this.exclusaoAuxiliosTransporte); this.assignMilitares(this.dataSource); } ,
       error => {console.log(error); } );
   }
 
-  atribuiMilitares(exclusaoAuxiliosTransporte: ExclusaoAuxilioTransporteDTO[]) {
+  assignMilitares(exclusaoAuxiliosTransporte: ExclusaoAuxilioTransporteDTO[]) {
     for (let i = 0; i < exclusaoAuxiliosTransporte.length; i++) {
         this.militaresService.findMilitarByPrecCP(exclusaoAuxiliosTransporte[i].militarPrecCP).subscribe(
           response => {this.militares[i] = response; exclusaoAuxiliosTransporte[i].nome = this.militares[i].nome;
-                      this.atribuiGraduacoes(exclusaoAuxiliosTransporte[i], this.militares[i]); },
+                      this.assignGraduacoes(exclusaoAuxiliosTransporte[i], this.militares[i]); },
           error => {console.log(error); }
         );
     }
     this.dataSource = new MatTableDataSource(exclusaoAuxiliosTransporte);
   }
 
-  atribuiGraduacoes(exclusaoAuxiliosTransporte: ExclusaoAuxilioTransporteDTO, militar: MilitarDTO) {
+  assignGraduacoes(exclusaoAuxiliosTransporte: ExclusaoAuxilioTransporteDTO, militar: MilitarDTO) {
       this.postosGraduacoesService.findPostoGraduacaoById(militar.postoGraduacaoId).subscribe(
         response => {this.postoGraduacao = response; exclusaoAuxiliosTransporte.graduacao = this.postoGraduacao.nome; },
            error => {console.log(error); } );

@@ -173,7 +173,7 @@ export class FormDescontoGuarnicaoServicoComponent implements OnInit {
 
   }
 
-  cancelar() {
+  cancel() {
     this.router.navigate(['/index']);
   }
 

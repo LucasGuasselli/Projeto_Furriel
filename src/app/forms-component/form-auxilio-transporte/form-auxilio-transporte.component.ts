@@ -85,12 +85,12 @@ export class FormAuxilioTransporteComponent implements OnInit {
             this.auxilioTransporte.militarPrecCP = this.precCP;
             // console.log(this.auxilioTransporte);
             this.auxiliosTransporteService.insert(this.auxilioTransporte).subscribe(
-                response => { console.log(response); this.validConducoes(); this.loadAuxiliosTransporte();
+                response => { console.log(response); this.validateConducoes(); this.loadAuxiliosTransporte();
                               this.loadMilitaresSemAuxilioTransporte(); }, error => {console.log(error); } );
        }
     }
 
-    validConducoes() {
+    validateConducoes() {
         const conducoesValidas: number [] = [];
         // busca os indices validos para cadastrar as conducoes
         // este 'for' foi necessario para cadastrar a inclusao somente depois do cadastro da ULTIMA CONDUCAO
