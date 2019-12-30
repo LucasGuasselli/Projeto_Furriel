@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AditamentoDTO } from '../models/aditamento.dto';
 import { AditamentosService } from '../services/aditamentos.service';
+import { DateAdapter } from "@angular/material/core";
 
 @Component({
   selector: 'app-index',
@@ -15,10 +16,13 @@ export class IndexComponent implements OnInit {
 
   constructor(private aditamentosService: AditamentosService,
               private router: Router,
-              private rota: ActivatedRoute ) { }
+              private rota: ActivatedRoute,
+              private adapter: DateAdapter<any> ) { }
 
   ngOnInit() {
     this.loadAditamentos();
+    this.adapter.setLocale('bra');
+
   }
 
 // CADASTRAR
