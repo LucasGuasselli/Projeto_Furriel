@@ -4,7 +4,7 @@
       <mat-form-field>
           <mat-select placeholder="Graduações">            
             <mat-option value="option" *ngFor="let posto of postosGraduacoes" 
-                  (click)="salvarPostoGraduacao(posto.id)">{{posto.nome}}</mat-option>
+                  (click)="savePostoGraduacao(posto.id)">{{posto.nome}}</mat-option>
           </mat-select>
       </mat-form-field>
       

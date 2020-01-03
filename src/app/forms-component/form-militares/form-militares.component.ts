@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MilitarDTO } from '../../models/militar.dto';
 import { PostoGraduacaoDTO } from '../../models/postoGraduacao.dto';
 import { EnderecoDTO } from '../../models/endereco.dto';
+import { EnderecosService } from "../../services/enderecos.service";
 // import { EnderecosService } from '../../services/enderecos.service';
 
 @Component({
@@ -22,6 +23,7 @@ export class FormMilitaresComponent implements OnInit {
     cep: String;
 
   constructor(private militaresService: MilitaresService,
+              private enderecosService: EnderecosService,
               private postosGraduacoesService: PostosGraduacoesService,
               private router: Router,
               private rota: ActivatedRoute) { }
@@ -48,7 +50,7 @@ export class FormMilitaresComponent implements OnInit {
     if (isNaN(this.precCP)) {
         this.precCP = this.militar.precCP;
             // tslint:disable-next-line:triple-equals
-            if (this.validaPrecCP() == true) {
+            if (this.validatePrecCP() == true) {
               // fazendo com que "o endereco saiba a qual militar pertence"
                 this.endereco.militarPrecCP = this.militar.precCP;
               this.insertMilitar();
@@ -75,18 +77,18 @@ export class FormMilitaresComponent implements OnInit {
   }
 
   insertEndereco() {
-  //  this.enderecosService.insert(this.endereco).subscribe(response => {
-   //   console.log('Endereco cadastrado com sucesso!'); },
-   //   error => {console.log(error); } );
-     //     this.endereco = new EnderecoDTO();
+    this.enderecosService.insert(this.endereco).subscribe(response => {
+      console.log('Endereco cadastrado com sucesso!'); },
+      error => {console.log(error); } );
+          this.endereco = new EnderecoDTO();
   }
 
   loadUpdateMilitarAndEndereco() {
     this.militaresService.findMilitarByPrecCP(this.precCP).subscribe( response => {
       this.militar = response; }, error => {console.log(error); } );
 
-   // this.enderecosService.findEnderecoByPrecCP(this.precCP).subscribe( response => {
-   //   this.endereco = response; }, error => {console.log(error); } );
+    this.enderecosService.findEnderecoByPrecCP(this.precCP).subscribe( response => {
+      this.endereco = response; }, error => {console.log(error); } );
   }
 
   updateMilitarAndEndereco() {
@@ -94,13 +96,13 @@ export class FormMilitaresComponent implements OnInit {
       console.log('Militar editado com sucesso!'); } ,
       error => {console.log(error); } );
           this.militar = new MilitarDTO();
-   // this.enderecosService.update(this.endereco, this.endereco.id).subscribe(response => {
-   //   console.log('Endereco editado com sucesso!'); } ,
-   //   error => {console.log(error); } );
-   //       this.endereco = new EnderecoDTO();
+    this.enderecosService.update(this.endereco, this.endereco.id).subscribe(response => {
+      console.log('Endereco editado com sucesso!'); } ,
+      error => {console.log(error); } );
+         this.endereco = new EnderecoDTO();
   }
 
-  salvarPostoGraduacao(codigo: number) {
+  savePostoGraduacao(codigo: number) {
     if (isNaN(codigo)) {
         // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
     } else {
@@ -109,7 +111,7 @@ export class FormMilitaresComponent implements OnInit {
     }
   }
 
-  validaPrecCP() {
+  validatePrecCP() {
       if (Number.isInteger(this.militar.precCP)) {
         return true;
       } else {
@@ -118,12 +120,12 @@ export class FormMilitaresComponent implements OnInit {
   }
 
   getAdress() {
-   // this.enderecosService.findAdressByCEP(this.cep).subscribe( response => { this.endereco = response; },
-    //  error => {console.log(error); });
+    this.enderecosService.findAdressByCEP(this.cep).subscribe( response => { this.endereco = response; },
+       error => {console.log(error); });
   }
 
   cancel() {
     this.router.navigate(['/index']);
   }
 
-}// fecha classe
+} // fecha classe

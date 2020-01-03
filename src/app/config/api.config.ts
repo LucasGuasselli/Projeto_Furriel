@@ -1,7 +1,7 @@
 export const API_CONFIG = {
-    baseUrl: 'https://projeto-furriel.herokuapp.com'
+    baseUrl: 'http://localhost:8080'
 };
 
 // http://localhost:8080
 
-// https://projetofurriel2.herokuapp.com/
+// https://projeto-furriel3.herokuapp.com
