@@ -57,6 +57,7 @@ export class UtilService {
         }
     }
 
+// calcula a quantidade de dias que devem ser descontados conforme o motivo do desconto (regras de negócio) com um certo padrão na logica
     calculaQuantidadeDias(inicio: Date, fim: Date, motivo: String, feriados: number, administrativos: number) {
        // tslint:disable-next-line:prefer-const
        let quantidadeDias = 0;
@@ -128,7 +129,7 @@ export class UtilService {
                         if (inicio.toString().substring(0, 3) === 'Mon' || inicio.toString().substring(0, 3) === 'Tue' ||  inicio.toString().substring(0, 3) === 'Wed' || inicio.toString().substring(0, 3) === 'Thu' || inicio.toString().substring(0, 3) === 'Fri') {
                             quantidadeDias += 1;
                         }
-                            this.inicio.setDate(inicio.getDate() + 1);
+                           inicio.setDate(inicio.getDate() + 1);
                                contador += 1;
 
                                if (quantidadeDias > 25) { break; }
@@ -197,13 +198,16 @@ export class UtilService {
                         if (inicio.toString().substring(0, 3) === 'Mon' || inicio.toString().substring(0, 3) === 'Tue' ||  inicio.toString().substring(0, 3) === 'Wed' || inicio.toString().substring(0, 3) === 'Thu' || inicio.toString().substring(0, 3) === 'Fri') {
                             quantidadeDias += 1;
                         }
-                            this.inicio.setDate(inicio.getDate() + 1);
+                            inicio.setDate(inicio.getDate() + 1);
                                contador += 1;
+                            console.log(inicio.getDate());
+                            console.log(fim.getDate());    
 
                                if (quantidadeDias > 25) { break; }
                         // tslint:disable-next-line:max-line-length
-                        }while ( inicio.getDate() <= fim.getDate() && quantidadeDias < 23 || inicio.toString().substring(4, 7) !== fim.toString().substring(4, 7) && quantidadeDias < 23);
+                        }while ( inicio.getDate() <= fim.getDate() || inicio.toString().substring(4, 7) !== fim.toString().substring(4, 7) );
                             inicio.setDate(inicio.getDate() - contador);
+                                if ( quantidadeDias > 23 ) { quantidadeDias = 22; }
                                 quantidadeDias -= feriados + administrativos;
                             // evitando que o usuario avacalhe nos feriados e administrativos
                             if (quantidadeDias < 0 ) {

@@ -24,14 +24,14 @@
     <div>    
       <mat-form-field>
           <input matInput [matDatepicker]="dataInicio" placeholder="Data de Inicio" 
-          class="datePicker" name="inicio" (click)="calculateQuantidadeDias()" [(ngModel)]="despesa.calculoDataInicio">
+          class="datePicker" name="inicio" (click)="calculateQuantidadeDias()" (focus)="validDate()" [(ngModel)]="despesa.calculoDataInicio">
           <mat-datepicker-toggle matSuffix [for]="dataInicio"></mat-datepicker-toggle>
           <mat-datepicker #dataInicio></mat-datepicker>
       </mat-form-field>      
     
       <mat-form-field>
           <input matInput [matDatepicker]="dataFim" placeholder="Data de Termino" 
-          class="datePicker" name="fim" [(ngModel)]="despesa.calculoDataFim">
+          class="datePicker" name="fim" (click)="calculateQuantidadeDias()" (focus)="validDate()" [(ngModel)]="despesa.calculoDataFim">
           <mat-datepicker-toggle matSuffix [for]="dataFim"></mat-datepicker-toggle>
           <mat-datepicker #dataFim></mat-datepicker>
       </mat-form-field>

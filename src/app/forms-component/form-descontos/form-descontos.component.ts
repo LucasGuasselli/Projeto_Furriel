@@ -76,6 +76,10 @@ export class FormDescontosComponent implements OnInit {
   }
 
   validDate() {
+    console.log(this.utilService.formatDate(this.despesa.calculoDataInicio.toString()));
+
+     // console.log(this.despesa.calculoDataInicio.toString());
+     // console.log(this.despesa.calculoDataFim.toString());
     /*
     if (this.despesa.calculoDataInicio.getDate() > this.despesa.calculoDataFim.getDate()) {
         alert('A data de término deve ser maior ou igual a data de início!!!');
@@ -86,6 +90,10 @@ export class FormDescontosComponent implements OnInit {
   }
 
   calculateQuantidadeDias() {
+    console.log('Quantidade de dias: ' + this.despesa.quantidadeDias);
+    console.log('Data Inicio ' + this.despesa.calculoDataInicio );
+        console.log('Data Fim ' + this.despesa.calculoDataFim );
+
     this.despesa.quantidadeDias = this.utilService.calculaQuantidadeDias(
       this.despesa.calculoDataInicio, this.despesa.calculoDataFim, this.despesa.motivo,
       this.despesa.feriados, this.despesa.administrativos);
