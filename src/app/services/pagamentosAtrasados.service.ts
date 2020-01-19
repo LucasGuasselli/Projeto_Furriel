@@ -23,7 +23,17 @@ export class PagamentosAtrasadosService {
     }
 
     insert(obj: PagamentoAtrasadoDTO) {
-        return this.http.post(`${API_CONFIG.baseUrl}/pagamentosAtrasados`, obj,
+        return this.http.post(`${API_CONFIG.baseUrl}/pagamentosAtrasados/insert`, obj,
+              {
+                observe: 'response',
+                responseType: 'text'
+              }
+        );
+    }
+
+// saque atrasado com as regras de negocio da inclusao do auxilio transporte
+    insertSaqueAtrasadoInclusao(obj: PagamentoAtrasadoDTO) {
+        return this.http.post(`${API_CONFIG.baseUrl}/pagamentosAtrasados/insertSaqueAtrasadoInclusao`, obj,
               {
                 observe: 'response',
                 responseType: 'text'
