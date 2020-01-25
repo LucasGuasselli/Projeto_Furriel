@@ -27,14 +27,19 @@ export class FormPassagensComponent implements OnInit {
     this.passagem  = new PassagemDTO();
   } else {
       this.loadUpdatePassagem();
-      console.log(this.passagem.id);
+      // console.log(this.passagem.id);
     }
 
   }
 
   loadPassagens() {
-      this.passagensService.findAll().subscribe(response => {this.passagens = response; },
-                                                error => {console.log(error); } );
+      this.passagensService.findAll().subscribe(response => {this.passagens = response; }, error => {console.log(error); } );
+  }
+
+
+  loadUpdatePassagem() {
+    this.passagensService.findPassagemById(this.id).subscribe( response => {
+      this.passagem = response; }, error => {console.log(error); } );
   }
 
   validateForm() {
@@ -47,7 +52,7 @@ export class FormPassagensComponent implements OnInit {
       }
   }
 
-  validateTipoTransporte() {
+   validateTipoTransporte() {
     for (let i = 0; i < this.passagens.length; i++) {
         if (this.passagens[i].tipoTransporte === this.passagem.tipoTransporte) {
           return false;
@@ -63,11 +68,11 @@ export class FormPassagensComponent implements OnInit {
           // redireciona para a lista
           this.router.navigate(['/listaValoresPassagens']);
     } else {
-        console.log('chegou na edicao' + this.id);
+        // console.log('chegou na edicao' + this.id);
         this.updatePassagem(this.passagem);
           this.router.navigate(['/listaValoresPassagens']);
     }
-  }
+  }  
 
   insertPassagem() {
     this.passagensService.insert(this.passagem).subscribe(response => { if (response.status === 201) {
@@ -77,11 +82,6 @@ export class FormPassagensComponent implements OnInit {
   updatePassagem(passagem: PassagemDTO) {
     this.passagensService.update(passagem, passagem.id).subscribe( response => { console.log(response);
         console.log('passagem editada com sucesso'); }, error => { console.log(error); } );
-  }
-
-  loadUpdatePassagem() {
-    this.passagensService.findPassagemById(this.id).subscribe( response => {
-      this.passagem = response; }, error => {console.log(error); } );
   }
 
   cancel() {

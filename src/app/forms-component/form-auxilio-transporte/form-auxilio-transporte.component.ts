@@ -36,18 +36,18 @@ export class FormAuxilioTransporteComponent implements OnInit {
 
     aditamentoAtual: AditamentoDTO = null;
     // array com todos auxilios Transporte
-    auxiliosTransporte: AuxilioTransporteDTO[] = [];
+        auxiliosTransporte: AuxilioTransporteDTO[] = [];
     // objeto usado para inserir um auxílio no banco
-    auxilioTransporte: AuxilioTransporteDTO = new AuxilioTransporteDTO;
-    militaresSemAuxilioTransporte: MilitarDTO[] = [];
-    inclusaoAuxilioTransporte: InclusaoAuxilioTransporteDTO = new InclusaoAuxilioTransporteDTO();
-    saqueAtrasado: PagamentoAtrasadoDTO  = new PagamentoAtrasadoDTO;
+        auxilioTransporte: AuxilioTransporteDTO = new AuxilioTransporteDTO;
+        militaresSemAuxilioTransporte: MilitarDTO[] = [];
+        inclusaoAuxilioTransporte: InclusaoAuxilioTransporteDTO = new InclusaoAuxilioTransporteDTO();
+        saqueAtrasado: PagamentoAtrasadoDTO  = new PagamentoAtrasadoDTO;
     // objeto usado no looping para cadastrar as conducoes
-    auxTransp: AuxilioTransporteDTO = new AuxilioTransporteDTO();
-    precCP: number;
-    data: Date;
+        auxTransp: AuxilioTransporteDTO = new AuxilioTransporteDTO();
+        precCP: number;
+        data: Date;
     // utilizada na regra de negocio do saque atrasado
-    dataFim: Date = new Date();
+        dataFim: Date = new Date();
 
    //  postoGraduacao: PostoGraduacao[] = [];
 
@@ -73,7 +73,7 @@ export class FormAuxilioTransporteComponent implements OnInit {
 
     loadMilitaresSemAuxilioTransporte() {
         this.militaresService.findMilitaresSemAuxilioTransporte().subscribe(
-            response => {this.militaresSemAuxilioTransporte = response;  } , error => {console.log(error); } );
+            response => { this.militaresSemAuxilioTransporte = response;  } , error => {console.log(error); } );
     }
 /*
     loadAuxiliosTransporte() {
@@ -81,27 +81,27 @@ export class FormAuxilioTransporteComponent implements OnInit {
             response => {this.auxiliosTransporte = response; } , error => {console.log(error); } );
     }
 */
-    saveAuxilioTransporteAndConducoes() {
+    validateAuxilioTransporteAndConducoes() {
         if ( this.aditamentoAtual == null)    {
             alert('Selecione um aditamento!');
         } else {
             if (isNaN(this.precCP)) {
                 alert('Selecione um militar!');
             } else {
-                this.ValidSelection();
+                this.ValidateSelection();
             }
         }
     }
 
-// valida algum militar foi selecionado
-    ValidSelection() {
+// valida se algum militar foi selecionado
+    ValidateSelection() {
         if (isNaN(this.precCP)) {
             alert('Selecione um militar!');
        } else {
            this.insertAuxilioTransporte();
        }
     }
-
+    
 // alem de inserir um auxilioTransporte no banco, carrega novamente via GET os militares sem auxilio
     insertAuxilioTransporte() {
         this.auxilioTransporte.militarPrecCP = this.precCP;
@@ -110,27 +110,32 @@ export class FormAuxilioTransporteComponent implements OnInit {
                 response => { this.validateConducoes(); this.loadMilitaresSemAuxilioTransporte(); }, error => {console.log(error); } );
     }
 
+// VERIFICAR COMENTARIO E METODO ABAIXO
 // esta validacao deve ser realizada antes de cadastrar um auxilio transporte!!
     validateConducoes() {
         const conducoesValidas: number [] = [];
         // busca os indices validos para cadastrar as conducoes
-        // este 'for' foi necessario para cadastrar a inclusao somente depois do cadastro da ULTIMA CONDUCAO
             for (let k = 0; k < this.conducoes.length; k++) {
                 // todos campos devem ser preenchidos para cadastrar uma conducao
-                    if (this.conducoes[k].valor != null && this.conducoes[k].tipoDeTransporte != null
-                        && this.conducoes[k].nomeEmpresa != null && this.conducoes[k].itinerario != null) {
+                    if (this.conducoes[k].valor != null && this.conducoes[k].tipoDeTransporte != null && this.conducoes[k].nomeEmpresa != null && this.conducoes[k].itinerario != null) {
                             conducoesValidas.push(k);
                     }
             }
 
+        // este 'for' foi necessario para cadastrar a inclusao somente depois do cadastro da ULTIMA CONDUCAO
             for (let i = 0; i < conducoesValidas.length; i++) {
                 // variavel valida: boolean serve para saber quando a ultima conducao vai ser cadastrada
                 let valida = false;
                 this.auxiliosTransporteService.findAuxilioTransporteByPrecCP(this.precCP).subscribe(
-                    response => { this.auxTransp = response;
-                        if (i === (conducoesValidas.length - 1) ) { valida = true; }
-                            this.insertConducao(this.conducoes[conducoesValidas[i]], this.auxTransp.id, valida);
-                                this.auxTransp = new AuxilioTransporteDTO(); }, error => {console.log(error); }
+                    response => { 
+                        this.auxTransp = response;
+                            if (i === (conducoesValidas.length - 1) ) { 
+                                valida = true; 
+                            }
+                                this.insertConducao(this.conducoes[conducoesValidas[i]], this.auxTransp.id, valida);
+                                    this.auxTransp = new AuxilioTransporteDTO(); 
+                    }, 
+                        error => {console.log(error); }
                 );
             }
     }
@@ -157,7 +162,10 @@ export class FormAuxilioTransporteComponent implements OnInit {
 
     insertInclusaoAuxilioTransporte() {
         this.inclusaoAuxilioTransporteService.insert(this.inclusaoAuxilioTransporte).subscribe(
-           response => { if (response.status === 201) { this.moveToReadAuxiliosAndConducoes(); } },
+           response => {
+               if (response.status === 201) { 
+                   this.moveToReadAuxiliosAndConducoes(); } 
+           },
            error => {console.log(error); }
         );
     }    
@@ -167,6 +175,7 @@ export class FormAuxilioTransporteComponent implements OnInit {
         this.saqueAtrasado.militarPrecCP = this.precCP;
         this.saqueAtrasado.motivo = 'Inclusão de Auxílio Transporte';
         this.saqueAtrasado.mesReferencia = this.utilService.returnNameMonth(this.data.toString());
+        
         // a quantidade e a soma dos dias restantes do mes atual + 22 dias conforme regra de negocio
             // variavel dataFim utilizada para realizar o calculo dos dias restantes
             this.dataFim.setDate(this.data.getDate());

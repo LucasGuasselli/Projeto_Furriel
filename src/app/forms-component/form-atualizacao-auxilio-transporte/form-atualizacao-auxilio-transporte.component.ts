@@ -46,28 +46,31 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
   ngOnInit() {
     this.codAT = this.rota.snapshot.params['cod'];
     this.aditamentoAtual = this.aditamentosService.getAditamentoAtual();
-    if ( this.aditamentoAtual == null)    {
-      alert('Selecione um aditamento!');
-      this.router.navigate(['/index']);
-    }
-    this.loadConducoesById(this.codAT);
+      if ( this.aditamentoAtual == null)    {
+        alert('Selecione um aditamento!');
+        this.router.navigate(['/index']);
+      }
+        this.loadConducoesById(this.codAT);
   }
 
 // carregando do banco todas conducoes usando um @param id de um auxilioTransporte
   loadConducoesById(id: number) {
       this.conducoesService.findConducoesByAuxilioTransporteId(id).subscribe( response => {
-        this.conducoesAtualizacao = response; this.loadOldValues(this.conducoesAtualizacao); },
-        error => { console.log(error); });
+        this.conducoesAtualizacao = response; this.loadOldValues(this.conducoesAtualizacao); 
+      },
+        error => { console.log(error); }
+      );
   }
 
 // carregando valores antigos das conducoes para comparacoes
   loadOldValues(conducoesAtualizacao: ConducaoDTO[]) {
       for (let i = 0; i < conducoesAtualizacao.length; i++) {
-          this.valoresAntigos[i] = conducoesAtualizacao[i].valor;
-          this.conducoes[i] = conducoesAtualizacao[i];
+            this.valoresAntigos[i] = conducoesAtualizacao[i].valor;
+            this.conducoes[i] = conducoesAtualizacao[i];
       }
   }
 
+  //  ATUALIZAR METODO COM A NOVA REGRA DE NEGOCIO DAS ATUALIZACOES
   // este metodo e responsavel por nao permitir colocar valores menores que os existentes
   verifyValues() {
     let validacao = true;
@@ -87,25 +90,31 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
   // buscando um auxilioTransporte
   findAuxilioTransporteById(id: number) {
     this.auxiliosTransporteService.findAuxilioTransporteById(id).subscribe(
-        response => { this.auxilioTransporte = response;
-        this.insertAtualizacaoAuxilioTransporte(this.auxilioTransporte);
-        } , error => { console.log(error); }
+        response => { 
+          this.auxilioTransporte = response;
+          this.beforeInsertAtualizacaoAuxilioTransporte(this.auxilioTransporte);
+        }, 
+        error => { console.log(error); }
     );
+  }
+
+  beforeInsertAtualizacaoAuxilioTransporte(auxilio: AuxilioTransporteDTO) {
+      this.atualizacaoAuxilioTransporte.militarPrecCP = auxilio.militarPrecCP;
+      this.atualizacaoAuxilioTransporte.aditamentoId = this.aditamentoAtual.id;
+      this.atualizacaoAuxilioTransporte.dataInicio = this.utilService.formatDate(this.atualizacaoAuxilioTransporte.dataInicio.toString());
+      this.atualizacaoAuxilioTransporte.valor = 0;
+        this.insertAtualizacaoAuxilioTransporte(auxilio);
   }
 
 // inserindo uma atualizacao de auxilio transporte
   insertAtualizacaoAuxilioTransporte(auxilio: AuxilioTransporteDTO) {
-    this.atualizacaoAuxilioTransporte.militarPrecCP = auxilio.militarPrecCP;
-    this.atualizacaoAuxilioTransporte.aditamentoId = this.aditamentoAtual.id;
-    this.atualizacaoAuxilioTransporte.dataInicio = this.utilService.formatDate(
-                                  this.atualizacaoAuxilioTransporte.dataInicio.toString());
-    this.atualizacaoAuxilioTransporte.valor = 0;
-
-  this.atualizacoesAuxilioTransporteService.insert(this.atualizacaoAuxilioTransporte).subscribe(
-    response => { if (response.status === 201 ) { this.updateConducoes(); } },
-     error => {console.log(error); }
-  );
-}
+    this.atualizacoesAuxilioTransporteService.insert(this.atualizacaoAuxilioTransporte).subscribe(
+      response => { 
+        if (response.status === 201 ) { this.updateConducoes(); } 
+      },
+        error => { console.log(error); }
+    );
+  }
 
   updateConducoes() {
     for (let  i = 0; i < this.conducoes.length; i++) {
@@ -123,4 +132,5 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
   cancel() {
     this.router.navigate(['/listaATConducao']);
   }
+  
 }// fecha classe

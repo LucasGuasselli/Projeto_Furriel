@@ -14,46 +14,52 @@ import { AditamentosService } from '../../services/aditamentos.service';
 })
 export class FormPagamentoAtrasadoComponent implements OnInit {
 
-  precCP: number;
-  pagamentoAtrasado: PagamentoAtrasadoDTO = new PagamentoAtrasadoDTO();
-  militaresComAuxilioTransporte: MilitarDTO[] = [];
-
   aditamentoAtual: AditamentoDTO = null;
+  saqueAtrasado: PagamentoAtrasadoDTO = new PagamentoAtrasadoDTO();
+  militaresComAuxilioTransporte: MilitarDTO[] = [];
+  precCP: number;
 
   constructor(private militaresService: MilitaresService,
-              private pagamentoAtrasadoService: PagamentosAtrasadosService,
+              private saquesAtrasadoService: PagamentosAtrasadosService,
               private router: Router, private rota: ActivatedRoute,
               private aditamentosService: AditamentosService) { }
 
     ngOnInit() {
       this.aditamentoAtual = this.aditamentosService.getAditamentoAtual();
-      if ( this.aditamentoAtual == null)    {
-        alert('Selecione um aditamento!');
-        this.router.navigate(['/index']);
-      }
-        this.loadMilitaresComAuxilioTransporte();
-    }
-
-    savePagamentoAtrasado() {
-        if (isNaN(this.precCP)) {
-            alert('Selecione um militar!');
-        } else {
-            this.insertPagamentoAtrasado();
+        if ( this.aditamentoAtual == null)    {
+          alert('Selecione um aditamento!');
+            // redireciona para a pagina inicial
+            this.router.navigate(['/index']);
         }
-    }
-
-    insertPagamentoAtrasado() {
-      this.pagamentoAtrasado.militarPrecCP = this.precCP;
-      this.pagamentoAtrasado.aditamentoId = this.aditamentoAtual.id;
-      this.pagamentoAtrasadoService.insert(this.pagamentoAtrasado).subscribe(response => {
-        alert('Saque Atrasado cadastrado com sucesso!'); }, error => {console.log(error); } );
+          this.loadMilitaresComAuxilioTransporte();
     }
 
     loadMilitaresComAuxilioTransporte() {
       this.militaresService.findMilitaresComAuxilioTransporte().subscribe(
-          response => {this.militaresComAuxilioTransporte = response; } ,
-          error => {console.log(error); } );
+          response => {this.militaresComAuxilioTransporte = response;} , error => {console.log(error); } );
     }
+
+    validatePrecCP() {
+        if (isNaN(this.precCP)) {
+            alert('Selecione um militar!');
+        } else {
+            this.beforeInsertSaqueAtrasado();
+        }
+    }
+
+    beforeInsertSaqueAtrasado() {
+      this.saqueAtrasado.militarPrecCP = this.precCP;
+      this.saqueAtrasado.aditamentoId = this.aditamentoAtual.id;
+        this.insertSaqueAtrasado();
+    }
+
+    insertSaqueAtrasado() {      
+      this.saquesAtrasadoService.insert(this.saqueAtrasado).subscribe(response => {
+        if (response.status == 201) {
+          alert('Saque Atrasado cadastrado com sucesso!');
+            this.saqueAtrasado = new PagamentoAtrasadoDTO();
+        } }, error => {console.log(error); } );
+    }    
 
     saveMilitarPrecCP(codigo: number) {
       if (isNaN(codigo)) {

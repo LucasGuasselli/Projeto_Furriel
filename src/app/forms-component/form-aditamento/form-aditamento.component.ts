@@ -13,25 +13,30 @@ export class FormAditamentoComponent implements OnInit {
 
   aditamento: AditamentoDTO = new AditamentoDTO();
   id: number;
+
   constructor(private aditamentosService: AditamentosService,
               private router: Router, private rota: ActivatedRoute) { }
 
   ngOnInit() {
     this.id = this.rota.snapshot.params['cod'];
 
-  /* IF - cadastro caso if for verdadeiro
-    ELSE - serve para casos de edicao da entidade aditamento */
-  if (isNaN(this.id)) {
-    this.aditamento  = new AditamentoDTO();
-    this.loadText();
-  } else {
-      this.loadAditamentoForUpdate();
-      // console.log(this.aditamento);
-    }
+    /* IF - cadastro caso if for verdadeiro
+      ELSE - serve para casos de edicao da entidade aditamento */
+      if (isNaN(this.id)) {
+        this.aditamento  = new AditamentoDTO();
+        this.loadText();
+      } else {
+          this.loadAditamentoForUpdate();
+      }
   }
 
-   // salva ou edita uma entidade aditamento
-   saveAditamento() {
+  loadAditamentoForUpdate( ) {
+    this.aditamentosService.findById(this.id).subscribe(  response => { this.aditamento = response; },
+      error => { console.log(error); });
+  }
+
+  // salva ou edita uma entidade aditamento
+  validateAditamento() {
     // validar atributo nome
     if (this.aditamento.nome.length <= 3) {
       alert('Insira um nome para o aditamento com pelo menos 4 caracteres!');
@@ -49,20 +54,25 @@ export class FormAditamentoComponent implements OnInit {
     }
   }
 
+  insertAditamento() {
+      this.aditamentosService.insert(this.aditamento).subscribe( response =>  { 
+        if (response.status === 201) {
+          console.log(response);
+        }
+     }, 
+        error => {console.log(error); } 
+     );
+  }
+
   updateAditamento() {
     this.aditamentosService.update(this.aditamento, this.id).subscribe(response => {
-      console.log('Aditamento editado com sucesso!'); } , error => {console.log(error); } );
+      if (response.status === 204) {
+        console.log('Aditamento editado com sucesso!');
+      }
+    }, 
+        error => {console.log(error); } 
+    );
           this.aditamento = new AditamentoDTO();
-  }
-
-  loadAditamentoForUpdate( ) {
-    this.aditamentosService.findById(this.id).subscribe(  response => { this.aditamento = response; },
-      error => { console.log(error); });
-  }
-
-  insertAditamento() {
-      this.aditamentosService.insert(this.aditamento).subscribe( response =>  { if (response.status === 201) {}
-    console.log(response); },  error => {console.log(error); } );
   }
 
   loadText() {

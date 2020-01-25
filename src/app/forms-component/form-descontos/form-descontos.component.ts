@@ -32,12 +32,20 @@ export class FormDescontosComponent implements OnInit {
     this.aditamentoAtual = this.aditamentosService.getAditamentoAtual();
       if ( this.aditamentoAtual == null)    {
         alert('Selecione um aditamento!');
-        this.router.navigate(['/index']);
+          this.router.navigate(['/index']);
       }
     this.loadMilitaresComAuxilioTransporte();
   }
 
-  saveDespesa() {
+  loadMilitaresComAuxilioTransporte() {
+    this.militaresService.findMilitaresComAuxilioTransporte().subscribe(
+        response => { 
+          this.militaresComAuxilioTransporte = response; 
+        },
+          error => {console.log(error); } );
+  }
+
+  validateDespesa() {
     if (isNaN(this.precCP)) {
       alert('Você precisa selecionar um militar!');
     } else {
@@ -47,36 +55,19 @@ export class FormDescontosComponent implements OnInit {
           if (this.despesa.calculoDataInicio == null || this.despesa.calculoDataFim == null) {
               alert('Você deve informar as datas!');
           } else {
-            if (this.despesa.motivo == null) {
+            if (this.despesa.motivo == null || this.despesa.motivo == 'não houve despesa') {
               alert('Você deve selecionar um motivo!');
             } else {
-              this.validDate();
-              this.insertDespesa();
+            //  this.validateDate();
+              this.beforeInsertDespesa();
             }
           }
         }
       }
   }
 
-  insertDespesa() {
-    this.despesa.quantidadeDias = this.utilService.calculaQuantidadeDias(
-      this.despesa.calculoDataInicio, this.despesa.calculoDataFim, this.despesa.motivo,
-      this.despesa.feriados, this.despesa.administrativos);
-
-    // console.log(this.data.setDate(this.data.getDay() + 2));
-    this.despesa.militarPrecCP = this.precCP;
-    this.despesa.aditamentoId = this.aditamentoAtual.id;
-    // e necessario receber as datas antes dos calculos, pois elas podem ser alteradas para os calculos
-      this.despesa.dataInicio = this.utilService.formatDate(this.despesa.calculoDataInicio.toString());
-      this.despesa.dataFim = this.utilService.formatDate(this.despesa.calculoDataFim.toString());
-
-      this.despesasService.insert(this.despesa).subscribe(response => { console.log(response);
-      if (response.status === 201 ) { alert('Despesa Cadastrada com Sucesso!'); } } ,
-        error => {console.log(error); });
-  }
-
-  validDate() {
-    console.log(this.utilService.formatDate(this.despesa.calculoDataInicio.toString()));
+  validateDate() {
+     console.log(this.utilService.formatDate(this.despesa.calculoDataInicio.toString()));
 
      // console.log(this.despesa.calculoDataInicio.toString());
      // console.log(this.despesa.calculoDataFim.toString());
@@ -89,14 +80,30 @@ export class FormDescontosComponent implements OnInit {
     */
   }
 
-  calculateQuantidadeDias() {
-    console.log('Quantidade de dias: ' + this.despesa.quantidadeDias);
-    console.log('Data Inicio ' + this.despesa.calculoDataInicio );
-        console.log('Data Fim ' + this.despesa.calculoDataFim );
+  beforeInsertDespesa() {
+    this.despesa.aditamentoId = this.aditamentoAtual.id;
+    this.despesa.quantidadeDias = this.utilService.calculaQuantidadeDias( this.despesa.calculoDataInicio, this.despesa.calculoDataFim, this.despesa.motivo, this.despesa.feriados, this.despesa.administrativos);
+    this.despesa.militarPrecCP = this.precCP;
+    // console.log(this.data.setDate(this.data.getDay() + 2));
 
-    this.despesa.quantidadeDias = this.utilService.calculaQuantidadeDias(
-      this.despesa.calculoDataInicio, this.despesa.calculoDataFim, this.despesa.motivo,
-      this.despesa.feriados, this.despesa.administrativos);
+    // e necessario receber as datas antes dos calculos, pois elas podem ser alteradas para os calculos
+      this.despesa.dataInicio = this.utilService.formatDate(this.despesa.calculoDataInicio.toString());
+      this.despesa.dataFim = this.utilService.formatDate(this.despesa.calculoDataFim.toString());
+        this.insertDespesa();
+  }
+
+  insertDespesa() {
+      this.despesasService.insert(this.despesa).subscribe(response => { 
+          if (response.status === 201 ) { alert('Despesa Cadastrada com Sucesso!'); }
+        },
+          error => {console.log(error); });
+  }
+
+  calculateQuantidadeDias() {
+    this.despesa.quantidadeDias = this.utilService.calculaQuantidadeDias( this.despesa.calculoDataInicio, this.despesa.calculoDataFim, this.despesa.motivo, this.despesa.feriados, this.despesa.administrativos);
+      console.log('Quantidade de dias: ' + this.despesa.quantidadeDias);
+        console.log('Data Inicio ' + this.despesa.calculoDataInicio );
+            console.log('Data Fim ' + this.despesa.calculoDataFim );
   }
 
   savePrecCPMilitar(precCP: number) {
@@ -106,13 +113,7 @@ export class FormDescontosComponent implements OnInit {
         this.precCP = precCP;
         console.log(this.precCP);
     }
-  }
-
-  loadMilitaresComAuxilioTransporte() {
-    this.militaresService.findMilitaresComAuxilioTransporte().subscribe(
-        response => {this.militaresComAuxilioTransporte = response; console.log(this.militaresComAuxilioTransporte); } ,
-        error => {console.log(error); } );
-  }
+  }  
 
   cancelar() {
     this.router.navigate(['/index']);

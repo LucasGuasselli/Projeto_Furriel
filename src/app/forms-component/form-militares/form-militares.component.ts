@@ -14,7 +14,7 @@ import { EnderecosService } from "../../services/enderecos.service";
   styleUrls: ['./form-militares.component.css']
 })
 export class FormMilitaresComponent implements OnInit {
-  titulo = 'Cadastro de Militares';
+    titulo = 'Cadastro de Militares';
 
     militar: MilitarDTO = new MilitarDTO();
     endereco: EnderecoDTO = new EnderecoDTO();
@@ -33,20 +33,28 @@ export class FormMilitaresComponent implements OnInit {
     this.postosGraduacoesService.findAll().subscribe(response => {this.postosGraduacoes = response; } ,
       error => {console.log(error); } );
 
-/* IF - cadastro ou quando o usuario insere um preccp invalido
+    /* IF - cadastro ou quando o usuario insere um preccp invalido
     ELSE - serve para casos de edicao da entidade militar */
-  if (isNaN(this.precCP)) {
-    this.militar  = new MilitarDTO();
-    this.endereco  = new EnderecoDTO();
-  } else {
-      alert('O Prec-CP não deve ser alterado!');
-      this.loadUpdateMilitarAndEndereco();
-      console.log(this.endereco.militarPrecCP);
-    }
+      if (isNaN(this.precCP)) {
+        this.militar  = new MilitarDTO();
+        this.endereco  = new EnderecoDTO();
+      } else {
+          alert('O Prec-CP não deve ser alterado!');
+          this.loadUpdateMilitarAndEndereco();
+      //    console.log(this.endereco.militarPrecCP);
+      }
+  }
+
+  loadUpdateMilitarAndEndereco() {
+    this.militaresService.findMilitarByPrecCP(this.precCP).subscribe( response => {
+      this.militar = response; }, error => {console.log(error); } );
+
+    this.enderecosService.findEnderecoByPrecCP(this.precCP).subscribe( response => {
+      this.endereco = response; }, error => {console.log(error); } );
   }
 
   // salva  ou edita uma entidade militar e endereco
-  saveMilitar() {
+  validateMilitar() {
     if (isNaN(this.precCP)) {
         this.precCP = this.militar.precCP;
             // tslint:disable-next-line:triple-equals
@@ -69,37 +77,51 @@ export class FormMilitaresComponent implements OnInit {
     }
   }
 
+  validatePrecCP() {
+      if (Number.isInteger(this.militar.precCP)) {
+        return true;
+      } else {
+        return false;
+      }
+  }
+
   insertMilitar() {
     this.militaresService.insert(this.militar).subscribe(response => {
-              this.insertEndereco(); console.log('Cadastro efetuado com sucesso!');  } ,
-      error => {console.log(error); } );
-          this.militar = new MilitarDTO();
+          if (response.status == 201) { 
+            this.insertEndereco();  
+            console.log('Militar cadastrado efetuado com sucesso!'); 
+          } } ,
+            error => { console.log(error); } 
+          );
+            this.militar = new MilitarDTO();
   }
 
   insertEndereco() {
     this.enderecosService.insert(this.endereco).subscribe(response => {
-      console.log('Endereco cadastrado com sucesso!'); },
-      error => {console.log(error); } );
-          this.endereco = new EnderecoDTO();
-  }
-
-  loadUpdateMilitarAndEndereco() {
-    this.militaresService.findMilitarByPrecCP(this.precCP).subscribe( response => {
-      this.militar = response; }, error => {console.log(error); } );
-
-    this.enderecosService.findEnderecoByPrecCP(this.precCP).subscribe( response => {
-      this.endereco = response; }, error => {console.log(error); } );
-  }
+          if (response.status == 201) {
+             console.log('Endereco cadastrado com sucesso!'); 
+          } },
+            error => {console.log(error); }
+          );
+              this.endereco = new EnderecoDTO();
+  }  
 
   updateMilitarAndEndereco() {
     this.militaresService.update(this.militar, this.precCP).subscribe(response => {
-      console.log('Militar editado com sucesso!'); } ,
-      error => {console.log(error); } );
-          this.militar = new MilitarDTO();
+          if (response.status == 204) { 
+            console.log('Militar editado com sucesso!');
+          } },
+            error => {console.log(error); }
+          );
+            this.militar = new MilitarDTO();
+    
     this.enderecosService.update(this.endereco, this.endereco.id).subscribe(response => {
-      console.log('Endereco editado com sucesso!'); } ,
-      error => {console.log(error); } );
-         this.endereco = new EnderecoDTO();
+          if (response.status == 204) {
+             console.log('Endereco editado com sucesso!'); 
+          } },
+             error => {console.log(error); } 
+          );
+             this.endereco = new EnderecoDTO();
   }
 
   savePostoGraduacao(codigo: number) {
@@ -109,14 +131,6 @@ export class FormMilitaresComponent implements OnInit {
         this.militar.postoGraduacaoId = codigo;
         console.log(codigo);
     }
-  }
-
-  validatePrecCP() {
-      if (Number.isInteger(this.militar.precCP)) {
-        return true;
-      } else {
-        return false;
-      }
   }
 
   getAdress() {

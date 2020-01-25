@@ -31,46 +31,52 @@ export class FormDescontosFeriadosAdmComponent implements OnInit {
     this.aditamentoAtual = this.aditamentosService.getAditamentoAtual();
       if ( this.aditamentoAtual == null)    {
         alert('Selecione um aditamento!');
-        this.router.navigate(['/index']);
+          this.router.navigate(['/index']);
       }
   }
 
-  saveDespesa() {
+  validateDespesa() {
     if (this.despesa.calculoDataInicio == null) {
       alert('Você deve informar as datas!');
     } else {
       if (this.despesa.motivo == null) {
         alert('Você deve selecionar um motivo!');
       } else {
-        this.despesa.calculoDataFim = this.despesa.calculoDataInicio;
-
-        this.despesa.quantidadeDias = this.utilService.calculaQuantidadeDias(
-          this.despesa.calculoDataInicio, this.despesa.calculoDataFim, this.despesa.motivo,
-          this.despesa.feriados, this.despesa.administrativos);
-
-          this.despesa.aditamentoId = this.aditamentoAtual.id;
-          this.despesa.dataInicio = this.utilService.formatDate(this.despesa.calculoDataInicio.toString());
-          this.despesa.dataFim = this.utilService.formatDate(this.despesa.calculoDataFim.toString());
-          this.loadMilitaresComAuxilioTransporte();
+        this.beforeLoadMilitares();
+        this.loadMilitaresComAuxilioTransporte();
       }
     }
   }
 
+  beforeLoadMilitares() {
+     this.despesa.aditamentoId = this.aditamentoAtual.id;
+     // data inicial e data fim sao iguais pois e cadastrado um dia de feriado ou adm por vez.
+       this.despesa.calculoDataFim = this.despesa.calculoDataInicio;
+     // calcula a quantidade de dias conforme regra de negocio  
+     this.despesa.quantidadeDias = this.utilService.calculaQuantidadeDias(this.despesa.calculoDataInicio, this.despesa.calculoDataFim, this.despesa.motivo, this.despesa.feriados, this.despesa.administrativos);
+     // formatando as datas para o padrao DD/MM/YYYY
+     this.despesa.dataInicio = this.utilService.formatDate(this.despesa.calculoDataInicio.toString());
+     this.despesa.dataFim = this.utilService.formatDate(this.despesa.calculoDataFim.toString());
+  }
+
   loadMilitaresComAuxilioTransporte() {
     this.militaresService.findMilitaresComAuxilioTransporte().subscribe(
-        response => { this.militaresComAuxilioTransporte = response; this.insertDespesa(this.militaresComAuxilioTransporte);
-         console.log(this.militaresComAuxilioTransporte); } ,
-        error => {console.log(error); } );
+        response => { 
+          this.militaresComAuxilioTransporte = response; this.insertDespesa(this.militaresComAuxilioTransporte); 
+        } ,
+          error => {console.log(error); } );
   }
 
   insertDespesa(militares: MilitarDTO[]) {
     let contador = 0;
       for (let i = 0; i < militares.length; i++) {
           this.despesa.militarPrecCP = militares[i].precCP;
-          this.despesasService.insert(this.despesa).subscribe( response => { if (response.status === 201) {contador += 1; }
-            if (contador === militares.length) {alert('Despesas Cadastradas com Sucesso!'); }
-            console.log(response); }, error => {console.log(error); }
-          );
+            this.despesasService.insert(this.despesa).subscribe( 
+              response => { 
+                if (response.status === 201) { contador += 1; }
+                if (contador === militares.length) { alert('Despesas Cadastradas com Sucesso!'); }
+              }, error => {console.log(error); }
+            );
       }
   }
 
