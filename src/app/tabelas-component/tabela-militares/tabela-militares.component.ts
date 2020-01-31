@@ -38,26 +38,34 @@ export class TabelaMilitaresComponent implements OnInit {
   }
 
   loadMilitares() {
-    this.militaresService.findAll().subscribe(response => { this.dataSource = new MatTableDataSource(response);
-      this.militares  = response; } , error => {console.log(error); } );
+    this.militaresService.findAll().subscribe(
+      response => { 
+        this.dataSource = new MatTableDataSource(response);
+        this.militares  = response; 
+      },
+      error => { console.log(error); } 
+    );
   }
 
   loadEnderecos() {
-    this.enderecosService.findAll().subscribe(response => {this.enderecos = response; } ,
-      error => {console.log(error); } );
+    this.enderecosService.findAll().subscribe(response => {this.enderecos = response; },
+      error => { console.log(error); } );
   }
 
   removeMilitar(militar: MilitarDTO) {
-      this.militaresService.delete(militar).subscribe(response => { console.log('Militar deletado com sucesso!'); } ,
-        error => {console.log(error); } );
+      this.militaresService.delete(militar).subscribe(
+        response => { 
+          if (response.status == 204) { console.log('Militar deletado com sucesso!'); } 
+        },
+        error => {console.log(error); } 
+      );
       // deve ter alguns segundos entre o delete e o ngOnInit para dar tempo de receber a lista de militares atualizadas
-      alert('Militar Deletado com sucesso!');
-      this.ngOnInit();
+        alert('Militar Deletado com sucesso!');
+          this.ngOnInit();
   }
 
   cancel() {
     this.router.navigate(['/index']);
   }
-
 
 }

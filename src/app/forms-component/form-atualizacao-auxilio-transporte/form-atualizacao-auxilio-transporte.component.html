@@ -31,9 +31,7 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-select placeholder="Tipo de Transporte" name="tipoDeTransporte0" [(ngModel)]="conducoes[0].tipoDeTransporte">            
-                    <mat-option value="Ônibus">Ônibus</mat-option>
-                    <mat-option value="Trensurb">Trensurb</mat-option>
-                    <mat-option value="Ônibus intermunicipal">Ônibus intermunicipal</mat-option>
+                    <mat-option value={{tipoTransp.tipoTransporte}} *ngFor="let tipoTransp of passagens">{{tipoTransp.tipoTransporte}}</mat-option>                
                 </mat-select>
             </mat-form-field>    
             <mat-form-field class="input">
@@ -60,9 +58,7 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-select placeholder="Tipo de Transporte" name="tipoDeTransporte1" [(ngModel)]="conducoes[1].tipoDeTransporte">            
-                    <mat-option value="Ônibus">Ônibus</mat-option>
-                    <mat-option value="Trensurb">Trensurb</mat-option>
-                    <mat-option value="Ônibus intermunicipal">Ônibus intermunicipal</mat-option>
+                    <mat-option value={{tipoTransp.tipoTransporte}} *ngFor="let tipoTransp of passagens">{{tipoTransp.tipoTransporte}}</mat-option>                
                 </mat-select>
             </mat-form-field>    
             <mat-form-field class="input">
@@ -89,9 +85,7 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-select placeholder="Tipo de Transporte" name="tipoDeTransporte2" [(ngModel)]="conducoes[2].tipoDeTransporte">            
-                    <mat-option value="Ônibus">Ônibus</mat-option>
-                    <mat-option value="Trensurb">Trensurb</mat-option>
-                    <mat-option value="Ônibus intermunicipal">Ônibus intermunicipal</mat-option>
+                    <mat-option value={{tipoTransp.tipoTransporte}} *ngFor="let tipoTransp of passagens">{{tipoTransp.tipoTransporte}}</mat-option>                
                 </mat-select>
             </mat-form-field>    
             <mat-form-field class="input">
@@ -118,9 +112,7 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-select placeholder="Tipo de Transporte" name="tipoDeTransporte3" [(ngModel)]="conducoes[3].tipoDeTransporte">            
-                    <mat-option value="Ônibus">Ônibus</mat-option>
-                    <mat-option value="Trensurb">Trensurb</mat-option>
-                    <mat-option value="Ônibus intermunicipal">Ônibus intermunicipal</mat-option>
+                    <mat-option value={{tipoTransp.tipoTransporte}} *ngFor="let tipoTransp of passagens">{{tipoTransp.tipoTransporte}}</mat-option>                
                 </mat-select>
             </mat-form-field>    
             <mat-form-field class="input">
@@ -147,9 +139,7 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-select placeholder="Tipo de Transporte" name="tipoDeTransporte4" [(ngModel)]="conducoes[4].tipoDeTransporte">            
-                    <mat-option value="Ônibus">Ônibus</mat-option>
-                    <mat-option value="Trensurb">Trensurb</mat-option>
-                    <mat-option value="Ônibus intermunicipal">Ônibus intermunicipal</mat-option>
+                    <mat-option value={{tipoTransp.tipoTransporte}} *ngFor="let tipoTransp of passagens">{{tipoTransp.tipoTransporte}}</mat-option>                
                 </mat-select>
             </mat-form-field>    
             <mat-form-field class="input">
@@ -175,9 +165,7 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-select placeholder="Tipo de Transporte" name="tipoDeTransporte5" [(ngModel)]="conducoes[5].tipoDeTransporte">            
-                    <mat-option value="Ônibus">Ônibus</mat-option>
-                    <mat-option value="Trensurb">Trensurb</mat-option>
-                    <mat-option value="Ônibus intermunicipal">Ônibus intermunicipal</mat-option>
+                    <mat-option value={{tipoTransp.tipoTransporte}} *ngFor="let tipoTransp of passagens">{{tipoTransp.tipoTransporte}}</mat-option>                
                 </mat-select>
             </mat-form-field>    
             <mat-form-field class="input">

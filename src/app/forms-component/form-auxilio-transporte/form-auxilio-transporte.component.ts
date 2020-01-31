@@ -13,6 +13,8 @@ import { AditamentoDTO } from '../../models/aditamento.dto';
 import { AditamentosService } from '../../services/aditamentos.service';
 import { PagamentoAtrasadoDTO } from "../../models/pagamentoAtrasado.dto";
 import { PagamentosAtrasadosService } from "../../services/pagamentosAtrasados.service";
+import { PassagemDTO } from "../../models/Passagem.dto";
+import { PassagensService } from "../../services/passagens.service";
 
 @Component({
   selector: 'app-form-auxilio-transporte',
@@ -42,6 +44,7 @@ export class FormAuxilioTransporteComponent implements OnInit {
         militaresSemAuxilioTransporte: MilitarDTO[] = [];
         inclusaoAuxilioTransporte: InclusaoAuxilioTransporteDTO = new InclusaoAuxilioTransporteDTO();
         saqueAtrasado: PagamentoAtrasadoDTO  = new PagamentoAtrasadoDTO;
+        passagens: PassagemDTO[] = [];
     // objeto usado no looping para cadastrar as conducoes
         auxTransp: AuxilioTransporteDTO = new AuxilioTransporteDTO();
         precCP: number;
@@ -58,6 +61,7 @@ export class FormAuxilioTransporteComponent implements OnInit {
                 private conducoesService: ConducoesService,
                 private saquesAtrasadosService: PagamentosAtrasadosService,
                 private aditamentoService: AditamentosService,
+                private passagensService: PassagensService,
                 private utilService: UtilService) { }
 
    ngOnInit() {
@@ -67,8 +71,14 @@ export class FormAuxilioTransporteComponent implements OnInit {
                 // retorna para pagina inicial caso nao tenha nenhum aditamento selecionado
                 this.router.navigate(['/index']);
         }
+            this.loadPassagens();
             this.loadMilitaresSemAuxilioTransporte();
            // this.loadAuxiliosTransporte();
+    }
+
+    loadPassagens() {
+      this.passagensService.findAll().subscribe( response => { this.passagens = response; },
+        error => { console.log(error); } );
     }
 
     loadMilitaresSemAuxilioTransporte() {

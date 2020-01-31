@@ -23,8 +23,9 @@ export class TabelaAditamentosComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-      this.aditamentosService.findAll().subscribe( response => {this.dataSource = new MatTableDataSource(response); },
-       error => { console.log(error); });
+      this.aditamentosService.findAll().subscribe( response => { this.dataSource = new MatTableDataSource(response); },
+        error => { console.log(error); }
+      );
   }
 
   moveToFormAditamento() {

@@ -35,17 +35,22 @@ export class TabelaPagamentosAtrasadosComponent implements OnInit {
   }
 
   loadPagamentosAtrasados() {
-    this.pagamentosAtrasadosService.findAll().subscribe(response => {this.pagamentosAtrasados = response;
-    console.log(this.pagamentosAtrasados); this.assignMilitares(this.pagamentosAtrasados); } ,
-      error => {console.log(error); } );
+    this.pagamentosAtrasadosService.findAll().subscribe(
+      response => {
+        this.pagamentosAtrasados = response;
+        this.assignMilitares(this.pagamentosAtrasados); 
+      },
+      error => { console.log(error); }
+    );
   }
 
   assignMilitares(pagamentosAtrasados: PagamentoAtrasadoDTO[]) {
     for (let i = 0; i < pagamentosAtrasados.length; i++) {
         this.militaresService.findMilitarByPrecCP(pagamentosAtrasados[i].militarPrecCP).subscribe(
-          response => {this.militares[i] = response; pagamentosAtrasados[i].nome = this.militares[i].nome;
-                      this.assignGraduacoes(pagamentosAtrasados[i], this.militares[i]); },
-          error => {console.log(error); }
+          response => { 
+            this.militares[i] = response; pagamentosAtrasados[i].nome = this.militares[i].nome;
+            this.assignGraduacoes(pagamentosAtrasados[i], this.militares[i]); },
+          error => { console.log(error); }
         );
     }
     this.dataSource = new MatTableDataSource(pagamentosAtrasados);
@@ -53,11 +58,11 @@ export class TabelaPagamentosAtrasadosComponent implements OnInit {
 
   assignGraduacoes(pagamentosAtrasados: PagamentoAtrasadoDTO, militar: MilitarDTO) {
       this.postosGraduacoesService.findPostoGraduacaoById(militar.postoGraduacaoId).subscribe(
-        response => {this.postoGraduacao = response; pagamentosAtrasados.graduacao = this.postoGraduacao.nome; },
-           error => {console.log(error); } );
+        response => { this.postoGraduacao = response; pagamentosAtrasados.graduacao = this.postoGraduacao.nome; },
+           error => { console.log(error); } );
   }
 
-  removerPagamentoAtrasado(pagamentoAtrasado: PagamentoAtrasadoDTO) {
+  removePagamentoAtrasado(pagamentoAtrasado: PagamentoAtrasadoDTO) {
    // this.servicoCrudPagamentoAtrasado.removerPagamentoAtrasado(pagamentoAtrasado);
   }
 

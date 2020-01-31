@@ -9,6 +9,8 @@ import { AtualizacoesAuxilioTransporteService } from '../../services/atualizacoe
 import { UtilService } from '../../services/util.service';
 import { AditamentosService } from '../../services/aditamentos.service';
 import { AditamentoDTO } from '../../models/aditamento.dto';
+import { PassagemDTO } from "../../models/Passagem.dto";
+import { PassagensService } from "../../services/passagens.service";
 
 
 @Component({
@@ -34,11 +36,14 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
   precCP: number;
   codAT: number;
   atualizacaoAuxilioTransporte: AtualizacaoAuxilioTransporteDTO = new AtualizacaoAuxilioTransporteDTO();
+  passagens: PassagemDTO[] = [];
+
 
   constructor(private conducoesService: ConducoesService,
               private auxiliosTransporteService: AuxiliosTransporteService,
               private atualizacoesAuxilioTransporteService: AtualizacoesAuxilioTransporteService,
               private aditamentosService: AditamentosService,
+              private passagensService: PassagensService,
               private utilService: UtilService,
               private router: Router, private rota: ActivatedRoute
               ) { }
@@ -50,7 +55,13 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
         alert('Selecione um aditamento!');
         this.router.navigate(['/index']);
       }
+        this.loadPassagens();
         this.loadConducoesById(this.codAT);
+  }
+
+  loadPassagens() {
+      this.passagensService.findAll().subscribe( response => { this.passagens = response; },
+        error => { console.log(error); } );
   }
 
 // carregando do banco todas conducoes usando um @param id de um auxilioTransporte
@@ -77,7 +88,7 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
       for (let i = 0; i < this.valoresAntigos.length; i++) {
         if (this.valoresAntigos[i] > this.conducoes[i].valor) {
           alert('Você não pode inserir um valor menor que o anterior.\n Verifique os valores inseridos!');
-          validacao = false;
+            validacao = false;
         }
         if (validacao === true && this.atualizacaoAuxilioTransporte.dataInicio != null) {
           this.findAuxilioTransporteById(this.codAT);
@@ -120,6 +131,7 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
     for (let  i = 0; i < this.conducoes.length; i++) {
       // so serao alteradas conducoes que nao sao nulas e tiveram aumento no valor
         if (this.conducoes[i].id != null && this.valoresAntigos[i] < this.conducoes[i].valor) {
+          console.log(this.conducoes[i]);
           this.conducoesService.update(this.conducoes[i], this.conducoes[i].id).subscribe(
             response => { console.log(response); } ,
             error => {console.log(error); }

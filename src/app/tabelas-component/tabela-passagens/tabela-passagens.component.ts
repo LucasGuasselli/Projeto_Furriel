@@ -32,8 +32,11 @@ export class TabelaValoresPassagensComponent implements OnInit {
   }
 
   removePassagem(passagem: PassagemDTO) {
-      this.passagensService.delete(passagem).subscribe( response => { console.log(response); if (response.status === 204) { this.ngOnInit(); } },
-                                                        error => { console.log(error); });
+      this.passagensService.delete(passagem).subscribe( 
+        response => { 
+          if (response.status === 204) { this.ngOnInit(); } },
+        error => { console.log(error); }
+      );
   }
 
   cancel() {
