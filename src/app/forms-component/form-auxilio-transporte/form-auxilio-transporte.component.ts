@@ -216,6 +216,10 @@ export class FormAuxilioTransporteComponent implements OnInit {
         }
     }
 
+    saveValorTipoTransp(conducao: ConducaoDTO, tipoTransp: PassagemDTO) {
+        conducao.valor = tipoTransp.valor;
+    }
+    
     moveToReadAuxiliosAndConducoes() {
         this.router.navigate(['/listaATConducao']);
     }
