@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MilitaresService } from '../../services/militares.service';
-import { PagamentosAtrasadosService } from '../../services/pagamentosAtrasados.service';
-import { PagamentoAtrasadoDTO } from '../../models/pagamentoAtrasado.dto';
+import { SaquesAtrasadosService } from '../../services/saquesAtrasados.service';
+import { SaqueAtrasadoDTO } from '../../models/saqueAtrasado.dto';
 import { MilitarDTO } from '../../models/militar.dto';
 import { AditamentoDTO } from '../../models/aditamento.dto';
 import { AditamentosService } from '../../services/aditamentos.service';
@@ -15,12 +15,12 @@ import { AditamentosService } from '../../services/aditamentos.service';
 export class FormPagamentoAtrasadoComponent implements OnInit {
 
   aditamentoAtual: AditamentoDTO = null;
-  saqueAtrasado: PagamentoAtrasadoDTO = new PagamentoAtrasadoDTO();
+  saqueAtrasado: SaqueAtrasadoDTO = new SaqueAtrasadoDTO();
   militaresComAuxilioTransporte: MilitarDTO[] = [];
   precCP: number;
 
   constructor(private militaresService: MilitaresService,
-              private saquesAtrasadoService: PagamentosAtrasadosService,
+              private saquesAtrasadoService: SaquesAtrasadosService,
               private router: Router, private rota: ActivatedRoute,
               private aditamentosService: AditamentosService) { }
 
@@ -57,7 +57,7 @@ export class FormPagamentoAtrasadoComponent implements OnInit {
       this.saquesAtrasadoService.insert(this.saqueAtrasado).subscribe(response => {
         if (response.status == 201) {
           alert('Saque Atrasado cadastrado com sucesso!');
-            this.saqueAtrasado = new PagamentoAtrasadoDTO();
+            this.saqueAtrasado = new SaqueAtrasadoDTO();
         } }, error => {console.log(error); } );
     }    
 

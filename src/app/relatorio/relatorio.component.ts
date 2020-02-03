@@ -7,10 +7,10 @@ import { PostosGraduacoesService } from '../services/postosGraduacoes.service';
 import { DespesasService } from '../services/despesas.service';
 import { ExclusoesAuxilioTransporteService } from '../services/exclusaoAuxilioTransporte.service';
 import { ExclusaoAuxilioTransporteDTO } from '../models/exclusaoAuxilioTransporte.dto';
-import { PagamentoAtrasadoDTO } from '../models/pagamentoAtrasado.dto';
+import { SaqueAtrasadoDTO } from '../models/saqueAtrasado.dto';
 import { InclusaoAuxilioTransporteDTO } from '../models/inclusaoAuxilioTransporte.dto';
 import { InclusoesAuxilioTransporteService } from '../services/inclusoesAuxilioTransporte.service';
-import { PagamentosAtrasadosService } from '../services/pagamentosAtrasados.service';
+import { SaquesAtrasadosService } from '../services/saquesAtrasados.service';
 import { AtualizacaoAuxilioTransporteDTO } from '../models/atualizacaoAuxilioTransporte.dto';
 import { AtualizacoesAuxilioTransporteService } from '../services/atualizacoesAuxilioTransporte.service';
 import { AditamentoDTO } from '../models/aditamento.dto';
@@ -39,7 +39,7 @@ export class RelatorioComponent implements OnInit {
   inclusoesAuxilioTransporte: InclusaoAuxilioTransporteDTO[] = [];
   atualizacoesAuxilioTransporte: AtualizacaoAuxilioTransporteDTO[] = [];
   exclusoesAuxilioTransporte: ExclusaoAuxilioTransporteDTO[] = [];
-  pagamentosAtrasados: PagamentoAtrasadoDTO[] = [];
+  saquesAtrasados: SaqueAtrasadoDTO[] = [];
 
   displayedColumnsDespesas: string[] = ['graduacaoNome', 'precCP', 'quantidadeDias', 'valor', 'motivo'];
   displayedColumnsInclusoes: string[] = ['graduacaoNome', 'precCP', 'dataInicio', 'valor'];
@@ -63,7 +63,7 @@ export class RelatorioComponent implements OnInit {
               private despesasService: DespesasService,
               private exclusoesAuxilioTransporteService: ExclusoesAuxilioTransporteService,
               private inclusoesAuxilioTransporteService: InclusoesAuxilioTransporteService,
-              private pagamentosAtrasadosService: PagamentosAtrasadosService,
+              private saquesAtrasadosService: SaquesAtrasadosService,
               private atualizacoesAuxilioTransporteService: AtualizacoesAuxilioTransporteService,
               private aditamentosService: AditamentosService,
               private router: Router) { }
@@ -99,7 +99,7 @@ export class RelatorioComponent implements OnInit {
     this.inclusoesAuxilioTransporte = [];
     this.atualizacoesAuxilioTransporte = [];
     this.exclusoesAuxilioTransporte = [];
-    this.pagamentosAtrasados = [];
+    this.saquesAtrasados = [];
   }
 // DESPESA A ANULAR
 
@@ -251,12 +251,12 @@ export class RelatorioComponent implements OnInit {
 
 // SAQUES ATRASADOS
   loadPagamentosAtrasados(id: number) {
-      this.pagamentosAtrasadosService.findPagamentosAtrasadosByAditamentoId(id).subscribe(response => {this.pagamentosAtrasados = response;
-      console.log(this.pagamentosAtrasados); this.loadMilitaresOnPagamentoAtrasado(this.pagamentosAtrasados); } ,
+      this.saquesAtrasadosService.findPagamentosAtrasadosByAditamentoId(id).subscribe(response => {this.saquesAtrasados = response;
+      console.log(this.saquesAtrasados); this.loadMilitaresOnPagamentoAtrasado(this.saquesAtrasados); } ,
         error => {console.log(error); } );
   }
 
-  loadMilitaresOnPagamentoAtrasado(pagamentos: PagamentoAtrasadoDTO[]) {
+  loadMilitaresOnPagamentoAtrasado(pagamentos: SaqueAtrasadoDTO[]) {
       for (let i = 0; i < pagamentos.length; i++) {
         this.militaresService.findMilitarByPrecCP(pagamentos[i].militarPrecCP).subscribe(
           response => {this.militares[i] = response; pagamentos[i].nome = this.militares[i].nome;
@@ -266,7 +266,7 @@ export class RelatorioComponent implements OnInit {
       }
   }
 
-  loadGraduacoesOnPagamentoAtrasado(pagamento: PagamentoAtrasadoDTO, militar: MilitarDTO) {
+  loadGraduacoesOnPagamentoAtrasado(pagamento: SaqueAtrasadoDTO, militar: MilitarDTO) {
     this.postosGraduacoesService.findPostoGraduacaoById(militar.postoGraduacaoId).subscribe(
       response => {this.postoGraduacao = response; pagamento.graduacao = this.postoGraduacao.nome; },
          error => {console.log(error); } );

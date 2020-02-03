@@ -1,4 +1,4 @@
-export class PagamentoAtrasadoDTO {
+export class SaqueAtrasadoDTO {
     id: number;
     aditamentoId: number;
     militarPrecCP: number;

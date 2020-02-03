@@ -56,7 +56,7 @@ import { ConducoesService } from './services/conducoes.service';
 import { AuxiliosTransporteService } from './services/auxiliosTransporte.service';
 import { InclusoesAuxilioTransporteService } from './services/inclusoesAuxilioTransporte.service';
 import { ExclusoesAuxilioTransporteService } from './services/exclusaoAuxilioTransporte.service';
-import { PagamentosAtrasadosService } from './services/pagamentosAtrasados.service';
+import { SaquesAtrasadosService } from './services/saquesAtrasados.service';
 import { AtualizacoesAuxilioTransporteService } from './services/atualizacoesAuxilioTransporte.service';
 import { AditamentosService } from './services/aditamentos.service';
 import { PassagensService } from './services/passagens.service';
@@ -145,7 +145,7 @@ const routes: Routes = [
   ],
   providers: [MilitaresService, EnderecosService, PostosGraduacoesService, InclusoesAuxilioTransporteService,
               DespesasService, UtilService, AuxiliosTransporteService , ExclusoesAuxilioTransporteService,
-              ConducoesService, PagamentosAtrasadosService, PassagensService, AtualizacoesAuxilioTransporteService, AditamentosService ],
+              ConducoesService, SaquesAtrasadosService, PassagensService, AtualizacoesAuxilioTransporteService, AditamentosService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

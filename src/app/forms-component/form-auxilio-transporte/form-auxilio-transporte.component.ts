@@ -11,8 +11,8 @@ import { InclusoesAuxilioTransporteService } from '../../services/inclusoesAuxil
 import { UtilService } from '../../services/util.service';
 import { AditamentoDTO } from '../../models/aditamento.dto';
 import { AditamentosService } from '../../services/aditamentos.service';
-import { PagamentoAtrasadoDTO } from "../../models/pagamentoAtrasado.dto";
-import { PagamentosAtrasadosService } from "../../services/pagamentosAtrasados.service";
+import { SaqueAtrasadoDTO } from "../../models/saqueAtrasado.dto";
+import { SaquesAtrasadosService } from "../../services/saquesAtrasados.service";
 import { PassagemDTO } from "../../models/Passagem.dto";
 import { PassagensService } from "../../services/passagens.service";
 
@@ -43,7 +43,7 @@ export class FormAuxilioTransporteComponent implements OnInit {
         auxilioTransporte: AuxilioTransporteDTO = new AuxilioTransporteDTO;
         militaresSemAuxilioTransporte: MilitarDTO[] = [];
         inclusaoAuxilioTransporte: InclusaoAuxilioTransporteDTO = new InclusaoAuxilioTransporteDTO();
-        saqueAtrasado: PagamentoAtrasadoDTO  = new PagamentoAtrasadoDTO;
+        saqueAtrasado: SaqueAtrasadoDTO  = new SaqueAtrasadoDTO;
         passagens: PassagemDTO[] = [];
     // objeto usado no looping para cadastrar as conducoes
         auxTransp: AuxilioTransporteDTO = new AuxilioTransporteDTO();
@@ -59,7 +59,7 @@ export class FormAuxilioTransporteComponent implements OnInit {
                 private auxiliosTransporteService: AuxiliosTransporteService,
                 private inclusaoAuxilioTransporteService: InclusoesAuxilioTransporteService,
                 private conducoesService: ConducoesService,
-                private saquesAtrasadosService: PagamentosAtrasadosService,
+                private saquesAtrasadosService: SaquesAtrasadosService,
                 private aditamentoService: AditamentosService,
                 private passagensService: PassagensService,
                 private utilService: UtilService) { }

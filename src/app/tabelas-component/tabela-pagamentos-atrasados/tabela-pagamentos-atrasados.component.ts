@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PagamentoAtrasadoDTO } from '../../models/pagamentoAtrasado.dto';
-import { PagamentosAtrasadosService } from '../../services/pagamentosAtrasados.service';
+import { SaqueAtrasadoDTO } from '../../models/saqueAtrasado.dto';
+import { SaquesAtrasadosService } from '../../services/saquesAtrasados.service';
 import { MilitaresService } from '../../services/militares.service';
 import { MilitarDTO } from '../../models/militar.dto';
 import { PostosGraduacoesService } from '../../services/postosGraduacoes.service';
@@ -15,7 +15,7 @@ import { MatTableDataSource } from '@angular/material';
 })
 export class TabelaPagamentosAtrasadosComponent implements OnInit {
 
-  pagamentosAtrasados: PagamentoAtrasadoDTO[] = [];
+  saquesAtrasados: SaqueAtrasadoDTO[] = [];
   militares: MilitarDTO[] = [];
   postoGraduacao: PostoGraduacaoDTO;
   dataSource;
@@ -25,7 +25,7 @@ export class TabelaPagamentosAtrasadosComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  constructor(private pagamentosAtrasadosService: PagamentosAtrasadosService,
+  constructor(private saquesAtrasadosService: SaquesAtrasadosService,
               private militaresService: MilitaresService,
               private postosGraduacoesService: PostosGraduacoesService,
               private router: Router) { }
@@ -35,16 +35,16 @@ export class TabelaPagamentosAtrasadosComponent implements OnInit {
   }
 
   loadPagamentosAtrasados() {
-    this.pagamentosAtrasadosService.findAll().subscribe(
+    this.saquesAtrasadosService.findAll().subscribe(
       response => {
-        this.pagamentosAtrasados = response;
-        this.assignMilitares(this.pagamentosAtrasados); 
+        this.saquesAtrasados = response;
+        this.assignMilitares(this.saquesAtrasados); 
       },
       error => { console.log(error); }
     );
   }
 
-  assignMilitares(pagamentosAtrasados: PagamentoAtrasadoDTO[]) {
+  assignMilitares(pagamentosAtrasados: SaqueAtrasadoDTO[]) {
     for (let i = 0; i < pagamentosAtrasados.length; i++) {
         this.militaresService.findMilitarByPrecCP(pagamentosAtrasados[i].militarPrecCP).subscribe(
           response => { 
@@ -56,13 +56,13 @@ export class TabelaPagamentosAtrasadosComponent implements OnInit {
     this.dataSource = new MatTableDataSource(pagamentosAtrasados);
   }
 
-  assignGraduacoes(pagamentosAtrasados: PagamentoAtrasadoDTO, militar: MilitarDTO) {
+  assignGraduacoes(pagamentosAtrasados: SaqueAtrasadoDTO, militar: MilitarDTO) {
       this.postosGraduacoesService.findPostoGraduacaoById(militar.postoGraduacaoId).subscribe(
         response => { this.postoGraduacao = response; pagamentosAtrasados.graduacao = this.postoGraduacao.nome; },
            error => { console.log(error); } );
   }
 
-  removePagamentoAtrasado(pagamentoAtrasado: PagamentoAtrasadoDTO) {
+  removePagamentoAtrasado(pagamentoAtrasado: SaqueAtrasadoDTO) {
    // this.servicoCrudPagamentoAtrasado.removerPagamentoAtrasado(pagamentoAtrasado);
   }
 
