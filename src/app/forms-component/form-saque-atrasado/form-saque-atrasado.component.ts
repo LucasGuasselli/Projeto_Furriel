@@ -8,11 +8,11 @@ import { AditamentoDTO } from '../../models/aditamento.dto';
 import { AditamentosService } from '../../services/aditamentos.service';
 
 @Component({
-  selector: 'app-form-pagamento-atrasado',
-  templateUrl: './form-pagamento-atrasado.component.html',
-  styleUrls: ['./form-pagamento-atrasado.component.css']
+  selector: 'app-form-saque-atrasado',
+  templateUrl: './form-saque-atrasado.component.html',
+  styleUrls: ['./form-saque-atrasado.component.css']
 })
-export class FormPagamentoAtrasadoComponent implements OnInit {
+export class FormSaqueAtrasadoComponent implements OnInit {
 
   aditamentoAtual: AditamentoDTO = null;
   saqueAtrasado: SaqueAtrasadoDTO = new SaqueAtrasadoDTO();

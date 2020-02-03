@@ -27,7 +27,7 @@ import { FormMilitaresComponent } from './forms-component/form-militares/form-mi
 import { FormDescontosFeriadosAdmComponent } from './forms-component/form-descontos-feriados-adm/form-descontos-feriados-adm.component';
 import { FormAuxilioTransporteComponent } from './forms-component/form-auxilio-transporte/form-auxilio-transporte.component';
 import { FormDescontosComponent } from './forms-component/form-descontos/form-descontos.component';
-import { FormPagamentoAtrasadoComponent } from './forms-component/form-pagamento-atrasado/form-pagamento-atrasado.component';
+import { FormSaqueAtrasadoComponent } from './forms-component/form-saque-atrasado/form-saque-atrasado.component';
 import { FormAditamentoComponent } from './forms-component/form-aditamento/form-aditamento.component';
 // tslint:disable-next-line:max-line-length
 import { FormDescontoGuarnicaoServicoComponent } from './forms-component/form-desconto-guarnicao-servico/form-desconto-guarnicao-servico.component';
@@ -71,7 +71,7 @@ const routes: Routes = [
     { path: 'cadastroAT', component: FormAuxilioTransporteComponent },
     { path: 'cadastroDesconto', component: FormDescontosComponent },
     { path: 'cadastroDescontoFeriadoAdm', component: FormDescontosFeriadosAdmComponent },
-    { path: 'cadastroPagamentoAtrasado', component: FormPagamentoAtrasadoComponent },
+    { path: 'cadastroPagamentoAtrasado', component: FormSaqueAtrasadoComponent },
     { path: 'cadastroAditamento', component: FormAditamentoComponent },
     { path: 'cadastroExclusaoAuxilioTransporte', component: FormExclusaoAuxilioTransporteComponent },
     { path: 'cadastroPassagem', component: FormPassagensComponent},
@@ -88,7 +88,7 @@ const routes: Routes = [
 
     { path: 'edicaoMilitar/:cod', component: FormMilitaresComponent },
     { path: 'edicaoPassagem/:cod', component: FormPassagensComponent },
-    { path: 'edicaoPagamentoAtrasado/:cod', component: FormPagamentoAtrasadoComponent },
+    { path: 'edicaoPagamentoAtrasado/:cod', component: FormSaqueAtrasadoComponent },
     { path: 'edicaoAditamento/:cod', component: FormAditamentoComponent },
     { path: 'cadastroAtualizacaoAuxilioTransporte/:cod', component: FormAtualizacaoAuxilioTransporteComponent},
 
@@ -100,7 +100,7 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     FormMilitaresComponent,
-    FormPagamentoAtrasadoComponent,
+    FormSaqueAtrasadoComponent,
     FormAditamentoComponent,
     FormAuxilioTransporteComponent,
     FormDescontosComponent,
