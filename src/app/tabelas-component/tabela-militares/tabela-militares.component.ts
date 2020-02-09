@@ -6,12 +6,19 @@ import { MilitaresService } from '../../services/militares.service';
 import { MilitarDTO } from '../../models/militar.dto';
 import { EnderecoDTO } from '../../models/endereco.dto';
 import { EnderecosService } from '../../services/enderecos.service';
-
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-tabela-militares',
   templateUrl: './tabela-militares.component.html',
-  styleUrls: ['./tabela-militares.component.css']
+  styleUrls: ['./tabela-militares.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class TabelaMilitaresComponent implements OnInit {
 
@@ -21,7 +28,7 @@ export class TabelaMilitaresComponent implements OnInit {
   enderecos: EnderecoDTO[] = [];
   ELEMENT_DATA = this.militares;
 
-  displayedColumns: string[] = ['nome', 'precCP', 'Editar', 'Remover'];
+  displayedColumns = ['nome', 'precCP', 'editar', 'remover'];
   dataSource;
 
   applyFilter(filterValue: string) {
@@ -40,18 +47,35 @@ export class TabelaMilitaresComponent implements OnInit {
   loadMilitares() {
     this.militaresService.findAll().subscribe(
       response => { 
-        this.dataSource = new MatTableDataSource(response);
-        this.militares  = response; 
+       // this.dataSource = new MatTableDataSource(response);
+        this.militares  = response;
+          this.loadEnderecos(this.militares);         
       },
       error => { console.log(error); } 
     );
   }
 
-  loadEnderecos() {
-    this.enderecosService.findAll().subscribe(response => {this.enderecos = response; },
+  loadEnderecos(militares: MilitarDTO[]) {
+    this.enderecosService.findAll().subscribe(response => {this.enderecos = response; console.log(response); this.loadEnderecosOnMilitares(militares, response); },
       error => { console.log(error); } );
   }
 
+  loadEnderecosOnMilitares(militares: MilitarDTO[], enderecos: EnderecoDTO[]) {
+      // atribui o endereco ao militar correspondente
+      for(let i = 0; i < militares.length; i++) {
+        for(let k = 0; k < enderecos.length; k++) {
+            if (militares[i].precCP == enderecos[k].militarPrecCP) {
+                  militares[i].endereco = enderecos[k];
+                  console.log(militares[i].endereco);
+            }
+        }
+      }
+             this.loadTable(militares);
+  }
+
+  loadTable(militares: MilitarDTO[]) {
+     this.dataSource = new MatTableDataSource(militares);
+  }
   removeMilitar(militar: MilitarDTO) {
       this.militaresService.delete(militar).subscribe(
         response => { 
@@ -69,3 +93,5 @@ export class TabelaMilitaresComponent implements OnInit {
   }
 
 }
+
+

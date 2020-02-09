@@ -5,5 +5,5 @@ export class EnderecoDTO {
     bairro: String;
     localidade: String;
     numero: number;
-    complemento: String = '';
+    complemento: String = 'não possui';
 }
