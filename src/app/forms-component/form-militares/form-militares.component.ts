@@ -21,6 +21,7 @@ export class FormMilitaresComponent implements OnInit {
     postosGraduacoes: PostoGraduacaoDTO[] = [];
     precCP: number = null;
     cep: String;
+    validatePostoGraduacaoId: number;
 
   constructor(private militaresService: MilitaresService,
               private enderecosService: EnderecosService,
@@ -39,7 +40,7 @@ export class FormMilitaresComponent implements OnInit {
         this.militar  = new MilitarDTO();
         this.endereco  = new EnderecoDTO();
       } else {
-          alert('O Prec-CP não deve ser alterado!');
+          alert('O Prec-CP e a Graduação não devem ser alterados!');
           this.loadUpdateMilitarAndEndereco();
       //    console.log(this.endereco.militarPrecCP);
       }
@@ -47,7 +48,7 @@ export class FormMilitaresComponent implements OnInit {
 
   loadUpdateMilitarAndEndereco() {
     this.militaresService.findMilitarByPrecCP(this.precCP).subscribe( response => {
-      this.militar = response; }, error => {console.log(error); } );
+      this.militar = response; this.validatePostoGraduacaoId = this.militar.postoGraduacaoId; }, error => {console.log(error); } );
 
     this.enderecosService.findEnderecoByPrecCP(this.precCP).subscribe( response => {
       this.endereco = response; }, error => {console.log(error); } );
@@ -69,11 +70,16 @@ export class FormMilitaresComponent implements OnInit {
               alert('valor inválido inserido no campo Prec-CP');
             }
     } else {
+      if( this.validatePostoGraduacaoId == this.militar.postoGraduacaoId) {
         console.log('chegou na edicao' + this.precCP);
           // fazendo com que "o endereco saiba a qual militar pertence"
           this.endereco.militarPrecCP = this.militar.precCP;
             this.updateMilitarAndEndereco();
                 this.router.navigate(['/listaMilitares']);
+      } else {
+        alert('Você NÃO pode alterar a graduação do militar!!');
+      }
+        
     }
   }
 
