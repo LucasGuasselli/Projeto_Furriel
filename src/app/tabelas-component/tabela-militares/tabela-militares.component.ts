@@ -76,6 +76,7 @@ export class TabelaMilitaresComponent implements OnInit {
   loadTable(militares: MilitarDTO[]) {
      this.dataSource = new MatTableDataSource(militares);
   }
+  
   removeMilitar(militar: MilitarDTO) {
       this.militaresService.delete(militar).subscribe(
         response => { 

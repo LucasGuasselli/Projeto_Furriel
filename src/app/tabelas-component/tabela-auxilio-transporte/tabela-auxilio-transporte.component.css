@@ -50,3 +50,8 @@ tr:nth-child(even){
   font-size: 14px;
   width: 100%;
 }
+
+.images image{
+    align-content: center;
+    align-items: center;
+}

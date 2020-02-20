@@ -66,6 +66,7 @@ moveToReadDescontos() {
 moveToFormDescontoGuarnicao() {
   this.router.navigate(['/cadastroDescontoGuarnicao']);
 }
+
 moveToReadPagamentosAtrasados() {
   this.router.navigate(['/listaPagamentoAtrasado']);
 }
