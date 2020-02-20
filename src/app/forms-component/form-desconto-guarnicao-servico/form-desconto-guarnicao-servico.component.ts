@@ -176,8 +176,6 @@ export class FormDescontoGuarnicaoServicoComponent implements OnInit {
     }
   }
 
-  // DESENVOLVER METODO LIMPAR ( tornar todos campos null)
-
   cancel() {
     this.router.navigate(['/index']);
   }

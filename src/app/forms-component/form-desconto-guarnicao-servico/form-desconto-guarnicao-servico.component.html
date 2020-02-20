@@ -14,67 +14,65 @@
     </div>
     <div>
       <mat-form-field>
-          <mat-select placeholder="Adjunto">            
-            <mat-option value="option" *ngFor="let adj of adjuntos" (click)="saveMilitar(adj, 'Adjunto')"
-              >{{adj.nome}}</mat-option>
-            </mat-select>
-      </mat-form-field>
-
-      <mat-form-field>
-          <mat-select placeholder="Sargento de Dia">            
-            <mat-option value="option" *ngFor="let sgt of sargentosDeDia" (click)="saveMilitar(sgt, 'Sargento')"
-            >{{sgt.nome}}</mat-option>
+          <mat-select placeholder="Adjunto">
+            <mat-option>Adjunto</mat-option>            
+                <mat-option value="option" *ngFor="let adj of adjuntos" (click)="saveMilitar(adj, 'Adjunto')">{{adj.nome}}</mat-option>
           </mat-select>
       </mat-form-field>
 
       <mat-form-field>
-          <mat-select placeholder="Cabo de Dia">            
-            <mat-option value="option"*ngFor="let cb of cabosDeDia"  (click)="saveMilitar(cb, 'Cabo')"
-            >{{cb.nome}}</mat-option>
-          </mat-select>
-      </mat-form-field>
-      
-      
-
-      <mat-form-field>
-          <mat-select placeholder="Plantão">            
-            <mat-option value="option" *ngFor="let p of plantoes" (click)="saveMilitar(p, 'Plantao')"
-            >{{p.nome}}</mat-option>
+          <mat-select placeholder="Sargento de Dia">
+            <mat-option>Sargento de Dia</mat-option>            
+              <mat-option value="option" *ngFor="let sgt of sargentosDeDia" (click)="saveMilitar(sgt, 'Sargento')">{{sgt.nome}}</mat-option>
           </mat-select>
       </mat-form-field>
 
       <mat-form-field>
-          <mat-select placeholder="Plantão">            
-            <mat-option value="option" *ngFor="let p of plantoes" (click)="saveMilitar(p, 'Plantao1')"
-            >{{p.nome}}</mat-option>
+          <mat-select placeholder="Cabo de Dia"> 
+            <mat-option>Cabo de Dia</mat-option>            
+              <mat-option value="option"*ngFor="let cb of cabosDeDia"  (click)="saveMilitar(cb, 'Cabo')">{{cb.nome}}</mat-option>
+          </mat-select>
+      </mat-form-field>     
+
+      <mat-form-field>
+          <mat-select placeholder="Plantão">
+            <mat-option>Plantão</mat-option>            
+              <mat-option value="option" *ngFor="let p of plantoes" (click)="saveMilitar(p, 'Plantao')">{{p.nome}}</mat-option>
           </mat-select>
       </mat-form-field>
 
       <mat-form-field>
-          <mat-select placeholder="Plantão">            
-            <mat-option value="option" *ngFor="let p of plantoes"  (click)="saveMilitar(p, 'Plantao2')"
-            >{{p.nome}}</mat-option>
+          <mat-select placeholder="Plantão">
+            <mat-option>Plantão</mat-option>            
+               <mat-option value="option" *ngFor="let p of plantoes" (click)="saveMilitar(p, 'Plantao1')">{{p.nome}}</mat-option>
           </mat-select>
       </mat-form-field>
 
       <mat-form-field>
-          <mat-select placeholder="Plantão">            
-            <mat-option value="option" *ngFor="let p of plantoes"  (click)="saveMilitar(p, 'Plantao3')"
-            >{{p.nome}}</mat-option>
+          <mat-select placeholder="Plantão">  
+            <mat-option>Plantão</mat-option>            
+               <mat-option value="option" *ngFor="let p of plantoes"  (click)="saveMilitar(p, 'Plantao2')">{{p.nome}}</mat-option>
           </mat-select>
       </mat-form-field>
 
       <mat-form-field>
-          <mat-select placeholder="Plantão">            
-            <mat-option value="option" *ngFor="let p of plantoes"  (click)="saveMilitar(p, 'Plantao4')"
-            >{{p.nome}}</mat-option>
+          <mat-select placeholder="Plantão">  
+            <mat-option>Plantão</mat-option>            
+               <mat-option value="option" *ngFor="let p of plantoes"  (click)="saveMilitar(p, 'Plantao3')">{{p.nome}}</mat-option>
           </mat-select>
       </mat-form-field>
 
       <mat-form-field>
-          <mat-select placeholder="Plantão">            
-            <mat-option value="option" *ngFor="let p of plantoes"  (click)="saveMilitar(p, 'Plantao5')"
-            >{{p.nome}}</mat-option>
+          <mat-select placeholder="Plantão">   
+            <mat-option>Plantão</mat-option>            
+                <mat-option value="option" *ngFor="let p of plantoes"  (click)="saveMilitar(p, 'Plantao4')">{{p.nome}}</mat-option>
+          </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+          <mat-select placeholder="Plantão">   
+            <mat-option>Plantão</mat-option>            
+               <mat-option value="option" *ngFor="let p of plantoes"  (click)="saveMilitar(p, 'Plantao5')">{{p.nome}}</mat-option>
           </mat-select>
       </mat-form-field>
     </div>
