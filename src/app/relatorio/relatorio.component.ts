@@ -103,7 +103,7 @@ export class RelatorioComponent implements OnInit {
   }
 // DESPESA A ANULAR
 
-// so continua a separaca
+// so continua a separacao
   loadDespesas(id: number) {
     this.despesasService.findDespesasByAditamentoId(id).subscribe(response => {this.despesasSomadas = response;
       console.log(this.despesas); if (this.despesasSomadas.length > 0) { this.sumDespesas(this.despesasSomadas); }} ,

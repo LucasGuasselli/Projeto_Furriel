@@ -206,7 +206,7 @@ export class UtilService {
                 }
 
                 // o case deve calcular a quantidade de dias restantes do mes a partir da data de inclusao do auxilio Transporte e somar mais 22 dias conforme regra de negocio                
-                case 'Saque Atrasado': {
+                case 'Atualizacao Auxilio': {
                     do {
                         // tslint:disable-next-line:max-line-length
                         if (inicio.toString().substring(0, 3) === 'Mon' || inicio.toString().substring(0, 3) === 'Tue' ||  inicio.toString().substring(0, 3) === 'Wed' || inicio.toString().substring(0, 3) === 'Thu' || inicio.toString().substring(0, 3) === 'Fri') {
@@ -222,7 +222,7 @@ export class UtilService {
                           
                             inicio.setDate(inicio.getDate() - contador);
                                 if ( quantidadeDias > 23 ) { quantidadeDias = 22; }
-                            // adicionando +22 dias que e o proximo mes sem receber (regra de negocio).    
+                            // adicionando +22 dias que e o proximo mes (regra de negocio).    
                                 quantidadeDias += 22;
                             if (quantidadeDias < 0 ) { quantidadeDias = 0; }
                     break;

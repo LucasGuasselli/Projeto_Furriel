@@ -10,8 +10,8 @@ export class DespesaDTO {
     valor = 0;
     valorTotal: number = this.valor;
     motivo = 'não houve despesa';
-    calculoDataInicio: Date;
-    calculoDataFim: Date;
+    calculoDataInicio: Date = new Date();
+    calculoDataFim: Date = new Date();
     // tslint:disable-next-line:no-inferrable-types
     feriados: number = 0;
     // tslint:disable-next-line:no-inferrable-types

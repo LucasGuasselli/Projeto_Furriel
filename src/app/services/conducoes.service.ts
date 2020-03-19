@@ -29,6 +29,15 @@ export class ConducoesService {
         );
     }
 
+    insertNewConducao(obj: ConducaoDTO) {
+        return this.http.post(`${API_CONFIG.baseUrl}/conducoes/insertNewConducao`, obj,
+              {
+                observe: 'response',
+                responseType: 'text'
+              }
+        );
+    }    
+
     update(obj: ConducaoDTO, id: number) {
       return this.http.put(`${API_CONFIG.baseUrl}/conducoes/${id}`, obj,
             {

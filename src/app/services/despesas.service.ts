@@ -35,6 +35,15 @@ export class DespesasService {
               }
         );
     }
+    
+    insertDespesaAtualizacaoAuxilio(obj: DespesaDTO) {
+       return this.http.post(`${API_CONFIG.baseUrl}/despesas/despesaAtualizacaoAuxilio`, obj,
+             {
+               observe: 'response',
+               responseType: 'text'
+             }
+       );
+    }
 
     update(obj: DespesaDTO, id: number) {
       return this.http.put(`${API_CONFIG.baseUrl}/despesas/${id}`, obj,
