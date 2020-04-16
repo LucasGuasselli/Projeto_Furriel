@@ -48,7 +48,7 @@ export class FormAuxilioTransporteComponent implements OnInit {
     // objeto usado no looping para cadastrar as conducoes
         auxTransp: AuxilioTransporteDTO = new AuxilioTransporteDTO();
         precCP: number;
-        data: Date;
+        data: Date = new Date();
     // utilizada na regra de negocio do saque atrasado
         dataFim: Date = new Date();
 
@@ -142,7 +142,7 @@ export class FormAuxilioTransporteComponent implements OnInit {
                             if (i === (conducoesValidas.length - 1) ) { 
                                 valida = true; 
                             }
-                                this.insertConducao(this.conducoes[conducoesValidas[i]], this.auxTransp.id, valida);
+                                this.insertConducao(this.conducoes[conducoesValidas[i]], this.auxTransp, valida);
                                     this.auxTransp = new AuxilioTransporteDTO(); 
                     }, 
                         error => {console.log(error); }
@@ -150,13 +150,13 @@ export class FormAuxilioTransporteComponent implements OnInit {
             }
     }
 
-    insertConducao(conducao: ConducaoDTO, auxilioTransporteId: number, valida: boolean) {
-        conducao.auxilioTransporteId = auxilioTransporteId;
+    insertConducao(conducao: ConducaoDTO, auxilioTransporte: AuxilioTransporteDTO, valida: boolean) {
+        conducao.auxilioTransporteId = auxilioTransporte.id;
             this.conducoesService.insert(conducao).subscribe(
                 response => { 
                     if (valida === true && response.status === 201 ) { 
                         this.beforeInsertInclusaoAuxilioTransporte();
-                        this.beforeInsertSaqueAtrasado(); 
+                        this.beforeInsertSaqueAtrasado(auxilioTransporte); 
                     }
                     console.log('Conducao cadastrada com sucesso'); 
                 }, error => {console.log(error); } );
@@ -180,7 +180,7 @@ export class FormAuxilioTransporteComponent implements OnInit {
         );
     }    
 
-    beforeInsertSaqueAtrasado() {
+    beforeInsertSaqueAtrasado(auxilioTransporte: AuxilioTransporteDTO) {
         this.saqueAtrasado.aditamentoId = this.aditamentoAtual.id;
         this.saqueAtrasado.militarPrecCP = this.precCP;
         this.saqueAtrasado.motivo = 'Inclusão de Auxílio Transporte';
@@ -189,9 +189,11 @@ export class FormAuxilioTransporteComponent implements OnInit {
         // a quantidade e a soma dos dias restantes do mes atual + 22 dias conforme regra de negocio
             // variavel dataFim utilizada para realizar o calculo dos dias restantes
             this.dataFim.setDate(this.data.getDate());
-                this.saqueAtrasado.quantidadeDias = this.utilService.calculaQuantidadeDias(this.data, this.dataFim, 'Saque Atrasado' , 0, 0);
-           // console.log(this.saqueAtrasado);
-            this.insertSaqueAtrasado();
+                this.saqueAtrasado.quantidadeDias = this.utilService.calculaQuantidadeDias(this.data, this.dataFim, 'Atualizacao Auxilio' , 0, 0);
+            console.log(this.saqueAtrasado.quantidadeDias);
+                this.saqueAtrasado.valor = auxilioTransporte.valorDiarioAT * this.saqueAtrasado.quantidadeDias;
+            console.log(this.saqueAtrasado.valor);
+                    this.insertSaqueAtrasado();
     }
 
    // este metodo serve para cadastrar um saque atrasado referente a inclusao do Auxilio Transporte, tendo em vista que o militar só recebe pelo menos um mes e um dia apos a solicitacao

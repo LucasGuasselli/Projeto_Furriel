@@ -205,7 +205,8 @@ export class UtilService {
                         break;
                 }
 
-                // o case deve calcular a quantidade de dias restantes do mes a partir da data de inclusao do auxilio Transporte e somar mais 22 dias conforme regra de negocio                
+                // INCLUSAO / ATUALIZACAO DE AUXILIO QUE GERE SAQUE ATRASADO
+                // o case deve calcular a quantidade de dias restantes do mes a partir da data de inclusao/atualização do auxilio Transporte e somar mais 22 dias conforme regra de negocio                
                 case 'Atualizacao Auxilio': {
                     do {
                         // tslint:disable-next-line:max-line-length
