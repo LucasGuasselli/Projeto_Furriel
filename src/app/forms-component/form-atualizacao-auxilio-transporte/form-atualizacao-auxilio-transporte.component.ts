@@ -58,14 +58,14 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
 
   ngOnInit() {
     this.codAT = this.rota.snapshot.params['cod'];
-    this.aditamentoAtual = this.aditamentosService.getAditamentoAtual();
-      if ( this.aditamentoAtual == null)    {
-        alert('Selecione um aditamento!');
-        this.router.navigate(['/index']);
-      }
-        this.loadPassagens();
-        this.loadConducoesById(this.codAT);
-        this.findAuxilioTransporteById(this.codAT);
+      this.aditamentoAtual = this.aditamentosService.getAditamentoAtual();
+        if ( this.aditamentoAtual == null)    {
+          alert('Selecione um aditamento!');
+          this.router.navigate(['/index']);
+        }
+          this.loadPassagens();
+          this.loadConducoesById(this.codAT);
+          this.findAuxilioTransporteById(this.codAT);
   }
 
   loadPassagens() {
