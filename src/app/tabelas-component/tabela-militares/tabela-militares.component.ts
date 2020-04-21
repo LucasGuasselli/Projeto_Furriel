@@ -28,7 +28,7 @@ export class TabelaMilitaresComponent implements OnInit {
   enderecos: EnderecoDTO[] = [];
   ELEMENT_DATA = this.militares;
 
-  displayedColumns = ['nome', 'precCP', 'editar', 'remover'];
+  displayedColumns = ['nome', 'precCP', 'editar'];
   dataSource;
 
   applyFilter(filterValue: string) {
