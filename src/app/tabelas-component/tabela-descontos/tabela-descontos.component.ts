@@ -22,13 +22,13 @@ export class TabelaDescontosComponent implements OnInit {
   dataSource;
 
   displayedColumns: string[] = ['id', 'graduacao', 'nome', 'militarPrecCP', 'dataInicio', 'dataFim',
-                                'quantidadeDias', 'valor', 'motivo'];
+                                'quantidadeDias', 'valor', 'motivo', 'remover'];
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  constructor(private despesasService: DespesasService,
+  constructor(private despesasAAnularService: DespesasService,
               private militaresService: MilitaresService,
               private postosGraduacoesService: PostosGraduacoesService,
               private router: Router,
@@ -39,7 +39,7 @@ export class TabelaDescontosComponent implements OnInit {
   }
 
   loadDespesas() {
-    this.despesasService.findAll().subscribe(
+    this.despesasAAnularService.findAll().subscribe(
       response => {
         this.dataSource = response;
         this.assignMilitares(this.dataSource); 
@@ -66,6 +66,17 @@ export class TabelaDescontosComponent implements OnInit {
         response => { this.postoGraduacao = response; despesa.graduacao = this.postoGraduacao.nome; },
         error => {console.log(error); } 
       );
+  }
+
+  removeDespesaAAnular(despesaAAnular: DespesaDTO) {
+    this.despesasAAnularService.delete(despesaAAnular).subscribe(response => { 
+      if (response.status === 204) {
+        console.log(response);
+        this.ngOnInit();
+      } 
+    },
+    error => { console.log(error); }
+    );
   }
 
   moveToFormDesconto() {
