@@ -19,7 +19,7 @@ export class TabelaPagamentosAtrasadosComponent implements OnInit {
   militares: MilitarDTO[] = [];
   postoGraduacao: PostoGraduacaoDTO;
   dataSource;
-  displayedColumns: string[] = ['graduacaoNome', 'militarPrecCP', 'mesReferencia', 'quantidadeDias', 'valor'];
+  displayedColumns: string[] = ['graduacaoNome', 'militarPrecCP', 'mesReferencia', 'quantidadeDias', 'valor', 'remover'];
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -62,8 +62,14 @@ export class TabelaPagamentosAtrasadosComponent implements OnInit {
            error => { console.log(error); } );
   }
 
-  removePagamentoAtrasado(pagamentoAtrasado: SaqueAtrasadoDTO) {
-   // this.servicoCrudPagamentoAtrasado.removerPagamentoAtrasado(pagamentoAtrasado);
+  removeSaqueAtrasado(saqueAtrasado: SaqueAtrasadoDTO) {
+    this.saquesAtrasadosService.delete(saqueAtrasado).subscribe(response => { 
+      if (response.status === 204) {
+        this.ngOnInit();
+      } 
+    },
+    error => { console.log(error); }
+    );
   }
 
   moveToFormPagamentoAtrasado() {
