@@ -26,7 +26,7 @@ import { RelatorioComponent } from './relatorio/relatorio.component';
 import { FormMilitaresComponent } from './forms-component/form-militares/form-militares.component';
 import { FormDespesasFeriadosAdmComponent } from './forms-component/form-despesas-feriados-adm/form-despesas-feriados-adm.component';
 import { FormAuxilioTransporteComponent } from './forms-component/form-auxilio-transporte/form-auxilio-transporte.component';
-import { FormDescontosComponent } from './forms-component/form-descontos/form-descontos.component';
+import { FormDespesasComponent } from './forms-component/form-despesas/form-despesas.component';
 import { FormSaqueAtrasadoComponent } from './forms-component/form-saque-atrasado/form-saque-atrasado.component';
 import { FormAditamentoComponent } from './forms-component/form-aditamento/form-aditamento.component';
 // tslint:disable-next-line:max-line-length
@@ -69,13 +69,13 @@ const routes: Routes = [
 
     { path: 'cadastroMilitar', component: FormMilitaresComponent },
     { path: 'cadastroAT', component: FormAuxilioTransporteComponent },
-    { path: 'cadastroDesconto', component: FormDescontosComponent },
-    { path: 'cadastroDescontoFeriadoAdm', component: FormDespesasFeriadosAdmComponent },
+    { path: 'cadastroDespesa', component: FormDespesasComponent },
+    { path: 'cadastroDespesasGuarnicao', component: FormDespesaGuarnicaoServicoComponent },
+    { path: 'cadastroDespesaFeriadoAdm', component: FormDespesasFeriadosAdmComponent },
     { path: 'cadastroPagamentoAtrasado', component: FormSaqueAtrasadoComponent },
     { path: 'cadastroAditamento', component: FormAditamentoComponent },
     { path: 'cadastroExclusaoAuxilioTransporte', component: FormExclusaoAuxilioTransporteComponent },
     { path: 'cadastroPassagem', component: FormPassagensComponent},
-    { path: 'cadastroDescontoGuarnicao', component: FormDespesaGuarnicaoServicoComponent },
        // { path: 'cadastroAtualizacaoAuxilioTransporte', component: FormAtualizacaoAuxilioTransporteComponent},
 
     { path: 'listaMilitares', component: TabelaMilitaresComponent },
@@ -103,7 +103,7 @@ const routes: Routes = [
     FormSaqueAtrasadoComponent,
     FormAditamentoComponent,
     FormAuxilioTransporteComponent,
-    FormDescontosComponent,
+    FormDespesasComponent,
     FormExclusaoAuxilioTransporteComponent,
     FormAtualizacaoAuxilioTransporteComponent,
     FormDespesasFeriadosAdmComponent,

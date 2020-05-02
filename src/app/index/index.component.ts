@@ -34,12 +34,16 @@ export class IndexComponent implements OnInit {
     this.router.navigate(['/cadastroAT']);
   }
 
-  moveToFormDesconto() {
-    this.router.navigate(['/cadastroDesconto']);
+  moveToFormDespesa() {
+    this.router.navigate(['/cadastroDespesa']);
   }
 
-  moveToFormDescontoFeriadoAdm() {
-    this.router.navigate(['/cadastroDescontoFeriadoAdm']);
+  moveToFormDespesaGuarnicao() {
+    this.router.navigate(['/cadastroDespesasGuarnicao']);
+  }
+
+  moveToFormDespesaFeriadoAdm() {
+    this.router.navigate(['/cadastroDespesaFeriadoAdm']);
   }
 
   moveToFormSaqueAtrasado() {
@@ -49,6 +53,8 @@ export class IndexComponent implements OnInit {
   moveToFormExclusaoAuxilioTransporte() {
     this.router.navigate(['/cadastroExclusaoAuxilioTransporte']);
   }
+
+
 
 // LISTAR
 moveToReadMilitares() {
@@ -61,10 +67,6 @@ moveToReadAuxiliosAndConducoes() {
 
 moveToReadDescontos() {
   this.router.navigate(['/listaDespesas']);
-}
-
-moveToFormDescontoGuarnicao() {
-  this.router.navigate(['/cadastroDescontoGuarnicao']);
 }
 
 moveToReadPagamentosAtrasados() {

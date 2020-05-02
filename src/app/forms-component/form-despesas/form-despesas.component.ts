@@ -9,11 +9,11 @@ import { AditamentoDTO } from '../../models/aditamento.dto';
 import { AditamentosService } from '../../services/aditamentos.service';
 
 @Component({
-  selector: 'app-form-descontos',
-  templateUrl: './form-descontos.component.html',
-  styleUrls: ['./form-descontos.component.css']
+  selector: 'app-form-despesas',
+  templateUrl: './form-despesas.component.html',
+  styleUrls: ['./form-despesas.component.css']
 })
-export class FormDescontosComponent implements OnInit {
+export class FormDespesasComponent implements OnInit {
 
   militaresComAuxilioTransporte: MilitarDTO[] = [];
   despesa = new DespesaDTO();
