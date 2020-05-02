@@ -10,11 +10,11 @@ import { DespesasService } from '../../services/despesas.service';
 import { isNull } from '@angular/compiler/src/output/output_ast';
 
 @Component({
-  selector: 'app-form-desconto-guarnicao-servico',
-  templateUrl: './form-desconto-guarnicao-servico.component.html',
-  styleUrls: ['./form-desconto-guarnicao-servico.component.css']
+  selector: 'app-form-despesa-guarnicao-servico',
+  templateUrl: './form-despesa-guarnicao-servico.component.html',
+  styleUrls: ['./form-despesa-guarnicao-servico.component.css']
 })
-export class FormDescontoGuarnicaoServicoComponent implements OnInit {
+export class FormDespesaGuarnicaoServicoComponent implements OnInit {
 
   // arrays
   militaresComAuxilioTransporte: MilitarDTO[] = [];

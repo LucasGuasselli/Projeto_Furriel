@@ -24,13 +24,13 @@ import { RelatorioComponent } from './relatorio/relatorio.component';
 
 // FORMS
 import { FormMilitaresComponent } from './forms-component/form-militares/form-militares.component';
-import { FormDescontosFeriadosAdmComponent } from './forms-component/form-descontos-feriados-adm/form-descontos-feriados-adm.component';
+import { FormDespesasFeriadosAdmComponent } from './forms-component/form-despesas-feriados-adm/form-despesas-feriados-adm.component';
 import { FormAuxilioTransporteComponent } from './forms-component/form-auxilio-transporte/form-auxilio-transporte.component';
 import { FormDescontosComponent } from './forms-component/form-descontos/form-descontos.component';
 import { FormSaqueAtrasadoComponent } from './forms-component/form-saque-atrasado/form-saque-atrasado.component';
 import { FormAditamentoComponent } from './forms-component/form-aditamento/form-aditamento.component';
 // tslint:disable-next-line:max-line-length
-import { FormDescontoGuarnicaoServicoComponent } from './forms-component/form-desconto-guarnicao-servico/form-desconto-guarnicao-servico.component';
+import { FormDespesaGuarnicaoServicoComponent } from './forms-component/form-despesa-guarnicao-servico/form-despesa-guarnicao-servico.component';
 // tslint:disable-next-line:max-line-length
 import { FormAtualizacaoAuxilioTransporteComponent } from './forms-component/form-atualizacao-auxilio-transporte/form-atualizacao-auxilio-transporte.component';
 // tslint:disable-next-line:max-line-length
@@ -38,7 +38,7 @@ import { FormExclusaoAuxilioTransporteComponent } from './forms-component/form-e
 
 // TABLES
 import { TabelaAuxilioTransporteComponent } from './tabelas-component/tabela-auxilio-transporte/tabela-auxilio-transporte.component';
-import { TabelaDescontosComponent } from './tabelas-component/tabela-descontos/tabela-descontos.component';
+import { TabelaDespesasAAnularComponent } from './tabelas-component/tabela-despesas-a-anular/tabela-despesas-a-anular.component';
 import { TabelaMilitaresComponent } from './tabelas-component/tabela-militares/tabela-militares.component';
 import { TabelaAditamentosComponent } from './tabelas-component/tabela-aditamentos/tabela-aditamentos.component';
 import { TabelaPagamentosAtrasadosComponent } from './tabelas-component/tabela-pagamentos-atrasados/tabela-pagamentos-atrasados.component';
@@ -70,17 +70,17 @@ const routes: Routes = [
     { path: 'cadastroMilitar', component: FormMilitaresComponent },
     { path: 'cadastroAT', component: FormAuxilioTransporteComponent },
     { path: 'cadastroDesconto', component: FormDescontosComponent },
-    { path: 'cadastroDescontoFeriadoAdm', component: FormDescontosFeriadosAdmComponent },
+    { path: 'cadastroDescontoFeriadoAdm', component: FormDespesasFeriadosAdmComponent },
     { path: 'cadastroPagamentoAtrasado', component: FormSaqueAtrasadoComponent },
     { path: 'cadastroAditamento', component: FormAditamentoComponent },
     { path: 'cadastroExclusaoAuxilioTransporte', component: FormExclusaoAuxilioTransporteComponent },
     { path: 'cadastroPassagem', component: FormPassagensComponent},
-    { path: 'cadastroDescontoGuarnicao', component: FormDescontoGuarnicaoServicoComponent },
+    { path: 'cadastroDescontoGuarnicao', component: FormDespesaGuarnicaoServicoComponent },
        // { path: 'cadastroAtualizacaoAuxilioTransporte', component: FormAtualizacaoAuxilioTransporteComponent},
 
     { path: 'listaMilitares', component: TabelaMilitaresComponent },
     { path: 'listaATConducao', component: TabelaAuxilioTransporteComponent },
-    { path: 'listaDesconto', component: TabelaDescontosComponent },
+    { path: 'listaDespesas', component: TabelaDespesasAAnularComponent },
     { path: 'listaAditamento', component: TabelaAditamentosComponent },
     { path: 'listaPagamentoAtrasado', component: TabelaPagamentosAtrasadosComponent },
     { path: 'listaExclusaoAuxiliosTransporte', component: TabelaExclusaoAuxiliosTransporteComponent },
@@ -106,16 +106,16 @@ const routes: Routes = [
     FormDescontosComponent,
     FormExclusaoAuxilioTransporteComponent,
     FormAtualizacaoAuxilioTransporteComponent,
-    FormDescontosFeriadosAdmComponent,
+    FormDespesasFeriadosAdmComponent,
     FormPassagensComponent,
-    FormDescontoGuarnicaoServicoComponent,
+    FormDespesaGuarnicaoServicoComponent,
     TabelaAditamentosComponent,
     TabelaPagamentosAtrasadosComponent,
     TabelaExclusaoAuxiliosTransporteComponent,
     TabelaValoresPassagensComponent,
     TabelaMilitaresComponent,
     TabelaAuxilioTransporteComponent,
-    TabelaDescontosComponent,
+    TabelaDespesasAAnularComponent,
     IndexComponent,
     RelatorioComponent
   ],

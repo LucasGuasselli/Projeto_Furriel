@@ -9,11 +9,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MatTableDataSource } from '@angular/material';
 
 @Component({
-  selector: 'app-tabela-descontos',
-  templateUrl: './tabela-descontos.component.html',
-  styleUrls: ['./tabela-descontos.component.css']
+  selector: 'app-tabela-despesas-a-anular',
+  templateUrl: './tabela-despesas-a-anular.component.html',
+  styleUrls: ['./tabela-despesas-a-anular.component.css']
 })
-export class TabelaDescontosComponent implements OnInit {
+export class TabelaDespesasAAnularComponent implements OnInit {
 
   despesas: DespesaDTO[] = [];
   militares: MilitarDTO[] = [];
@@ -79,7 +79,7 @@ export class TabelaDescontosComponent implements OnInit {
     );
   }
 
-  moveToFormDesconto() {
+  moveToFormDespesa() {
     this.router.navigate(['/cadastroDesconto']);
   }
 

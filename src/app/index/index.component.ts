@@ -60,7 +60,7 @@ moveToReadAuxiliosAndConducoes() {
 }
 
 moveToReadDescontos() {
-  this.router.navigate(['/listaDesconto']);
+  this.router.navigate(['/listaDespesas']);
 }
 
 moveToFormDescontoGuarnicao() {

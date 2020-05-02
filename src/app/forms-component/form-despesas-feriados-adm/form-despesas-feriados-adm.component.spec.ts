@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormDescontosFeriadosAdmComponent } from './form-descontos-feriados-adm.component';
+import { FormDespesasFeriadosAdmComponent } from './form-despesas-feriados-adm.component';
 
 describe('FormDescontosFeriadosAdmComponent', () => {
-  let component: FormDescontosFeriadosAdmComponent;
-  let fixture: ComponentFixture<FormDescontosFeriadosAdmComponent>;
+  let component: FormDespesasFeriadosAdmComponent;
+  let fixture: ComponentFixture<FormDespesasFeriadosAdmComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormDescontosFeriadosAdmComponent ]
+      declarations: [ FormDespesasFeriadosAdmComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormDescontosFeriadosAdmComponent);
+    fixture = TestBed.createComponent(FormDespesasFeriadosAdmComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

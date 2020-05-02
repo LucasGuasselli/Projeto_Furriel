@@ -9,11 +9,11 @@ import { UtilService } from '../../services/util.service';
 import { MilitarDTO } from '../../models/militar.dto';
 
 @Component({
-  selector: 'app-form-descontos-feriados-adm',
-  templateUrl: './form-descontos-feriados-adm.component.html',
-  styleUrls: ['./form-descontos-feriados-adm.component.css']
+  selector: 'app-form-despesas-feriados-adm',
+  templateUrl: './form-despesas-feriados-adm.component.html',
+  styleUrls: ['./form-despesas-feriados-adm.component.css']
 })
-export class FormDescontosFeriadosAdmComponent implements OnInit {
+export class FormDespesasFeriadosAdmComponent implements OnInit {
 
   aditamentoAtual: AditamentoDTO = null;
   militaresComAuxilioTransporte: MilitarDTO[] = [];
