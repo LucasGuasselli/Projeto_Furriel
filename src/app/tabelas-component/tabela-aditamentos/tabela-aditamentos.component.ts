@@ -23,16 +23,16 @@ export class TabelaAditamentosComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-      this.aditamentosService.findAll().subscribe( response => { this.dataSource = new MatTableDataSource(response); },
+      this.aditamentosService.retornarTodos().subscribe( response => { this.dataSource = new MatTableDataSource(response); },
         error => { console.log(error); }
       );
   }
 
-  moveToFormAditamento() {
+  moverParaFormAditamento() {
     this.router.navigate(['/cadastroAditamento']);
   }
 
-  moveToIndex() {
+  moverParaIndex() {
     this.router.navigate(['/index']);
   }
 

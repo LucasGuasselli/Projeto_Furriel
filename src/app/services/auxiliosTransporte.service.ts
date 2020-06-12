@@ -11,22 +11,21 @@ export class AuxiliosTransporteService {
 
   constructor(public http: HttpClient) { }
 
-    // retorna todos militares cadastrados
-    findAll(): Observable<AuxilioTransporteDTO[]> {
+    retornarTodos(): Observable<AuxilioTransporteDTO[]> {
         return this.http.get<AuxilioTransporteDTO[]>(`${API_CONFIG.baseUrl}/auxiliosTransporte`);
     }
 
-    findAuxilioTransporteByPrecCP(precCP: number): Observable<AuxilioTransporteDTO> {
+    retornarAuxilioTransportePorPrecCP(precCP: number): Observable<AuxilioTransporteDTO> {
       return this.http.get<AuxilioTransporteDTO>(
         `${API_CONFIG.baseUrl}/auxiliosTransporte/searchAuxilioTransporteByPrecCP/?precCP=${precCP}`);
     }
 
-    findAuxilioTransporteById(id: number): Observable<AuxilioTransporteDTO> {
+    retornarAuxilioTransportePorId(id: number): Observable<AuxilioTransporteDTO> {
       return this.http.get<AuxilioTransporteDTO>(
         `${API_CONFIG.baseUrl}/auxiliosTransporte/${id}`);
     }
 
-    insert(obj: AuxilioTransporteDTO) {
+    inserir(obj: AuxilioTransporteDTO) {
         return this.http.post(`${API_CONFIG.baseUrl}/auxiliosTransporte`, obj,
               {
                 observe: 'response',
@@ -35,7 +34,7 @@ export class AuxiliosTransporteService {
         );
     }
 
-    update(obj: AuxilioTransporteDTO, id: number) {
+    editar(obj: AuxilioTransporteDTO, id: number) {
       return this.http.put(`${API_CONFIG.baseUrl}/auxiliosTransporte/${id}`, obj,
             {
               observe: 'response',
@@ -44,12 +43,12 @@ export class AuxiliosTransporteService {
       );
     }
 
-    updateAuxilioTransporte(): Observable<AuxilioTransporteDTO> {
+    atualizarAuxilioTransporte(): Observable<AuxilioTransporteDTO> {
       return this.http.get<AuxilioTransporteDTO>(
         `${API_CONFIG.baseUrl}/auxiliosTransporte/update`);
     }
 
-    delete(obj: AuxilioTransporteDTO) {
+    deletar(obj: AuxilioTransporteDTO) {
         return this.http.delete(`${API_CONFIG.baseUrl}/auxiliosTransporte/${obj.id}`,
             {
               observe: 'response',

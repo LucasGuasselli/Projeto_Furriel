@@ -7,7 +7,7 @@
       <mat-form-field>
           <mat-select placeholder="Militares">            
             <mat-option value="option" *ngFor="let m of militaresComAuxilioTransporte" 
-            (click)="savePrecCPMilitar(m.precCP)">{{m.nome}}</mat-option>
+            (click)="salvarPrecCPMilitar(m.precCP)">{{m.nome}}</mat-option>
           </mat-select>
       </mat-form-field>
       <mat-form-field>
@@ -24,14 +24,14 @@
     <div>    
       <mat-form-field>
           <input matInput [matDatepicker]="dataInicio" placeholder="Data de Inicio" 
-          class="datePicker" name="inicio" (click)="calculateQuantidadeDias()" (focus)="validateDate()" [(ngModel)]="despesa.calculoDataInicio">
+          class="datePicker" name="inicio" (click)="calcularQuantidadeDias()" (focus)="validarData()" [(ngModel)]="despesa.calculoDataInicio">
           <mat-datepicker-toggle matSuffix [for]="dataInicio"></mat-datepicker-toggle>
           <mat-datepicker #dataInicio></mat-datepicker>
       </mat-form-field>      
     
       <mat-form-field>
           <input matInput [matDatepicker]="dataFim" placeholder="Data de Termino" 
-          class="datePicker" name="fim" (click)="calculateQuantidadeDias()" (focus)="validateDate()" [(ngModel)]="despesa.calculoDataFim">
+          class="datePicker" name="fim" (click)="calcularQuantidadeDias()" (focus)="validarData()" [(ngModel)]="despesa.calculoDataFim">
           <mat-datepicker-toggle matSuffix [for]="dataFim"></mat-datepicker-toggle>
           <mat-datepicker #dataFim></mat-datepicker>
       </mat-form-field>
@@ -54,7 +54,7 @@
       </mat-form-field>
     </div>
     <div class="buttons">
-      <button mat-raised-button color="primary" (click)="validateDespesa()">Salvar</button>
+      <button mat-raised-button color="primary" (click)="validarDespesa()">Salvar</button>
       <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>            
     </div>  
   </form>

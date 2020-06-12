@@ -69,31 +69,31 @@ export class RelatorioComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.loadText('');
-    this.loadAditamentos();
+    this.carregarTexto('');
+    this.carregarAditamentos();
   }
 
-  downloadPDF() {
+  baixarPDF() {
     console.log(xepOnline);
      return xepOnline.Formatter.Format('content', {render: 'download'});
   }
 
-  loadAditamentos() {
-    this.aditamentosService.findAll().subscribe( response => { this.aditamentos = response; },
+  carregarAditamentos() {
+    this.aditamentosService.retornarTodos().subscribe( response => { this.aditamentos = response; },
        error => {console.log(error); });
   }
 
-  loadInfomationAditamento(aditamento: AditamentoDTO) {
-    this.setNull();
-    this.loadText(aditamento.despesaPeriodo);
-    this.loadDespesas(aditamento.id);
-    this.loadInclusoesAuxilioTransporte(aditamento.id);
-    this.loadAtualizacoesAuxilioTransporte(aditamento.id);
-    this.loadExclusoesAuxilioTransporte(aditamento.id);
-    this.loadPagamentosAtrasados(aditamento.id);
+  carregarInfomacaoAditamento(aditamento: AditamentoDTO) {
+    this.setarNulo();
+    this.carregarTexto(aditamento.despesaPeriodo);
+    this.carregarDespesas(aditamento.id);
+    this.carregarInclusoesAuxilioTransporte(aditamento.id);
+    this.carregarAtualizacoesAuxilioTransporte(aditamento.id);
+    this.carregarExclusoesAuxilioTransporte(aditamento.id);
+    this.carregarPagamentosAtrasados(aditamento.id);
   }
 
-  setNull() {
+  setarNulo() {
     this.despesas = [];
     this.despesasSomadas = [];
     this.inclusoesAuxilioTransporte = [];
@@ -104,46 +104,59 @@ export class RelatorioComponent implements OnInit {
 // DESPESA A ANULAR
 
 // so continua a separacao
-  loadDespesas(id: number) {
-    this.despesasService.findDespesasByAditamentoId(id).subscribe(response => {this.despesasSomadas = response;
-      console.log(this.despesas); if (this.despesasSomadas.length > 0) { this.sumDespesas(this.despesasSomadas); }} ,
+  carregarDespesas(aditamentoId: number) {
+    this.despesasService.retornarDespesasPorAditamentoId(aditamentoId).subscribe(response => {
+      this.despesasSomadas = response;
+       if (this.despesasSomadas.length > 0) { 
+         this.somarDespesas(this.despesasSomadas);
+       }
+      } ,
       error =>  {console.log(error); } );
   }
 
   // somar os valores das despesas que o militar tem cadastrado no aditamento selecionado
   // OBS: inverter a logica de despesas e despesasSomadas
-  sumDespesas(despesas: DespesaDTO[]) {
+  somarDespesas(despesas: DespesaDTO[]) {
       let index = 1;
        this.despesas[0] = despesas[0];
-        for (let i = 1; i < despesas.length; i++) {
-          let contador = 0;
-          for (let k = 0; k < this.despesas.length; k++) {
-          if (this.despesas[k].militarPrecCP === despesas[i].militarPrecCP) {
-                    this.despesas[k].valor += despesas[i].valor;
-                    this.despesas[k].quantidadeDias += despesas[i].quantidadeDias;
-                      contador = 1;
+        // somando as despesas e quantidade de dias
+          for (let i = 1; i < despesas.length; i++) {
+            let contador = 0;
+              for (let k = 0; k < this.despesas.length; k++) {
+              if (this.despesas[k].militarPrecCP === despesas[i].militarPrecCP) {
+                        this.despesas[k].valor += despesas[i].valor;
+                        this.despesas[k].quantidadeDias += despesas[i].quantidadeDias;
+                          contador = 1;
+                    }
+              }
+                if (contador === 0) {
+                  this.despesas[index] = despesas[i];
+                  index++;
                 }
           }
-            if (contador === 0) {
-              this.despesas[index] = despesas[i];
-               index++;
+          /*
+          // atribuindo valor R$ 0, caso a soma das despesas resulte em valores negativos.
+            for (let i = 0; i < this.despesas.length; i++) {
+                if (this.despesa[i].valor < 0) {
+                  this.despesa[i].valor = 0;
+                }
             }
-        }
-        this.dataSourceDespesas = this.despesas;
+            */
+              this.dataSourceDespesas = this.despesas;
          // console.log(this.despesas);
-    this.loadMilitaresOnDespesas(this.dataSourceDespesas);
-    this.loadMilitares(this.despesas);
+    this.carregarMilitaresDespesas(this.dataSourceDespesas);
+    this.carregarMilitares(this.despesas);
   }
 
 
-  loadMilitares(despesas: DespesaDTO[]) {
-    this.militaresService.findAll().subscribe( response => { this.militares = response;
-    this.verifyWhoHasNoDespesa(despesas, this.militares); } , error => { console.log(error); } );
+  carregarMilitares(despesas: DespesaDTO[]) {
+    this.militaresService.retornarTodos().subscribe( response => { this.militares = response;
+    this.separarMilitaresSemDespesas(despesas, this.militares); } , error => { console.log(error); } );
 
   }
 
 // compara todos os militares com as despesas do aditamento selecionado para saber quais militares nao tiveram despesas
-  verifyWhoHasNoDespesa(despesas: DespesaDTO[], militares: MilitarDTO[]) {
+  separarMilitaresSemDespesas(despesas: DespesaDTO[], militares: MilitarDTO[]) {
     for ( let  i = 0; i < militares.length; i++) {
       let contador = 0;
         for ( let  k = 0; k < despesas.length; k++) {
@@ -159,120 +172,120 @@ export class RelatorioComponent implements OnInit {
         }
     }
     this.dataSourceMilitaresSemDespesas = this.militaresSemDespesas;
-    this.loadMilitaresOnDespesas(this.dataSourceMilitaresSemDespesas);
+    this.carregarMilitaresDespesas(this.dataSourceMilitaresSemDespesas);
   }
 
-  loadMilitaresOnDespesas(despesas: DespesaDTO[]) {
+  carregarMilitaresDespesas(despesas: DespesaDTO[]) {
     for (let i = 0; i < despesas.length; i++) {
-        this.militaresService.findMilitarByPrecCP(despesas[i].militarPrecCP).subscribe(
+        this.militaresService.retornarMilitarPorPrecCP(despesas[i].militarPrecCP).subscribe(
           response => {this.militares[i] = response; despesas[i].nome = this.militares[i].nome;
-                      this.loadGraduacoesOnDespesa(despesas[i], this.militares[i]); },
+                      this.atribuirGraduacoesDespesa(despesas[i], this.militares[i]); },
           error => {console.log(error); }
         );
     }
   }
 
-  loadGraduacoesOnDespesa(despesa: DespesaDTO, militar: MilitarDTO) {
-      this.postosGraduacoesService.findPostoGraduacaoById(militar.postoGraduacaoId).subscribe(
+  atribuirGraduacoesDespesa(despesa: DespesaDTO, militar: MilitarDTO) {
+      this.postosGraduacoesService.retornarPostoGraduacaoPorId(militar.postoGraduacaoId).subscribe(
         response => {this.postoGraduacao = response; despesa.graduacao = this.postoGraduacao.nome; },
            error => {console.log(error); } );
   }
 
   // INCLUSOES AUXILIO TRANSPORTE
-  loadInclusoesAuxilioTransporte(id: number) {
-    this.inclusoesAuxilioTransporteService.findInclusoesByAditamentoId(id).subscribe(
+  carregarInclusoesAuxilioTransporte(id: number) {
+    this.inclusoesAuxilioTransporteService.retornarInclusoesPorAditamentoId(id).subscribe(
       response => {this.inclusoesAuxilioTransporte = response;
-      console.log(this.inclusoesAuxilioTransporte); this.loadMilitaresOnInclusao(this.inclusoesAuxilioTransporte); } ,
+      console.log(this.inclusoesAuxilioTransporte); this.atribuirMilitaresInclusoes(this.inclusoesAuxilioTransporte); } ,
         error => {console.log(error); } );
   }
 
-  loadMilitaresOnInclusao(inclusoes: InclusaoAuxilioTransporteDTO[]) {
+  atribuirMilitaresInclusoes(inclusoes: InclusaoAuxilioTransporteDTO[]) {
     for (let i = 0; i < inclusoes.length; i++) {
-      this.militaresService.findMilitarByPrecCP(inclusoes[i].militarPrecCP).subscribe(
+      this.militaresService.retornarMilitarPorPrecCP(inclusoes[i].militarPrecCP).subscribe(
         response => {this.militares[i] = response; inclusoes[i].nome = this.militares[i].nome;
-                    this.loadGraduacoesOnInclusao(inclusoes[i], this.militares[i]); },
+                    this.atribuirGraduacoesInclusao(inclusoes[i], this.militares[i]); },
         error => {console.log(error); }
       );
     }
   }
 
-  loadGraduacoesOnInclusao(inclusao: InclusaoAuxilioTransporteDTO, militar: MilitarDTO) {
-    this.postosGraduacoesService.findPostoGraduacaoById(militar.postoGraduacaoId).subscribe(
+  atribuirGraduacoesInclusao(inclusao: InclusaoAuxilioTransporteDTO, militar: MilitarDTO) {
+    this.postosGraduacoesService.retornarPostoGraduacaoPorId(militar.postoGraduacaoId).subscribe(
       response => {this.postoGraduacao = response; inclusao.graduacao = this.postoGraduacao.nome; },
          error => {console.log(error); } );
   }
 
   // AUMENTO DE PASSAGEM
-  loadAtualizacoesAuxilioTransporte(id: number) {
-    this.atualizacoesAuxilioTransporteService.findAtualizacoesByAditamentoId(id).subscribe(response => {
+  carregarAtualizacoesAuxilioTransporte(id: number) {
+    this.atualizacoesAuxilioTransporteService.retornarAtualizacoesPorAditamentoId(id).subscribe(response => {
       this.atualizacoesAuxilioTransporte = response; console.log(this.atualizacoesAuxilioTransporte);
-      this.loadMilitaresOnAtualizacoes(this.atualizacoesAuxilioTransporte); } , error => {console.log(error); } );
+      this.atribuirMilitaresAtualizacoes(this.atualizacoesAuxilioTransporte); } , error => {console.log(error); } );
   }
 
-  loadMilitaresOnAtualizacoes(atualizacoes: AtualizacaoAuxilioTransporteDTO[]) {
+  atribuirMilitaresAtualizacoes(atualizacoes: AtualizacaoAuxilioTransporteDTO[]) {
     for (let i = 0; i < atualizacoes.length; i++) {
-      this.militaresService.findMilitarByPrecCP(atualizacoes[i].militarPrecCP).subscribe(
+      this.militaresService.retornarMilitarPorPrecCP(atualizacoes[i].militarPrecCP).subscribe(
         response => {this.militares[i] = response; atualizacoes[i].nome = this.militares[i].nome;
-                    this.loadGraduacoesOnAtualizacao(atualizacoes[i], this.militares[i]); },
+                    this.atribuirGraduacoesAtualizacao(atualizacoes[i], this.militares[i]); },
         error => {console.log(error); }
       );
     }
   }
 
-  loadGraduacoesOnAtualizacao(atualizacao: AtualizacaoAuxilioTransporteDTO, militar: MilitarDTO) {
-    this.postosGraduacoesService.findPostoGraduacaoById(militar.postoGraduacaoId).subscribe(
+  atribuirGraduacoesAtualizacao(atualizacao: AtualizacaoAuxilioTransporteDTO, militar: MilitarDTO) {
+    this.postosGraduacoesService.retornarPostoGraduacaoPorId(militar.postoGraduacaoId).subscribe(
       response => {this.postoGraduacao = response; atualizacao.graduacao = this.postoGraduacao.nome; },
          error => {console.log(error); } );
   }
 
   // EXCLUSOES AUXILIO TRANSPORTE
-  loadExclusoesAuxilioTransporte(id: number) {
-    this.exclusoesAuxilioTransporteService.findExclusoesByAditamentoId(id).subscribe(
+  carregarExclusoesAuxilioTransporte(id: number) {
+    this.exclusoesAuxilioTransporteService.retornarExclusoesPorAditamentoId(id).subscribe(
       response => {this.exclusoesAuxilioTransporte = response;
-      console.log(this.exclusoesAuxilioTransporte); this.loadMilitaresOnExclusao(this.exclusoesAuxilioTransporte); } ,
+      console.log(this.exclusoesAuxilioTransporte); this.atribuirMilitaresExclusao(this.exclusoesAuxilioTransporte); } ,
         error => {console.log(error); } );
   }
 
-  loadMilitaresOnExclusao(exclusoes: ExclusaoAuxilioTransporteDTO[]) {
+  atribuirMilitaresExclusao(exclusoes: ExclusaoAuxilioTransporteDTO[]) {
     for (let i = 0; i < exclusoes.length; i++) {
-        this.militaresService.findMilitarByPrecCP(exclusoes[i].militarPrecCP).subscribe(
+        this.militaresService.retornarMilitarPorPrecCP(exclusoes[i].militarPrecCP).subscribe(
           response => {this.militares[i] = response; exclusoes[i].nome = this.militares[i].nome;
-                      this.loadGraduacoesOnExclusao(exclusoes[i], this.militares[i]); },
+                      this.atribuirGraduacoesExclusao(exclusoes[i], this.militares[i]); },
           error => {console.log(error); }
         );
     }
   }
 
-  loadGraduacoesOnExclusao(exclusao: ExclusaoAuxilioTransporteDTO, militar: MilitarDTO) {
-      this.postosGraduacoesService.findPostoGraduacaoById(militar.postoGraduacaoId).subscribe(
+  atribuirGraduacoesExclusao(exclusao: ExclusaoAuxilioTransporteDTO, militar: MilitarDTO) {
+      this.postosGraduacoesService.retornarPostoGraduacaoPorId(militar.postoGraduacaoId).subscribe(
         response => {this.postoGraduacao = response; exclusao.graduacao = this.postoGraduacao.nome; },
            error => {console.log(error); } );
   }
 
 // SAQUES ATRASADOS
-  loadPagamentosAtrasados(id: number) {
-      this.saquesAtrasadosService.findPagamentosAtrasadosByAditamentoId(id).subscribe(response => {this.saquesAtrasados = response;
-      console.log(this.saquesAtrasados); this.loadMilitaresOnPagamentoAtrasado(this.saquesAtrasados); } ,
+  carregarPagamentosAtrasados(id: number) {
+      this.saquesAtrasadosService.retornarPagamentosAtrasadosPorAditamentoId(id).subscribe(response => {this.saquesAtrasados = response;
+      console.log(this.saquesAtrasados); this.atribuirMilitaresPagamentoAtrasado(this.saquesAtrasados); } ,
         error => {console.log(error); } );
   }
 
-  loadMilitaresOnPagamentoAtrasado(pagamentos: SaqueAtrasadoDTO[]) {
+  atribuirMilitaresPagamentoAtrasado(pagamentos: SaqueAtrasadoDTO[]) {
       for (let i = 0; i < pagamentos.length; i++) {
-        this.militaresService.findMilitarByPrecCP(pagamentos[i].militarPrecCP).subscribe(
+        this.militaresService.retornarMilitarPorPrecCP(pagamentos[i].militarPrecCP).subscribe(
           response => {this.militares[i] = response; pagamentos[i].nome = this.militares[i].nome;
-                      this.loadGraduacoesOnPagamentoAtrasado(pagamentos[i], this.militares[i]); },
+                      this.atribuirGraduacoesPagamentoAtrasado(pagamentos[i], this.militares[i]); },
           error => {console.log(error); }
         );
       }
   }
 
-  loadGraduacoesOnPagamentoAtrasado(pagamento: SaqueAtrasadoDTO, militar: MilitarDTO) {
-    this.postosGraduacoesService.findPostoGraduacaoById(militar.postoGraduacaoId).subscribe(
+  atribuirGraduacoesPagamentoAtrasado(pagamento: SaqueAtrasadoDTO, militar: MilitarDTO) {
+    this.postosGraduacoesService.retornarPostoGraduacaoPorId(militar.postoGraduacaoId).subscribe(
       response => {this.postoGraduacao = response; pagamento.graduacao = this.postoGraduacao.nome; },
          error => {console.log(error); } );
   }
 
-  loadText(despesaPeriodo: String) {
+  carregarTexto(despesaPeriodo: String) {
     this.aditamento.despesaTexto = 'Seja realizada a Despesa a Anular (DA) do benefício ' +
                                     'de Auxílio Transporte (AT), dos militares abaixo, ' + despesaPeriodo +
                                     ', de acordo com o Decreto nº 2.963, de 24 fev 1999,' +
@@ -303,7 +316,7 @@ export class RelatorioComponent implements OnInit {
                                               'jul 16 (EB 10-IG-02.018).';
   }
 
-  cancel() {
+  cancelar() {
     this.router.navigate(['/index']);
   }
   

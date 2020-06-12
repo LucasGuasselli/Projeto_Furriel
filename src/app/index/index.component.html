@@ -4,33 +4,33 @@
       <div class="menu">
             <button mat-button [matMenuTriggerFor]="menu">Cadastrar</button>
                   <mat-menu #menu="matMenu">
-                  <button mat-menu-item (click)="moveToFormMilitar()">Militar</button>
-                  <button mat-menu-item (click)="moveToFormAuxilioTransporte()">Auxílio Transporte</button>
-                  <button mat-menu-item (click)="moveToFormDespesa()">Despesa a anular</button>
-                  <button mat-menu-item (click)="moveToFormDespesaGuarnicao()">Despesa Guarnição de Serviço</button>
-                  <button mat-menu-item (click)="moveToFormDespesaFeriadoAdm()">Despesa - Feriado/ Adm</button>
-                  <button mat-menu-item (click)="moveToFormSaqueAtrasado()">Saque Atrasado</button>
-                  <button mat-menu-item (click)="moveToFormExclusaoAuxilioTransporte()">Exclusão de Auxílio Transporte</button>
+                  <button mat-menu-item (click)="moverParaFormMilitar()">Militar</button>
+                  <button mat-menu-item (click)="moverParaFormAuxilioTransporte()">Auxílio Transporte</button>
+                  <button mat-menu-item (click)="moverParaFormDespesa()">Despesa a anular</button>
+                  <button mat-menu-item (click)="moverParaFormDespesaGuarnicao()">Despesa Guarnição de Serviço</button>
+                  <button mat-menu-item (click)="moverParaFormDespesaFeriadoAdm()">Despesa - Feriado/ Adm</button>
+                  <button mat-menu-item (click)="moverParaFormSaqueAtrasado()">Saque Atrasado</button>
+                  <button mat-menu-item (click)="moverParaFormExclusaoAuxilioTransporte()">Exclusão de Auxílio Transporte</button>
                   </mat-menu>
             
             <button mat-button [matMenuTriggerFor]="menu2">Listar</button>
                   <mat-menu #menu2="matMenu">
-                        <button mat-menu-item (click)="moveToReadMilitares()">Militares</button>
-                        <button mat-menu-item (click)="moveToReadAuxiliosAndConducoes()">Auxílios</button>
-                        <button mat-menu-item (click)="moveToReadDescontos()">Despesas</button>
-                        <button mat-menu-item (click)="moveToReadPagamentosAtrasados()">Saques Atrasados</button>
-                        <button mat-menu-item (click)="moveToReadExclusoesAuxilioTransporte()">Exclusões de Auxílio Transporte</button>
+                        <button mat-menu-item (click)="moverParaListaMilitares()">Militares</button>
+                        <button mat-menu-item (click)="moverParaListaAuxiliosAndConducoes()">Auxílios</button>
+                        <button mat-menu-item (click)="moverParaListaDescontos()">Despesas</button>
+                        <button mat-menu-item (click)="moverParaListaPagamentosAtrasados()">Saques Atrasados</button>
+                        <button mat-menu-item (click)="moverParaListaExclusoesAuxilioTransporte()">Exclusões de Auxílio Transporte</button>
                   </mat-menu>  
             <button mat-button [matMenuTriggerFor]="menu3">Aditamento</button>
                   <mat-menu #menu3="matMenu">
-                        <button mat-menu-item (click)="moveToAditamentoPDF()">Gerar Aditamento</button>
-                        <button mat-menu-item (click)="moveFormAditamento()">Cadastrar</button>
-                        <button mat-menu-item (click)="moveToReadAditamento()">Listar</button>
+                        <button mat-menu-item (click)="moverParaAditamentoPDF()">Gerar Aditamento</button>
+                        <button mat-menu-item (click)="moverParaFormAditamento()">Cadastrar</button>
+                        <button mat-menu-item (click)="moverParaListaAditamento()">Listar</button>
                   </mat-menu>
             <button mat-button [matMenuTriggerFor]="menu4">Passagens</button>
             <mat-menu #menu4="matMenu">
-                  <button mat-menu-item (click)="moveToReadPassagens()">Tabela de Valores</button>
-                  <button mat-menu-item (click)="moveToFormPassagens()">Cadastrar Passagens</button>
+                  <button mat-menu-item (click)="moverParaListaPassagens()">Tabela de Valores</button>
+                  <button mat-menu-item (click)="moverParaFormPassagens()">Cadastrar Passagens</button>
             </mat-menu>           
       </div>
       <div> 
@@ -39,14 +39,14 @@
                   <mat-select placeholder="Selecione um aditamento">
                               <mat-option>None</mat-option>
                               <mat-option value="option" *ngFor="let ad of aditamentos" 
-                                          (click)="saveAditamento(ad)">{{ad.nome}}</mat-option>
+                                          (click)="salvarAditamento(ad)">{{ad.nome}}</mat-option>
                   </mat-select>
             </mat-form-field>     
                                  
             </form>
                   <div class="buttons">
-                        <button mat-raised-button color="primary" (click)="saveAditamentoAtual()">Salvar</button>
-                        <button mat-raised-button color="warn" (click)="cancel()">Cancelar</button>
+                        <button mat-raised-button color="primary" (click)="salvarAditamentoAtual()">Salvar</button>
+                        <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
                   </div>
       </div>
 

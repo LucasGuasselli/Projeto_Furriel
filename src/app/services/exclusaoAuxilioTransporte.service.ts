@@ -12,17 +12,16 @@ export class ExclusoesAuxilioTransporteService {
 
   constructor(public http: HttpClient) { }
 
-    // retorna todos militares cadastrados
-    findAll(): Observable<ExclusaoAuxilioTransporteDTO[]> {
+    retornarTodos(): Observable<ExclusaoAuxilioTransporteDTO[]> {
         return this.http.get<ExclusaoAuxilioTransporteDTO[]>(`${API_CONFIG.baseUrl}/exclusoesAuxilioTransporte`);
     }
 
-    findExclusoesByAditamentoId(id: number): Observable<ExclusaoAuxilioTransporteDTO[]> {
+    retornarExclusoesPorAditamentoId(id: number): Observable<ExclusaoAuxilioTransporteDTO[]> {
       return this.http.get<ExclusaoAuxilioTransporteDTO[]>(
           `${API_CONFIG.baseUrl}/exclusoesAuxilioTransporte/searchExclusoesByAditamentoId/${id}`);
     }
 
-    insert(obj: ExclusaoAuxilioTransporteDTO) {
+    inserir(obj: ExclusaoAuxilioTransporteDTO) {
         return this.http.post(`${API_CONFIG.baseUrl}/exclusoesAuxilioTransporte`, obj,
               {
                 observe: 'response',
@@ -31,7 +30,7 @@ export class ExclusoesAuxilioTransporteService {
         );
     }
 
-    update(obj: ExclusaoAuxilioTransporteDTO, id: number) {
+    editar(obj: ExclusaoAuxilioTransporteDTO, id: number) {
       return this.http.put(`${API_CONFIG.baseUrl}/exclusoesAuxilioTransporte/${id}`, obj,
             {
               observe: 'response',
@@ -40,7 +39,7 @@ export class ExclusoesAuxilioTransporteService {
       );
     }
 
-    delete(obj: ExclusaoAuxilioTransporteDTO) {
+    deletar(obj: ExclusaoAuxilioTransporteDTO) {
         return this.http.delete(`${API_CONFIG.baseUrl}/exclusoesAuxilioTransporte/${obj.id}`,
             {
               observe: 'response',

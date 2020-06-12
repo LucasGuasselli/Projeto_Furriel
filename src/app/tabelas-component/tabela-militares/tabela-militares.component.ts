@@ -41,26 +41,30 @@ export class TabelaMilitaresComponent implements OnInit {
               private rota: ActivatedRoute) { }
 
   ngOnInit() {
-      this.loadMilitares();
+      this.carregarMilitares();
   }
 
-  loadMilitares() {
-    this.militaresService.findAll().subscribe(
+  carregarMilitares() {
+    this.militaresService.retornarTodos().subscribe(
       response => { 
        // this.dataSource = new MatTableDataSource(response);
         this.militares  = response;
-          this.loadEnderecos(this.militares);         
+          this.carregarEnderecos(this.militares);         
       },
       error => { console.log(error); } 
     );
   }
 
-  loadEnderecos(militares: MilitarDTO[]) {
-    this.enderecosService.findAll().subscribe(response => {this.enderecos = response; console.log(response); this.loadEnderecosOnMilitares(militares, response); },
+  carregarEnderecos(militares: MilitarDTO[]) {
+    this.enderecosService.retornarTodos().subscribe(
+      response => {
+        this.enderecos = response; 
+        console.log(response); 
+        this.atribuirEnderecos(militares, response); },
       error => { console.log(error); } );
   }
 
-  loadEnderecosOnMilitares(militares: MilitarDTO[], enderecos: EnderecoDTO[]) {
+  atribuirEnderecos(militares: MilitarDTO[], enderecos: EnderecoDTO[]) {
       // atribui o endereco ao militar correspondente
       for(let i = 0; i < militares.length; i++) {
         for(let k = 0; k < enderecos.length; k++) {
@@ -70,15 +74,15 @@ export class TabelaMilitaresComponent implements OnInit {
             }
         }
       }
-             this.loadTable(militares);
+             this.carregarTabela(militares);
   }
 
-  loadTable(militares: MilitarDTO[]) {
+  carregarTabela(militares: MilitarDTO[]) {
      this.dataSource = new MatTableDataSource(militares);
   }
   
-  removeMilitar(militar: MilitarDTO) {
-      this.militaresService.delete(militar).subscribe(
+  removerMilitar(militar: MilitarDTO) {
+      this.militaresService.deletar(militar).subscribe(
         response => { 
           if (response.status == 204) { console.log('Militar deletado com sucesso!'); } 
         },
@@ -89,7 +93,7 @@ export class TabelaMilitaresComponent implements OnInit {
           this.ngOnInit();
   }
 
-  cancel() {
+  cancelar() {
     this.router.navigate(['/index']);
   }
 

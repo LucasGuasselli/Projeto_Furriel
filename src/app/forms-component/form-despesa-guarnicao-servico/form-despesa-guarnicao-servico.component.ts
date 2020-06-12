@@ -48,24 +48,24 @@ export class FormDespesaGuarnicaoServicoComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.aditamentoAtual = this.aditamentosService.getAditamentoAtual();
+    this.aditamentoAtual = this.aditamentosService.retornarAditamentoAtual();
       if ( this.aditamentoAtual == null)    {
         alert('Selecione um aditamento!');
         this.router.navigate(['/index']);
       }
-    this.loadMilitaresComAuxilioTransporte();
+    this.carregarMilitaresComAuxilioTransporte();
   }
 
-  loadMilitaresComAuxilioTransporte() {
-    this.militaresService.findMilitaresComAuxilioTransporte().subscribe(
+  carregarMilitaresComAuxilioTransporte() {
+    this.militaresService.retornarMilitaresComAuxilioTransporte().subscribe(
         response => { 
-            this.militaresComAuxilioTransporte = response; this.splitMilitares(this.militaresComAuxilioTransporte);
+            this.militaresComAuxilioTransporte = response; this.separarMilitares(this.militaresComAuxilioTransporte);
         },
             error => {console.log(error); } );
   }
 
   // separa os militares por graduacao
-  splitMilitares(militares: MilitarDTO[]) {
+  separarMilitares(militares: MilitarDTO[]) {
       for (let i = 0; i < militares.length; i++) {
         // 1º Sargentos concorrem a escala de adjunto
           if (militares[i].postoGraduacaoId === 6) {
@@ -86,7 +86,7 @@ export class FormDespesaGuarnicaoServicoComponent implements OnInit {
       }
   }
 
-  saveMilitar(militar: MilitarDTO, texto:  String) {
+  salvarMilitar(militar: MilitarDTO, texto:  String) {
     switch (texto) {
       case 'Adjunto': {
         this.adjunto = militar;
@@ -115,24 +115,24 @@ export class FormDespesaGuarnicaoServicoComponent implements OnInit {
     }
   }
 
-  validateDespesa() {
+  validarDespesa() {
     if (this.despesa.calculoDataInicio == null) {
       alert('Você deve informar a data do Serviço!!!');
     } else {
       // tslint:disable-next-line:max-line-length
       if (this.adjunto != null || this.sgtDeDia != null || this.caboDeDia != null || this.plantao != null || this.plantao1 != null || this.plantao2 != null || this.plantao3 != null || this.plantao4 != null || this.plantao5 != null) {
-        this.modifyDespesaFeriadoAdm();
-        this.beforeInsertDespesa();
+        this.modificarDespesaFeriadoAdm();
+        this.prepararDespesa();
 
-          this.insertDespesa(this.adjunto);
-          this.insertDespesa(this.sgtDeDia);
-          this.insertDespesa(this.caboDeDia);
-          this.insertDespesa(this.plantao);
-          this.insertDespesa(this.plantao1);
-          this.insertDespesa(this.plantao2);
-          this.insertDespesa(this.plantao3);
-          this.insertDespesa(this.plantao4);
-          this.insertDespesa(this.plantao5);
+          this.inserirDespesa(this.adjunto);
+          this.inserirDespesa(this.sgtDeDia);
+          this.inserirDespesa(this.caboDeDia);
+          this.inserirDespesa(this.plantao);
+          this.inserirDespesa(this.plantao1);
+          this.inserirDespesa(this.plantao2);
+          this.inserirDespesa(this.plantao3);
+          this.inserirDespesa(this.plantao4);
+          this.inserirDespesa(this.plantao5);
 
           alert(this.despesa.quantidadeDias + ' Dia(s) Descontado(s)');
              // this.ngOnInit();
@@ -142,20 +142,20 @@ export class FormDespesaGuarnicaoServicoComponent implements OnInit {
     }
   }
 
-  beforeInsertDespesa() {
+  prepararDespesa() {
         this.despesa.aditamentoId = this.aditamentoAtual.id;
-        this.despesa.quantidadeDias = this.utilService.calculaQuantidadeDias( this.despesa.calculoDataInicio, this.despesa.calculoDataInicio, this.despesa.motivo = 'Serviço' , this.despesa.feriados, this.despesa.administrativos);
+        this.despesa.quantidadeDias = this.utilService.calcularQuantidadeDias( this.despesa.calculoDataInicio, this.despesa.calculoDataInicio, this.despesa.motivo = 'Serviço' , this.despesa.feriados, this.despesa.administrativos);
 
         // e necessario receber as datas antes dos calculos, pois elas podem ser alteradas para os calculos
-          this.despesa.dataInicio = this.utilService.formatDate(this.despesa.calculoDataInicio.toString());
+          this.despesa.dataInicio = this.utilService.formatarData(this.despesa.calculoDataInicio.toString());
   }
 
-  insertDespesa(militar: MilitarDTO) {
+  inserirDespesa(militar: MilitarDTO) {
     // e necessario o teste de null pois nao tem obrigatoriedade da regra de negocio cadastrar todos os possiveis militares de servico
     if ( militar != null) {
       this.despesa.militarPrecCP = militar.precCP;
 
-      this.despesasService.insert(this.despesa).subscribe(response => { 
+      this.despesasService.inserir(this.despesa).subscribe(response => { 
         if (response.status !== 201 ) {
            alert('Erro ao cadastrar despesa do ' + militar.nome + 'Prec-CP ' + militar.precCP); } 
         } ,
@@ -163,7 +163,7 @@ export class FormDespesaGuarnicaoServicoComponent implements OnInit {
     }
   }
 
-  modifyDespesaFeriadoAdm() {
+  modificarDespesaFeriadoAdm() {
     if (this.feriado === true) {
         this.despesa.feriados = 1;
         this.despesa.administrativos = 0;
@@ -176,7 +176,7 @@ export class FormDespesaGuarnicaoServicoComponent implements OnInit {
     }
   }
 
-  cancel() {
+  cancelar() {
     this.router.navigate(['/index']);
   }
 

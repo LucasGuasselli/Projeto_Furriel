@@ -11,16 +11,15 @@ export class ConducoesService {
 
   constructor(public http: HttpClient) { }
 
-    // retorna todos militares cadastrados
-    findAll(): Observable<ConducaoDTO[]> {
+    retornarTodos(): Observable<ConducaoDTO[]> {
         return this.http.get<ConducaoDTO[]>(`${API_CONFIG.baseUrl}/conducoes`);
     }
 
-    findConducoesByAuxilioTransporteId(id: number): Observable<ConducaoDTO[]> {
+    retornarConducoesPorAuxilioTransporteId(id: number): Observable<ConducaoDTO[]> {
       return this.http.get<ConducaoDTO[]>(`${API_CONFIG.baseUrl}/conducoes/findConducoesByAuxilioTransporteId/${id}`);
     }
 
-    insert(obj: ConducaoDTO) {
+    inserir(obj: ConducaoDTO) {
         return this.http.post(`${API_CONFIG.baseUrl}/conducoes`, obj,
               {
                 observe: 'response',
@@ -29,7 +28,8 @@ export class ConducoesService {
         );
     }
 
-    insertNewConducao(obj: ConducaoDTO) {
+    // 
+    inserirNovaConducao(obj: ConducaoDTO) {
         return this.http.post(`${API_CONFIG.baseUrl}/conducoes/insertNewConducao`, obj,
               {
                 observe: 'response',
@@ -38,7 +38,7 @@ export class ConducoesService {
         );
     }    
 
-    update(obj: ConducaoDTO, id: number) {
+    editar(obj: ConducaoDTO, id: number) {
       return this.http.put(`${API_CONFIG.baseUrl}/conducoes/${id}`, obj,
             {
               observe: 'response',
@@ -47,7 +47,7 @@ export class ConducoesService {
       );
     }
 
-    delete(obj: ConducaoDTO) {
+    deletar(obj: ConducaoDTO) {
         return this.http.delete(`${API_CONFIG.baseUrl}/conducoes/${obj.id}`,
             {
               observe: 'response',

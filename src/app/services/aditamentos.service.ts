@@ -12,25 +12,25 @@ export class AditamentosService {
 
   constructor(public http: HttpClient) { }
 
-    saveAditamentoAtual(aditamento: AditamentoDTO) {
+    salvarAditamentoAtual(aditamento: AditamentoDTO) {
       this.aditamentoAtual = new AditamentoDTO;
       this.aditamentoAtual = aditamento;
     }
 
-    getAditamentoAtual() {
+    retornarAditamentoAtual() {
       return this.aditamentoAtual;
     }
 
     // retorna todos militares cadastrados
-    findAll(): Observable<AditamentoDTO[]> {
+    retornarTodos(): Observable<AditamentoDTO[]> {
         return this.http.get<AditamentoDTO[]>(`${API_CONFIG.baseUrl}/aditamentos`);
     }
 
-    findById(id: number): Observable<AditamentoDTO> {
+    retornarPorId(id: number): Observable<AditamentoDTO> {
       return this.http.get<AditamentoDTO>(`${API_CONFIG.baseUrl}/aditamentos/${id}`);
     }
 
-    insert(obj: AditamentoDTO) {
+    inserir(obj: AditamentoDTO) {
         return this.http.post(`${API_CONFIG.baseUrl}/aditamentos`, obj,
               {
                 observe: 'response',
@@ -39,7 +39,7 @@ export class AditamentosService {
         );
     }
 
-    update(obj: AditamentoDTO, id: number) {
+    editar(obj: AditamentoDTO, id: number) {
       return this.http.put(`${API_CONFIG.baseUrl}/aditamentos/${id}`, obj,
             {
               observe: 'response',
@@ -48,7 +48,7 @@ export class AditamentosService {
       );
     }
 
-    delete(obj: AditamentoDTO) {
+    deletar(obj: AditamentoDTO) {
         return this.http.delete(`${API_CONFIG.baseUrl}/aditamentos/${obj.id}`,
             {
               observe: 'response',

@@ -34,77 +34,77 @@ export class FormExclusaoAuxilioTransporteComponent implements OnInit {
               private utilService: UtilService ) { }
 
   ngOnInit() {
-      this.aditamentoAtual = this.aditamentosService.getAditamentoAtual();
+      this.aditamentoAtual = this.aditamentosService.retornarAditamentoAtual();
         if ( this.aditamentoAtual == null)    {
           alert('Selecione um aditamento!');
             this.router.navigate(['/index']);
         }
-        this.loadMilitaresComAuxilioTransporte();
+        this.carregarMilitaresComAuxilioTransporte();
   }
 
-  validateExclusaoAuxilioTransporte() {
+   carregarMilitaresComAuxilioTransporte() {
+    this.militaresService.retornarMilitaresComAuxilioTransporte().subscribe(
+        response => { this.militaresComAuxilioTransporte = response; console.log(this.militaresComAuxilioTransporte); } ,
+          error => {console.log(error); } );
+  }
+
+  validarExclusaoAuxilioTransporte() {
     if ( this.exclusaoAuxilioTransporte.data == null)    {
         alert('Selecione uma data!');
     } else {
         if (isNaN(this.precCP)) {
             alert('selecione um militar!');
         } else {
-          this.loadAuxilioTransporte();
+          this.carregarAuxilioTransporte();
         }
       }
   }
 
-  loadAuxilioTransporte() {
-      this.auxilioTransporteService.findAuxilioTransporteByPrecCP(this.precCP).subscribe(
+  carregarAuxilioTransporte() {
+      this.auxilioTransporteService.retornarAuxilioTransportePorPrecCP(this.precCP).subscribe(
             response => {
               this.auxilioTransporte = response; 
-              this.beforinsertExclusaoAuxilioTransporte(this.precCP, this.aditamentoAtual.id, this.auxilioTransporte); 
+              this.prepararExclusaoAuxilioTransporte(this.precCP, this.aditamentoAtual.id, this.auxilioTransporte); 
             },
               error => {console.log(error); } );
   }
 
-  beforinsertExclusaoAuxilioTransporte(precCP: number, aditamentoId: number, auxilioTransporte: AuxilioTransporteDTO){
-      this.exclusaoAuxilioTransporte.data = this.utilService.formatDate(this.exclusaoAuxilioTransporte.data.toString());
+  prepararExclusaoAuxilioTransporte(precCP: number, aditamentoId: number, auxilioTransporte: AuxilioTransporteDTO){
+      this.exclusaoAuxilioTransporte.data = this.utilService.formatarData(this.exclusaoAuxilioTransporte.data.toString());
       this.exclusaoAuxilioTransporte.militarPrecCP = precCP;
       this.exclusaoAuxilioTransporte.aditamentoId = aditamentoId;
       this.exclusaoAuxilioTransporte.valor = auxilioTransporte.valorTotalAT;
-        this.insertExclusaoAuxilioTransporte(auxilioTransporte);
+        this.inserirExclusaoAuxilioTransporte(auxilioTransporte);
   }
 
 // INVERTER LOGICA, PRIMEIRO EXCLUIR E CASO TENHA SIDO EXCLUIDO COM SUCESSO, CADASTRAR EXCLUSAOAUXILIOTRANSPORTE
-  insertExclusaoAuxilioTransporte(auxilioTransporte: AuxilioTransporteDTO) {      
-        this.exclusaoAuxilioTransporteService.insert(this.exclusaoAuxilioTransporte).subscribe(
+  inserirExclusaoAuxilioTransporte(auxilioTransporte: AuxilioTransporteDTO) {      
+        this.exclusaoAuxilioTransporteService.inserir(this.exclusaoAuxilioTransporte).subscribe(
           response => { 
             if (response.status === 201) {
               alert('Exclusão Cadastrada com Sucesso!');
             } 
-              this.deleteAuxilioTransporte(auxilioTransporte); 
+              this.deletarAuxilioTransporte(auxilioTransporte); 
             }, 
               error => { console.log(error); }
         );
   }
 
-  deleteAuxilioTransporte(auxilioTransporte: AuxilioTransporteDTO) {
+  deletarAuxilioTransporte(auxilioTransporte: AuxilioTransporteDTO) {
     auxilioTransporte.exclusao = true;
-    this.auxilioTransporteService.update(auxilioTransporte, auxilioTransporte.id).subscribe( 
+    this.auxilioTransporteService.editar(auxilioTransporte, auxilioTransporte.id).subscribe( 
         response => { 
             console.log(response);
             if (response.status === 204) {
-              this.loadMilitaresComAuxilioTransporte(); 
+              this.carregarMilitaresComAuxilioTransporte(); 
             }
-              this.moveToReadExclusoesAuxilioTransporte();
+              this.moverParaListaExclusoesAuxilioTransporte();
         },
           error => { console.log(error); } 
       );
   }
 
-  loadMilitaresComAuxilioTransporte() {
-    this.militaresService.findMilitaresComAuxilioTransporte().subscribe(
-        response => { this.militaresComAuxilioTransporte = response; console.log(this.militaresComAuxilioTransporte); } ,
-          error => {console.log(error); } );
-  }
-
-  saveMilitarPrecCP(precCP: number) {
+  salvarMilitarPrecCP(precCP: number) {
     if (isNaN(precCP)) {
         // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
     } else {
@@ -113,11 +113,11 @@ export class FormExclusaoAuxilioTransporteComponent implements OnInit {
     }
   }
 
-  moveToReadExclusoesAuxilioTransporte() {
+  moverParaListaExclusoesAuxilioTransporte() {
     this.router.navigate(['/listaExclusaoAuxiliosTransporte']);
   }
 
-  cancel() {
+  cancelar() {
     this.router.navigate(['/index']);
   }
 

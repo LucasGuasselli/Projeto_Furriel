@@ -35,25 +35,25 @@ export class TabelaDespesasAAnularComponent implements OnInit {
               private rota: ActivatedRoute) { }
 
   ngOnInit() {
-    this.loadDespesas();
+    this.carregarDespesas();
   }
 
-  loadDespesas() {
-    this.despesasAAnularService.findAll().subscribe(
+  carregarDespesas() {
+    this.despesasAAnularService.retornarTodos().subscribe(
       response => {
         this.dataSource = response;
-        this.assignMilitares(this.dataSource); 
+        this.atribuirMilitares(this.dataSource); 
       },
       error => {console.log(error); } 
     );
   }
 
-  assignMilitares(despesas: DespesaDTO[]) {
+  atribuirMilitares(despesas: DespesaDTO[]) {
     for (let i = 0; i < despesas.length; i++) {
-        this.militaresService.findMilitarByPrecCP(despesas[i].militarPrecCP).subscribe(
+        this.militaresService.retornarMilitarPorPrecCP(despesas[i].militarPrecCP).subscribe(
           response => { 
             this.militares[i] = response; despesas[i].nome = this.militares[i].nome;
-            this.assignGraduacoes(despesas[i], this.militares[i]); 
+            this.atribuirGraduacoes(despesas[i], this.militares[i]); 
           },
           error => { console.log(error); }
         );
@@ -61,29 +61,30 @@ export class TabelaDespesasAAnularComponent implements OnInit {
     this.dataSource = new MatTableDataSource(despesas);
   }
 
-  assignGraduacoes(despesa: DespesaDTO, militar: MilitarDTO) {
-      this.postosGraduacoesService.findPostoGraduacaoById(militar.postoGraduacaoId).subscribe(
+  atribuirGraduacoes(despesa: DespesaDTO, militar: MilitarDTO) {
+      this.postosGraduacoesService.retornarPostoGraduacaoPorId(militar.postoGraduacaoId).subscribe(
         response => { this.postoGraduacao = response; despesa.graduacao = this.postoGraduacao.nome; },
         error => {console.log(error); } 
       );
   }
 
-  removeDespesaAAnular(despesaAAnular: DespesaDTO) {
-    this.despesasAAnularService.delete(despesaAAnular).subscribe(response => { 
-      if (response.status === 204) {
-        console.log(response);
-        this.ngOnInit();
+  removerDespesaAAnular(despesaAAnular: DespesaDTO) {
+    this.despesasAAnularService.deletar(despesaAAnular).subscribe(
+      response => { 
+        if (response.status === 204) {
+          console.log(response);
+          this.ngOnInit();
       } 
     },
-    error => { console.log(error); }
+      error => { console.log(error); }
     );
   }
 
-  moveToFormDespesa() {
+  moverParaFormDespesa() {
     this.router.navigate(['/cadastroDesconto']);
   }
 
-  cancel() {
+  cancelar() {
     this.router.navigate(['/index']);
   }
 

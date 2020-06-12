@@ -31,39 +31,39 @@ export class TabelaPagamentosAtrasadosComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.loadPagamentosAtrasados();
+    this.carregarPagamentosAtrasados();
   }
 
-  loadPagamentosAtrasados() {
-    this.saquesAtrasadosService.findAll().subscribe(
+  carregarPagamentosAtrasados() {
+    this.saquesAtrasadosService.retornarTodos().subscribe(
       response => {
         this.saquesAtrasados = response;
-        this.assignMilitares(this.saquesAtrasados); 
+        this.atribuirMilitares(this.saquesAtrasados); 
       },
       error => { console.log(error); }
     );
   }
 
-  assignMilitares(pagamentosAtrasados: SaqueAtrasadoDTO[]) {
+  atribuirMilitares(pagamentosAtrasados: SaqueAtrasadoDTO[]) {
     for (let i = 0; i < pagamentosAtrasados.length; i++) {
-        this.militaresService.findMilitarByPrecCP(pagamentosAtrasados[i].militarPrecCP).subscribe(
+        this.militaresService.retornarMilitarPorPrecCP(pagamentosAtrasados[i].militarPrecCP).subscribe(
           response => { 
             this.militares[i] = response; pagamentosAtrasados[i].nome = this.militares[i].nome;
-            this.assignGraduacoes(pagamentosAtrasados[i], this.militares[i]); },
+            this.atribuirGraduacoes(pagamentosAtrasados[i], this.militares[i]); },
           error => { console.log(error); }
         );
     }
     this.dataSource = new MatTableDataSource(pagamentosAtrasados);
   }
 
-  assignGraduacoes(pagamentosAtrasados: SaqueAtrasadoDTO, militar: MilitarDTO) {
-      this.postosGraduacoesService.findPostoGraduacaoById(militar.postoGraduacaoId).subscribe(
+  atribuirGraduacoes(pagamentosAtrasados: SaqueAtrasadoDTO, militar: MilitarDTO) {
+      this.postosGraduacoesService.retornarPostoGraduacaoPorId(militar.postoGraduacaoId).subscribe(
         response => { this.postoGraduacao = response; pagamentosAtrasados.graduacao = this.postoGraduacao.nome; },
            error => { console.log(error); } );
   }
 
-  removeSaqueAtrasado(saqueAtrasado: SaqueAtrasadoDTO) {
-    this.saquesAtrasadosService.delete(saqueAtrasado).subscribe(response => { 
+  removerSaqueAtrasado(saqueAtrasado: SaqueAtrasadoDTO) {
+    this.saquesAtrasadosService.deletar(saqueAtrasado).subscribe(response => { 
       if (response.status === 204) {
         this.ngOnInit();
       } 
@@ -72,11 +72,11 @@ export class TabelaPagamentosAtrasadosComponent implements OnInit {
     );
   }
 
-  moveToFormPagamentoAtrasado() {
+  moverParaFormPagamentoAtrasado() {
     this.router.navigate(['/cadastroPagamentoAtrasado']);
   }
 
-  cancel() {
+  cancelar() {
     this.router.navigate(['/index']);
   }
 }

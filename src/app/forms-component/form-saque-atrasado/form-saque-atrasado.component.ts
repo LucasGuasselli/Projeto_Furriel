@@ -25,43 +25,43 @@ export class FormSaqueAtrasadoComponent implements OnInit {
               private aditamentosService: AditamentosService) { }
 
     ngOnInit() {
-      this.aditamentoAtual = this.aditamentosService.getAditamentoAtual();
+      this.aditamentoAtual = this.aditamentosService.retornarAditamentoAtual();
         if ( this.aditamentoAtual == null)    {
           alert('Selecione um aditamento!');
             // redireciona para a pagina inicial
             this.router.navigate(['/index']);
         }
-          this.loadMilitaresComAuxilioTransporte();
+          this.carregarMilitaresComAuxilioTransporte();
     }
 
-    loadMilitaresComAuxilioTransporte() {
-      this.militaresService.findMilitaresComAuxilioTransporte().subscribe(
+    carregarMilitaresComAuxilioTransporte() {
+      this.militaresService.retornarMilitaresComAuxilioTransporte().subscribe(
           response => {this.militaresComAuxilioTransporte = response;} , error => {console.log(error); } );
     }
 
-    validatePrecCP() {
+    validarPrecCP() {
         if (isNaN(this.precCP)) {
             alert('Selecione um militar!');
         } else {
-            this.beforeInsertSaqueAtrasado();
+            this.prepararSaqueAtrasado();
         }
     }
 
-    beforeInsertSaqueAtrasado() {
+    prepararSaqueAtrasado() {
       this.saqueAtrasado.militarPrecCP = this.precCP;
       this.saqueAtrasado.aditamentoId = this.aditamentoAtual.id;
-        this.insertSaqueAtrasado();
+        this.inserirSaqueAtrasado();
     }
 
-    insertSaqueAtrasado() {      
-      this.saquesAtrasadoService.insert(this.saqueAtrasado).subscribe(response => {
+    inserirSaqueAtrasado() {      
+      this.saquesAtrasadoService.inserir(this.saqueAtrasado).subscribe(response => {
         if (response.status == 201) {
           alert('Saque Atrasado cadastrado com sucesso!');
             this.saqueAtrasado = new SaqueAtrasadoDTO();
         } }, error => {console.log(error); } );
     }    
 
-    saveMilitarPrecCP(codigo: number) {
+    salvarMilitarPrecCP(codigo: number) {
       if (isNaN(codigo)) {
           // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
       } else {
@@ -69,7 +69,7 @@ export class FormSaqueAtrasadoComponent implements OnInit {
       }
     }
 
-    cancel() {
+    cancelar() {
       this.router.navigate(['/index']);
     }
 }

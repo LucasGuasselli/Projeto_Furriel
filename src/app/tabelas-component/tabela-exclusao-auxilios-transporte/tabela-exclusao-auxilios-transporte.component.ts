@@ -32,25 +32,25 @@ export class TabelaExclusaoAuxiliosTransporteComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.loadExclusoes();
+    this.carregarExclusoes();
   }
 
-  loadExclusoes() {
-    this.exclusoesAuxilioTransporteService.findAll().subscribe(
+  carregarExclusoes() {
+    this.exclusoesAuxilioTransporteService.retornarTodos().subscribe(
       response => {
         this.dataSource = response;
-        this.assignMilitares(this.dataSource); 
+        this.atribuirMilitares(this.dataSource); 
       },
       error => {console.log(error); } 
     );
   }
 
-  assignMilitares(exclusaoAuxiliosTransporte: ExclusaoAuxilioTransporteDTO[]) {
+  atribuirMilitares(exclusaoAuxiliosTransporte: ExclusaoAuxilioTransporteDTO[]) {
     for (let i = 0; i < exclusaoAuxiliosTransporte.length; i++) {
-        this.militaresService.findMilitarByPrecCP(exclusaoAuxiliosTransporte[i].militarPrecCP).subscribe(
+        this.militaresService.retornarMilitarPorPrecCP(exclusaoAuxiliosTransporte[i].militarPrecCP).subscribe(
           response => { 
             this.militares[i] = response; exclusaoAuxiliosTransporte[i].nome = this.militares[i].nome;
-            this.assignGraduacoes(exclusaoAuxiliosTransporte[i], this.militares[i]); 
+            this.atribuirGraduacoes(exclusaoAuxiliosTransporte[i], this.militares[i]); 
           },
           error => { console.log(error); }
         );
@@ -58,17 +58,19 @@ export class TabelaExclusaoAuxiliosTransporteComponent implements OnInit {
     this.dataSource = new MatTableDataSource(exclusaoAuxiliosTransporte);
   }
 
-  assignGraduacoes(exclusaoAuxiliosTransporte: ExclusaoAuxilioTransporteDTO, militar: MilitarDTO) {
-      this.postosGraduacoesService.findPostoGraduacaoById(militar.postoGraduacaoId).subscribe(
-        response => { this.postoGraduacao = response; exclusaoAuxiliosTransporte.graduacao = this.postoGraduacao.nome; },
+  atribuirGraduacoes(exclusaoAuxiliosTransporte: ExclusaoAuxilioTransporteDTO, militar: MilitarDTO) {
+      this.postosGraduacoesService.retornarPostoGraduacaoPorId(militar.postoGraduacaoId).subscribe(
+        response => { 
+          this.postoGraduacao = response; exclusaoAuxiliosTransporte.graduacao = this.postoGraduacao.nome; 
+        },
         error => { console.log(error); } );
   }
 
-  moveToFormExclusao() {
+  moverParaFormExclusao() {
     this.router.navigate(['/cadastroExclusaoAuxilioTransporte']);
   }
 
-  cancel() {
+  cancelar() {
     this.router.navigate(['/index']);
   }
 

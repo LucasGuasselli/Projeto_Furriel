@@ -24,38 +24,38 @@ export class FormAditamentoComponent implements OnInit {
       ELSE - serve para casos de edicao da entidade aditamento */
       if (isNaN(this.id)) {
         this.aditamento  = new AditamentoDTO();
-        this.loadText();
+        this.carregarTexto();
       } else {
-          this.loadAditamentoForUpdate();
+          this.carregarAditamento();
       }
   }
 
-  loadAditamentoForUpdate( ) {
-    this.aditamentosService.findById(this.id).subscribe(  response => { this.aditamento = response; },
+  carregarAditamento( ) {
+    this.aditamentosService.retornarPorId(this.id).subscribe(  response => { this.aditamento = response; },
       error => { console.log(error); });
   }
 
   // salva ou edita uma entidade aditamento
-  validateAditamento() {
+  validarAditamento() {
     // validar atributo nome
     if (this.aditamento.nome.length <= 3) {
       alert('Insira um nome para o aditamento com pelo menos 4 caracteres!');
     } else {
       // cadastrar se IF for TRUE e editar caso seja FALSE
       if (isNaN(this.id)) {
-        this.insertAditamento();
+        this.inserirAditamento();
         // redireciona para a lista
             this.router.navigate(['/listaAditamento']);
       } else {
         console.log('Chegou na edicao' + this.id);
-            this.updateAditamento();
+            this.atualizarAditamento();
                 this.router.navigate(['/listaAditamento']);
       }
     }
   }
 
-  insertAditamento() {
-      this.aditamentosService.insert(this.aditamento).subscribe( response =>  { 
+  inserirAditamento() {
+      this.aditamentosService.inserir(this.aditamento).subscribe( response =>  { 
         if (response.status === 201) {
           console.log(response);
         }
@@ -64,8 +64,8 @@ export class FormAditamentoComponent implements OnInit {
      );
   }
 
-  updateAditamento() {
-    this.aditamentosService.update(this.aditamento, this.id).subscribe(response => {
+  atualizarAditamento() {
+    this.aditamentosService.editar(this.aditamento, this.id).subscribe(response => {
       if (response.status === 204) {
         console.log('Aditamento editado com sucesso!');
       }
@@ -75,11 +75,11 @@ export class FormAditamentoComponent implements OnInit {
           this.aditamento = new AditamentoDTO();
   }
 
-  loadText() {
+  carregarTexto() {
     this.aditamento.despesaPeriodo = 'referente as publicações em Boletim no período compreendido de 16 de Abril a 15 de Maio de 2019';
   }
 
-  cancel() {
+  cancelar() {
     this.router.navigate(['/index']);
   }
 

@@ -65,24 +65,24 @@ export class FormAuxilioTransporteComponent implements OnInit {
                 private utilService: UtilService) { }
 
    ngOnInit() {
-    this.aditamentoAtual = this.aditamentoService.getAditamentoAtual();
+    this.aditamentoAtual = this.aditamentoService.retornarAditamentoAtual();
         if ( this.aditamentoAtual == null)    {
             alert('Selecione um aditamento!');
                 // retorna para pagina inicial caso nao tenha nenhum aditamento selecionado
                 this.router.navigate(['/index']);
         }
-            this.loadPassagens();
-            this.loadMilitaresSemAuxilioTransporte();
+            this.carregarPassagens();
+            this.carregarMilitaresSemAuxilioTransporte();
            // this.loadAuxiliosTransporte();
     }
 
-    loadPassagens() {
-      this.passagensService.findAll().subscribe( response => { this.passagens = response; },
+    carregarPassagens() {
+      this.passagensService.retornarTodos().subscribe( response => { this.passagens = response; },
         error => { console.log(error); } );
     }
 
-    loadMilitaresSemAuxilioTransporte() {
-        this.militaresService.findMilitaresSemAuxilioTransporte().subscribe(
+    carregarMilitaresSemAuxilioTransporte() {
+        this.militaresService.retornarMilitaresSemAuxilioTransporte().subscribe(
             response => { this.militaresSemAuxilioTransporte = response;  } , error => {console.log(error); } );
     }
 /*
@@ -91,38 +91,38 @@ export class FormAuxilioTransporteComponent implements OnInit {
             response => {this.auxiliosTransporte = response; } , error => {console.log(error); } );
     }
 */
-    validateAuxilioTransporteAndConducoes() {
+    validarAuxilioTransporteEConducoes() {
         if ( this.aditamentoAtual == null)    {
             alert('Selecione um aditamento!');
         } else {
             if (isNaN(this.precCP)) {
                 alert('Selecione um militar!');
             } else {
-                this.ValidateSelection();
+                this.validaSelecaoMilitar();
             }
         }
     }
 
 // valida se algum militar foi selecionado
-    ValidateSelection() {
+    validaSelecaoMilitar() {
         if (isNaN(this.precCP)) {
             alert('Selecione um militar!');
        } else {
-           this.insertAuxilioTransporte();
+           this.inserirAuxilioTransporte();
        }
     }
     
 // alem de inserir um auxilioTransporte no banco, carrega novamente via GET os militares sem auxilio
-    insertAuxilioTransporte() {
+    inserirAuxilioTransporte() {
         this.auxilioTransporte.militarPrecCP = this.precCP;
             // console.log(this.auxilioTransporte);
-            this.auxiliosTransporteService.insert(this.auxilioTransporte).subscribe(
-                response => { this.validateConducoes(); this.loadMilitaresSemAuxilioTransporte(); }, error => {console.log(error); } );
+            this.auxiliosTransporteService.inserir(this.auxilioTransporte).subscribe(
+                response => { this.validarConducoes(); this.carregarMilitaresSemAuxilioTransporte(); }, error => {console.log(error); } );
     }
 
 // VERIFICAR COMENTARIO E METODO ABAIXO
 // esta validacao deve ser realizada antes de cadastrar um auxilio transporte!!
-    validateConducoes() {
+    validarConducoes() {
         const conducoesValidas: number [] = [];
         // busca os indices validos para cadastrar as conducoes
             for (let k = 0; k < this.conducoes.length; k++) {
@@ -136,13 +136,13 @@ export class FormAuxilioTransporteComponent implements OnInit {
             for (let i = 0; i < conducoesValidas.length; i++) {
                 // variavel valida: boolean serve para saber quando a ultima conducao vai ser cadastrada
                 let valida = false;
-                this.auxiliosTransporteService.findAuxilioTransporteByPrecCP(this.precCP).subscribe(
+                this.auxiliosTransporteService.retornarAuxilioTransportePorPrecCP(this.precCP).subscribe(
                     response => { 
                         this.auxTransp = response;
                             if (i === (conducoesValidas.length - 1) ) { 
                                 valida = true; 
                             }
-                                this.insertConducao(this.conducoes[conducoesValidas[i]], this.auxTransp, valida);
+                                this.inserirConducao(this.conducoes[conducoesValidas[i]], this.auxTransp, valida);
                                     this.auxTransp = new AuxilioTransporteDTO(); 
                     }, 
                         error => {console.log(error); }
@@ -150,66 +150,66 @@ export class FormAuxilioTransporteComponent implements OnInit {
             }
     }
 
-    insertConducao(conducao: ConducaoDTO, auxilioTransporte: AuxilioTransporteDTO, valida: boolean) {
+    inserirConducao(conducao: ConducaoDTO, auxilioTransporte: AuxilioTransporteDTO, valida: boolean) {
         conducao.auxilioTransporteId = auxilioTransporte.id;
-            this.conducoesService.insert(conducao).subscribe(
+            this.conducoesService.inserir(conducao).subscribe(
                 response => { 
                     if (valida === true && response.status === 201 ) { 
-                        this.beforeInsertInclusaoAuxilioTransporte();
-                        this.beforeInsertSaqueAtrasado(auxilioTransporte); 
+                        this.prepararInclusaoAuxilioTransporte();
+                        this.prepararSaqueAtrasado(auxilioTransporte); 
                     }
                     console.log('Conducao cadastrada com sucesso'); 
                 }, error => {console.log(error); } );
     }
 
-    beforeInsertInclusaoAuxilioTransporte() {
+    prepararInclusaoAuxilioTransporte() {
         this.inclusaoAuxilioTransporte.militarPrecCP = this.precCP;
         this.inclusaoAuxilioTransporte.aditamentoId = this.aditamentoAtual.id;
         this.inclusaoAuxilioTransporte.valor = 0;
-        this.inclusaoAuxilioTransporte.dataInicio = this.utilService.formatDate(this.data.toString());
-            this.insertInclusaoAuxilioTransporte();
+        this.inclusaoAuxilioTransporte.dataInicio = this.utilService.formatarData(this.data.toString());
+            this.inserirInclusaoAuxilioTransporte();
     }
 
-    insertInclusaoAuxilioTransporte() {
-        this.inclusaoAuxilioTransporteService.insert(this.inclusaoAuxilioTransporte).subscribe(
+    inserirInclusaoAuxilioTransporte() {
+        this.inclusaoAuxilioTransporteService.inserir(this.inclusaoAuxilioTransporte).subscribe(
            response => {
                if (response.status === 201) { 
-                   this.moveToReadAuxiliosAndConducoes(); } 
+                   this.moverParaListaAuxiliosEConducoes(); } 
            },
            error => {console.log(error); }
         );
     }    
 
-    beforeInsertSaqueAtrasado(auxilioTransporte: AuxilioTransporteDTO) {
+    prepararSaqueAtrasado(auxilioTransporte: AuxilioTransporteDTO) {
         this.saqueAtrasado.aditamentoId = this.aditamentoAtual.id;
         this.saqueAtrasado.militarPrecCP = this.precCP;
         this.saqueAtrasado.motivo = 'Inclusão de Auxílio Transporte';
-        this.saqueAtrasado.mesReferencia = this.utilService.returnNameMonth(this.data.toString());
+        this.saqueAtrasado.mesReferencia = this.utilService.retornarNomeMes(this.data.toString());
         
         // a quantidade e a soma dos dias restantes do mes atual + 22 dias conforme regra de negocio
             // variavel dataFim utilizada para realizar o calculo dos dias restantes
             this.dataFim.setDate(this.data.getDate());
-                this.saqueAtrasado.quantidadeDias = this.utilService.calculaQuantidadeDias(this.data, this.dataFim, 'Atualizacao Auxilio' , 0, 0);
+                this.saqueAtrasado.quantidadeDias = this.utilService.calcularQuantidadeDias(this.data, this.dataFim, 'Atualizacao Auxilio' , 0, 0);
             console.log(this.saqueAtrasado.quantidadeDias);
                 this.saqueAtrasado.valor = auxilioTransporte.valorDiarioAT * this.saqueAtrasado.quantidadeDias;
             console.log(this.saqueAtrasado.valor);
-                    this.insertSaqueAtrasado();
+                    this.inserirSaqueAtrasado();
     }
 
    // este metodo serve para cadastrar um saque atrasado referente a inclusao do Auxilio Transporte, tendo em vista que o militar só recebe pelo menos um mes e um dia apos a solicitacao
-    insertSaqueAtrasado() {
-            this.saquesAtrasadosService.insertSaqueAtrasadoInclusao(this.saqueAtrasado).subscribe(
+    inserirSaqueAtrasado() {
+            this.saquesAtrasadosService.inserirSaqueAtrasadoInclusao(this.saqueAtrasado).subscribe(
                  response => { if(response.status == 201) { console.log( 'Cadastro de saque atrasado com sucesso!' ); } ; },
                      error => { console.log(error); }
             );
     }
 
-    findAuxilioTransporteByPrecCP() {
-        this.auxiliosTransporteService.findAuxilioTransporteByPrecCP(this.precCP).subscribe(
+    retornarAuxilioTransportePorPrecCP() {
+        this.auxiliosTransporteService.retornarAuxilioTransportePorPrecCP(this.precCP).subscribe(
             response => { this.auxTransp = response; }, error => {console.log(error); });
     }
 
-    savePrecCPMilitar(precCP: number) {
+    salvarPrecCPMilitar(precCP: number) {
         if (isNaN(precCP)) {
 
         } else {
@@ -218,11 +218,11 @@ export class FormAuxilioTransporteComponent implements OnInit {
         }
     }
 
-    saveValorTipoTransp(conducao: ConducaoDTO, tipoTransp: PassagemDTO) {
+    salvarValorTipoTransp(conducao: ConducaoDTO, tipoTransp: PassagemDTO) {
         conducao.valor = tipoTransp.valor;
     }
     
-    moveToReadAuxiliosAndConducoes() {
+    moverParaListaAuxiliosEConducoes() {
         this.router.navigate(['/listaATConducao']);
     }
 
@@ -230,7 +230,7 @@ export class FormAuxilioTransporteComponent implements OnInit {
         alert('Cadastro efetuado com sucesso!');
     }
 
-    cancel() {
+    cancelar() {
         this.router.navigate(['/index']);
     }
 }

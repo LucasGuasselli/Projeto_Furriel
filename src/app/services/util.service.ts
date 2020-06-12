@@ -10,11 +10,11 @@ export class UtilService {
     
 
     // retornando uma data no formado dd/mm/yyyy
-    formatDate(data: String) {
+    formatarData(data: String) {
         // retirando os espacos da string
             const texto: String = data.trim().substring(4, 15);
         const dia: String = texto.substring(4, 6);
-        const mes: String = this.returnNumMonth(texto.substring(0, 3));
+        const mes: String = this.retornarNumMes(texto.substring(0, 3));
         const ano: String = texto.substring(7, 11);
         const resultado: String = (dia + '/' + mes + '/' + ano);
         // .split('-').reverse().join('/');
@@ -23,7 +23,7 @@ export class UtilService {
 
 // calcula a quantidade de dias que devem ser descontados conforme o motivo do desconto (regras de negócio).
 // os feriados e administrativos sao variaveis do tipo number que sao subtraidos da quantidade total de dias pois ja foram descontados separadamente.
-    calculaQuantidadeDias(inicio: Date, fim: Date, motivo: String, feriados: number, administrativos: number) {
+    calcularQuantidadeDias(inicio: Date, fim: Date, motivo: String, feriados: number, administrativos: number) {
        // tslint:disable-next-line:prefer-const
        let quantidadeDias = 0;
        // contador utilizado para evitar loopings desnecessarios
@@ -234,7 +234,7 @@ export class UtilService {
     }
 
     // retorna o numero correspondente ao mes (parametro) 
-    returnNumMonth(month: String) {     
+    retornarNumMes(month: String) {     
         // tslint:disable-next-line:triple-equals
         if (month == 'Jan') {
             return month = '01';
@@ -275,7 +275,7 @@ export class UtilService {
     }
 
     //retorna o nome correspondente ao mes (parametro). Retorna o mes referente a inclusao do auxilio transporte e o proximo (regra de negocio).
-      returnNameMonth(data: String) {
+      retornarNomeMes(data: String) {
         const texto: String = data.trim().substring(4, 15);
 
         // tslint:disable-next-line:triple-equals

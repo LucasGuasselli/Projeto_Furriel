@@ -11,16 +11,15 @@ export class PassagensService {
 
   constructor(public http: HttpClient) { }
 
-    // retorna todos militares cadastrados
-    findAll(): Observable<PassagemDTO[]> {
+    retornarTodos(): Observable<PassagemDTO[]> {
         return this.http.get<PassagemDTO[]>(`${API_CONFIG.baseUrl}/passagens`);
     }
 
-    findPassagemById(id: number): Observable<PassagemDTO> {
+    retornarPassagemPorId(id: number): Observable<PassagemDTO> {
       return this.http.get<PassagemDTO>(`${API_CONFIG.baseUrl}/passagens/${id}`);
     }
 
-    insert(obj: PassagemDTO) {
+    inserir(obj: PassagemDTO) {
         return this.http.post(`${API_CONFIG.baseUrl}/passagens`, obj,
               {
                 observe: 'response',
@@ -29,7 +28,7 @@ export class PassagensService {
         );
     }
 
-    update(obj: PassagemDTO, id: number) {
+    editar(obj: PassagemDTO, id: number) {
       return this.http.put(`${API_CONFIG.baseUrl}/passagens/${id}`, obj,
             {
               observe: 'response',
@@ -38,7 +37,7 @@ export class PassagensService {
       );
     }
 
-    delete(obj: PassagemDTO) {
+    deletar(obj: PassagemDTO) {
         return this.http.delete(`${API_CONFIG.baseUrl}/passagens/${obj.id}`,
             {
               observe: 'response',

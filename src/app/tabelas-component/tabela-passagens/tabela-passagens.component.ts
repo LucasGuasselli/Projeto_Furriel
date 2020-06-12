@@ -23,23 +23,24 @@ export class TabelaValoresPassagensComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.loadPassagens();
+    this.carregarPassagens();
   }
 
-  loadPassagens() {
-      this.passagensService.findAll().subscribe( response => { this.dataSource = new MatTableDataSource(response);
+  carregarPassagens() {
+      this.passagensService.retornarTodos().subscribe( response => { this.dataSource = new MatTableDataSource(response);
         }, error => { console.log(error); } );
   }
 
-  removePassagem(passagem: PassagemDTO) {
-      this.passagensService.delete(passagem).subscribe( 
+  removerPassagem(passagem: PassagemDTO) {
+      this.passagensService.deletar(passagem).subscribe( 
         response => { 
           if (response.status === 204) { this.ngOnInit(); } },
         error => { console.log(error); }
       );
   }
 
-  cancel() {
+  cancelar() {
     this.router.navigate(['/index']);
   }
+
 }

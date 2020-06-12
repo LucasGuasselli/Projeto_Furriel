@@ -14,20 +14,19 @@ export class DespesasService {
 
   constructor(public http: HttpClient) { }
 
-    // retorna todos militares cadastrados
-    findAll(): Observable<DespesaDTO[]> {
+    retornarTodos(): Observable<DespesaDTO[]> {
         return this.http.get<DespesaDTO[]>(`${API_CONFIG.baseUrl}/despesas`);
     }
 
-    findPrecCPById(id: number): Observable<DespesaDTO> {
+    retornarPrecCPPorId(id: number): Observable<DespesaDTO> {
         return this.http.get<DespesaDTO>(`${API_CONFIG.baseUrl}/despesas/searchPrecCPById/?id=${id}`);
     }
 
-    findDespesasByAditamentoId(id: number): Observable<DespesaDTO[]> {
+    retornarDespesasPorAditamentoId(id: number): Observable<DespesaDTO[]> {
       return this.http.get<DespesaDTO[]>(`${API_CONFIG.baseUrl}/despesas/searchDespesasByAditamentoId/${id}`);
     }
 
-    insert(obj: DespesaDTO) {
+    inserir(obj: DespesaDTO) {
         return this.http.post(`${API_CONFIG.baseUrl}/despesas`, obj,
               {
                 observe: 'response',
@@ -36,7 +35,7 @@ export class DespesasService {
         );
     }
     
-    insertDespesaAtualizacaoAuxilio(obj: DespesaDTO) {
+    inserirDespesaAtualizacaoAuxilio(obj: DespesaDTO) {
        return this.http.post(`${API_CONFIG.baseUrl}/despesas/despesaAtualizacaoAuxilio`, obj,
              {
                observe: 'response',
@@ -45,7 +44,7 @@ export class DespesasService {
        );
     }
 
-    update(obj: DespesaDTO, id: number) {
+    atualizar(obj: DespesaDTO, id: number) {
       return this.http.put(`${API_CONFIG.baseUrl}/despesas/${id}`, obj,
             {
               observe: 'response',
@@ -54,7 +53,7 @@ export class DespesasService {
       );
     }
 
-    delete(obj: DespesaDTO) {
+    deletar(obj: DespesaDTO) {
         return this.http.delete(`${API_CONFIG.baseUrl}/despesas/${obj.id}`,
             {
               observe: 'response',

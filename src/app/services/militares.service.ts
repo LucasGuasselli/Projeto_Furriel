@@ -11,24 +11,23 @@ export class MilitaresService {
 
   constructor(public http: HttpClient) { }
 
-    // retorna todos militares cadastrados
-    findAll(): Observable<MilitarDTO[]> {
+    retornarTodos(): Observable<MilitarDTO[]> {
         return this.http.get<MilitarDTO[]>(`${API_CONFIG.baseUrl}/militares`);
     }
 
-    findMilitaresSemAuxilioTransporte(): Observable<MilitarDTO[]> {
+    retornarMilitaresSemAuxilioTransporte(): Observable<MilitarDTO[]> {
       return this.http.get<MilitarDTO[]>(`${API_CONFIG.baseUrl}/militares/militaresSemAuxilioTransporte`);
     }
 
-    findMilitaresComAuxilioTransporte(): Observable<MilitarDTO[]> {
+    retornarMilitaresComAuxilioTransporte(): Observable<MilitarDTO[]> {
       return this.http.get<MilitarDTO[]>(`${API_CONFIG.baseUrl}/militares/militaresComAuxilioTransporte`);
     }
 
-    findMilitarByPrecCP(precCP: number): Observable<MilitarDTO> {
+    retornarMilitarPorPrecCP(precCP: number): Observable<MilitarDTO> {
         return this.http.get<MilitarDTO>(`${API_CONFIG.baseUrl}/militares/searchMilitarByPrecCP/?precCP=${precCP}`);
     }
 
-    insert(obj: MilitarDTO) {
+    inserir(obj: MilitarDTO) {
         return this.http.post(`${API_CONFIG.baseUrl}/militares`, obj,
               {
                 observe: 'response',
@@ -37,7 +36,7 @@ export class MilitaresService {
         );
     }
 
-    update(obj: MilitarDTO, precCP: number) {
+    editar(obj: MilitarDTO, precCP: number) {
       return this.http.put(`${API_CONFIG.baseUrl}/militares/${precCP}`, obj,
             {
               observe: 'response',
@@ -46,7 +45,7 @@ export class MilitaresService {
       );
     }
 
-    delete(obj: MilitarDTO) {
+    deletar(obj: MilitarDTO) {
         return this.http.delete(`${API_CONFIG.baseUrl}/militares/${obj.precCP}`,
             {
               observe: 'response',

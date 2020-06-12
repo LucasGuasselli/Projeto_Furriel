@@ -3,11 +3,11 @@
           <mat-select placeholder="Selecione um aditamento">
                       <mat-option>None</mat-option>
                       <mat-option value="option" *ngFor="let ad of aditamentos" 
-                                (click)="loadInfomationAditamento(ad)"  >{{ad.nome}}</mat-option>
+                                (click)="carregarInfomacaoAditamento(ad)"  >{{ad.nome}}</mat-option>
           </mat-select>
     </mat-form-field>     
       
-        <button mat-raised-button color="warn" (click)="downloadPDF()" >Downaload Relatorio</button>
+        <button mat-raised-button color="warn" (click)="baixarPDF()" >Downaload Relatorio</button>
 </form>
 
 <div id="content" >  
@@ -288,8 +288,8 @@
     </div>
              
     <div class="buttons">
-        <button mat-raised-button color="warn" (click)="downloadPDF()" >Downaload Relatorio</button>
+        <button mat-raised-button color="warn" (click)="baixarPDF()" >Download Relatorio</button>
     </div>
     <div class="buttons">
-        <button mat-raised-button color="warn" (click)="cancel()">Cancelar</button>            
+        <button mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>            
     </div>

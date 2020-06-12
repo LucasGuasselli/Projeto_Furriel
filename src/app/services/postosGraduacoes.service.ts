@@ -11,11 +11,11 @@ export class PostosGraduacoesService {
 
     constructor(public http: HttpClient) { }
 
-    findAll(): Observable<PostoGraduacaoDTO[]> {
+    retornarTodos(): Observable<PostoGraduacaoDTO[]> {
         return this.http.get<PostoGraduacaoDTO[]>(`${API_CONFIG.baseUrl}/postosGraduacoes`);
     }
 
-    findPostoGraduacaoById(id: number): Observable<PostoGraduacaoDTO> {
+    retornarPostoGraduacaoPorId(id: number): Observable<PostoGraduacaoDTO> {
         return this.http.get<PostoGraduacaoDTO>(`${API_CONFIG.baseUrl}/postosGraduacoes/${id}`);
     }
 }

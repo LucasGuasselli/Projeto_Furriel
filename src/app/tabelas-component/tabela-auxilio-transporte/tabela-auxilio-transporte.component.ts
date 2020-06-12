@@ -41,7 +41,7 @@ export class TabelaAuxilioTransporteComponent implements OnInit {
               private rota: ActivatedRoute) { }
 
   ngOnInit() {
-    this.loadAuxiliosTransporte();
+    this.carregarAuxiliosTransporte();
   //  this.loadConducoes();
   //  this.auxilioTransportes = this.servico.getAT();
   //  this.auxiliosTransporteSemPublicacao = this.servico.getATSemPublicacao();
@@ -49,22 +49,23 @@ export class TabelaAuxilioTransporteComponent implements OnInit {
    // this.conducoes = this.servico.getConducoes();
   }
 
-  loadAuxiliosTransporte() {
-    this.auxilioTransporteService.findAll().subscribe(
+  carregarAuxiliosTransporte() {
+    this.auxilioTransporteService.retornarTodos().subscribe(
       response => { 
         this.dataSource = response;
-        this.assignMilitares(this.dataSource); 
+        this.atribuirMilitares(this.dataSource); 
       },
         error => {console.log(error); } 
       );
   }
 
-  assignMilitares(auxiliosTransporte: AuxilioTransporteDTO[]) {
+  atribuirMilitares(auxiliosTransporte: AuxilioTransporteDTO[]) {
     for (let i = 0; i < auxiliosTransporte.length; i++) {
-        this.militaresService.findMilitarByPrecCP(auxiliosTransporte[i].militarPrecCP).subscribe(
+        this.militaresService.retornarMilitarPorPrecCP(auxiliosTransporte[i].militarPrecCP).subscribe(
           response => { 
-              this.militares[i] = response; auxiliosTransporte[i].nome = this.militares[i].nome;
-              this.assignGraduacoes(auxiliosTransporte[i], this.militares[i]); 
+              this.militares[i] = response;
+              auxiliosTransporte[i].nome = this.militares[i].nome;
+              this.atribuirGraduacoes(auxiliosTransporte[i], this.militares[i]); 
           },
           error => { console.log(error); }
         );
@@ -73,17 +74,19 @@ export class TabelaAuxilioTransporteComponent implements OnInit {
     this.dataSource = new MatTableDataSource(auxiliosTransporte);
   }
 
-  assignGraduacoes(auxilioTransporte: AuxilioTransporteDTO, militar: MilitarDTO) {
-    this.postosGraduacoesService.findPostoGraduacaoById(militar.postoGraduacaoId).subscribe(
+  atribuirGraduacoes(auxilioTransporte: AuxilioTransporteDTO, militar: MilitarDTO) {
+    this.postosGraduacoesService.retornarPostoGraduacaoPorId(militar.postoGraduacaoId).subscribe(
       response => { 
-        this.postoGraduacao = response; auxilioTransporte.graduacao = this.postoGraduacao.nome;
-        this.assignTextoAtualizacao(auxilioTransporte); this.assignTextoEntrega(auxilioTransporte); 
+        this.postoGraduacao = response; 
+        auxilioTransporte.graduacao = this.postoGraduacao.nome;
+        this.atribuirTextoAtualizacao(auxilioTransporte);
+        this.atribuirTextoEntrega(auxilioTransporte); 
       },
         error => {console.log(error); } 
-      );
+    );
   }
 
-  assignTextoAtualizacao(auxilioTransporte: AuxilioTransporteDTO) {
+  atribuirTextoAtualizacao(auxilioTransporte: AuxilioTransporteDTO) {
       if (auxilioTransporte.atualizacao === true) {
         auxilioTransporte.atualizacaoTexto = 'Atualizado';
       } else {
@@ -91,7 +94,7 @@ export class TabelaAuxilioTransporteComponent implements OnInit {
       }
   }
 
-  assignTextoEntrega(auxilioTransporte: AuxilioTransporteDTO) {
+  atribuirTextoEntrega(auxilioTransporte: AuxilioTransporteDTO) {
     if (auxilioTransporte.entregaSPP === true) {
       auxilioTransporte.entregaTexto = 'Entregue';
     } else {
@@ -99,41 +102,44 @@ export class TabelaAuxilioTransporteComponent implements OnInit {
     }
   }
 
-  loadConducoes() {
-    this.conducoesService.findAll().subscribe(response => { this.conducoes = response; }, 
+  carregarConducoes() {
+    this.conducoesService.retornarTodos().subscribe(response => { this.conducoes = response; }, 
       error => {console.log(error); } 
     );
   }
 
-  updateAuxilioTransporte() {
-    this.auxilioTransporteService.updateAuxilioTransporte().subscribe(response => { console.log(response);
+  atualizarAuxilioTransporte() {
+    this.auxilioTransporteService.atualizarAuxilioTransporte().subscribe(response => { console.log(response);
       this.ngOnInit(); }, error => {console.log(error); } );
 
   }
 
   // altera a variavel booleana entregaSPP do auxilioTransporte conforme selecoes dos checkBox
-  updateEntregaSPP(auxilioTransporte: AuxilioTransporteDTO) {
+  atualizarEntregaSPP(auxilioTransporte: AuxilioTransporteDTO) {
       if (auxilioTransporte.entregaSPP === true) {
           auxilioTransporte.entregaSPP = false;
-            this.auxilioTransporteService.update(auxilioTransporte, auxilioTransporte.id).subscribe(
+            this.auxilioTransporteService.editar(auxilioTransporte, auxilioTransporte.id).subscribe(
               response => { 
-                if (response.status === 204) { console.log('Auxílio editado false com sucesso!' + auxilioTransporte.entregaSPP); }},
+                if (response.status === 204) { console.log('Auxílio editado false com sucesso!' + auxilioTransporte.entregaSPP); }
+              },
               error => { console.log(error); }
             );
       } else {
-        auxilioTransporte.entregaSPP = true;
-          this.auxilioTransporteService.update(auxilioTransporte, auxilioTransporte.id).subscribe(
-            response => { if (response.status === 204) { console.log('Auxílio editado true com sucesso!' + auxilioTransporte.entregaSPP); }}, 
+          auxilioTransporte.entregaSPP = true;
+            this.auxilioTransporteService.editar(auxilioTransporte, auxilioTransporte.id).subscribe(
+              response => { 
+                if (response.status === 204) { console.log('Auxílio editado true com sucesso!' + auxilioTransporte.entregaSPP); }
+          }, 
             error => {console.log(error); }
           );
       }
   }
 
-  moveToFormAuxilioTransporte() {
+  moverParaFormAuxilioTransporte() {
     this.router.navigate(['/cadastroAT']);
   }
 
-  cancel() {
+  cancelar() {
     this.router.navigate(['/index']);
   }
 }

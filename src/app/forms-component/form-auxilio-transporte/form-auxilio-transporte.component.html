@@ -9,7 +9,7 @@
         <mat-form-field>
             <mat-select placeholder="Militares">            
                 <mat-option value="option" *ngFor="let m of militaresSemAuxilioTransporte" 
-                    (click)="savePrecCPMilitar(m.precCP)">{{m.nome}}</mat-option>
+                    (click)="salvarPrecCPMilitar(m.precCP)">{{m.nome}}</mat-option>
             </mat-select>
         </mat-form-field>    
             
@@ -40,7 +40,7 @@
         </mat-form-field>
         <mat-form-field>
             <mat-select placeholder="Tipo de Transporte" name="tipoDeTransporte0" [(ngModel)]="conducoes[0].tipoDeTransporte">            
-                <mat-option value={{tipoTransp.tipoTransporte}} (click)="saveValorTipoTransp(conducoes[0], tipoTransp)" *ngFor="let tipoTransp of passagens">{{tipoTransp.tipoTransporte}}</mat-option>                
+                <mat-option value={{tipoTransp.tipoTransporte}} (click)="salvarValorTipoTransp(conducoes[0], tipoTransp)" *ngFor="let tipoTransp of passagens">{{tipoTransp.tipoTransporte}}</mat-option>                
             </mat-select>
         </mat-form-field>    
         <mat-form-field class="input">
@@ -67,7 +67,7 @@
         </mat-form-field>
         <mat-form-field>
             <mat-select placeholder="Tipo de Transporte" name="tipoDeTransporte1" [(ngModel)]="conducoes[1].tipoDeTransporte">            
-                    <mat-option value={{tipoTransp.tipoTransporte}} (click)="saveValorTipoTransp(conducoes[1], tipoTransp)" *ngFor="let tipoTransp of passagens">{{tipoTransp.tipoTransporte}}</mat-option>                
+                    <mat-option value={{tipoTransp.tipoTransporte}} (click)="salvarValorTipoTransp(conducoes[1], tipoTransp)" *ngFor="let tipoTransp of passagens">{{tipoTransp.tipoTransporte}}</mat-option>                
             </mat-select>
         </mat-form-field>    
         <mat-form-field class="input">
@@ -94,7 +94,7 @@
         </mat-form-field>
         <mat-form-field>
             <mat-select placeholder="Tipo de Transporte" name="tipoDeTransporte2" [(ngModel)]="conducoes[2].tipoDeTransporte">            
-                    <mat-option value={{tipoTransp.tipoTransporte}} (click)="saveValorTipoTransp(conducoes[2], tipoTransp)" *ngFor="let tipoTransp of passagens">{{tipoTransp.tipoTransporte}}</mat-option>                
+                    <mat-option value={{tipoTransp.tipoTransporte}} (click)="salvarValorTipoTransp(conducoes[2], tipoTransp)" *ngFor="let tipoTransp of passagens">{{tipoTransp.tipoTransporte}}</mat-option>                
             </mat-select>
         </mat-form-field>    
         <mat-form-field class="input">
@@ -121,7 +121,7 @@
         </mat-form-field>
         <mat-form-field>
             <mat-select placeholder="Tipo de Transporte" name="tipoDeTransporte3" [(ngModel)]="conducoes[3].tipoDeTransporte">            
-                    <mat-option value={{tipoTransp.tipoTransporte}} (click)="saveValorTipoTransp(conducoes[3], tipoTransp)" *ngFor="let tipoTransp of passagens">{{tipoTransp.tipoTransporte}}</mat-option>                
+                    <mat-option value={{tipoTransp.tipoTransporte}} (click)="salvarValorTipoTransp(conducoes[3], tipoTransp)" *ngFor="let tipoTransp of passagens">{{tipoTransp.tipoTransporte}}</mat-option>                
             </mat-select>
         </mat-form-field>    
         <mat-form-field class="input">
@@ -148,7 +148,7 @@
         </mat-form-field>
         <mat-form-field>
             <mat-select placeholder="Tipo de Transporte" name="tipoDeTransporte4" [(ngModel)]="conducoes[4].tipoDeTransporte">            
-                    <mat-option value={{tipoTransp.tipoTransporte}} (click)="saveValorTipoTransp(conducoes[4], tipoTransp)" *ngFor="let tipoTransp of passagens">{{tipoTransp.tipoTransporte}}</mat-option>                
+                    <mat-option value={{tipoTransp.tipoTransporte}} (click)="salvarValorTipoTransp(conducoes[4], tipoTransp)" *ngFor="let tipoTransp of passagens">{{tipoTransp.tipoTransporte}}</mat-option>                
             </mat-select>
         </mat-form-field>    
         <mat-form-field class="input">
@@ -174,7 +174,7 @@
         </mat-form-field>
         <mat-form-field>
             <mat-select placeholder="Tipo de Transporte" name="tipoDeTransporte5" [(ngModel)]="conducoes[5].tipoDeTransporte">            
-                    <mat-option value={{tipoTransp.tipoTransporte}} (click)="saveValorTipoTransp(conducoes[5], tipoTransp)" *ngFor="let tipoTransp of passagens">{{tipoTransp.tipoTransporte}}</mat-option>                
+                    <mat-option value={{tipoTransp.tipoTransporte}} (click)="salvarValorTipoTransp(conducoes[5], tipoTransp)" *ngFor="let tipoTransp of passagens">{{tipoTransp.tipoTransporte}}</mat-option>                
             </mat-select>
         </mat-form-field>    
         <mat-form-field class="input">
@@ -182,8 +182,8 @@
         </mat-form-field>
     </div>
         <div class="buttons">
-            <button mat-raised-button color="primary" (click)="validateAuxilioTransporteAndConducoes()">Salvar</button>
-            <button mat-raised-button color="warn" (click)="cancel()">Voltar</button>            
+            <button mat-raised-button color="primary" (click)="validarAuxilioTransporteEConducoes()">Salvar</button>
+            <button mat-raised-button color="warn" (click)="cancelar()">Voltar</button>            
         </div>
     </form>
 </div>

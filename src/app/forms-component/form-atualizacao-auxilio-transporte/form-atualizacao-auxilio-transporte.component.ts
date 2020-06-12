@@ -58,32 +58,32 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
 
   ngOnInit() {
     this.codAT = this.rota.snapshot.params['cod'];
-      this.aditamentoAtual = this.aditamentosService.getAditamentoAtual();
+      this.aditamentoAtual = this.aditamentosService.retornarAditamentoAtual();
         if ( this.aditamentoAtual == null)    {
           alert('Selecione um aditamento!');
           this.router.navigate(['/index']);
         }
-          this.loadPassagens();
-          this.loadConducoesById(this.codAT);
-          this.findAuxilioTransporteById(this.codAT);
+          this.carregarPassagens();
+          this.carregarConducoesPorId(this.codAT);
+          this.encontrarAuxilioTransportePorId(this.codAT);
   }
 
-  loadPassagens() {
-      this.passagensService.findAll().subscribe( response => { this.passagens = response; },
+  carregarPassagens() {
+      this.passagensService.retornarTodos().subscribe( response => { this.passagens = response; },
         error => { console.log(error); } );
   }
 
 // carregando do banco todas conducoes usando um @param id de um auxilioTransporte
-  loadConducoesById(id: number) {
-      this.conducoesService.findConducoesByAuxilioTransporteId(id).subscribe( response => {
-        this.conducoesAtualizacao = response; this.loadOldValues(this.conducoesAtualizacao); 
+  carregarConducoesPorId(id: number) {
+      this.conducoesService.retornarConducoesPorAuxilioTransporteId(id).subscribe( response => {
+        this.conducoesAtualizacao = response; this.carregarValoresAntigos(this.conducoesAtualizacao); 
       },
         error => { console.log(error); }
       );
   }
 
   // carregando valores antigos das conducoes para comparacoes
-  loadOldValues(conducoesAtualizacao: ConducaoDTO[]) {
+  carregarValoresAntigos(conducoesAtualizacao: ConducaoDTO[]) {
       for (let i = 0; i < conducoesAtualizacao.length; i++) {
             this.valoresAntigos[i] = conducoesAtualizacao[i].valor;
             this.conducoes[i] = conducoesAtualizacao[i];
@@ -91,8 +91,8 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
   }
 
   // buscando um auxilioTransporte
-  findAuxilioTransporteById(id: number) {
-    this.auxiliosTransporteService.findAuxilioTransporteById(id).subscribe(
+  encontrarAuxilioTransportePorId(id: number) {
+    this.auxiliosTransporteService.retornarAuxilioTransportePorId(id).subscribe(
         response => { 
           this.auxilioTransporte = response;
         }, 
@@ -101,7 +101,7 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
   }
 
   // este metodo e responsavel direcionar a regra de negocio conforme aumento ou queda do valor total do auxílio
-  verifyValues() {
+  verificarValores() {
     // variaveis locais usadas no auxilio das decisões e calculos de valores
       let valoresAntigos = null;
       let valoresConducoes = null;
@@ -118,14 +118,14 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
             if (valoresConducoes > valoresAntigos) {
                 // cadastrar saque atrasado
                   diferenca = valoresConducoes - valoresAntigos;
-                    this.beforeInsertSaqueAtrasado(this.auxilioTransporte, diferenca);
-                    this.beforeInsertAtualizacaoAuxilioTransporte(this.auxilioTransporte);
+                    this.prepararSaqueAtrasado(this.auxilioTransporte, diferenca);
+                    this.prepararAtualizacaoAuxilioTransporte(this.auxilioTransporte);
             } else if (valoresConducoes < valoresAntigos) {
                 // cadastrar desconto
                   diferenca = valoresAntigos - valoresConducoes;
                    console.log('diferenca: ' + diferenca);
-                    this.beforeInsertDespesa(this.auxilioTransporte, diferenca);
-                    this.beforeInsertAtualizacaoAuxilioTransporte(this.auxilioTransporte);
+                    this.prepararDespesa(this.auxilioTransporte, diferenca);
+                    this.prepararAtualizacaoAuxilioTransporte(this.auxilioTransporte);
             } else {
                  // valores iguais só altera texto
             }
@@ -139,31 +139,31 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
             // alert('Você não pode inserir um valor menor que o anterior.\n Verifique os valores inseridos!');
   }
 
-  beforeInsertAtualizacaoAuxilioTransporte(auxilio: AuxilioTransporteDTO) {
+  prepararAtualizacaoAuxilioTransporte(auxilio: AuxilioTransporteDTO) {
       this.atualizacaoAuxilioTransporte.militarPrecCP = auxilio.militarPrecCP;
       this.atualizacaoAuxilioTransporte.aditamentoId = this.aditamentoAtual.id;
-      this.atualizacaoAuxilioTransporte.dataInicio = this.utilService.formatDate(this.data.toString());
+      this.atualizacaoAuxilioTransporte.dataInicio = this.utilService.formatarData(this.data.toString());
       this.atualizacaoAuxilioTransporte.valor = auxilio.valorTotalAT;
-        this.insertAtualizacaoAuxilioTransporte(this.atualizacaoAuxilioTransporte);
+        this.inserirAtualizacaoAuxilioTransporte(this.atualizacaoAuxilioTransporte);
   }
 
 // inserindo uma atualizacao de auxilio transporte
-  insertAtualizacaoAuxilioTransporte(atualizacaoAuxilio: AtualizacaoAuxilioTransporteDTO) {
-    this.atualizacoesAuxilioTransporteService.insert(atualizacaoAuxilio).subscribe(
+  inserirAtualizacaoAuxilioTransporte(atualizacaoAuxilio: AtualizacaoAuxilioTransporteDTO) {
+    this.atualizacoesAuxilioTransporteService.inserir(atualizacaoAuxilio).subscribe(
       response => { 
-        if (response.status === 201 ) { console.log(atualizacaoAuxilio); this.updateConducoes(); } 
+        if (response.status === 201 ) { console.log(atualizacaoAuxilio); this.atualizarConducoes(); } 
       },
         error => { console.log(error); }
     );
   }
 
-  updateConducoes() {
+  atualizarConducoes() {
     // se alguma conducao der erro ao atualizar 
     let valida = true;
     for (let  i = 0; i < this.conducoes.length; i++) {
       // conducoes que sofreram alteracoes (sao validadas por possuir um ID e terem valor diferente do anterior)
         if (this.conducoes[i].id != null && this.valoresAntigos[i] != this.conducoes[i].valor) {
-           this.conducoesService.update(this.conducoes[i], this.conducoes[i].id).subscribe(
+           this.conducoesService.editar(this.conducoes[i], this.conducoes[i].id).subscribe(
               response => { if (response.status != 204) {
                               valida = false;                            
                             } 
@@ -174,7 +174,7 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
       // adicionando conducoes novas 
         if(this.conducoes[i].id == null && this.conducoes[i].itinerario != null && this.conducoes[i].nomeEmpresa != null && this.conducoes[i].tipoDeTransporte != null && this.conducoes[i].valor > 0) {
             this.conducoes[i].auxilioTransporteId = this.auxilioTransporte.id;
-                this.conducoesService.insertNewConducao(this.conducoes[i]).subscribe(
+                this.conducoesService.inserirNovaConducao(this.conducoes[i]).subscribe(
                   response => {  if (response.status != 201){
                                   valida = false;
                                 }
@@ -185,7 +185,7 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
       // quando uma(s) conducao(oes) é(são) deletada(s) com a atribuicao do valor 0 (ZERO)
         if (this.conducoes[i].id != null && this.conducoes[i].valor == 0) {
           console.log('deletando conducao');
-            this.conducoesService.delete(this.conducoes[i]).subscribe(
+            this.conducoesService.deletar(this.conducoes[i]).subscribe(
                 response => { if (response.status != 204) { 
                                 valida = false;
                               } 
@@ -202,11 +202,11 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
     // this.router.navigate(['/listaATConducao']);
   }
 
-  beforeInsertSaqueAtrasado(auxilioTransporte: AuxilioTransporteDTO, diferenca: number) {
+  prepararSaqueAtrasado(auxilioTransporte: AuxilioTransporteDTO, diferenca: number) {
         this.saqueAtrasado.aditamentoId = this.aditamentoAtual.id;
         this.saqueAtrasado.militarPrecCP = this.auxilioTransporte.militarPrecCP;
         this.saqueAtrasado.motivo = 'Atualização de Auxílio Transporte';
-        this.saqueAtrasado.mesReferencia = this.utilService.returnNameMonth(this.data.toString());
+        this.saqueAtrasado.mesReferencia = this.utilService.retornarNomeMes(this.data.toString());
         
         // a quantidade e a soma dos dias restantes do mes atual + 22 dias conforme regra de negocio
             // variavel dataFim utilizada para realizar o calculo dos dias restantes
@@ -214,30 +214,30 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
             // console.log(dataFim);
               dataFim.setDate(this.data.getDate());
              //  console.log(dataFim);
-                this.saqueAtrasado.quantidadeDias = this.utilService.calculaQuantidadeDias(this.data, dataFim, 'Atualizacao Auxilio' , 0, 0);
+                this.saqueAtrasado.quantidadeDias = this.utilService.calcularQuantidadeDias(this.data, dataFim, 'Atualizacao Auxilio' , 0, 0);
                     this.saqueAtrasado.valor = diferenca * this.saqueAtrasado.quantidadeDias;
 
-            this.insertSaqueAtrasado();
+            this.inserirSaqueAtrasado();
     }
 
   // este metodo serve para cadastrar um saque atrasado referente a inclusao do Auxilio Transporte, tendo em vista que o militar só recebe pelo menos um mes e um dia apos a solicitacao
-  insertSaqueAtrasado() {
-       this.saquesAtrasadosService.insert(this.saqueAtrasado).subscribe(
+  inserirSaqueAtrasado() {
+       this.saquesAtrasadosService.inserir(this.saqueAtrasado).subscribe(
            response => { if(response.status == 201) { alert( 'Cadastro de Saque Atrasado com sucesso!' ); } ; },
                 error => { console.log(error); }
        );
   }
   
-  beforeInsertDespesa(auxilioTransporte: AuxilioTransporteDTO, diferenca: number) {
+  prepararDespesa(auxilioTransporte: AuxilioTransporteDTO, diferenca: number) {
     this.despesa.aditamentoId = this.aditamentoAtual.id;
     this.despesa.militarPrecCP = auxilioTransporte.militarPrecCP;
-    this.despesa.dataInicio = this.utilService.formatDate(this.data.toString());
+    this.despesa.dataInicio = this.utilService.formatarData(this.data.toString());
     // a quantidade e a soma dos dias restantes do mes atual + 22 dias conforme regra de negocio
     // variavel dataFim utilizada para realizar o calculo dos dias restantes
       let dataFim: Date = new Date();
           dataFim.setDate(this.data.getDate());
-    this.despesa.quantidadeDias = this.utilService.calculaQuantidadeDias( this.data, dataFim, 'Atualizacao Auxilio' , 0, 0);
-    this.despesa.dataFim = this.utilService.formatDate(this.despesa.calculoDataFim.toString());
+    this.despesa.quantidadeDias = this.utilService.calcularQuantidadeDias( this.data, dataFim, 'Atualizacao Auxilio' , 0, 0);
+    this.despesa.dataFim = this.utilService.formatarData(this.despesa.calculoDataFim.toString());
     // elaborar uma forma de pegar a dataFim da despesa !!!!!!!
     
     // valor
@@ -245,17 +245,17 @@ export class FormAtualizacaoAuxilioTransporteComponent implements OnInit {
     // motivo
     this.despesa.motivo = 'Atualização de Auxílio Transporte';
 
-             this.insertDespesa();
+             this.inserirDespesa();
   }
 
-  insertDespesa() {
-      this.despesasService.insertDespesaAtualizacaoAuxilio(this.despesa).subscribe(response => { 
+  inserirDespesa() {
+      this.despesasService.inserirDespesaAtualizacaoAuxilio(this.despesa).subscribe(response => { 
           if (response.status === 201 ) { alert('Despesa Cadastrada com Sucesso!'); console.log(response); }
         },
           error => {console.log(error); });
   }
 
-  cancel() {
+  cancelar() {
     this.router.navigate(['/listaATConducao']);
   }
   

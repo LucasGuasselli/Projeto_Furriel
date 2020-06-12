@@ -20,87 +20,85 @@ export class IndexComponent implements OnInit {
               private adapter: DateAdapter<any> ) { }
 
   ngOnInit() {
-    this.loadAditamentos();
+    this.carregarAditamentos();
     this.adapter.setLocale('bra');
 
   }
 
 // CADASTRAR
-  moveToFormMilitar() {
+  moverParaFormMilitar() {
     this.router.navigate(['/cadastroMilitar']);
   }
 
-  moveToFormAuxilioTransporte() {
+  moverParaFormAuxilioTransporte() {
     this.router.navigate(['/cadastroAT']);
   }
 
-  moveToFormDespesa() {
+  moverParaFormDespesa() {
     this.router.navigate(['/cadastroDespesa']);
   }
 
-  moveToFormDespesaGuarnicao() {
+  moverParaFormDespesaGuarnicao() {
     this.router.navigate(['/cadastroDespesasGuarnicao']);
   }
 
-  moveToFormDespesaFeriadoAdm() {
+  moverParaFormDespesaFeriadoAdm() {
     this.router.navigate(['/cadastroDespesaFeriadoAdm']);
   }
 
-  moveToFormSaqueAtrasado() {
+  moverParaFormSaqueAtrasado() {
     this.router.navigate(['/cadastroPagamentoAtrasado']);
   }
 
-  moveToFormExclusaoAuxilioTransporte() {
+  moverParaFormExclusaoAuxilioTransporte() {
     this.router.navigate(['/cadastroExclusaoAuxilioTransporte']);
   }
 
-
-
 // LISTAR
-moveToReadMilitares() {
+moverParaListaMilitares() {
   this.router.navigate(['/listaMilitares']);
 }
 
-moveToReadAuxiliosAndConducoes() {
+moverParaListaAuxiliosAndConducoes() {
   this.router.navigate(['/listaATConducao']);
 }
 
-moveToReadDescontos() {
+moverParaListaDescontos() {
   this.router.navigate(['/listaDespesas']);
 }
 
-moveToReadPagamentosAtrasados() {
+moverParaListaPagamentosAtrasados() {
   this.router.navigate(['/listaPagamentoAtrasado']);
 }
 
-moveToReadExclusoesAuxilioTransporte() {
+moverParaListaExclusoesAuxilioTransporte() {
   this.router.navigate(['/listaExclusaoAuxiliosTransporte']);
 }
 
 // ADITAMENTO
-moveToAditamentoPDF() {
+moverParaAditamentoPDF() {
   this.router.navigate(['/relatorio']);
 }
 
-moveFormAditamento() {
+moverParaFormAditamento() {
   this.router.navigate(['/cadastroAditamento']);
 }
 
-moveToReadAditamento() {
+moverParaListaAditamento() {
   this.router.navigate(['/listaAditamento']);
 }
 
 // Passagens
 
-moveToReadPassagens() {
+moverParaListaPassagens() {
   this.router.navigate(['/listaValoresPassagens']);
 }
 
-moveToFormPassagens() {
+moverParaFormPassagens() {
   this.router.navigate(['/cadastroPassagem']);
 }
 
-saveAditamento(aditamento: AditamentoDTO) {
+salvarAditamento(aditamento: AditamentoDTO) {
   if (isNaN(aditamento.id)) {
       // CRIAR CAMINHO ONDE NAO POSSA SALVAR UM MILITAR SEM POSTO
   } else {
@@ -110,17 +108,17 @@ saveAditamento(aditamento: AditamentoDTO) {
     }
   }
 
- loadAditamentos() {
-   this.aditamentosService.findAll().subscribe( response => { this.aditamentos = response; },
+ carregarAditamentos() {
+   this.aditamentosService.retornarTodos().subscribe( response => { this.aditamentos = response; },
      error => {console.log(error); });
  }
 
- saveAditamentoAtual() {
-   this.aditamentosService.saveAditamentoAtual(this.aditamentoAtual);
+ salvarAditamentoAtual() {
+   this.aditamentosService.salvarAditamentoAtual(this.aditamentoAtual);
      alert('Aditamento Salvo.');
  }
 
-  cancel() {
+  cancelar() {
     this.router.navigate(['/index']);
   }
 }

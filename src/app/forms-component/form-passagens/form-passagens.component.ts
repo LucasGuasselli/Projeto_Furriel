@@ -20,39 +20,39 @@ export class FormPassagensComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.rota.snapshot.params['cod'];
-    this.loadPassagens();
+    this.carregarPassagens();
   /* IF - cadastro ou quando o usuario insere um preccp invalido
      ELSE - serve para casos de edicao da entidade passagem */
   if (isNaN(this.id)) {
     this.passagem  = new PassagemDTO();
   } else {
-      this.loadUpdatePassagem();
+      this.carregarPassagem();
       // console.log(this.passagem.id);
     }
 
   }
 
-  loadPassagens() {
-      this.passagensService.findAll().subscribe(response => {this.passagens = response; }, error => {console.log(error); } );
+  carregarPassagens() {
+      this.passagensService.retornarTodos().subscribe(response => {this.passagens = response; }, error => {console.log(error); } );
   }
 
 
-  loadUpdatePassagem() {
-    this.passagensService.findPassagemById(this.id).subscribe( response => {
+  carregarPassagem() {
+    this.passagensService.retornarPassagemPorId(this.id).subscribe( response => {
       this.passagem = response; }, error => {console.log(error); } );
   }
 
-  validateForm() {
+  validarForm() {
       if (this.passagem.tipoTransporte === null || this.passagem.valor < 0 || isNaN(this.passagem.valor)) {
           alert('Preencha os campos corretamente (Ex: \'Ônibus, R$ 4,70\')');
-      } else if (this.id == null && this.validateTipoTransporte() === false) {
+      } else if (this.id == null && this.validarTipoTransporte() === false) {
           alert('Tipo de passagem já cadastrado, por favor digite outro tipo.');
       } else {
-        this.savePassagem();
+        this.salvarPassagem();
       }
   }
 
-   validateTipoTransporte() {
+   validarTipoTransporte() {
     for (let i = 0; i < this.passagens.length; i++) {
         if (this.passagens[i].tipoTransporte === this.passagem.tipoTransporte) {
           return false;
@@ -62,29 +62,29 @@ export class FormPassagensComponent implements OnInit {
   }
 
   // salva  ou edita uma entidade passagem no banco de dados
-  savePassagem() {
+  salvarPassagem() {
     if (isNaN(this.id)) {
-        this.insertPassagem();
+        this.inserirPassagem();
           // redireciona para a lista
           this.router.navigate(['/listaValoresPassagens']);
     } else {
         // console.log('chegou na edicao' + this.id);
-        this.updatePassagem(this.passagem);
+        this.atualizarPassagem(this.passagem);
           this.router.navigate(['/listaValoresPassagens']);
     }
   }  
 
-  insertPassagem() {
-    this.passagensService.insert(this.passagem).subscribe(response => { if (response.status === 201) {
+  inserirPassagem() {
+    this.passagensService.inserir(this.passagem).subscribe(response => { if (response.status === 201) {
       console.log('Passagem cadastrada com sucesso!'); } }, error => { console.log(error); });
   }
 
-  updatePassagem(passagem: PassagemDTO) {
-    this.passagensService.update(passagem, passagem.id).subscribe( response => { console.log(response);
+  atualizarPassagem(passagem: PassagemDTO) {
+    this.passagensService.editar(passagem, passagem.id).subscribe( response => { console.log(response);
         console.log('passagem editada com sucesso'); }, error => { console.log(error); } );
   }
 
-  cancel() {
+  cancelar() {
     this.router.navigate(['/index']);
   }
 

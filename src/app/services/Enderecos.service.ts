@@ -12,20 +12,20 @@ export class EnderecosService {
 
     constructor(public http: HttpClient) { }
 
-    findAll(): Observable<EnderecoDTO[]> {
+    retornarTodos(): Observable<EnderecoDTO[]> {
         return this.http.get<EnderecoDTO[]>(`${API_CONFIG.baseUrl}/enderecos`);
     }
 
-    findAdressByCEP(cep: String): Observable<EnderecoDTO> {
+    retornarEnderecoPorCEP(cep: String): Observable<EnderecoDTO> {
         return this.http.get<EnderecoDTO>(`${API_CEP.baseUrl}${cep}/json`);
     }
 
     // buscando um endereco a partir de um militar
-    findEnderecoByPrecCP(precCP: number): Observable<EnderecoDTO> {
+    retornarEnderecoPorPrecCP(precCP: number): Observable<EnderecoDTO> {
         return this.http.get<EnderecoDTO>(`${API_CONFIG.baseUrl}/enderecos/searchEnderecoByPrecCP/?precCP=${precCP}`);
     }
 
-    insert(obj: EnderecoDTO) {
+    inserir(obj: EnderecoDTO) {
         return this.http.post(`${API_CONFIG.baseUrl}/enderecos`, obj,
               {
                 observe: 'response',
@@ -34,7 +34,7 @@ export class EnderecosService {
         );
     }
 
-    update(obj: EnderecoDTO, id: number) {
+    atualizar(obj: EnderecoDTO, id: number) {
         return this.http.put(`${API_CONFIG.baseUrl}/enderecos/${id}`, obj,
               {
                 observe: 'response',

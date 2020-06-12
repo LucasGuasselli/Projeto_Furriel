@@ -12,17 +12,16 @@ export class AtualizacoesAuxilioTransporteService {
 
   constructor(public http: HttpClient) { }
 
-    // retorna todos militares cadastrados
-    findAll(): Observable<AtualizacaoAuxilioTransporteDTO[]> {
+    retornarTodos(): Observable<AtualizacaoAuxilioTransporteDTO[]> {
         return this.http.get<AtualizacaoAuxilioTransporteDTO[]>(`${API_CONFIG.baseUrl}/alteracoesValoresPassagens`);
     }
 
-    findAtualizacoesByAditamentoId(id: number): Observable<AtualizacaoAuxilioTransporteDTO[]> {
+    retornarAtualizacoesPorAditamentoId(id: number): Observable<AtualizacaoAuxilioTransporteDTO[]> {
       return this.http.get<AtualizacaoAuxilioTransporteDTO[]>(
           `${API_CONFIG.baseUrl}/alteracoesValoresPassagens/searchAlteracoesByAditamentoId/${id}`);
     }
 
-    insert(obj: AtualizacaoAuxilioTransporteDTO) {
+    inserir(obj: AtualizacaoAuxilioTransporteDTO) {
         return this.http.post(`${API_CONFIG.baseUrl}/alteracoesValoresPassagens`, obj,
               {
                 observe: 'response',
@@ -31,7 +30,7 @@ export class AtualizacoesAuxilioTransporteService {
         );
     }
 
-    update(obj: AtualizacaoAuxilioTransporteDTO, id: number) {
+    editar(obj: AtualizacaoAuxilioTransporteDTO, id: number) {
       return this.http.put(`${API_CONFIG.baseUrl}/alteracoesValoresPassagens/${id}`, obj,
             {
               observe: 'response',
@@ -40,7 +39,7 @@ export class AtualizacoesAuxilioTransporteService {
       );
     }
 
-    delete(obj: AtualizacaoAuxilioTransporteDTO) {
+    deletar(obj: AtualizacaoAuxilioTransporteDTO) {
         return this.http.delete(`${API_CONFIG.baseUrl}/alteracoesValoresPassagens/${obj.id}`,
             {
               observe: 'response',
