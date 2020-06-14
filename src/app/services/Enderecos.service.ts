@@ -22,7 +22,7 @@ export class EnderecosService {
 
     // buscando um endereco a partir de um militar
     retornarEnderecoPorPrecCP(precCP: number): Observable<EnderecoDTO> {
-        return this.http.get<EnderecoDTO>(`${API_CONFIG.baseUrl}/enderecos/searchEnderecoByPrecCP/?precCP=${precCP}`);
+        return this.http.get<EnderecoDTO>(`${API_CONFIG.baseUrl}/enderecos/procurarEnderecoPorPrecCP/?precCP=${precCP}`);
     }
 
     inserir(obj: EnderecoDTO) {

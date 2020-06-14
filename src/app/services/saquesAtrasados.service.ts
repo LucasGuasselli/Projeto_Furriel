@@ -18,7 +18,7 @@ export class SaquesAtrasadosService {
 
     retornarPagamentosAtrasadosPorAditamentoId(id: number): Observable<SaqueAtrasadoDTO[]> {
       return this.http.get<SaqueAtrasadoDTO[]>(
-          `${API_CONFIG.baseUrl}/saquesAtrasados/searchSaquesAtrasadosByAditamentoId/${id}`);
+          `${API_CONFIG.baseUrl}/saquesAtrasados/procurarSaquesAtrasadosPorAditamentoId/${id}`);
     }
 
     inserir(obj: SaqueAtrasadoDTO) {
@@ -32,7 +32,7 @@ export class SaquesAtrasadosService {
 
 // saque atrasado com as regras de negocio da inclusao do auxilio transporte
     inserirSaqueAtrasadoInclusao(obj: SaqueAtrasadoDTO) {
-        return this.http.post(`${API_CONFIG.baseUrl}/saquesAtrasados/insertSaqueAtrasadoInclusao`, obj,
+        return this.http.post(`${API_CONFIG.baseUrl}/saquesAtrasados/inserirSaqueAtrasadoInclusao`, obj,
               {
                 observe: 'response',
                 responseType: 'text'

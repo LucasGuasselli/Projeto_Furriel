@@ -24,7 +24,7 @@ export class MilitaresService {
     }
 
     retornarMilitarPorPrecCP(precCP: number): Observable<MilitarDTO> {
-        return this.http.get<MilitarDTO>(`${API_CONFIG.baseUrl}/militares/searchMilitarByPrecCP/?precCP=${precCP}`);
+        return this.http.get<MilitarDTO>(`${API_CONFIG.baseUrl}/militares/procurarMilitarPorPrecCP/?precCP=${precCP}`);
     }
 
     inserir(obj: MilitarDTO) {

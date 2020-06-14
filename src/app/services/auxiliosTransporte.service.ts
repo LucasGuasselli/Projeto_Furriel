@@ -17,7 +17,7 @@ export class AuxiliosTransporteService {
 
     retornarAuxilioTransportePorPrecCP(precCP: number): Observable<AuxilioTransporteDTO> {
       return this.http.get<AuxilioTransporteDTO>(
-        `${API_CONFIG.baseUrl}/auxiliosTransporte/searchAuxilioTransporteByPrecCP/?precCP=${precCP}`);
+        `${API_CONFIG.baseUrl}/auxiliosTransporte/procurarAuxilioTransportePorPrecCP/?precCP=${precCP}`);
     }
 
     retornarAuxilioTransportePorId(id: number): Observable<AuxilioTransporteDTO> {
@@ -45,7 +45,7 @@ export class AuxiliosTransporteService {
 
     atualizarAuxilioTransporte(): Observable<AuxilioTransporteDTO> {
       return this.http.get<AuxilioTransporteDTO>(
-        `${API_CONFIG.baseUrl}/auxiliosTransporte/update`);
+        `${API_CONFIG.baseUrl}/auxiliosTransporte/atualizarTodos`);
     }
 
     deletar(obj: AuxilioTransporteDTO) {

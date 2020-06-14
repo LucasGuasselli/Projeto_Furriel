@@ -18,7 +18,7 @@ export class AtualizacoesAuxilioTransporteService {
 
     retornarAtualizacoesPorAditamentoId(id: number): Observable<AtualizacaoAuxilioTransporteDTO[]> {
       return this.http.get<AtualizacaoAuxilioTransporteDTO[]>(
-          `${API_CONFIG.baseUrl}/alteracoesValoresPassagens/searchAlteracoesByAditamentoId/${id}`);
+          `${API_CONFIG.baseUrl}/alteracoesValoresPassagens/procurarAlteracoesPorAditamentoId/${id}`);
     }
 
     inserir(obj: AtualizacaoAuxilioTransporteDTO) {

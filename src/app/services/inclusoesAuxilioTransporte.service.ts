@@ -18,7 +18,7 @@ export class InclusoesAuxilioTransporteService {
 
     retornarInclusoesPorAditamentoId(id: number): Observable<InclusaoAuxilioTransporteDTO[]> {
       return this.http.get<InclusaoAuxilioTransporteDTO[]>(
-          `${API_CONFIG.baseUrl}/inclusoesAuxilioTransporte/searchInclusoesByAditamentoId/${id}`);
+          `${API_CONFIG.baseUrl}/inclusoesAuxilioTransporte/procurarInclusoesPorAditamentoId/${id}`);
     }
 
     inserir(obj: InclusaoAuxilioTransporteDTO) {

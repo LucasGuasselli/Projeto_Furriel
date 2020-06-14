@@ -19,11 +19,11 @@ export class DespesasService {
     }
 
     retornarPrecCPPorId(id: number): Observable<DespesaDTO> {
-        return this.http.get<DespesaDTO>(`${API_CONFIG.baseUrl}/despesas/searchPrecCPById/?id=${id}`);
+        return this.http.get<DespesaDTO>(`${API_CONFIG.baseUrl}/despesas/procurarPrecCPPorId/?id=${id}`);
     }
 
     retornarDespesasPorAditamentoId(id: number): Observable<DespesaDTO[]> {
-      return this.http.get<DespesaDTO[]>(`${API_CONFIG.baseUrl}/despesas/searchDespesasByAditamentoId/${id}`);
+      return this.http.get<DespesaDTO[]>(`${API_CONFIG.baseUrl}/despesas/procurarDespesasPorAditamentoId/${id}`);
     }
 
     inserir(obj: DespesaDTO) {

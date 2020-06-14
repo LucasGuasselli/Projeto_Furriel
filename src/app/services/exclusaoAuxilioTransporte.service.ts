@@ -18,7 +18,7 @@ export class ExclusoesAuxilioTransporteService {
 
     retornarExclusoesPorAditamentoId(id: number): Observable<ExclusaoAuxilioTransporteDTO[]> {
       return this.http.get<ExclusaoAuxilioTransporteDTO[]>(
-          `${API_CONFIG.baseUrl}/exclusoesAuxilioTransporte/searchExclusoesByAditamentoId/${id}`);
+          `${API_CONFIG.baseUrl}/exclusoesAuxilioTransporte/procurarExclusoesPorAditamentoId/${id}`);
     }
 
     inserir(obj: ExclusaoAuxilioTransporteDTO) {
