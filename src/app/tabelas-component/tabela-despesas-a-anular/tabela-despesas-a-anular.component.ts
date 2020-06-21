@@ -81,7 +81,7 @@ export class TabelaDespesasAAnularComponent implements OnInit {
   }
 
   moverParaFormDespesa() {
-    this.router.navigate(['/cadastroDesconto']);
+    this.router.navigate(['/cadastroDespesa']);
   }
 
   cancelar() {
